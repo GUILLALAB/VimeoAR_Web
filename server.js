@@ -89,7 +89,7 @@ app.get('/vimeo/api', (request, response) => {
         response.status(500).send(error);
         console.log('[Server] ' + error);
       } else {
-        // Pass through the whole JSON response
+        // Pass throgh the whole JSON response
         response.status(200).send(body);
       }
     }
