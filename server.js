@@ -2,8 +2,6 @@ const Vimeo = require('vimeo').Vimeo;
 const express = require('express');
 const hostValidation = require('host-validation')
 const ejs = require('ejs');
-const serverless = require("serverless-http");
-const router = express.Router();
 
 const app = express();
 
@@ -18,7 +16,7 @@ app.set('views', __dirname + '/examples');
 app.use(function(req, res, next) {
   console.log(`[Server] A ${req.method} request was made to ${req.url}`);
   res.header('Access-Control-Allow-Origin', '*');
-  res.heacder('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
 
@@ -97,30 +95,6 @@ app.get('/vimeo/api', (request, response) => {
   );
 });
 
-router.get("/", (req, res) => {
-  res.json({
-    hello: "hi!"
-  });
-});
-
-router.get('/test',(req,res) => {
-    res.json({
-        hello: "test!"
-      });
-
-})
-
-router.post('/testpost',(req,res) => {
-    res.json({
-        hello: "hit the POST!"
-      });
-})
-
-app.use(`/.netlify/functions/api`, router);
-
 const listener = app.listen(process.env.PORT, () => {
   console.log(`[Server] Running on port: ${listener.address().port} 🚢`);
 });
-
-module.exports = app;
-module.exports.handler = serverless(app);
