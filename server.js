@@ -26,7 +26,7 @@ app.use(function(req, res, next) {
 * variable called VIMEO_TOKEN=4trwegfudsbg4783724343
 */
 if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').load();
+  require('dotenv').config({path: __dirname+'.env'});
 
   if (process.env.VIMEO_TOKEN) {
     console.log('[Server] Enviorment variables loaded from .env 💪🏻');
