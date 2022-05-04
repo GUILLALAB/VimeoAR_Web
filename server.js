@@ -91,6 +91,6 @@ app.get('/vimeo/api', (request, response) => {
   );
 });
 
-const listener = app.listen(process.env.PORT, () => {
+const listener = app.listen(3333, () => {
   console.log(`[Server] Running on port: ${listener.address().port} 🚢`);
 });
