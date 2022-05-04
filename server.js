@@ -10,6 +10,7 @@ app.use(express.static('assets'));
 app.use(express.static('dist'));
 app.engine('.html', ejs.__express);
 app.set('view-engine', 'html');
+app.set('port', (process.env.PORT || 3333))
 app.set('views', __dirname + '/examples');
 
 // CORS headers
