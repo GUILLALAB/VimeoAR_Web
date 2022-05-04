@@ -22,6 +22,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "buffer": "^6.0.3",
     "can-autoplay": "^3.0.0",
     "dashjs": "^2.9.2",
     "ejs": "^2.6.1",
