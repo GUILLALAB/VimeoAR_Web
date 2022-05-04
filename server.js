@@ -13,7 +13,7 @@ app.set('view-engine', 'html');
 app.set('port', (process.env.PORT || 3333))
 app.set('views', __dirname + '/examples');
 
-// CORS headers
+// CORS header
 app.use(function(req, res, next) {
   console.log(`[Server] A ${req.method} request was made to ${req.url}`);
   res.header('Access-Control-Allow-Origin', '*');
