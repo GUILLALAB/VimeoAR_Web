@@ -35,16 +35,11 @@ if (process.env.NODE_ENV !== 'production') {
   }
 }
 
-app.use(hostValidation({ hosts: [`127.0.0.1:${process.env.PORT}`,
-                                 `192.168.1.99:${process.env.PORT}`,
-                                 `localhost:${process.env.PORT}`,
-                                 /.*\.glitch\.com$/,
+app.use(hostValidation({ hosts: [/.*\.glitch\.com$/,
                                  /.*\.ngrok\.io/,
                                  /.*\.herokuapp\.app/,
-                                 /.*\.netlify\.app/,
-                                 /.*\.glitch\.me$/,
-                                 /.*\.sad-tesla-488061.netlify\.app/,
-                                 process.env.DOMAIN] }))
+                                 /.*\.netlify\.app/
+                                 ] }))
 
 
 app.get('/', (request, response) => {
