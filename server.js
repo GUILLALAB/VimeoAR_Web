@@ -41,16 +41,16 @@ app.use(hostValidation({ hosts: [`127.0.0.1:${process.env.PORT}`,
                                  `localhost:${process.env.PORT}`,
                                  /.*\.glitch\.com$/,
                                  /.*\.ngrok\.io/,
-                                 /.*\.herokuapp\.app/,
+                                 /.*\.herokuapp\.com/,
                                  /.*\.netlify\.app/,
                                  /.*\.glitch\.me$/,
                                  /.*\.sad-tesla-488061.netlify\.app/,
                                  process.env.DOMAIN] }))
 
 
-                                 app.get('/', function(request, response) {
-                                  response.send('Hello World!')
-                                })
+app.get('/', (request, response) => {
+  response.render('basic.html');
+});
 
 app.get('/basic', (request, response) => {
   response.render('basic.html');
