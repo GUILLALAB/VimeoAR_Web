@@ -1,11 +1,6 @@
 node_modules/
-functions
 .env
 .DS_Store
 .vscode
 coverage
 .nyc_output
-/node_modules
-npm-debug.log
-.DS_Store
-/*.env
