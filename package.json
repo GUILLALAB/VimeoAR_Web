@@ -7,11 +7,11 @@
     "node": ">=0.12"
   },
   "scripts": {
-    "start": "./node_modules/.bin/netlify-lambda serve src",
+    "start": "node assets/js/readme-glitch-fix.js && node server.js",
     "server": "nodemon server.js",
     "format": "standard src/**/*.js --fix",
     "docs": "documentation build src/**/*.js -f md -o API.md",
-    "build": "./node_modules/.bin/netlify-lambda build src",
+    "build": "webpack --env dev && webpack --env build",
     "build:production": "webpack --env build",
     "build:development": "webpack --env dev",
     "build:watch": "webpack --progress --colors --watch --env dev",
