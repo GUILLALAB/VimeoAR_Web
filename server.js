@@ -23,7 +23,7 @@ app.use(function(req, res, next) {
 
 /*
 * Vimeo toen for local development is saved in a .env file
-* For deployment make sue to store it in an enviorment
+* For deployment make sure to store it in an enviorment
 * variable called VIMEO_TOKEN=4trwegfudsbg4783724343
 */
 if (process.env.NODE_ENV !== 'production') {
