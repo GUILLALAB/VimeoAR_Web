@@ -128,7 +128,7 @@ a {
 	color: #fff;
   }
   label {
-	background-color: #11cccc;
+	background-color: #525252;
 	cursor: pointer;
   }
   #content {
@@ -145,7 +145,7 @@ a {
 	display: none;
   }
   #menu {
-	background-color: #ffa500;
+	background-color: #7a7a7a;
 	width: 780px;
 	overflow: hidden;
 	max-height: 0;
