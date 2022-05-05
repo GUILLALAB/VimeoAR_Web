@@ -236,6 +236,7 @@ scene.add( reticle );
 
             session.addEventListener( 'end', function () {
              renderer.domElement.style.display = '';
+             vimeoPlayer.stop();
 
              hitTestSourceRequested = false;
              hitTestSource = null;
