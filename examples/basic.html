@@ -144,7 +144,7 @@ body, html {height: 100%}
   // video.type = ' video/ogg; codecs="theora, vorbis" ';
 
   if(isset==0){
-    vimeoPlayer = new Vimeo.Player(114572539, { autoplay: false });
+    vimeoPlayer = new Vimeo.Player(706059677, { autoplay: false });
     vimeoPlayer.load();
     // videoLoad is fired when ready to apply the video texture to a mesh 
     vimeoPlayer.on('videoLoad', function (videoTexture) {
@@ -154,7 +154,7 @@ body, html {height: 100%}
       const vertexShader = document.getElementById("vertexShader").textContent;
     const fragmentShader = document.getElementById("fragmentShader").textContent;
 
-      // Cria o material usando a urlVideoTextur
+      // Cria o material usando a urlVideoTexture
 
       material = new THREE.ShaderMaterial({
         transparent: true,
