@@ -124,3 +124,35 @@ body {
   border-color: transparent transparent transparent rgba(255, 255, 255, 1);
 }
 
+a {
+	color: #fff;
+  }
+  label {
+	background-color: #11cccc;
+	cursor: pointer;
+  }
+  #content {
+	background-color: #9acd32;
+  }
+  label, #content {
+	height: 20px;
+	width: 800px;
+	margin-botton: 10px;
+	border: 1px solid #fff;
+	display: inline-block;
+  }
+  #menu-toggle {
+	display: none;
+  }
+  #menu {
+	background-color: #ffa500;
+	width: 780px;
+	overflow: hidden;
+	max-height: 0;
+	padding: 0;
+	margin: 0 auto;
+	-webkit-transition: all 0.3s ease;
+  }
+  #menu-toggle:checked + #menu {
+	max-height: 100px;
+  }
