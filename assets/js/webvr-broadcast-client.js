@@ -132,7 +132,7 @@ rtcClient.on('unmute-video', (evt) => {
 // join a channel
 function joinChannel() {
   const token = "006e76fbfaa876b4c68a5d92d92aa6ad3b1IABxEYorcHf1KSJIjmpXgNVZ06NKitJIv/pMOTrnuCdNkVE4yRUAAAAAEAB5wLBGugt5YgEAAQC5C3li";
-  generateToken();
+
   // set the role
   rtcClient.setClientRole('audience', () => {
     console.log('Client role set to audience');
@@ -384,9 +384,7 @@ function getMicDevices() {
 
 // use tokens for added security
 function generateToken() {
-  $.getscript("server.js",function(){
-    getToken();
-    }); 
+  return null; // TODO: add a token generation
 }
 
 function rotateModel(uid, direction, send) {

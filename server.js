@@ -3,7 +3,6 @@ const express = require('express');
 const hostValidation = require('host-validation')
 const ejs = require('ejs');
 const {RtcTokenBuilder, RtcRole, RtmTokenBuilder, RtmRole} = require('agora-access-token');
-const { response } = require('express');
 
 const app = express();
 
@@ -230,12 +229,7 @@ app.get('/rtc/:channel/:role/:tokentype/:uid', nocache , generateRTCToken);
 app.get('/rtm/:uid/', nocache , generateRTMToken);
 app.get('/rte/:channel/:role/:tokentype/:uid', nocache , generateRTEToken);
 
-async function getToken(){
-  fetch('https://livear.herokuapp.com/rtc/test/publisher/uid/2').then(response => {return response.json();
-}).then(users => {
-  console.log(users);
-});
-}
+
 const listener = app.listen(process.env.PORT, () => {
   console.log(`[Server] Running on port: ${listener.address().port} 🚢`);
 });
