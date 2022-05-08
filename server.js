@@ -116,17 +116,17 @@ const generateRTCToken = (req, resp) => {
   // set response header
   resp.header('Access-Control-Allow-Origin', '*');
   // get channel name
-  const channelName = req.params.channel;
+  const channelName = "web";
   if (!channelName) {
     return resp.status(500).json({ 'error': 'channel is required' });
   }
   // get uid 
-  let uid = req.params.uid;
+  let uid = "2";
   if(!uid || uid === '') {
     return resp.status(500).json({ 'error': 'uid is required' });
   }
   // get role
-  let role;
+  let role="publisher";
   if (req.params.role === 'publisher') {
     role = RtcRole.PUBLISHER;
   } else if (req.params.role === 'audience') {
