@@ -22,6 +22,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "agora-access-token": "^2.0.4",
     "buffer": "^6.0.3",
     "can-autoplay": "^3.0.0",
     "dashjs": "^2.9.2",
