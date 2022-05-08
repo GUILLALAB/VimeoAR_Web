@@ -52,12 +52,12 @@ app.get('/', (request, response) => {
   response.render('index.html');
 });
 
-app.get('/basic', (request, response) => {
-  response.render('basic.html');
+app.get('/index', (request, response) => {
+  response.render('index.html');
 });
 
-app.get('/webvr-video', (request, response) => {
-  response.render('webvr-video.html');
+app.get('/broadcaster', (request, response) => {
+  response.render('broadcaster.html');
 });
 
 app.get('/shapes', (request, response) => {
