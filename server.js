@@ -144,7 +144,7 @@ const generateRTCToken = (req, resp) => {
   // calculate privilege expire time
   const currentTime = Math.floor(Date.now() / 1000);
   const privilegeExpireTime = currentTime + expireTime;
-  // build the token
+  // build th token
   let token;
   if (req.params.tokentype === 'userAccount') {
     token = RtcTokenBuilder.buildTokenWithAccount(APP_ID, APP_CERTIFICATE, channelName, uid, role, privilegeExpireTime);
