@@ -3,6 +3,7 @@ const express = require('express');
 const hostValidation = require('host-validation')
 const ejs = require('ejs');
 const {RtcTokenBuilder, RtcRole, RtmTokenBuilder, RtmRole} = require('agora-access-token');
+const { response } = require('express');
 
 const app = express();
 
@@ -116,17 +117,17 @@ const generateRTCToken = (req, resp) => {
   // set response header
   resp.header('Access-Control-Allow-Origin', '*');
   // get channel name
-  const channelName = "web";
+  const channelName = req.params.channel;
   if (!channelName) {
     return resp.status(500).json({ 'error': 'channel is required' });
   }
   // get uid 
-  let uid = "2";
+  let uid = req.params.uid;
   if(!uid || uid === '') {
     return resp.status(500).json({ 'error': 'uid is required' });
   }
   // get role
-  let role="publisher";
+  let role;
   if (req.params.role === 'publisher') {
     role = RtcRole.PUBLISHER;
   } else if (req.params.role === 'audience') {
@@ -154,7 +155,7 @@ const generateRTCToken = (req, resp) => {
     return resp.status(500).json({ 'error': 'token type is invalid' });
   }
   // return the token
-  return resp.json({ 'rtcToken': token + " "+ uid });
+  return resp.json({ 'rtcToken': token });
 }
 
 const generateRTMToken = (req, resp) => {
@@ -229,7 +230,12 @@ app.get('/rtc/:channel/:role/:tokentype/:uid', nocache , generateRTCToken);
 app.get('/rtm/:uid/', nocache , generateRTMToken);
 app.get('/rte/:channel/:role/:tokentype/:uid', nocache , generateRTEToken);
 
-
+async function getToken(){
+  fetch('https://livear.herokuapp.com/rtc/test/publisher/uid/2').then(response => {return response.json();
+}).then(users => {
+  console.log(users);
+});
+}
 const listener = app.listen(process.env.PORT, () => {
   console.log(`[Server] Running on port: ${listener.address().port} 🚢`);
 });
