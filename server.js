@@ -2,7 +2,6 @@ const Vimeo = require('vimeo').Vimeo;
 const express = require('express');
 const hostValidation = require('host-validation')
 const ejs = require('ejs');
-const Agora = require("agora-access-token");
 
 const app = express();
 
@@ -96,20 +95,6 @@ app.get('/vimeo/api', (request, response) => {
       }
     }
   );
-});
-
-app.post("/rtctoken", (req, res) => {
-  const appID = "e76fbfaa876b4c68a5d92d92aa6ad3b1";
-  const appCertificate = "edaf251d48354259bd1739445aaa158b";
-  const expirationTimeInSeconds = 3600;
-  const uid = Math.floor(Math.random() * 100000);
-  const role = req.body.isPublisher ? Agora.RtcRole.PUBLISHER : Agora.RtcRole.SUBSCRIBER;
-  const channel = req.body.channel;
-  const currentTimestamp = Math.floor(Date.now() / 1000);
-  const expirationTimestamp = currentTimestamp + expirationTimeInSeconds;
-
-  const token = Agora.RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channel, uid, role, expirationTimestamp);
-  res.send({ uid, token });
 });
 
 
