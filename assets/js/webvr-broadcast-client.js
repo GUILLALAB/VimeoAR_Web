@@ -227,7 +227,7 @@ function createBroadcaster(streamId) {
   const scale = '0.04 0.04 0.04'; 
   const offset = streamCount;
   const position = offset + ' -1 0';
-  const rotation = '0 0 0';
+  const rotation = '180 0 0';
 
   // create the broadcaster element using the given settings 
   const parent = document.querySelector('a-scene');
