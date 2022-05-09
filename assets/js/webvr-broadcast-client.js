@@ -230,14 +230,22 @@ function createBroadcaster(streamId) {
   const rotation = '0 0 0';
 
   // create the broadcaster element using the given settings 
-  const parent = document.querySelector('a-scene');
+  const scene = document.querySelector('a-scene');
   var newBroadcaster = document.createElement('a-gltf-model');
   newBroadcaster.setAttribute('id', streamId);
   newBroadcaster.setAttribute('gltf-model', gltfModel);
   newBroadcaster.setAttribute('scale', scale);
   newBroadcaster.setAttribute('position', position);
   newBroadcaster.setAttribute('rotation', rotation);
-  parent.appendChild(newBroadcaster);
+
+  var box = document.createElement("a-box");
+box.setAttribute("width", 1);
+box.setAttribute("height", 1);
+box.setAttribute("depth", 1);
+box.setAttribute("color", "#0cf");
+box.setAttribute("position", position);
+
+  scene.appendChild(box);
 
   console.log(newBroadcaster);
   // add event listener for model loaded: 
