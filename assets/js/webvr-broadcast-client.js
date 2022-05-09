@@ -242,7 +242,6 @@ function createBroadcaster(streamId) {
 box.setAttribute("width", 1);
 box.setAttribute("height", 1);
 box.setAttribute("depth", 1);
-box.setAttribute("color", "#0cf");
 box.setAttribute("position", position);
 
   scene.appendChild(box);
