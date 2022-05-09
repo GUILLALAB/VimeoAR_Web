@@ -224,7 +224,7 @@ function createBroadcaster(streamId) {
 
   // configure the new broadcaster
   const gltfModel = '#broadcaster';
-  const scale = '1 1 1'; 
+  const scale = '0.1 0.1 0.1'; 
   const offset = streamCount;
   const position = offset + ' -1 0';
   const rotation = '0 0 0';
