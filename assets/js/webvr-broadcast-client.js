@@ -250,7 +250,7 @@ function createBroadcaster(streamId) {
         var texture = new THREE.VideoTexture(video);
         texture.minFilter = THREE.LinearFilter; 
         texture.magFilter = THREE.LinearFilter; 
-        texture.flipY = true;
+        texture.flipY = false;
         // set node's material map to video texture
         node.material.map = texture
         node.material.color = new THREE.Color();
