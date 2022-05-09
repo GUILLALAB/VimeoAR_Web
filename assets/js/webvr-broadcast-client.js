@@ -220,7 +220,6 @@ function createBroadcaster(streamId) {
   video.setAttribute('poster', '/imgs/no-video.jpg');
   console.log(video);
   // add video object to the DOM
-  document.querySelector('a-assets').appendChild(video);
 
   // configure the new broadcaster
   const gltfModel = '#broadcaster';
@@ -229,41 +228,29 @@ function createBroadcaster(streamId) {
   const position = offset + ' -1 0';
   const rotation = '0 0 0';
 
-  // create the broadcaster element using the given settings 
-  const scene = document.querySelector('a-scene');
-  var newBroadcaster = document.createElement('a-gltf-model');
-  newBroadcaster.setAttribute('id', streamId);
-  newBroadcaster.setAttribute('gltf-model', gltfModel);
-  newBroadcaster.setAttribute('scale', scale);
-  newBroadcaster.setAttribute('position', position);
-  newBroadcaster.setAttribute('rotation', rotation);
-
-  var box = document.createElement("a-plane");
-box.setAttribute("width", 1);
-box.setAttribute("height", 1);
-box.setAttribute("depth", 1);
-box.setAttribute("position", position);
-
-  scene.appendChild(box);
-
-  console.log(newBroadcaster);
-  // add event listener for model loaded: 
-  box.addEventListener('model-loaded', () => {
-    var mesh = box.getObject3D('mesh');
-    mesh.traverse((node) => {
-      // search the mesh's children for the face-geo
-        // create video texture from video element
-        var texture = new THREE.VideoTexture(video);
+var texture   = new THREE.Texture( video );
+var texture = new THREE.VideoTexture(video);
         texture.minFilter = THREE.LinearFilter; 
         texture.magFilter = THREE.LinearFilter; 
         texture.flipY = false;
+
+  var material  = new THREE.MeshBasicMaterial( { map: texture, overdraw: true } );
         // set node's material map to video texture
-        node.material.map = texture
-        node.material.color = new THREE.Color();
-        node.material.metalness = 0;
-      
-    });
-  }); 
+        material.map = texture
+        material.color = new THREE.Color();
+        material.metalness = 0;
+
+  // create the broadcaster element using the given settings 
+  const parent = document.querySelector('a-scene');
+  var newBroadcaster = document.createElement('a-plane');
+  newBroadcaster.setAttribute('scale', scale);
+  newBroadcaster.setAttribute('position', position);
+  newBroadcaster.setAttribute('rotation', rotation);
+  el.setAttribute('material', 'src', material)
+
+  parent.appendChild(newBroadcaster);
+
+
 }
 
 function connectStreamToVideo(agoraStream, video) {
