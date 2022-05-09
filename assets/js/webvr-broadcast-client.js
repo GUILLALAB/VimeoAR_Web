@@ -241,9 +241,11 @@ function createBroadcaster(streamId) {
 
   console.log(newBroadcaster);
   // add event listener for model loaded: 
+  newBroadcaster.addEventListener('model-loaded', () => {
     var mesh = newBroadcaster.getObject3D('mesh');
     mesh.traverse((node) => {
       // search the mesh's children for the face-geo
+      if (node.isMesh) {
         // create video texture from video element
         var texture = new THREE.VideoTexture(video);
         texture.minFilter = THREE.LinearFilter; 
@@ -253,8 +255,9 @@ function createBroadcaster(streamId) {
         node.material.map = texture
         node.material.color = new THREE.Color();
         node.material.metalness = 0;
-      
+      }
     });
+  }); 
 }
 
 function connectStreamToVideo(agoraStream, video) {
