@@ -238,7 +238,7 @@ function createBroadcaster(streamId) {
   newBroadcaster.setAttribute('position', position);
   newBroadcaster.setAttribute('rotation', rotation);
 
-  var box = document.createElement("a-box");
+  var box = document.createElement("a-plane");
 box.setAttribute("width", 1);
 box.setAttribute("height", 1);
 box.setAttribute("depth", 1);
@@ -249,7 +249,7 @@ box.setAttribute("position", position);
 
   console.log(newBroadcaster);
   // add event listener for model loaded: 
-  newBroadcaster.addEventListener('model-loaded', () => {
+  box.addEventListener('model-loaded', () => {
     var mesh = newBroadcaster.getObject3D('mesh');
     mesh.traverse((node) => {
       // search the mesh's children for the face-geo
