@@ -244,6 +244,7 @@ box.setAttribute("height", 1);
 box.setAttribute("depth", 1);
 box.setAttribute("position", position);
 
+scene.appendChild(box);
 
   // add event listener for model loaded: 
     var mesh = box.getObject3D('mesh');
