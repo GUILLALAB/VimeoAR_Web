@@ -245,7 +245,6 @@ function createBroadcaster(streamId) {
     var mesh = newBroadcaster.getObject3D('mesh');
     mesh.traverse((node) => {
       // search the mesh's children for the face-geo
-      if (node.isMesh ) {//&& node.name == 'face-geo'
         // create video texture from video element
         var texture = new THREE.VideoTexture(video);
         texture.minFilter = THREE.LinearFilter; 
@@ -255,7 +254,7 @@ function createBroadcaster(streamId) {
         node.material.map = texture
         node.material.color = new THREE.Color();
         node.material.metalness = 0;
-      }
+      
     });
   }); 
 }
