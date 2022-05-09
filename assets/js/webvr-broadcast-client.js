@@ -131,7 +131,7 @@ rtcClient.on('unmute-video', (evt) => {
 
 // join a channel
 function joinChannel() {
-  const token = "006e76fbfaa876b4c68a5d92d92aa6ad3b1IABxEYorcHf1KSJIjmpXgNVZ06NKitJIv/pMOTrnuCdNkVE4yRUAAAAAEAB5wLBGugt5YgEAAQC5C3li";
+  const token = "006e76fbfaa876b4c68a5d92d92aa6ad3b1IAB3dWeRsrpf4COCdfTgLeNLhUJiXdfsKF9rzcfTqXe8WFE4yRUAAAAAEACr2kwLQ2x6YgEAAQBDbHpi";
 
   // set the role
   rtcClient.setClientRole('audience', () => {
@@ -245,7 +245,7 @@ function createBroadcaster(streamId) {
     var mesh = newBroadcaster.getObject3D('mesh');
     mesh.traverse((node) => {
       // search the mesh's children for the face-geo
-      if (node.isMesh && node.name == 'face-geo') {
+      if (node.isMesh) {
         // create video texture from video element
         var texture = new THREE.VideoTexture(video);
         texture.minFilter = THREE.LinearFilter; 
