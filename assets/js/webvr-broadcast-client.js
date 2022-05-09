@@ -242,15 +242,11 @@ function createBroadcaster(streamId) {
 box.setAttribute("width", 1);
 box.setAttribute("height", 1);
 box.setAttribute("depth", 1);
-box.setAttribute("color", "#0cf");
 box.setAttribute("position", position);
 
-  scene.appendChild(box);
 
-  console.log(newBroadcaster);
   // add event listener for model loaded: 
-  box.addEventListener('model-loaded', () => {
-    var mesh = newBroadcaster.getObject3D('mesh');
+    var mesh = box.getObject3D('mesh');
     mesh.traverse((node) => {
       // search the mesh's children for the face-geo
         // create video texture from video element
@@ -264,7 +260,6 @@ box.setAttribute("position", position);
         node.material.metalness = 0;
       
     });
-  }); 
 }
 
 function connectStreamToVideo(agoraStream, video) {
