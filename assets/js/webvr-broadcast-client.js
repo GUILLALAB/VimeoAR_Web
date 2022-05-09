@@ -228,7 +228,6 @@ function createBroadcaster(streamId) {
   const position = offset + ' -1 0';
   const rotation = '0 0 0';
 
-var texture   = new THREE.Texture( video );
 var texture = new THREE.VideoTexture(video);
         texture.minFilter = THREE.LinearFilter; 
         texture.magFilter = THREE.LinearFilter; 
@@ -246,7 +245,6 @@ var texture = new THREE.VideoTexture(video);
   newBroadcaster.setAttribute('scale', scale);
   newBroadcaster.setAttribute('position', position);
   newBroadcaster.setAttribute('rotation', rotation);
-  el.setAttribute('material', 'src', material)
 
   parent.appendChild(newBroadcaster);
 
