@@ -224,7 +224,7 @@ function createBroadcaster(streamId) {
 
   // configure the new broadcaster
   const gltfModel = '#broadcaster';
-  const scale = '0.1 0.1 0.1'; 
+  const scale = '1 1 1'; 
   const offset = streamCount;
   const position = offset + ' -1 0';
   const rotation = '0 0 0';
@@ -245,7 +245,7 @@ function createBroadcaster(streamId) {
     var mesh = newBroadcaster.getObject3D('mesh');
     mesh.traverse((node) => {
       // search the mesh's children for the face-geo
-      if (node.isMesh) {
+      if (node.isMesh ) {//&& node.name == 'face-geo'
         // create video texture from video element
         var texture = new THREE.VideoTexture(video);
         texture.minFilter = THREE.LinearFilter; 
