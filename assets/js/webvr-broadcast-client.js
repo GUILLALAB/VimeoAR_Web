@@ -231,9 +231,8 @@ function createBroadcaster(streamId) {
 
   // create the broadcaster element using the given settings 
   const parent = document.querySelector('a-scene');
-  var newBroadcaster = document.createElement('a-gltf-model');
+  var newBroadcaster = document.createElement('a-plane');
   newBroadcaster.setAttribute('id', streamId);
-  newBroadcaster.setAttribute('gltf-model', gltfModel);
   newBroadcaster.setAttribute('scale', scale);
   newBroadcaster.setAttribute('position', position);
   newBroadcaster.setAttribute('rotation', rotation);
@@ -241,10 +240,10 @@ function createBroadcaster(streamId) {
 
   console.log(newBroadcaster);
   // add event listener for model loaded: 
-  newBroadcaster.addEventListener('model-loaded', () => {
     var mesh = newBroadcaster.getObject3D('mesh');
     mesh.traverse((node) => {
       // search the mesh's children for the face-geo
+      if (node.isMesh ) {//&& node.name == 'face-geo'
         // create video texture from video element
         var texture = new THREE.VideoTexture(video);
         texture.minFilter = THREE.LinearFilter; 
@@ -254,9 +253,9 @@ function createBroadcaster(streamId) {
         node.material.map = texture
         node.material.color = new THREE.Color();
         node.material.metalness = 0;
-      
+      }
     });
-  }); 
+
 }
 
 function connectStreamToVideo(agoraStream, video) {
