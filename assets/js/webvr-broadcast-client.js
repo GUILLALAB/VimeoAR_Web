@@ -220,6 +220,7 @@ function createBroadcaster(streamId) {
   video.setAttribute('poster', '/imgs/no-video.jpg');
   console.log(video);
   // add video object to the DOM
+  document.querySelector('a-assets').appendChild(video);
 
   // configure the new broadcaster
   const gltfModel = '#broadcaster';
@@ -228,27 +229,32 @@ function createBroadcaster(streamId) {
   const position = offset + ' -1 0';
   const rotation = '0 0 0';
 
-var texture = new THREE.VideoTexture(video);
-        texture.minFilter = THREE.LinearFilter; 
-        texture.magFilter = THREE.LinearFilter; 
-        texture.flipY = false;
-
-  var material  = new THREE.MeshBasicMaterial( { map: texture, overdraw: true } );
-        // set node's material map to video texture
-        material.map = texture
-        material.color = new THREE.Color();
-        material.metalness = 0;
-
   // create the broadcaster element using the given settings 
   const parent = document.querySelector('a-scene');
-  var newBroadcaster = document.createElement('a-plane');
+  var newBroadcaster = document.createElement('a-gltf-model');
+  newBroadcaster.setAttribute('id', streamId);
+  newBroadcaster.setAttribute('gltf-model', gltfModel);
   newBroadcaster.setAttribute('scale', scale);
   newBroadcaster.setAttribute('position', position);
   newBroadcaster.setAttribute('rotation', rotation);
-
   parent.appendChild(newBroadcaster);
 
-
+  console.log(newBroadcaster);
+  // add event listener for model loaded: 
+    var mesh = newBroadcaster.getObject3D('mesh');
+    mesh.traverse((node) => {
+      // search the mesh's children for the face-geo
+        // create video texture from video element
+        var texture = new THREE.VideoTexture(video);
+        texture.minFilter = THREE.LinearFilter; 
+        texture.magFilter = THREE.LinearFilter; 
+        texture.flipY = false;
+        // set node's material map to video texture
+        node.material.map = texture
+        node.material.color = new THREE.Color();
+        node.material.metalness = 0;
+      
+    });
 }
 
 function connectStreamToVideo(agoraStream, video) {
