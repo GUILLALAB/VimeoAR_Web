@@ -244,23 +244,16 @@ box.setAttribute("height", 1);
 box.setAttribute("depth", 1);
 box.setAttribute("position", position);
 
+var texture = new THREE.VideoTexture(video);
+texture.minFilter = THREE.LinearFilter; 
+texture.magFilter = THREE.LinearFilter; 
+texture.flipY = false;
+entityEl.setAttribute('material', 'src', texture);
+
+
+
 scene.appendChild(box);
 
-  // add event listener for model loaded: 
-    var mesh = box.getObject3D('mesh');
-    mesh.traverse((node) => {
-      // search the mesh's children for the face-geo
-        // create video texture from video element
-        var texture = new THREE.VideoTexture(video);
-        texture.minFilter = THREE.LinearFilter; 
-        texture.magFilter = THREE.LinearFilter; 
-        texture.flipY = false;
-        // set node's material map to video texture
-        node.material.map = texture
-        node.material.color = new THREE.Color();
-        node.material.metalness = 0;
-      
-    });
 }
 
 function connectStreamToVideo(agoraStream, video) {
