@@ -108,7 +108,7 @@ rtmChannel.on('ChannelMessage', ({ text }, senderId) => {
 }
 // join a channel
 export function joinChannel() {
-  const token = "006e76fbfaa876b4c68a5d92d92aa6ad3b1IAC65Dyv54bKDtzoB7jZ7wYISoX/nV8ILs2tYlTXSG99O1E4yRUAAAAAEAB5wLBGSpl3YgEAAQBJmXdi";
+  const token = "006e76fbfaa876b4c68a5d92d92aa6ad3b1IABSPSluiqAXCPY7LufgzJBqqLcaenrAW7Sm2XRn07vob1E4yRUAAAAAEACr2kwL/uB7YgEAAQD+4Hti";
 
   // set the role
   client.setClientRole('audience', () => {
