@@ -227,9 +227,7 @@ const generateRTEToken = (req, resp) => {
 app.get('/ping', nocache, ping)
 app.get('/rtc/:channel/:role/:tokentype/:uid', nocache , generateRTCToken);
 
-export function callPublisher(){
 app.get('/rtc/web/publisher/uid/1', nocache , generateRTCToken);
-}
 app.get('/rtc/web/audience/uid/2', nocache , generateRTCToken);
 
 app.get('/rtm/:uid/', nocache , generateRTMToken);
