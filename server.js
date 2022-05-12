@@ -226,8 +226,9 @@ const generateRTEToken = (req, resp) => {
 }
 
 app.get('/broadcaster/incHp/:id',function(req,res){
-  res.render('basic.html');
-console.log("Ajax",req.params.id);
+  response.render('index.html');
+
+console.log("Ajax",req.params.id)
 });
 app.get('/ping', nocache, ping)
 app.get('/rtc/:channel/:role/:tokentype/:uid', nocache , generateRTCToken);
