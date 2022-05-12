@@ -50,7 +50,8 @@ app.use(hostValidation({ hosts: [`127.0.0.1:${process.env.PORT}`,
 
                                 
 app.get('/', (request, response) => {
-  response.render('index.html');
+  response.render('index.html', { name: 'Tobi', path: 'Error'});
+
 });
 
 app.get('/index', (request, response) => {
