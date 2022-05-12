@@ -60,7 +60,6 @@ app.get('/index', (request, response) => {
 app.get('/broadcaster', (request, response) => {
   response.render('broadcaster.html',{ name: 'Tobi' });
 });
-app.get('broadcaster/rtc/:channel/:role/:tokentype/:uid', nocache , generateRTCToken);
 
 app.get('/shapes', (request, response) => {
   response.render('shapes.html');
@@ -154,10 +153,8 @@ const generateRTCToken = (req, resp) => {
   } else {
     return resp.status(500).json({ 'error': 'token type is invalid' });
   }
-  return resp.render('broadcaster.html',{ name: token });
-
   // return the token
-  //return resp.json({ token });
+  return resp.json({ token });
 }
 
 const generateRTMToken = (req, resp) => {
