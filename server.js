@@ -231,7 +231,7 @@ app.get('/rtc/web/publisher/uid/1', nocache , generateRTCToken);
 
 app.get('/rtm/:uid/', nocache , generateRTMToken);
 app.get('/rte/:channel/:role/:tokentype/:uid', nocache , generateRTEToken);
-  app.get('/rtc/web/audience/uid/2', nocache , generateRTCToken);
+app.get('/rtc/web/audience/uid/2', nocache , generateRTCToken);
 const listener = app.listen(process.env.PORT, () => {
   console.log(`[Server] Running on port: ${listener.address().port} 🚢`);
 });
