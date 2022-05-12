@@ -225,7 +225,7 @@ const generateRTEToken = (req, resp) => {
   return resp.json({ 'rtcToken': rtcToken, 'rtmToken': rtmToken });
 }
 
-app.get('/incHp/:id',function(req,res){
+app.get('/broadcaster/incHp/:id',function(req,res){
   return res.json({ 'rtmToken': req.params.id });
 });
 
