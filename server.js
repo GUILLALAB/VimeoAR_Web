@@ -1,6 +1,5 @@
 const Vimeo = require('vimeo').Vimeo;
 const express = require('express');
-
 const hostValidation = require('host-validation')
 const ejs = require('ejs');
 const {RtcTokenBuilder, RtcRole, RtmTokenBuilder, RtmRole} = require('agora-access-token');
@@ -224,10 +223,6 @@ const generateRTEToken = (req, resp) => {
   // return the token
   return resp.json({ 'rtcToken': rtcToken, 'rtmToken': rtmToken });
 }
-
-app.get('/incHp/:id',function(req,res){
- // return res.json({ 'rtmToken': req.params.id });
-});
 
 app.get('/ping', nocache, ping)
 app.get('/rtc/:channel/:role/:tokentype/:uid', nocache , generateRTCToken);
