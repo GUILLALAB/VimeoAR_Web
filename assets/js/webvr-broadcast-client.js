@@ -1,4 +1,6 @@
 // Agora settings
+var foo = require('server');
+foo.callapp; // 5
 const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
 const channelName = 'web'; 
 var streamCount = 0;
