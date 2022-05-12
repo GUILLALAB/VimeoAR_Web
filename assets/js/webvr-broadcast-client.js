@@ -13,7 +13,7 @@ var cameraVideoProfile = '720p_6'; // 960 × 720 @ 30fps  & 750kbs
 // -- .NONE for prod
 AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG); 
 //sayHello('Jack');
-
+//increaseHitPoint();
 // keep track of streams
 var localStreams = {
   uid: '',
@@ -135,7 +135,6 @@ rtcClient.on('unmute-video', (evt) => {
 // join a channel
 function joinChannel() {
   const token = "006e76fbfaa876b4c68a5d92d92aa6ad3b1IAAiEEyND9UL5hWVRIUBfzhmGn/eUEblfYR9lZeKBYzwIlE4yRUAAAAAEAA5DUG6Zkx+YgEAAQBmTH5i";
-  alert(name);
   // set the role
   rtcClient.setClientRole('audience', () => {
     console.log('Client role set to audience');
