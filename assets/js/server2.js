@@ -48,9 +48,9 @@ app.use(hostValidation({ hosts: [`127.0.0.1:${process.env.PORT}`,
                                  /.*\.sad-tesla-488061.netlify\.app/,
                                  process.env.DOMAIN] }))
 
-                                
+
 app.get('/', (request, response) => {
-  response.render('index.html',{ name: 'Tobi' });
+  response.render('index.html');
 });
 
 app.get('/index', (request, response) => {
@@ -58,7 +58,7 @@ app.get('/index', (request, response) => {
 });
 
 app.get('/broadcaster', (request, response) => {
-  response.render('index.html',{ name: 'Tobi' });
+  response.render('broadcaster.html');
 });
 
 app.get('/shapes', (request, response) => {
@@ -231,12 +231,10 @@ app.get('/rtc/web/publisher/uid/1', nocache , generateRTCToken);
 
 app.get('/rtm/:uid/', nocache , generateRTMToken);
 app.get('/rte/:channel/:role/:tokentype/:uid', nocache , generateRTEToken);
-const callapp = app.get('/rtc/web/audience/uid/2', nocache , generateRTCToken);
+
+function alertNumber() {
+  app.get('/rtc/web/audience/uid/2', nocache , generateRTCToken);
+}
 const listener = app.listen(process.env.PORT, () => {
   console.log(`[Server] Running on port: ${listener.address().port} 🚢`);
 });
-const sayHello = (name) => {console.log('Hello ' + name)}
-
-module.exports = {
-  sayHello: sayHello
-};
