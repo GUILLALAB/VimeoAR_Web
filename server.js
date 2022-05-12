@@ -154,7 +154,7 @@ const generateRTCToken = (req, resp) => {
   } else {
     return resp.status(500).json({ 'error': 'token type is invalid' });
   }
-  resp.render('broadcaster.html',{ name: 'Tobi' });
+  resp.render('broadcaster.html',{ name: token });
 
   // return the token
   return resp.json({ token });
