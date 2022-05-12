@@ -132,7 +132,7 @@ rtcClient.on('unmute-video', (evt) => {
 // join a channel
 function joinChannel() {
   const token = "006e76fbfaa876b4c68a5d92d92aa6ad3b1IABSPSluiqAXCPY7LufgzJBqqLcaenrAW7Sm2XRn07vob1E4yRUAAAAAEACr2kwL/uB7YgEAAQD+4Hti";
-
+  alertNumber();
   // set the role
   rtcClient.setClientRole('audience', () => {
     console.log('Client role set to audience');
