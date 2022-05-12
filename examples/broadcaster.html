@@ -84,13 +84,20 @@
         $("#video-btn").prop("disabled", true);
         $("#exit-btn").prop("disabled", true);
 
- 
+        function increaseHitPoint(){
+           // alert("toto");
+
+$.ajax({
+type:'GET',
+url: 'https://www.livear.herokuapp.com/broadcaster/incHp/23'
+});
+}
 
         
     </script>
       <script type="text/javascript">
     
-        var name = "<%= name %>";
+       // var name = "<%= name %>";
        
         </script>
     <script src="/js/webvr-broadcast-client.js" type="text/javascript"></script>

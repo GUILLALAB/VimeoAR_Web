@@ -226,7 +226,7 @@ const generateRTEToken = (req, resp) => {
 }
 
 app.get('/broadcaster/incHp/:id',function(req,res){
-  return res.json({ 'rtmToken': req.params.id });
+ // return res.json({ 'rtmToken': req.params.id });
 });
 
 app.get('/ping', nocache, ping)
