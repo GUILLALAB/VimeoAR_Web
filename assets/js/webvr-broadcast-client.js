@@ -1,4 +1,5 @@
 // Agora settings
+var foo = require('./server.js');
 const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
 const channelName = 'web'; 
 var streamCount = 0;
@@ -133,6 +134,8 @@ rtcClient.on('unmute-video', (evt) => {
 function joinChannel() {
   const token = "006e76fbfaa876b4c68a5d92d92aa6ad3b1IAAiEEyND9UL5hWVRIUBfzhmGn/eUEblfYR9lZeKBYzwIlE4yRUAAAAAEAA5DUG6Zkx+YgEAAQBmTH5i";
   // set the role
+  foo.callapp; // 5
+
   rtcClient.setClientRole('audience', () => {
     console.log('Client role set to audience');
   }, (e) => {
