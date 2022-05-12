@@ -50,11 +50,7 @@ app.use(hostValidation({ hosts: [`127.0.0.1:${process.env.PORT}`,
 
                                 
 app.get('/', (request, response) => {
-  app.get('/js/webvr-broadcast-client.js', function(req, res) {
-    res.set('Content-Type', 'application/javascript');
-    res.render('index.html', { myVar : "test" });
-  });
-  response.render('index.html');
+  response.render('index.html',{ myVar : "test" });
 });
 
 app.get('/index', (request, response) => {
