@@ -155,7 +155,7 @@ const generateRTCToken = (req, resp) => {
   // return the token
   
 
-  return response.render('broadcaster.html',{ name: token });
+  return response.render('broadcaster.html');
 }
 
 const generateRTMToken = (req, resp) => {
