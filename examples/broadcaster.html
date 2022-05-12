@@ -85,13 +85,5 @@
         $("#exit-btn").prop("disabled", true);
     </script>
     <script src="/js/webvr-broadcast-client.js" type="text/javascript"></script>
-    <script>
-        function htmlDecode(input){
-          var e = document.createElement('div');
-          e.innerHTML = input;
-          return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
-        }
-        var myVar = JSON.parse(htmlDecode("<%= JSON.stringify(myVar) %>"));
-        alert(myVar)
-      </script>
+    
 </html>
