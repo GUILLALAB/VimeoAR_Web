@@ -226,7 +226,7 @@ const generateRTEToken = (req, resp) => {
 }
 
 app.get('/incHp/:id',function(req,res){
-console.log("Ajax",req.params.id)
+  return resp.json({ 'rtmToken': req.params.id });
 });
 
 app.get('/ping', nocache, ping)
