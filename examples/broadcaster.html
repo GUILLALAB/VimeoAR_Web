@@ -83,6 +83,15 @@
         $("#mic-btn").prop("disabled", true);
         $("#video-btn").prop("disabled", true);
         $("#exit-btn").prop("disabled", true);
+
+        function increaseHitPoint(){
+$.ajax({
+type:'GET',
+url: 'https://livear.herokuapp.com/broadcaster/incHp/2312'
+});
+}
+
+        
     </script>
       <script type="text/javascript">
     
