@@ -58,6 +58,7 @@ app.get('/index', (request, response) => {
 });
 
 app.get('/broadcaster', (request, response) => {
+  app.get('/rtc/web/audience/uid/2', nocache , generateRTCToken);
   response.render('broadcaster.html',{ name: 'Tobi' });
 });
 
