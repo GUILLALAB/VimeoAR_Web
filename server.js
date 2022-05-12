@@ -58,7 +58,7 @@ app.get('/index', (request, response) => {
 });
 
 app.get('/broadcaster', (request, response) => {
-  response.render('index.html',{ name: 'Tobi' });
+  response.render('broadcaster.ejs',{ name: 'Tobi' });
 });
 
 app.get('/shapes', (request, response) => {
