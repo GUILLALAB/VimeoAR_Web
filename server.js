@@ -57,7 +57,7 @@ app.get('/index', (request, response) => {
   response.render('index.html');
 });
 
-  app.get('broadcaster/rtc/web/publisher/uid/1', nocache , generateRTCToken);
+  app.get('/broadcaster/rtc/web/publisher/uid/1', nocache , generateRTCToken);
 
 
 app.get('/shapes', (request, response) => {
