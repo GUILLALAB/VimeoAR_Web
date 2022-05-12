@@ -154,7 +154,7 @@ const generateRTCToken = (req, resp) => {
     return resp.status(500).json({ 'error': 'token type is invalid' });
   }
   // return the token
-  return resp.json({ 'rtcToken': token });
+  return resp.json({ token });
 }
 
 const generateRTMToken = (req, resp) => {
