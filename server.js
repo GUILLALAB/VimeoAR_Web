@@ -238,5 +238,5 @@ const listener = app.listen(process.env.PORT, () => {
 const sayHello = (name) => {console.log('Hello ' + name)}
 
 module.exports = {
-  callapp: callapp
+  sayHello: sayHello
 };
