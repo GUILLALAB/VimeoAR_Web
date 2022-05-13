@@ -4,9 +4,16 @@
 const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
 const channelName = 'web'; 
 var streamCount = 0;
-const token = generateToken();
+const token = "";
+fetch("https://livear.herokuapp.com/rte/web/publisher/uid/1").then(function(response) {
+return response.json();
+}).then(function(data) {
+token= data.rtmToken;
 alert(token);
 
+}).catch(function() {
+alert("Booo");
+});
 // video profile settings
 var cameraVideoProfile = '720p_6'; // 960 × 720 @ 30fps  & 750kbs
 
@@ -388,19 +395,6 @@ function getMicDevices() {
 
 
 
-function generateToken(){
-  var test="";
-
-fetch("https://livear.herokuapp.com/rte/web/publisher/uid/1").then(function(response) {
-return response.json();
-}).then(function(data) {
-test= data.rtmToken;
-
-}).catch(function() {
-alert("Booo");
-});
-return test;
-}
 
 function rotateModel(uid, direction, send) {
   if (send) {
