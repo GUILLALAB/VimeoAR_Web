@@ -150,7 +150,7 @@ rtcClient.setClientRole('audience', () => {
 });
 
 rtcClient.join(token, channelName, 0, (uid) => {
-  alert(data.rtcToken);
+  alert(token);
 
     console.log('User ' + uid + ' join channel successfully');
     localStreams.uid = uid
