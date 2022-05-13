@@ -84,14 +84,7 @@
         $("#video-btn").prop("disabled", true);
         $("#exit-btn").prop("disabled", true);
 
-        function increaseHitPoint(){
-           // alert("toto");
-
-$.ajax({
-type:'GET',
-url: 'https://livear.herokuapp.com/incHp/23'
-});
-}
+    
 
         
     </script>
@@ -99,6 +92,14 @@ url: 'https://livear.herokuapp.com/incHp/23'
     function Test(){
          alert("toto");
     }
+    function increaseHitPoint(){
+           // alert("toto");
+
+$.ajax({
+type:'GET',
+url: 'https://livear.herokuapp.com/incHp/23'
+});
+}
        // var name = "<%= name %>";
        
         </script>
