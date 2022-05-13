@@ -9,7 +9,6 @@ fetch("https://livear.herokuapp.com/rte/web/publisher/uid/1").then(function(resp
 return response.json();
 }).then(function(data) {
 token= data.rtmToken;
-alert(token);
 
 }).catch(function() {
 alert("Booo");
@@ -150,7 +149,8 @@ function joinChannel() {
   }, (e) => {
     console.log('setClientRole failed', e);
   });
-  
+  alert(token);
+
   rtcClient.join(token, channelName, 0, (uid) => {
       console.log('User ' + uid + ' join channel successfully');
       localStreams.uid = uid
