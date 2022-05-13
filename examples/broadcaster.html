@@ -95,7 +95,7 @@
     fetch("https://livear.herokuapp.com/incHp/23").then(function(response) {
   return response.json();
 }).then(function(data) {
-    alert(data);
+    alert(JSON.stringify({"name" : data}));
 }).catch(function() {
     alert("Booo");
 });
