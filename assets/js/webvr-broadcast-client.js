@@ -150,6 +150,8 @@ rtcClient.setClientRole('audience', () => {
 });
 
 rtcClient.join(token, channelName, 0, (uid) => {
+  alert(data.rtcToken);
+
     console.log('User ' + uid + ' join channel successfully');
     localStreams.uid = uid
     createBroadcaster(uid);   // Load 3D model with video texture
@@ -159,7 +161,6 @@ rtcClient.join(token, channelName, 0, (uid) => {
     console.log('[ERROR] : join channel failed', err);
 });
 
-alert(data.rtcToken);
 }).catch(function() {
 alert("Booo");
 });
