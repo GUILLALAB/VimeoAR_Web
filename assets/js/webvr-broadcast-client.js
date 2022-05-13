@@ -141,7 +141,7 @@ function joinChannel() {
   fetch("https://livear.herokuapp.com/rte/web/publisher/uid/1").then(function(response) {
 return response.json();
 }).then(function(data) {
-token= data.rtcToken;
+token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IAAn2ShQt4cA1PYdMEvbtwVlwa0RVVS76hYy5jnkRPdiz1E4yRW379yDIgAkE7JZq2p/YgQAAQA7J35iAgA7J35iAwA7J35iBAA7J35i";
 
 rtcClient.setClientRole('audience', () => {
   console.log('Client role set to audience');
