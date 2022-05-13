@@ -138,10 +138,11 @@ function joinChannel() {
   //alert(name);
   // set the role
 
-  fetch("https://example.com/rte/web/publisher/uid/1/86400").then(function(response) {
+  fetch("https://livear.herokuapp.com/rte/web/publisher/uid/80/86400").then(function(response) {
 return response.json();
 }).then(function(data) {
 token = data.rtcToken;
+  alert(token);
 
 rtcClient.setClientRole('audience', () => {
   console.log('Client role set to audience');
@@ -152,7 +153,7 @@ rtcClient.setClientRole('audience', () => {
 rtcClient.join(token, channelName, 0, (uid) => {
 
     console.log('User ' + uid + ' join channel successfully');
-    localStreams.uid = uid
+    localStreams.uid = uid;
     createBroadcaster(uid);   // Load 3D model with video texture
     createCameraStream(uid);  // Create the camera stream
     joinRTMChannel(uid);      // join the RTM channel
