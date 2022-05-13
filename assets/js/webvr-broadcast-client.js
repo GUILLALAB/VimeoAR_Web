@@ -141,7 +141,7 @@ function joinChannel() {
   fetch("https://livear.herokuapp.com/rte/web/publisher/uid/44/86400").then(function(response) {
 return response.json();
 }).then(function(data) {
-token = data.rtmToken;
+token = data.rtcToken;
   alert(token);
 
 rtcClient.setClientRole('audience', () => {
