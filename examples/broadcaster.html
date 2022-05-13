@@ -92,15 +92,13 @@
     function Test(){
     }
     function increaseHitPoint(){
-$.ajax({
-        url: "https://livear.herokuapp.com/incHp/23",
-        type: 'GET',
-        dataType: 'json', // added data typ
-        success: function(req,res) {
-            console.log(res);
-            alert(res.json({ 'rtmToken': req.params.id }));
-        }
-    });
+    fetch("https://livear.herokuapp.com/incHp/23").then(function(response) {
+  return response.json();
+}).then(function(data) {
+    alert(data);
+}).catch(function() {
+    alert("Booo");
+});
 
 }
        // var name = "<%= name %>";
