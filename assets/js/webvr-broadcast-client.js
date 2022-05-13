@@ -138,39 +138,33 @@ function joinChannel() {
   //alert(name);
   // set the role
 
-  fetch("https://livear.herokuapp.com/rte/web/audience/uid/7/86400").then(function(response) {
+  fetch("https://livear.herokuapp.com/rte/web/publisher/uid/1/86400").then(function(response) {
 return response.json();
 }).then(function(data) {
-token= data.rtmToken;
-alert(token);
-
+//token= data.rtcToken;
 //  alert(token);
-rtcClient.setClientRole('audience', () => {
-  console.log('Client role set to audience');
-
-}, (e) => {
-  console.log('setClientRole failed', e);
-});
-//token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IADEsCVcEUOhQEw1eueG9L4vpzqsH6VHiRap9+yEBjy43VE4yRUAAAAAEAA5DUG6TWt/YgEAAQBMa39i";
-rtcClient.join("006e76fbfaa876b4c68a5d92d92aa6ad3b1IADg8oFrMeN6JrgjTvXVv7yPhG8iBK5+fwTRT1mEQk3olIJKv2oAAAAAEAALTtTK9ZR/YgEA6AP1lH9i", channelName, 0, (uid) => {
-
-  console.log('User ' + uid + ' join channel successfully');
-  localStreams.uid = uid
-  createBroadcaster(uid);   // Load 3D model with video texture
-  createCameraStream(uid);  // Create the camera stream
-  joinRTMChannel(uid);      // join the RTM channel
-}, (err) => {
-  console.log('[ERROR] : join channel failed', err);
-});
-
 }).catch(function() {
 alert("Booo");
 });
 
+token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IADEsCVcEUOhQEw1eueG9L4vpzqsH6VHiRap9+yEBjy43VE4yRUAAAAAEAA5DUG6TWt/YgEAAQBMa39i";
 
+rtcClient.setClientRole('audience', () => {
+  console.log('Client role set to audience');
+}, (e) => {
+  console.log('setClientRole failed', e);
+});
 
+rtcClient.join(token, channelName, 0, (uid) => {
 
-
+    console.log('User ' + uid + ' join channel successfully');
+    localStreams.uid = uid
+    createBroadcaster(uid);   // Load 3D model with video texture
+    createCameraStream(uid);  // Create the camera stream
+    joinRTMChannel(uid);      // join the RTM channel
+}, (err) => {
+    console.log('[ERROR] : join channel failed', err);
+});
 }
 
 function leaveChannel() {
