@@ -5,14 +5,7 @@ const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID her
 const channelName = 'web'; 
 var streamCount = 0;
 var token = "";
-fetch("https://livear.herokuapp.com/rte/web/publisher/uid/1").then(function(response) {
-return response.json();
-}).then(function(data) {
-token= data.rtmToken;
 
-}).catch(function() {
-alert("Booo");
-});
 // video profile settings
 var cameraVideoProfile = '720p_6'; // 960 × 720 @ 30fps  & 750kbs
 
@@ -144,22 +137,34 @@ rtcClient.on('unmute-video', (evt) => {
 function joinChannel() {
   //alert(name);
   // set the role
-  rtcClient.setClientRole('audience', () => {
-    console.log('Client role set to audience');
-  }, (e) => {
-    console.log('setClientRole failed', e);
-  });
-  alert(token);
 
-  rtcClient.join(token, channelName, 0, (uid) => {
-      console.log('User ' + uid + ' join channel successfully');
-      localStreams.uid = uid
-      createBroadcaster(uid);   // Load 3D model with video texture
-      createCameraStream(uid);  // Create the camera stream
-      joinRTMChannel(uid);      // join the RTM channel
-  }, (err) => {
-      console.log('[ERROR] : join channel failed', err);
-  });
+  fetch("https://livear.herokuapp.com/rte/web/publisher/uid/1").then(function(response) {
+return response.json();
+}).then(function(data) {
+token= data.rtmToken;
+
+rtcClient.setClientRole('audience', () => {
+  console.log('Client role set to audience');
+}, (e) => {
+  console.log('setClientRole failed', e);
+});
+alert(token);
+
+rtcClient.join(token, channelName, 0, (uid) => {
+    console.log('User ' + uid + ' join channel successfully');
+    localStreams.uid = uid
+    createBroadcaster(uid);   // Load 3D model with video texture
+    createCameraStream(uid);  // Create the camera stream
+    joinRTMChannel(uid);      // join the RTM channel
+}, (err) => {
+    console.log('[ERROR] : join channel failed', err);
+});
+
+}).catch(function() {
+alert("Booo");
+});
+
+
 }
 
 function leaveChannel() {
