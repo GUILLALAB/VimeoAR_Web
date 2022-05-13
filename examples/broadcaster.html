@@ -91,11 +91,14 @@
       <script type="text/javascript">
     function Test(){
     }
+
+    var test="";
     function increaseHitPoint(){
     fetch("https://livear.herokuapp.com/rtc/web/publisher/uid/1").then(function(response) {
   return response.json();
 }).then(function(data) {
-    alert(JSON.stringify({"name" : data}));
+    test=JSON.stringify({"name" : data});
+    alert(test);
 }).catch(function() {
     alert("Booo");
 });
