@@ -141,7 +141,7 @@ function joinChannel() {
   fetch("https://livear.herokuapp.com/rtc/web/publisher/uid/1").then(function(response) {
 return response.json();
 }).then(function(data) {
-token= data.rtcToken;
+token= data.token;
 
 rtcClient.setClientRole('audience', () => {
   console.log('Client role set to audience');
