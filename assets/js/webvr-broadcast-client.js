@@ -138,7 +138,7 @@ function joinChannel() {
   //alert(name);
   // set the role
 
-  fetch("https://livear.herokuapp.com/rte/web/publisher/uid/1").then(function(response) {
+  fetch("https://livear.herokuapp.com/rte/web/audience/uid/1/?86400").then(function(response) {
 return response.json();
 }).then(function(data) {
 token= data.rtcToken;
@@ -159,7 +159,7 @@ rtcClient.join(token, channelName, 0, (uid) => {
     console.log('[ERROR] : join channel failed', err);
 });
 
-alert(data.rtcToken);
+//alert(data.rtcToken);
 }).catch(function() {
 alert("Booo");
 });
