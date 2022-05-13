@@ -4,7 +4,8 @@
 const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
 const channelName = 'web'; 
 var streamCount = 0;
-var token = "";
+var rtctoken = "";
+var rtmtoken = "";
 
 // video profile settings
 var cameraVideoProfile = '720p_6'; // 960 × 720 @ 30fps  & 750kbs
@@ -141,13 +142,8 @@ function joinChannel() {
   fetch("https://livear.herokuapp.com/rte/web/publisher/uid/1/86400").then(function(response) {
 return response.json();
 }).then(function(data) {
-//token= data.rtcToken;
-//  alert(token);
-}).catch(function() {
-alert("Booo");
-});
-
-token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IADEsCVcEUOhQEw1eueG9L4vpzqsH6VHiRap9+yEBjy43VE4yRUAAAAAEAA5DUG6TWt/YgEAAQBMa39i";
+rtctoken= data.rtcToken;
+rtmtoken= data.rtmToken;
 
 rtcClient.setClientRole('audience', () => {
   console.log('Client role set to audience');
@@ -155,7 +151,7 @@ rtcClient.setClientRole('audience', () => {
   console.log('setClientRole failed', e);
 });
 
-rtcClient.join(token, channelName, 0, (uid) => {
+rtcClient.join(rtctoken, channelName, 0, (uid) => {
 
     console.log('User ' + uid + ' join channel successfully');
     localStreams.uid = uid
@@ -165,6 +161,15 @@ rtcClient.join(token, channelName, 0, (uid) => {
 }, (err) => {
     console.log('[ERROR] : join channel failed', err);
 });
+
+//  alert(token);
+}).catch(function() {
+alert("Booo");
+});
+
+//token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IADEsCVcEUOhQEw1eueG9L4vpzqsH6VHiRap9+yEBjy43VE4yRUAAAAAEAA5DUG6TWt/YgEAAQBMa39i";
+
+
 }
 
 function leaveChannel() {
@@ -312,7 +317,7 @@ function changeStreamSource (deviceIndex, deviceType) {
 function joinRTMChannel(uid){
   console.log('uid:')
   console.log(uid)
-  rtmClient.login({ token: null, uid: String(uid) }).then(() => {
+  rtmClient.login({ rtmtoken: null, uid: String(uid) }).then(() => {
     console.log('AgoraRTM client login success');
     // join a channel and send a message
     rtmChannel.join().then(() => {
