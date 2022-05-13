@@ -152,7 +152,7 @@ rtcClient.setClientRole('audience', () => {
   console.log('setClientRole failed', e);
 });
 //token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IADEsCVcEUOhQEw1eueG9L4vpzqsH6VHiRap9+yEBjy43VE4yRUAAAAAEAA5DUG6TWt/YgEAAQBMa39i";
-rtcClient.join(token, channelName, 0, (uid) => {
+rtcClient.join("006e76fbfaa876b4c68a5d92d92aa6ad3b1IADg8oFrMeN6JrgjTvXVv7yPhG8iBK5+fwTRT1mEQk3olIJKv2oAAAAAEAALTtTK9ZR/YgEA6AP1lH9i", channelName, 0, (uid) => {
 
   console.log('User ' + uid + ' join channel successfully');
   localStreams.uid = uid
