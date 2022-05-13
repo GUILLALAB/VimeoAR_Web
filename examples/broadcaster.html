@@ -97,7 +97,7 @@
     fetch("https://livear.herokuapp.com/rtc/web/publisher/uid/1").then(function(response) {
   return response.json();
 }).then(function(data) {
-    alert(JSON.stringify({data}));
+    alert(data.token);
 
     
 }).catch(function() {
