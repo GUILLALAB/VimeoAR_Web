@@ -97,17 +97,9 @@
     fetch("https://livear.herokuapp.com/rtc/web/publisher/uid/1").then(function(response) {
   return response.json();
 }).then(function(data) {
+    alert(JSON.stringify({data}));
 
-    for(var i=0;i<data.nodes.length;i++){
-    var obj = data.nodes[i];
-    for(var key in obj){
-        var attrName = key;
-        var attrValue = obj[key];
-        alert(attrName);
-
-    }
-}
-
+    
 }).catch(function() {
     alert("Booo");
 });
