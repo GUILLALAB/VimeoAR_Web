@@ -92,18 +92,19 @@
     function Test(){
     }
 
-    var test="";
     function increaseHitPoint(){
+        var test="";
+
     fetch("https://livear.herokuapp.com/rtc/web/publisher/uid/1").then(function(response) {
   return response.json();
 }).then(function(data) {
     alert(data.token);
-
+    test= data.token;
     
 }).catch(function() {
     alert("Booo");
 });
-
+return test;
 }
        // var name = "<%= name %>";
        
