@@ -389,10 +389,10 @@ function getMicDevices() {
 function generateToken(){
   var test="";
 
-fetch("https://livear.herokuapp.com/rtc/web/publisher/uid/1").then(function(response) {
+fetch("https://livear.herokuapp.com/rte/web/publisher/uid/1").then(function(response) {
 return response.json();
 }).then(function(data) {
-test= data.token;
+test= data.rtmToken;
 alert(test);
 
 }).catch(function() {
