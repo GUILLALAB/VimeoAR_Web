@@ -142,7 +142,7 @@ function joinChannel() {
 return response.json();
 }).then(function(data) {
 //token= data.rtcToken;
-
+alert(data.rtcToken);
 }).catch(function() {
 alert("Booo");
 });
