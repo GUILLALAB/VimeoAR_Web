@@ -98,9 +98,9 @@
   return response.json();
 }).then(function(data) {
     const obj = JSON.parse(data);
-    console.log(obj.data);
-    var value=obj.data;
-    alert(JSON.stringify({value}));
+    console.log(obj.token);
+    var value=obj.token;
+    alert(value);
 }).catch(function() {
     alert("Booo");
 });
