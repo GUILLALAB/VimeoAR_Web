@@ -147,8 +147,7 @@ alert(data.rtcToken);
 alert("Booo");
 });
 
-token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IADEsCVcEUOhQEw1eueG9L4vpzqsH6VHiRap9+yEBjy43VE4yRUAAAAAEAA5DUG6TWt/YgEAAQBMa39i";
-
+token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IADjgIM6lhyrJs1aN1h/3Q+8XniX0T14jqjYzXnHgPMWUFE4yRW379yDIgCYUrH6Jmx/YgQAAQC2KH5i";
 rtcClient.setClientRole('audience', () => {
   console.log('Client role set to audience');
 }, (e) => {
