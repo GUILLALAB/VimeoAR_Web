@@ -92,7 +92,7 @@
     function Test(){
     }
     function increaseHitPoint(){
-    fetch("https://livear.herokuapp.com//rtc/web/publisher/uid/1").then(function(response) {
+    fetch("https://livear.herokuapp.com/rtc/web/publisher/uid/1").then(function(response) {
   return response.json();
 }).then(function(data) {
     alert(JSON.stringify({"name" : data}));
