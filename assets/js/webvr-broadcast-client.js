@@ -7,7 +7,7 @@ var streamCount = 0;
 
 // video profile settings
 var cameraVideoProfile = '720p_6'; // 960 × 720 @ 30fps  & 750kbs
-
+Test();
 // set log level:
 // -- .DEBUG for dev 
 // -- .NONE for prod
