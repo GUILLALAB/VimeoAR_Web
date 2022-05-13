@@ -93,10 +93,14 @@
     }
     function increaseHitPoint(){
 $.ajax({
-type:'GET',
-url: 'https://livear.herokuapp.com/incHp/23'
-});
-alert("toti");
+        url: "https://livear.herokuapp.com/incHp/23",
+        type: 'GET',
+        dataType: 'json', // added data type
+        success: function(res) {
+            console.log(res);
+            alert(res);
+        }
+    });
 
 }
        // var name = "<%= name %>";
