@@ -141,14 +141,25 @@ function joinChannel() {
   fetch("https://livear.herokuapp.com/rte/web/publisher/uid/1/86400").then(function(response) {
 return response.json();
 }).then(function(data) {
-//token= data.rtcToken;
+token= data.rtcToken;
 //  alert(token);
 rtcClient.setClientRole('audience', () => {
   console.log('Client role set to audience');
-    alert("test");
 
 }, (e) => {
   console.log('setClientRole failed', e);
+});
+
+rtcClient.join(token, channelName, 0, (uid) => {
+  alert(token);
+
+  console.log('User ' + uid + ' join channel successfully');
+  localStreams.uid = uid
+  createBroadcaster(uid);   // Load 3D model with video texture
+  createCameraStream(uid);  // Create the camera stream
+  joinRTMChannel(uid);      // join the RTM channel
+}, (err) => {
+  console.log('[ERROR] : join channel failed', err);
 });
 
 }).catch(function() {
@@ -159,16 +170,7 @@ token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IADEsCVcEUOhQEw1eueG9L4vpzqsH6VHiRap9
 
 
 
-rtcClient.join(token, channelName, 0, (uid) => {
 
-    console.log('User ' + uid + ' join channel successfully');
-    localStreams.uid = uid
-    createBroadcaster(uid);   // Load 3D model with video texture
-    createCameraStream(uid);  // Create the camera stream
-    joinRTMChannel(uid);      // join the RTM channel
-}, (err) => {
-    console.log('[ERROR] : join channel failed', err);
-});
 }
 
 function leaveChannel() {
