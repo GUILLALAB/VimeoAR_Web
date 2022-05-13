@@ -4,7 +4,7 @@
 const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
 const channelName = 'web'; 
 var streamCount = 0;
-
+const token = generateToken();
 // video profile settings
 var cameraVideoProfile = '720p_6'; // 960 × 720 @ 30fps  & 750kbs
 
@@ -134,7 +134,6 @@ rtcClient.on('unmute-video', (evt) => {
 
 // join a channel
 function joinChannel() {
-  const token = generateToken();
   //alert(name);
   // set the role
   rtcClient.setClientRole('audience', () => {
@@ -393,7 +392,6 @@ function generateToken(){
 fetch("https://livear.herokuapp.com/rtc/web/publisher/uid/1").then(function(response) {
 return response.json();
 }).then(function(data) {
-alert(data.token);
 test= data.token;
 alert(test);
 
