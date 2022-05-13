@@ -159,7 +159,7 @@ rtcClient.join(token, channelName, 0, (uid) => {
     console.log('[ERROR] : join channel failed', err);
 });
 
-//alert(data.rtcToken);
+alert(data.rtcToken);
 }).catch(function() {
 alert("Booo");
 });
