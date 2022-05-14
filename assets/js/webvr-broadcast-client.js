@@ -138,7 +138,7 @@ function joinChannel() {
   //alert(name);
   // set the role
 
-  fetch("https://livear.herokuapp.com/rte/web/publisher/uid/1192712823/").then(function(response) {
+  fetch("https://livear.herokuapp.com/rte/web/publisher/uid/1192712823/80000").then(function(response) {
 return response.json();
 }).then(function(data) {
 token = data.rtcToken;
