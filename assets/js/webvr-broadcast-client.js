@@ -142,14 +142,14 @@ function joinChannel() {
 return response.json();
 }).then(function(data) {
 token = data.rtcToken;
-  alert(token);
+//  alert(token);
 
 rtcClient.setClientRole('audience', () => {
   console.log('Client role set to audience');
 }, (e) => {
   console.log('setClientRole failed', e);
 });
-//token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IABy+lUV40wCdijVh2+U+lR0Tfl3YH+ZCdbrCsvRBd1cMFE4yRUAAAAAEAA5DUG65qeAYgEAAQDmp4Bi";
+token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IAAfWfpOODNcyUckxk1JJF/lMoZoqFGNPnL7RYVtSHwtIlE4yRUAAAAAEAA5DUG65u+BYgEAAQDm74Fi";
 
 rtcClient.join(token, channelName, 0, (uid) => {
 
