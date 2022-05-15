@@ -232,7 +232,7 @@ app.get('/incHp/:id',function(req,res){
 app.get('/ping', nocache, ping)
 app.get('/rtc/:channel/:role/:tokentype/:uid', nocache , generateRTCToken);
 
-app.get('/rtc/web/publisher/uid/1', nocache , generateRTCToken);
+//app.get('/rtc/web/publisher/uid/1', nocache , generateRTCToken);
 
 app.get('/rtm/:uid/', nocache , generateRTMToken);
 app.get('/rte/:channel/:role/:tokentype/:uid/:expiry', nocache , generateRTEToken);
