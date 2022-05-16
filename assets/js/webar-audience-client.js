@@ -81,7 +81,7 @@ client.on('unmute-video', (evt) => {
 
 // join a channel
 function joinChannel() {
- const token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IAAfWfpOODNcyUckxk1JJF/lMoZoqFGNPnL7RYVtSHwtIlE4yRUAAAAAEAA5DUG65u+BYgEAAQDm74Fi";
+ const token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IAAzcoKpIaQ0b2OljBEtoN9qfOCSZiQ/roKj9rV7Ait06VE4yRUAAAAAEAAyf2YEIrSDYgEAAQAhtINi";
 
   // set the role
   client.setClientRole('audience', () => {
