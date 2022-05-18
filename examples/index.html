@@ -13,7 +13,6 @@
     <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
     <body>
 
-      <section class="hero text-center text-light">
 				<div class="hero-bg"></div>
 				<div class="hero-particles-container">
 					<canvas id="hero-particles"></canvas>
@@ -21,22 +20,18 @@
                 <div class="container-sm">
                     <div class="hero-inner">
 						<div class="hero-copy">
-	                        <h1 class="hero-title mt-0">Live AR</h1>
-	                        <p class="hero-paragraph">Broadcast and Visualize Live Streaming video in Augmented Reality, peoples can see you live in their environment.
+	                        <h1 class="hero-title mt-0">Visualize Live AR</h1>
+	                        <p class="hero-paragraph">Visualize Live Streaming video in Augmented Reality.
 							</p>
 	                      
+            
 						</div>
-						<div class="mockup-container">
-							<div class="mockup-bg">
-								<img src="/images/iphone-hero-bg.svg" alt="iPhone illustration">
-							</div>
-							<img class="device-mockup" src="/images/iphone-hero.png" alt="iPhone Hero">
-						</div>
+            <input type="text" placeholder="channel name..." id="myInput">
+
                     </div>
                 </div>
-            </section>
+          
 
-      <input type="text" placeholder="channel name..." id="myInput">
 
        <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
     <source  id="source" src="video.mp4" type="video/mp4">   
