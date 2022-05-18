@@ -45,7 +45,7 @@
 
   </div>
   <div class="removed box">
-      <canvas id="canvas" autoplay width="640px" height="480px">
+      <canvas id="canvas" autoplay width="320px" height="240px">
 
       </canvas>
   </div>
@@ -453,26 +453,22 @@ function connectStreamToVideo(agoraStream, video) {
     // ready to play video
     video.play();
 
-    const net = await bodyPix.load();
+const net = await bodyPix.load();
 const segmentation = await net.segmentPerson(video);
 
-const maskBackground = true;
-// Convert the segmentation into a mask to darken the background.
-const foregroundColor = {r: 0, g: 0, b: 0, a: 0};
-const backgroundColor = {r: 0, g: 0, b: 0, a: 255};
-const backgroundDarkeningMask = bodyPix.toMask(
-    segmentation, foregroundColor, backgroundColor);
-
+// The mask image is an binary mask image with a 1 where there is a person and
+// a 0 where there is not.
+const coloredPartImage = bodyPix.toMask(segmentation);
 const opacity = 0.7;
-const maskBlurAmount = 3;
 const flipHorizontal = false;
-// Draw the mask onto the image on a canvas.  With opacity set to 0.7 and
-// maskBlurAmount set to 3, this will darken the background and blur the
-// darkened background's edge.
+const maskBlurAmount = 0;
+// Draw the mask image on top of the original image onto a canvas.
+// The colored part image will be drawn semi-transparent, with an opacity of
+// 0.7, allowing for the original image to be visible under.
 bodyPix.drawMask(
-    canvas, video, backgroundDarkeningMask, opacity, maskBlurAmount, flipHorizontal);
-
-  }
+    canvas, video, coloredPartImage, opacity, maskBlurAmount,
+    flipHorizontal);
+  
 }
      
 async function removeBg(video) {
