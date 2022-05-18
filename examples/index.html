@@ -11,7 +11,8 @@
     <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
     <body>
 
-        
+      <input type="text" placeholder="channel name..." id="myInput">
+
        <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
     <source  id="source" src="video.mp4" type="video/mp4">   
     </video>
@@ -77,6 +78,8 @@
     let client;
     var streamCount;
     var channelName;
+    const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
+
     init();
     animate();
 
@@ -98,7 +101,6 @@
 
     client = AgoraRTC.createClient({mode: 'live', codec: 'vp8'}); // vp8 to work across mobile devices
 
-const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
  channelName = 'web'; 
  streamCount = 0;
 
@@ -107,7 +109,46 @@ const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID her
 // -- .NONE for prod
 AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG); 
 
-client.init(agoraAppId, () => {
+
+
+      container = document.createElement( 'div' );
+      document.body.appendChild( container );
+
+      scene = new THREE.Scene();
+
+      camera = new THREE.PerspectiveCamera();
+
+
+      const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
+      light.position.set( 0.5, 1, 0.25 );
+      scene.add( light );
+
+        //
+
+        renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
+        renderer.setPixelRatio( window.devicePixelRatio );
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.xr.enabled = true;
+        container.appendChild( renderer.domElement );
+
+        //
+
+
+
+
+        document.body.appendChild( ARButton.createButton(renderer, { requiredFeatures: ['hit-test'], optionalFeatures: [ 'dom-overlay', 'dom-overlay-for-handheld-ar' ], domOverlay: { root: document.body } } )
+          );
+        document.getElementById("btn").addEventListener("click", myFunction);
+
+        renderer.domElement.style.display = 'none';
+
+        //
+
+
+        function onSelect() {
+
+          if ( reticle.visible ) {
+            client.init(agoraAppId, () => {
   console.log('AgoraRTC client initialized');
   joinChannel(); // join channel upon successfull init
 }, function (err) {
@@ -195,45 +236,6 @@ rtmChannel.on('ChannelMessage', ({ text }, senderId) => {
     moveModel(senderId, msg.direction)
   }
 });
-
-      container = document.createElement( 'div' );
-      document.body.appendChild( container );
-
-      scene = new THREE.Scene();
-
-      camera = new THREE.PerspectiveCamera();
-
-
-      const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
-      light.position.set( 0.5, 1, 0.25 );
-      scene.add( light );
-
-        //
-
-        renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
-        renderer.setPixelRatio( window.devicePixelRatio );
-        renderer.setSize( window.innerWidth, window.innerHeight );
-        renderer.xr.enabled = true;
-        container.appendChild( renderer.domElement );
-
-        //
-
-
-
-
-        document.body.appendChild( ARButton.createButton(renderer, { requiredFeatures: ['hit-test'], optionalFeatures: [ 'dom-overlay', 'dom-overlay-for-handheld-ar' ], domOverlay: { root: document.body } } )
-          );
-        document.getElementById("btn").addEventListener("click", myFunction);
-
-        renderer.domElement.style.display = 'none';
-
-        //
-
-
-        function onSelect() {
-
-          if ( reticle.visible ) {
-
 
   // video.id = 'video';
   // video.type = ' video/ogg; codecs="theora, vorbis" ';
