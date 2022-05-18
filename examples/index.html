@@ -395,7 +395,6 @@ function createBroadcaster(streamId) {
       scene.add( mesh );
       isset=1;
 
-      mesh.position.setFromMatrixPosition( reticle.matrix );
 
 
   // add event listener for model loaded: 
@@ -409,6 +408,8 @@ function createBroadcaster(streamId) {
 
 function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
+  mesh.position.setFromMatrixPosition( reticle.matrix );
+
   video.onloadedmetadata = () => {
     // ready to play video
     video.play();
