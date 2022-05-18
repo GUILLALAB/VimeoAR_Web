@@ -20,11 +20,14 @@
         <!-- Agora.io -->
         <script src="/js/AgoraRTCSDK-3.0.2.js" type="text/javascript"></script>
         <script src="/js/agora-rtm-sdk-1.2.2.js" type="text/javascript"></script>
-        
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.2"></script>
+    <!-- Load BodyPix -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.0"></script>
         <link rel="stylesheet" type="text/css" href="style.css"/>
     </head>
     <body>
         <div class="container-fluid p-0">
+
             <div id="main-container">
                 <div id="buttons-container" class="row justify-content-center mt-3">
                     <div id="audio-controls" class="col-md-2 text-center btn-group">
@@ -54,6 +57,42 @@
                     </div>
                     
                 </div>
+
+                 <div class="removed box">
+            <canvas id="canvas" autoplay width="640px" height="480px">
+
+            </canvas></div>
+            <style>
+                h1 {
+                    text-align: center;
+                    padding: 2rem;
+                }
+        
+                #video,
+                #canvas {
+                    border: 2px solid black;
+                    text-align: center;
+                }
+        
+                #canvas {
+                    background-image: url('bg.jpg');
+                }
+        
+                .parent {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                }
+        
+                .box {
+                    flex: 1 1 150px;
+                    /*  Stretching: */
+                    flex: 0 1 150px;
+                    /*  No stretching: */
+                    margin: 5px;
+                }
+            </style>
+            
                 <div id="full-screen-video">
                     <a-scene>
                         <a-assets>

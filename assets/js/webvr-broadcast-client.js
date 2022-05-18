@@ -233,8 +233,6 @@ function createCameraStream(uid) {
 function createBroadcaster(streamId) {
   // create video element
   var video = document.createElement('video');
-
-  
   video.id = 'faceVideo-' + streamId;
   video.setAttribute('webkit-playsinline', 'webkit-playsinline');
   video.setAttribute('playsinline', 'playsinline');
@@ -281,6 +279,15 @@ function createBroadcaster(streamId) {
   }); 
 }
 
+function connectStreamToVideo(agoraStream, video) {
+  video.srcObject = agoraStream.stream;// add video stream to video element as source
+  video.onloadedmetadata = () => {
+    // ready to play video
+    video.play();
+    setInterval(removeBg(video), 100); // * Call the segmenting fu
+
+  }
+}
 
 async function removeBg(video) {
   //  ? Loading BodyPix w/ various parameters
@@ -306,11 +313,10 @@ async function removeBg(video) {
   // const opacity = 0.7;
   // const maskBlurAmount = 3;
   // const flipHorizontal = false;
-  compositeFrame(backgroundDarkeningMask, video);
+  compositeFrame(backgroundDarkeningMask,video);
   // requestAnimationFrame(removeBg);
   // bodyPix.drawMask(canvas, video, backgroundDarkeningMask, opacity, maskBlurAmount, flipHorizontal);
 }
-
 async function compositeFrame(backgroundDarkeningMask,video) {
   if (!backgroundDarkeningMask) return;
   // grab canvas holding the bg image
@@ -321,15 +327,6 @@ async function compositeFrame(backgroundDarkeningMask,video) {
   // composite the video frame
   ctx.globalCompositeOperation = 'source-in';
   ctx.drawImage(video, 0, 0, 640, 480);
-}
-
-function connectStreamToVideo(agoraStream, video) {
-  video.srcObject = agoraStream.stream;// add video stream to video element as source
-  video.onloadedmetadata = () => {
-    // ready to play video
-    video.play();
-    setInterval(removeBg(video), 100); // * Call the segmenting fu
-  }
 }
 
 function changeStreamSource (deviceIndex, deviceType) {
