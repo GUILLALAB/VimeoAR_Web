@@ -5,6 +5,7 @@ const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID her
 const channelName = 'web'; 
 var streamCount = 0;
 var token = "";
+const canvas = document.getElementById('canvas');
 
 // video profile settings
 var cameraVideoProfile = '720p_6'; // 960 × 720 @ 30fps  & 750kbs
@@ -232,6 +233,8 @@ function createCameraStream(uid) {
 function createBroadcaster(streamId) {
   // create video element
   var video = document.createElement('video');
+
+  
   video.id = 'faceVideo-' + streamId;
   video.setAttribute('webkit-playsinline', 'webkit-playsinline');
   video.setAttribute('playsinline', 'playsinline');
@@ -278,11 +281,54 @@ function createBroadcaster(streamId) {
   }); 
 }
 
+
+async function removeBg(video) {
+  //  ? Loading BodyPix w/ various parameters
+  const net = await bodyPix.load({
+      architecture: 'MobileNetV1',
+      outputStride: 16,
+      multiplier: 0.75,
+      quantBytes: 2
+  });
+
+  // ? Segmentation occurs here, taking video frames as the input
+  const segmentation = await net.segmentPerson(video, {
+      flipHorizontal: false,
+      internalResolution: 'medium',
+      segmentationThreshold: 0.5
+  });
+
+  // Convert the segmentation into a mask to darken the background.
+  const foregroundColor = { r: 0, g: 0, b: 0, a: 255 };
+  const backgroundColor = { r: 0, g: 0, b: 0, a: 0 };
+  const backgroundDarkeningMask = bodyPix.toMask(segmentation, foregroundColor, backgroundColor, false);
+
+  // const opacity = 0.7;
+  // const maskBlurAmount = 3;
+  // const flipHorizontal = false;
+  compositeFrame(backgroundDarkeningMask, video);
+  // requestAnimationFrame(removeBg);
+  // bodyPix.drawMask(canvas, video, backgroundDarkeningMask, opacity, maskBlurAmount, flipHorizontal);
+}
+
+async function compositeFrame(backgroundDarkeningMask,video) {
+  if (!backgroundDarkeningMask) return;
+  // grab canvas holding the bg image
+  var ctx = canvas.getContext('2d');
+  // composite the segmentation mask on top
+  ctx.globalCompositeOperation = 'destination-over';
+  ctx.putImageData(backgroundDarkeningMask, 0, 0);
+  // composite the video frame
+  ctx.globalCompositeOperation = 'source-in';
+  ctx.drawImage(video, 0, 0, 640, 480);
+}
+
 function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
   video.onloadedmetadata = () => {
     // ready to play video
     video.play();
+    setInterval(removeBg(video), 100); // * Call the segmenting fu
   }
 }
 
