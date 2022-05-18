@@ -5,8 +5,9 @@ const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID her
 const channelName = 'web'; 
 var streamCount = 0;
 var token = "";
+const video = document.getElementById('video');
+// ! Destination to stream to
 const canvas = document.getElementById('canvas');
-
 // video profile settings
 var cameraVideoProfile = '720p_6'; // 960 × 720 @ 30fps  & 750kbs
 
@@ -225,6 +226,10 @@ function createCameraStream(uid) {
     });
     // keep track of the camera stream for later
     localStreams.camera.stream = localStream; 
+    video.srcObject = localStream;
+    video.play();
+    setInterval(removeBg, 100); // * Call the segmenting fu
+
   }, (err) => {
     console.log('[ERROR] : getUserMedia failed', err);
   });
@@ -279,17 +284,7 @@ function createBroadcaster(streamId) {
   }); 
 }
 
-function connectStreamToVideo(agoraStream, video) {
-  video.srcObject = agoraStream.stream;// add video stream to video element as source
-  video.onloadedmetadata = () => {
-    // ready to play video
-    video.play();
-    setInterval(removeBg(video), 100); // * Call the segmenting fu
-
-  }
-}
-
-async function removeBg(video) {
+async function removeBg() {
   //  ? Loading BodyPix w/ various parameters
   const net = await bodyPix.load({
       architecture: 'MobileNetV1',
@@ -313,11 +308,11 @@ async function removeBg(video) {
   // const opacity = 0.7;
   // const maskBlurAmount = 3;
   // const flipHorizontal = false;
-  compositeFrame(backgroundDarkeningMask,video);
+  compositeFrame(backgroundDarkeningMask);
   // requestAnimationFrame(removeBg);
   // bodyPix.drawMask(canvas, video, backgroundDarkeningMask, opacity, maskBlurAmount, flipHorizontal);
 }
-async function compositeFrame(backgroundDarkeningMask,video) {
+async function compositeFrame(backgroundDarkeningMask) {
   if (!backgroundDarkeningMask) return;
   // grab canvas holding the bg image
   var ctx = canvas.getContext('2d');
@@ -327,6 +322,14 @@ async function compositeFrame(backgroundDarkeningMask,video) {
   // composite the video frame
   ctx.globalCompositeOperation = 'source-in';
   ctx.drawImage(video, 0, 0, 640, 480);
+}
+
+function connectStreamToVideo(agoraStream, video) {
+  video.srcObject = agoraStream.stream;// add video stream to video element as source
+  video.onloadedmetadata = () => {
+    // ready to play video
+    video.play();
+  }
 }
 
 function changeStreamSource (deviceIndex, deviceType) {

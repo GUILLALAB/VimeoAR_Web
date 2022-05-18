@@ -29,10 +29,16 @@
         <div class="container-fluid p-0">
 
             <div id="main-container">
+                <div class="video box">
+                    <video id="video" autoplay width="640px" height="480px">
+        
+                    </video>
+                </div>
                 <div class="removed box">
                     <canvas id="canvas" autoplay width="640px" height="480px">
         
-                    </canvas></div>
+                    </canvas>
+                </div>
                     <style>
                         h1 {
                             text-align: center;
@@ -63,7 +69,7 @@
                             margin: 5px;
                         }
                     </style>
-                    
+
                 <div id="buttons-container" class="row justify-content-center mt-3">
                     <div id="audio-controls" class="col-md-2 text-center btn-group">
                         <button id="mic-btn" type="button" class="btn btn-block btn-dark btn-lg">
