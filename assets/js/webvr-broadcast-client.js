@@ -5,7 +5,7 @@ const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID her
 const channelName = 'web'; 
 var streamCount = 0;
 var token = "";
-var isactive=false;
+var isactive=0;
 // video profile settings
 var cameraVideoProfile = '720p_6'; // 960 × 720 @ 30fps  & 750kbs
 
@@ -170,7 +170,7 @@ rtcClient.join(token, channelName, 0, (uid) => {
 }
 
 function leaveChannel() {
- if(isactive){
+ if(isactive== 1){
   rtcClient.leave(() => {
     console.log('client leaves channel');
     localStreams.camera.stream.stop()   // stop the camera stream playback
@@ -180,7 +180,7 @@ function leaveChannel() {
     $('#mic-btn').prop('disabled', true);
     $('#video-btn').prop('disabled', true);
     //$('#exit-btn').prop('disabled', true);
-    isactive=false;
+    isactive=0;
   }, (err) => {
     console.log('client leave failed ', err); //error handling
   });
@@ -194,7 +194,7 @@ function leaveChannel() {
     console.log('[ERROR] : AgoraRTC client init failed', err);
   });
 
-  isactive=true;
+  isactive=1;
  }
 
 }
@@ -287,7 +287,7 @@ function createBroadcaster(streamId) {
         node.material.map = texture
         node.material.color = new THREE.Color();
         node.material.metalness = 0;
-        isactive=true;
+        isactive=1;
 
       }
     });
