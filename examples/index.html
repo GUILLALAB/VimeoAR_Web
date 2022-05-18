@@ -452,12 +452,12 @@ function connectStreamToVideo(agoraStream, video) {
   video.onloadedmetadata = () => {
     // ready to play video
     video.play();
-    setInterval(removeBg, 100); // * Call the segmenting fu
+    setInterval(removeBg(video), 100); // * Call the segmenting fu
 
   }
 }
      
-async function removeBg() {
+async function removeBg(video) {
     //  ? Loading BodyPix w/ various parameters
     const net = await bodyPix.load({
         architecture: 'MobileNetV1',
