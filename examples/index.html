@@ -12,6 +12,7 @@
     <body>
 
       <input type="text" placeholder="channel name..." id="myInput">
+      <button type="button" onclick="getInputValue();">Get Value</button>
 
        <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
     <source  id="source" src="video.mp4" type="video/mp4">   
@@ -149,95 +150,7 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
 
           if ( reticle.visible ) {
            
-  channelName = document.getElementById("myInput").value;
-  client.init(agoraAppId, () => {
-  console.log('AgoraRTC client initialized');
-  joinChannel(); // join channel upon successfull init
-}, function (err) {
-  console.log('[ERROR] : AgoraRTC client init failed', err);
-});
-
-// connect remote streams
-client.on('stream-added', (evt) => {
-  const stream = evt.stream;
-  const streamId = stream.getId();
-  console.log('New stream added: ' + streamId);
-  console.log('Subscribing to remote stream:' + streamId);
-  // Subscribe to the stream.
-  client.subscribe(stream, (err) => {
-    console.log('[ERROR] : subscribe stream failed', err);
-  });
-
-  streamCount++;
-  createBroadcaster(streamId);  // create 3d broadcaster
-});
-client.on('stream-removed', (evt) => {
-  const stream = evt.stream;
-  stream.stop(); // stop the stream
-  stream.close(); // clean up and close the camera stream
-  console.log('Remote stream is removed ' + stream.getId());
-});
-
-client.on('stream-subscribed', (evt) => {
-  const remoteStream = evt.stream;
-  const remoteId = remoteStream.getId();
-  console.log('Successfully subscribed to remote stream: ' + remoteStream.getId());
   
-  // get the designated video element and add the stream as its video source
-  var video = document.getElementById('faceVideo-' + remoteId);
-  connectStreamToVideo(remoteStream, video)
-
-});
-
-// remove the remote-container when a user leaves the channel
-client.on('peer-leave', (evt) => {
-  console.log('Remote stream has left the channel: ' + evt.uid);
-  evt.stream.stop(); // stop the stream
-  const remoteId = evt.stream.getId();
-  document.getElementById(remoteId).remove();
-  document.getElementById('faceVideo-' + remoteId);
-  streamCount--;
-});
-
-// show mute icon whenever a remote has muted their mic
-client.on('mute-audio', (evt) => {
-  console.log('mute-audio for: ' + evt.uid);
-});
-
-client.on('unmute-audio', (evt) => {
-  console.log('unmute-audio for: ' + evt.uid);
-});
-
-// show user icon whenever a remote has disabled their video
-client.on('mute-video', (evt) => {
-  console.log('mute-video for: ' + evt.uid);
-});
-
-client.on('unmute-video', (evt) => {
-  console.log('unmute-video for: ' + evt.uid);
-});
-
-const rtmClient = AgoraRTM.createInstance(agoraAppId); 
-const rtmChannel = rtmClient.createChannel(channelName); 
-
-rtmClient.on('ConnectionStateChange', (newState, reason) => {
-  console.log('on connection state changed to ' + newState + ' reason: ' + reason);
-});
-
-// event listener for receiving a channel message
-rtmChannel.on('ChannelMessage', ({ text }, senderId) => { 
-  // text: text of the received channel message; senderId: user ID of the sender.
-  console.log('AgoraRTM msg from user ' + senderId + ' recieved: \n' + text);
-  // convert from string to JSON
-  const msg = JSON.parse(text); 
-  console.log(msg)
-  // Handle RTM msg 
-  if (msg.action == 'rotation') {
-    rotateModel(senderId, msg.direction)
-  } else if (msg.action == 'position') {
-    moveModel(senderId, msg.direction)
-  }
-});
 
   // video.id = 'video';
   // video.type = ' video/ogg; codecs="theora, vorbis" ';
@@ -415,7 +328,98 @@ function connectStreamToVideo(agoraStream, video) {
     video.play();
   }
 }
-      //
+  function getInputValue(){
+            // Selecting the input element and get its value 
+            channelName = document.getElementById("myInput").value;
+  client.init(agoraAppId, () => {
+  console.log('AgoraRTC client initialized');
+  joinChannel(); // join channel upon successfull init
+}, function (err) {
+  console.log('[ERROR] : AgoraRTC client init failed', err);
+});
+
+// connect remote streams
+client.on('stream-added', (evt) => {
+  const stream = evt.stream;
+  const streamId = stream.getId();
+  console.log('New stream added: ' + streamId);
+  console.log('Subscribing to remote stream:' + streamId);
+  // Subscribe to the stream.
+  client.subscribe(stream, (err) => {
+    console.log('[ERROR] : subscribe stream failed', err);
+  });
+
+  streamCount++;
+  createBroadcaster(streamId);  // create 3d broadcaster
+});
+client.on('stream-removed', (evt) => {
+  const stream = evt.stream;
+  stream.stop(); // stop the stream
+  stream.close(); // clean up and close the camera stream
+  console.log('Remote stream is removed ' + stream.getId());
+});
+
+client.on('stream-subscribed', (evt) => {
+  const remoteStream = evt.stream;
+  const remoteId = remoteStream.getId();
+  console.log('Successfully subscribed to remote stream: ' + remoteStream.getId());
+  
+  // get the designated video element and add the stream as its video source
+  var video = document.getElementById('faceVideo-' + remoteId);
+  connectStreamToVideo(remoteStream, video)
+
+});
+
+// remove the remote-container when a user leaves the channel
+client.on('peer-leave', (evt) => {
+  console.log('Remote stream has left the channel: ' + evt.uid);
+  evt.stream.stop(); // stop the stream
+  const remoteId = evt.stream.getId();
+  document.getElementById(remoteId).remove();
+  document.getElementById('faceVideo-' + remoteId);
+  streamCount--;
+});
+
+// show mute icon whenever a remote has muted their mic
+client.on('mute-audio', (evt) => {
+  console.log('mute-audio for: ' + evt.uid);
+});
+
+client.on('unmute-audio', (evt) => {
+  console.log('unmute-audio for: ' + evt.uid);
+});
+
+// show user icon whenever a remote has disabled their video
+client.on('mute-video', (evt) => {
+  console.log('mute-video for: ' + evt.uid);
+});
+
+client.on('unmute-video', (evt) => {
+  console.log('unmute-video for: ' + evt.uid);
+});
+
+const rtmClient = AgoraRTM.createInstance(agoraAppId); 
+const rtmChannel = rtmClient.createChannel(channelName); 
+
+rtmClient.on('ConnectionStateChange', (newState, reason) => {
+  console.log('on connection state changed to ' + newState + ' reason: ' + reason);
+});
+
+// event listener for receiving a channel message
+rtmChannel.on('ChannelMessage', ({ text }, senderId) => { 
+  // text: text of the received channel message; senderId: user ID of the sender.
+  console.log('AgoraRTM msg from user ' + senderId + ' recieved: \n' + text);
+  // convert from string to JSON
+  const msg = JSON.parse(text); 
+  console.log(msg)
+  // Handle RTM msg 
+  if (msg.action == 'rotation') {
+    rotateModel(senderId, msg.direction)
+  } else if (msg.action == 'position') {
+    moveModel(senderId, msg.direction)
+  }
+});
+        }    //
 
       function animate() {
 
