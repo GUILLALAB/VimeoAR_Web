@@ -287,6 +287,8 @@ function createBroadcaster(streamId) {
         node.material.map = texture
         node.material.color = new THREE.Color();
         node.material.metalness = 0;
+        isactive=true;
+
       }
     });
   }); 
@@ -296,7 +298,6 @@ function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
   video.onloadedmetadata = () => {
     // ready to play video
-    isactive=true;
     video.play();
   }
 }
