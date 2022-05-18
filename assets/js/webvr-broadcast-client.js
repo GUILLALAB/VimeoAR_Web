@@ -5,7 +5,7 @@ const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID her
 const channelName = 'web'; 
 var streamCount = 0;
 var token = "";
-
+var isactive=false;
 // video profile settings
 var cameraVideoProfile = '720p_6'; // 960 × 720 @ 30fps  & 750kbs
 
@@ -170,7 +170,7 @@ rtcClient.join(token, channelName, 0, (uid) => {
 }
 
 function leaveChannel() {
-
+ if(isactive){
   rtcClient.leave(() => {
     console.log('client leaves channel');
     localStreams.camera.stream.stop()   // stop the camera stream playback
@@ -179,10 +179,24 @@ function leaveChannel() {
     //disable the UI elements
     $('#mic-btn').prop('disabled', true);
     $('#video-btn').prop('disabled', true);
-    $('#exit-btn').prop('disabled', true);
+    //$('#exit-btn').prop('disabled', true);
+    isactive=false;
   }, (err) => {
     console.log('client leave failed ', err); //error handling
   });
+ }else{
+  var rtcClient = AgoraRTC.createClient({mode: 'live', codec: 'vp8'}); // vp8 to work across mobile devices
+
+  rtcClient.init(agoraAppId, () => {
+    console.log('AgoraRTC client initialized');
+    joinChannel(); // join channel upon successfull init
+  }, function (err) {
+    console.log('[ERROR] : AgoraRTC client init failed', err);
+  });
+
+  isactive=true;
+ }
+
 }
 
 // video streams for channel
@@ -282,6 +296,7 @@ function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
   video.onloadedmetadata = () => {
     // ready to play video
+    isactive=true;
     video.play();
   }
 }
