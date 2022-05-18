@@ -395,6 +395,7 @@ function createBroadcaster(streamId) {
       scene.add( mesh );
       isset=1;
 
+      mesh.position.setFromMatrixPosition( reticle.matrix );
 
 
   // add event listener for model loaded: 
