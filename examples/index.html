@@ -7,9 +7,34 @@
     
     <script src="/js/AgoraRTCSDK-3.0.2.js" type="text/javascript"></script>
     <script src="/js/agora-rtm-sdk-1.2.2.js" type="text/javascript"></script>
-    
+    <link href="https://fonts.googleapis.com/css?family=Heebo:400,700|Oxygen:700" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://unpkg.com/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
     <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
     <body>
+
+      <section class="hero text-center text-light">
+				<div class="hero-bg"></div>
+				<div class="hero-particles-container">
+					<canvas id="hero-particles"></canvas>
+				</div>
+                <div class="container-sm">
+                    <div class="hero-inner">
+						<div class="hero-copy">
+	                        <h1 class="hero-title mt-0">Live AR</h1>
+	                        <p class="hero-paragraph">Broadcast and Visualize Live Streaming video in Augmented Reality, peoples can see you live in their environment.
+							</p>
+	                      
+						</div>
+						<div class="mockup-container">
+							<div class="mockup-bg">
+								<img src="/images/iphone-hero-bg.svg" alt="iPhone illustration">
+							</div>
+							<img class="device-mockup" src="/images/iphone-hero.png" alt="iPhone Hero">
+						</div>
+                    </div>
+                </div>
+            </section>
 
       <input type="text" placeholder="channel name..." id="myInput">
 
@@ -491,6 +516,8 @@ function connectStreamToVideo(agoraStream, video) {
       }
 
       </script>  
+          <script src="/js/main.min.js"></script>
+
     </body>
 
     <!-- for broadcast user use: https://digitallysavvy.github.io/group-video-chat -->
