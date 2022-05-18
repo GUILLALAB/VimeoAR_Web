@@ -78,8 +78,7 @@
     let client;
     var streamCount;
     var channelName;
-    const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
-
+    var agoraAppId;
     init();
     animate();
 
@@ -101,14 +100,15 @@
 
     client = AgoraRTC.createClient({mode: 'live', codec: 'vp8'}); // vp8 to work across mobile devices
 
+ agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
  channelName = 'web'; 
+
  streamCount = 0;
 
 // set log level:
 // -- .DEBUG for dev 
 // -- .NONE for prod
 AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG); 
-
 
 
       container = document.createElement( 'div' );
@@ -148,7 +148,9 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         function onSelect() {
 
           if ( reticle.visible ) {
-            client.init(agoraAppId, () => {
+           
+  channelName = document.getElementById("myInput").value;
+  client.init(agoraAppId, () => {
   console.log('AgoraRTC client initialized');
   joinChannel(); // join channel upon successfull init
 }, function (err) {
