@@ -61,6 +61,10 @@ app.get('/index', (request, response) => {
 app.get('/broadcaster', (request, response) => {
   response.render('broadcaster.html',{ name: 'Tobi' });
 });
+app.get('/menu', (request, response) => {
+  response.render('menu.html',{ name: 'Tobi' });
+});
+
 
 app.get('/shapes', (request, response) => {
   response.render('shapes.html');
