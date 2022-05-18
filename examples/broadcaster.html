@@ -29,6 +29,41 @@
         <div class="container-fluid p-0">
 
             <div id="main-container">
+                <div class="removed box">
+                    <canvas id="canvas" autoplay width="640px" height="480px">
+        
+                    </canvas></div>
+                    <style>
+                        h1 {
+                            text-align: center;
+                            padding: 2rem;
+                        }
+                
+                        #video,
+                        #canvas {
+                            border: 2px solid black;
+                            text-align: center;
+                        }
+                
+                        #canvas {
+                            background-image: url('bg.jpg');
+                        }
+                
+                        .parent {
+                            display: flex;
+                            flex-wrap: wrap;
+                            justify-content: center;
+                        }
+                
+                        .box {
+                            flex: 1 1 150px;
+                            /*  Stretching: */
+                            flex: 0 1 150px;
+                            /*  No stretching: */
+                            margin: 5px;
+                        }
+                    </style>
+                    
                 <div id="buttons-container" class="row justify-content-center mt-3">
                     <div id="audio-controls" class="col-md-2 text-center btn-group">
                         <button id="mic-btn" type="button" class="btn btn-block btn-dark btn-lg">
@@ -58,41 +93,8 @@
                     
                 </div>
 
-                 <div class="removed box">
-            <canvas id="canvas" autoplay width="640px" height="480px">
+              
 
-            </canvas></div>
-            <style>
-                h1 {
-                    text-align: center;
-                    padding: 2rem;
-                }
-        
-                #video,
-                #canvas {
-                    border: 2px solid black;
-                    text-align: center;
-                }
-        
-                #canvas {
-                    background-image: url('bg.jpg');
-                }
-        
-                .parent {
-                    display: flex;
-                    flex-wrap: wrap;
-                    justify-content: center;
-                }
-        
-                .box {
-                    flex: 1 1 150px;
-                    /*  Stretching: */
-                    flex: 0 1 150px;
-                    /*  No stretching: */
-                    margin: 5px;
-                }
-            </style>
-            
                 <div id="full-screen-video">
                     <a-scene>
                         <a-assets>
