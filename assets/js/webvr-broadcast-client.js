@@ -1,7 +1,7 @@
 // Agora settings
 //import {sayHello} from './server.js';
-import {segment} from "/js/modules/segment.mjs";
-import {addTransparency} from "/js/modules/transparency.mjs";
+import {segment} from "/modules/segment.mjs";
+import {addTransparency} from "/modules/transparency.mjs";
 
 const videoElement = document.querySelector('video#gum_video');
 const transparentCanvas = document.querySelector('canvas#transparent_canvas');
