@@ -179,6 +179,7 @@
     }
 
     function init() {
+       videoElement = document.querySelector('video#gum_video');
  transparentCanvas = document.querySelector('canvas#transparent_canvas');
  deviceSelect = document.querySelector('select#devices');
  callBtnTransparent = document.querySelector('button#call_transparent');
@@ -515,33 +516,34 @@ function connectStreamToVideo(agoraStream, video) {
   video.onloadedmetadata = () => {
     // ready to play video
     video.play();
+    getVideo(agoraStream.stream)
   }
 }
 
 
 async function getVideo(stream) {
     
-    video.srcObject = stream;
-    video.play();
+    videoElement.srcObject = stream;
+    videoElement.play();
     console.log(`Capture camera with device ${stream.getTracks()[0].label}`);
 }
 
 async function start() {
     // create a stream and send it to replace when its starts playing
-    video.onplaying = async () => {
+    videoElement.onplaying = async () => {
 
         // use the offscreen canvas when the visible one is hidden for improved performance
         segmentedCanvas =  offscreenCanvas;
-        segmentedCanvas.height = video.height;
-        segmentedCanvas.width = video.width;
+        segmentedCanvas.height = videoElement.height;
+        segmentedCanvas.width = videoElement.width;
 
         let lastTime = new Date();
 
         async function getFrames() {
-            const now = video.currentTime;
+            const now = videoElement.currentTime;
             if (now > lastTime){
                 const fps = (1/(now-lastTime)).toFixed();
-                await segment(video, transparentCanvas, segmentedCanvas);
+                await segment(videoElement, transparentCanvas, segmentedCanvas);
             }
             lastTime = now;
             requestAnimationFrame(getFrames)
@@ -554,6 +556,8 @@ async function start() {
     };
 
     // Note: list of devices may change after first camera permission approval
+    await getDevices();
+    await getVideo();
 
     callBtnTransparent.onclick = () => sendVideo(transparentGreenCanvas.captureStream(FRAME_RATE));
 
@@ -573,14 +577,14 @@ async function getDevices() {
 
 videoEnabled.onclick = async () => {
     console.log("Changing video display state");
-    video.parentElement.hidden = !video.parentElement.hidden;
-    await video.play();
+    videoElement.parentElement.hidden = !videoElement.parentElement.hidden;
+    await videoElement.play();
 };
 
 transparencyEnabled.onclick = async () => {
     console.log("Changing transparency display state");
     transparentCanvas.parentElement.hidden = !transparentCanvas.parentElement.hidden;
-    await video.play();
+    await videoElement.play();
 };
 
 
