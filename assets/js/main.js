@@ -4,9 +4,6 @@ const transparentCanvas = document.querySelector('canvas#transparent_canvas');
 const deviceSelect = document.querySelector('select#devices');
 
 const callBtnTransparent = document.querySelector('button#call_transparent');
-const callBtnGreen = document.querySelector('button#call_green');
-const callBtnTransparentCanvas = document.querySelector('button#call_transparent_green');
-const callBtnTransparentWebgl = document.querySelector('button#call_transparent_webgl');
 
 const videoEnabled = document.querySelector('input#show_video');
 const transparencyEnabled = document.querySelector('input#show_transparency');
@@ -18,12 +15,7 @@ let height, width;
 // canvas green screen controls
 const gFloorRange = 105;
 const rbCeilingRange = 80;
-
-
-
-
 const FRAME_RATE = 25;
-
 let videoWidth = 640;
 let videoHeight = 480;
 
