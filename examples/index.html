@@ -57,7 +57,7 @@
               </div>
       
               <div>
-                  <input type="checkbox" id="show_video" unchecked/>
+                  <input type="checkbox" id="show_video" checked/>
                   <label for="show_video">Webcam video</label>
       
                   <input type="checkbox" id="show_transparency" checked/>
@@ -155,8 +155,8 @@
         var offscreenCanvas;
 let height, width;
 let videoDevices = [];
-var cube;
-var cubes;
+
+
 
 // canvas green screen controls
 const gFloorRange = 105;
@@ -164,8 +164,7 @@ const rbCeilingRange = 80;
 const FRAME_RATE = 25;
 let videoWidth = 320/2;
 let videoHeight = 240/2;
-var ctx;
-var textures;
+
 // Safari & Firefox don't support OffscreenCanvas
 
 
@@ -342,29 +341,10 @@ rtmChannel.on('ChannelMessage', ({ text }, senderId) => {
   // video.type = ' video/ogg; codecs="theora, vorbis" ';
 
   if(isset==0){
-
-
- cubes = [];  // just an array we can use to rotate the cubes
- 
- ctx = document.createElement('canvas').getContext('2d');
-ctx.canvas.width = 256;
-ctx.canvas.height = 256;
-ctx.fillStyle = '#FFF';
-ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-textures = new THREE.CanvasTexture(ctx.canvas);
- 
-const material = new THREE.MeshBasicMaterial({
-  map: textures,
-});
- cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
-cubes.push(cube);  // add to our list of cubes to rotate
-isset=1;
-
+  
     }else{
-      cube.position.setFromMatrixPosition( reticle.matrix );
-
-  //     mesh.position.setFromMatrixPosition( reticle.matrix );
+  
+       mesh.position.setFromMatrixPosition( reticle.matrix );
     }
 
   }
@@ -474,24 +454,6 @@ function moveModel(uid, direction) {
   }   
 }
 
-function randInt(min, max) {
-  if (max === undefined) {
-    max = min;
-    min = 0;
-  }
-  return Math.random() * (max - min) + min | 0;
-}
- 
-function drawRandomDot(ctx) {
-  ctx.fillStyle = `#${randInt(0x1000000).toString(16).padStart(6, '0')}`;
-  ctx.beginPath();
- 
-  const x = randInt(256);
-  const y = randInt(256);
-  const radius = randInt(10, 64);
-  ctx.arc(x, y, radius, 0, Math.PI * 2);
-  ctx.fill();
-}
 
 // use tokens for added security
 function generateToken() {
@@ -502,7 +464,7 @@ function createBroadcaster(streamId) {
   // create video element
   video = document.getElementById( 'video' )
   video.id = 'faceVideo-' + streamId;;
- /*   texture = new THREE.VideoTexture( video );
+    texture = new THREE.VideoTexture( video );
     texture.minFilter = THREE.LinearFilter;
     texture.magFilter = THREE.LinearFilter;
     texture.format = THREE.RGBFormat;
@@ -531,7 +493,7 @@ function createBroadcaster(streamId) {
 
 
       isset=1;
-*/
+
 
 
   // add event listener for model loaded: 
@@ -547,7 +509,7 @@ function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
        // mesh.position.setFromMatrixPosition( reticle.matrix );
         videoElement.srcObject = agoraStream.stream;
-        videoElement.play();
+         videoElement.play();
   video.onloadedmetadata = () => {
     // ready to play video
     video.play();
@@ -575,7 +537,7 @@ async function start() {
     // create a stream and send it to replace when its starts playing
     videoElement.onplaying = async () => {
       console.log("Start transparency display state");
- 
+
         // use the offscreen canvas when the visible one is hidden for improved performance
         segmentedCanvas =  offscreenCanvas;
         segmentedCanvas.height = videoElement.height;
@@ -777,19 +739,6 @@ start().catch(err => console.error(err));
               texture.needsUpdate = true;
           }
         }
-
-        if(textures!=null){
-        timestamp *= 0.001;
-        drawRandomDot();
-  textures.needsUpdate = true;
- 
-  cubes.forEach((cube, ndx) => {
-    const speed = .2 + ndx * .1;
-    const rot = time * speed;
-    cube.rotation.x = rot;
-    cube.rotation.y = rot;
-  });
-}
         renderer.render( scene, camera );
 
       }
