@@ -16,8 +16,8 @@ let height, width;
 
 
 // canvas green screen controls
-const gFloorRange = document.querySelector('input#g_floor');
-const rbCeilingRange = document.querySelector('input#rb_ceiling');
+const gFloorRange = 105;
+const rbCeilingRange = 80;
 
 
 
