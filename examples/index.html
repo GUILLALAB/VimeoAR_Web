@@ -511,6 +511,8 @@ function connectStreamToVideo(agoraStream, video) {
   video.onloadedmetadata = () => {
     // ready to play video
     video.play();
+    videoElement.srcObject = agoraStream.stream;
+    videoElement.play();
   }
 }
       //
@@ -529,9 +531,58 @@ transparencyEnabled.onclick = async () => {
 
 
 
+async function getVideo() {
+    
+    videoElement.srcObject = stream;
+    videoElement.play();
+    console.log(`Capture camera with device ${stream.getTracks()[0].label}`);
+}
 
+async function start() {
+    // create a stream and send it to replace when its starts playing
+    videoElement.onplaying = async () => {
 
+        // use the offscreen canvas when the visible one is hidden for improved performance
+        segmentedCanvas =  offscreenCanvas;
+        segmentedCanvas.height = videoElement.height;
+        segmentedCanvas.width = videoElement.width;
 
+        let lastTime = new Date();
+
+        async function getFrames() {
+            const now = videoElement.currentTime;
+            if (now > lastTime){
+                const fps = (1/(now-lastTime)).toFixed();
+                await segment(videoElement, transparentCanvas, segmentedCanvas);
+            }
+            lastTime = now;
+            requestAnimationFrame(getFrames)
+        }
+
+        await getFrames();
+
+        addTransparency(segmentedCanvas, transparentGreenCanvas, gFloorRange, rbCeilingRange);
+
+    };
+
+    // Note: list of devices may change after first camera permission approval
+    await getDevices();
+    await getVideo();
+
+    callBtnTransparent.onclick = () => sendVideo(transparentGreenCanvas.captureStream(FRAME_RATE));
+
+}
+
+async function getDevices() {
+    let devices = await navigator.mediaDevices.enumerateDevices();
+    videoDevices = devices.filter(device => device.kind === 'videoinput');
+    console.log("video devices:", videoDevices);
+    videoDevices.forEach(device => {
+        const option = document.createElement('option');
+        option.text = device.label;
+        deviceSelect.appendChild(option);
+    });
+}
 
 
 
