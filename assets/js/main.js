@@ -13,19 +13,13 @@ const transparencyEnabled = document.querySelector('input#show_transparency');
 
 let height, width;
 
-const qvgaBtn = document.querySelector('button#qvga');
-const vgaBtn = document.querySelector('button#vga');
-const hdBtn = document.querySelector('button#hd');
+
 
 // canvas green screen controls
 const gFloorRange = document.querySelector('input#g_floor');
 const rbCeilingRange = document.querySelector('input#rb_ceiling');
 
-// webGL controls
-const keyColor = document.getElementById("keyColor");
-const similarityRange = document.getElementById("similarity");
-const smoothnessRange = document.getElementById("smoothness");
-const spillRange = document.getElementById("spill");
+
 
 
 const FRAME_RATE = 25;
@@ -114,23 +108,7 @@ async function getDevices() {
 
 deviceSelect.onchange = getVideo;
 
-qvgaBtn.onclick = async () => {
-    videoWidth = 320;
-    videoHeight = 240;
-    await getVideo();
-};
 
-vgaBtn.onclick = async () => {
-    videoWidth = 640;
-    videoHeight = 480;
-    await getVideo();
-};
-
-hdBtn.onclick = async () => {
-    videoWidth = 1280;
-    videoHeight = 720;
-    await getVideo();
-};
 
 
 videoEnabled.onclick = async () => {
@@ -146,6 +124,15 @@ transparencyEnabled.onclick = async () => {
 };
 
 
+
+
+
+
+
+
+
+
+
 function transparent(results, ctx) {
     ctx.clearRect(0, 0, width, height);
 
@@ -156,6 +143,8 @@ function transparent(results, ctx) {
     ctx.globalCompositeOperation = 'source-in';
     ctx.drawImage(results.image, 0, 0, width, height);
 }
+
+
 
 function greenScreen(results, ctx) {
     ctx.clearRect(0, 0, width, height);
@@ -179,6 +168,10 @@ const selfieSegmentation = new SelfieSegmentation({locateFile: (file) => {
 selfieSegmentation.setOptions({
     modelSelection: 1,
 });
+
+
+
+
 
  async function segment(videoElement, transparentCanvas, greenCanvas){
 

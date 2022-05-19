@@ -1,7 +1,10 @@
 // Agora settings
+//import {sayHello} from './server.js';
+
 const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
 const channelName = 'web'; 
 var streamCount = 0;
+var token = "";
 
 // video profile settings
 var cameraVideoProfile = '720p_6'; // 960 × 720 @ 30fps  & 750kbs
@@ -10,6 +13,7 @@ var cameraVideoProfile = '720p_6'; // 960 × 720 @ 30fps  & 750kbs
 // -- .DEBUG for dev 
 // -- .NONE for prod
 AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG); 
+//sayHello('Jack');
 
 // keep track of streams
 var localStreams = {
@@ -131,24 +135,38 @@ rtcClient.on('unmute-video', (evt) => {
 
 // join a channel
 function joinChannel() {
-  const token = "006e76fbfaa876b4c68a5d92d92aa6ad3b1IAC65Dyv54bKDtzoB7jZ7wYISoX/nV8ILs2tYlTXSG99O1E4yRUAAAAAEAB5wLBGSpl3YgEAAQBJmXdi";
-
+  //alert(name);
   // set the role
-  rtcClient.setClientRole('audience', () => {
-    console.log('Client role set to audience');
-  }, (e) => {
-    console.log('setClientRole failed', e);
-  });
-  
-  rtcClient.join(token, channelName, 0, (uid) => {
-      console.log('User ' + uid + ' join channel successfully');
-      localStreams.uid = uid
-      createBroadcaster(uid);   // Load 3D model with video texture
-      createCameraStream(uid);  // Create the camera stream
-      joinRTMChannel(uid);      // join the RTM channel
-  }, (err) => {
-      console.log('[ERROR] : join channel failed', err);
-  });
+
+  fetch("https://livear.herokuapp.com/rte/web/publisher/uid/44/86400").then(function(response) {
+return response.json();
+}).then(function(data) {
+token = data.rtcToken;
+//  alert(token);
+
+rtcClient.setClientRole('audience', () => {
+  console.log('Client role set to audience');
+}, (e) => {
+  console.log('setClientRole failed', e);
+});
+ token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IAD0jDY9OgQwnwUDk/5+To1+H5LZm+FzukKT27JOfrbW8VE4yRUAAAAAEACXaa56uA2GYgEAAQC3DYZi";
+
+rtcClient.join(token, channelName, 0, (uid) => {
+
+    console.log('User ' + uid + ' join channel successfully');
+    localStreams.uid = uid;
+    createBroadcaster(uid);   // Load 3D model with video texture
+    createCameraStream(uid);  // Create the camera stream
+    joinRTMChannel(uid);      // join the RTM channel
+}, (err) => {
+    console.log('[ERROR] : join channel failed', err);
+});
+
+}).catch(function() {
+});
+
+
+
 }
 
 function leaveChannel() {
@@ -226,7 +244,7 @@ function createBroadcaster(streamId) {
   const gltfModel = '#broadcaster';
   const scale = '1 1 1'; 
   const offset = streamCount;
-  const position = offset + ' -1 0';
+  const position = offset*3 + ' -2 0';
   const rotation = '0 0 0';
 
   // create the broadcaster element using the given settings 
@@ -348,6 +366,7 @@ function getCameraDevices() {
       const optionId = 'camera_' + i;
       const deviceId = camera.deviceId;
       if(i === 0 && localStreams.camera.camId === ''){
+        
         localStreams.camera.camId = deviceId;
       }
       $('#camera-list').append('<a class=\'dropdown-item\' id= ' + optionId + '>' + name + '</a>');
@@ -382,10 +401,8 @@ function getMicDevices() {
   });
 }
 
-// use tokens for added security
-function generateToken() {
-  return null; // TODO: add a token generation
-}
+
+
 
 function rotateModel(uid, direction, send) {
   if (send) {

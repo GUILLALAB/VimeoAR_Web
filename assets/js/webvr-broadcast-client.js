@@ -366,6 +366,7 @@ function getCameraDevices() {
       const optionId = 'camera_' + i;
       const deviceId = camera.deviceId;
       if(i === 0 && localStreams.camera.camId === ''){
+        
         localStreams.camera.camId = deviceId;
       }
       $('#camera-list').append('<a class=\'dropdown-item\' id= ' + optionId + '>' + name + '</a>');
