@@ -464,42 +464,15 @@ function createBroadcaster(streamId) {
   // create video element
   video = document.getElementById( 'video' )
   video.id = 'faceVideo-' + streamId;;
-   /* texture = new THREE.VideoTexture( video );
-    texture.minFilter = THREE.LinearFilter;
-    texture.magFilter = THREE.LinearFilter;
-    texture.format = THREE.RGBFormat;
-    texture.flipY = true;
+    texture = new THREE.VideoTexture( transparentCanvas );
+  
 
     var geometry = new THREE.PlaneBufferGeometry( 1, 1);
-
-    const vertexShader = document.getElementById("vertexShader").textContent;
-    const fragmentShader = document.getElementById("fragmentShader").textContent;
-
-      material = new THREE.ShaderMaterial({
-        transparent: true,
-        uniforms: {
-          map: { value: texture },
-          keyColor: { value: [0.0, 1.0, 0.0] },
-          similarity: { value: 0.74 },
-          smoothness: { value: 0.0 }
-        },
-        vertexShader: vertexShader,
-        fragmentShader: fragmentShader
-      });
-      material.color = new THREE.Color();
-    material.metalness = 0;
-      mesh = new THREE.Mesh( geometry, material);
-      scene.add( mesh );
-
-*/
-var geometry = new THREE.PlaneBufferGeometry( 2, 2);
-texture = new THREE.CanvasTexture(transparentCanvas);
-material = new THREE.MeshBasicMaterial({
+    material = new THREE.MeshBasicMaterial({
 map: texture,
 });
-mesh = new THREE.Mesh(geometry, material);
- scene.add( mesh);
-
+      mesh = new THREE.Mesh( geometry, material);
+      scene.add( mesh );
 
  isset=1;
 
