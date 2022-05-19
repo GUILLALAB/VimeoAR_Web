@@ -653,12 +653,6 @@ function addAlpha(imageData, gFloor=105, rbCeiling=80) {
         const transparentImageData = addAlpha(imageData, gFloorElem.value, rbCeilingElem.value);
         outputCtx.putImageData(transparentImageData, 0, 0);
 
- const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
-cube.position=mesh.position;
-
         requestAnimationFrame(getImageData);
     };
 
