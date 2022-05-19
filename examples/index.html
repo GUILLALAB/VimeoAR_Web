@@ -68,10 +68,6 @@
           </div>
           <div class="row">
               <div>
-                  <video id="gum_video" autoplay muted playsinline class="mirror"></video>
-              </div>
-              <br>
-              <div>
                   <canvas id="transparent_canvas" class="mirror"></canvas>
               </div>
            
@@ -146,7 +142,6 @@
     var channelName;
     var agoraAppId;
     var offscreenCanvas;
-        var videoElement;
         var transparentCanvas;
         var deviceSelect;
         var callBtnTransparent;
@@ -234,7 +229,6 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         renderer.domElement.style.display = 'none';
          offscreenCanvas = typeof OffscreenCanvas === 'undefined' ? document.createElement("canvas") :
     new OffscreenCanvas(1, 1);
-     videoElement = document.querySelector('video#gum_video');
  transparentCanvas = document.querySelector('canvas#transparent_canvas');
  deviceSelect = document.querySelector('select#devices');
  callBtnTransparent = document.querySelector('button#call_transparent');
