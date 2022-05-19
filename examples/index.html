@@ -546,7 +546,14 @@ async function start() {
         segmentedCanvas.width = videoElement.width;
 
         let lastTime = new Date();
-
+        var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+//Material to apply to the cube (green)
+var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+//Applies material to BoxGeometry
+ cube = new THREE.Mesh( geometry, material );
+//Adds cube to the scene
+scene.add( cube );
+isset=1;
         async function getFrames() {
             const now = videoElement.currentTime;
             if (now > lastTime){
@@ -656,14 +663,7 @@ function addAlpha(imageData, gFloor=105, rbCeiling=80) {
         const imageData = outputCtx.getImageData(0, 0, width, height);
         const transparentImageData = addAlpha(imageData, gFloorElem.value, rbCeilingElem.value);
         outputCtx.putImageData(transparentImageData, 0, 0);
-        var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-//Material to apply to the cube (green)
-var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-//Applies material to BoxGeometry
- cube = new THREE.Mesh( geometry, material );
-//Adds cube to the scene
-scene.add( cube );
-isset=1;
+
         requestAnimationFrame(getImageData);
     };
 
