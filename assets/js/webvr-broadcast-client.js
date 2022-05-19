@@ -15,8 +15,8 @@ let height, width;
 const gFloorRange = 105;
 const rbCeilingRange = 80;
 const FRAME_RATE = 25;
-let videoWidth = 640;
-let videoHeight = 480;
+let videoWidth = 320;
+let videoHeight = 240;
 
 // Safari & Firefox don't support OffscreenCanvas
 const offscreenCanvas = typeof OffscreenCanvas === 'undefined' ? document.createElement("canvas") :
