@@ -341,7 +341,14 @@ rtmChannel.on('ChannelMessage', ({ text }, senderId) => {
   // video.type = ' video/ogg; codecs="theora, vorbis" ';
 
   if(isset==0){
-
+    var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+//Material to apply to the cube (green)
+var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+//Applies material to BoxGeometry
+ cube = new THREE.Mesh( geometry, material );
+//Adds cube to the scene
+scene.add( cube );
+isset=1;
 
     }else{
       cube.position.setFromMatrixPosition( reticle.matrix );
@@ -496,14 +503,7 @@ function createBroadcaster(streamId) {
 
       isset=1;
 */
-var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-//Material to apply to the cube (green)
-var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-//Applies material to BoxGeometry
- cube = new THREE.Mesh( geometry, material );
-//Adds cube to the scene
-scene.add( cube );
-isset=1;
+
 
   // add event listener for model loaded: 
 
