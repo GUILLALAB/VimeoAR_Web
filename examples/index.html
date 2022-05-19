@@ -40,7 +40,10 @@
 	                        <h1 class="hero-title mt-0">Visualize Live AR</h1>
 	                        <p class="hero-paragraph">Display Live Streaming video in Augmented Reality.
 							</p>
-	                      
+              <div class="row">
+                <div>
+                    <canvas id="transparent_canvas" class="mirror"></canvas>
+                </div>
             
 						</div>
             <input type="text" placeholder="enter channel name" id="myInput">
@@ -66,10 +69,7 @@
               </div>
       
           </div>
-          <div class="row">
-              <div>
-                  <canvas id="transparent_canvas" class="mirror"></canvas>
-              </div>
+         
            
           </div>
        <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
