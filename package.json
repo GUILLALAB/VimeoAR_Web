@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "A video player for rendering Vimeo videos in three.js",
   "main": "dist/vimeo-threejs-player.js",
-  "type":"module",
   "engines": {
     "node": ">=0.12"
   },
