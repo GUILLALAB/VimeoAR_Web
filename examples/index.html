@@ -495,7 +495,9 @@ function createBroadcaster(streamId) {
 var geometry = new THREE.PlaneBufferGeometry( 2, 2);
 texture = new THREE.CanvasTexture(transparentCanvas);
 material = new THREE.MeshBasicMaterial({
-map: texture,
+color: 0xffffff,
+    map: texture,
+    transparent: true,
 });
 
 mesh = new THREE.Mesh(geometry, material);
