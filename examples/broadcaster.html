@@ -6,23 +6,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- FontAwesome and Bootstrap CSS -->
-        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-<script src="https://mrdoob.github.io/stats.js/build/stats.min.js"></script>
-<style>
-    p {
-        margin: 2px;
-    }
-
-    .row {
-        display: flex;
-    }
-
-    .mirror {
-        transform: scaleX(-1);
-    }
-</style>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" rel="stylesheet">
@@ -43,37 +26,6 @@
     <body>
         <div class="container-fluid p-0">
             <div id="main-container">
-                <div>
-
-                    <div>
-                        <label for="devices">Choose your camera source</label>
-                        <select name="devices" id="devices" class="senderControl"></select>
-                        <br>
-                       
-                    </div>
-            
-                    <div>
-                        <input type="checkbox" id="show_video" checked/>
-                        <label for="show_video">Webcam video</label>
-            
-                        <input type="checkbox" id="show_transparency" checked/>
-                        <label for="show_transparency">Show Transparency</label>
-            
-                    </div>
-            
-                </div>
-                <div class="row">
-                    <div>
-                        <h3>Webcam video</h3>
-                        <video id="gum_video" autoplay muted playsinline class="mirror"></video>
-                    </div>
-                    <br>
-                    <div>
-                        <h3>Transparent background</h3>
-                        <canvas id="transparent_canvas" class="mirror"></canvas>
-                    </div>
-                 
-                </div>
                 <div id="buttons-container" class="row justify-content-center mt-3">
                     <div id="audio-controls" class="col-md-2 text-center btn-group">
                         <button id="mic-btn" type="button" class="btn btn-block btn-dark btn-lg">
@@ -102,10 +54,29 @@
                     </div>
                     
                 </div>
-
-                
-            
-                
+                <div id="full-screen-video">
+                    <a-scene>
+                        <a-assets>
+                            <a-asset-item id="broadcaster" src="broadcaster.glb"></a-asset-item>
+                        </a-assets>
+                        <a-sky color="#ECECEC"></a-sky>
+                        <a-entity
+                            id="camera"
+                            camera
+                            position="0 1 2.5"
+                            orbit-controls="
+                            autoRotate: false;
+                            target: #target;
+                            enableDamping: true;
+                            dampingFactor: 0.25;
+                            rotateSpeed:0.14;
+                            minDistance:2;
+                            maxDistance:15;"
+                            mouse-cursor="">
+                        </a-entity>
+                        <a-entity id="target"></a-entity>
+                    </a-scene>
+                </div>
             </div>
         </div>
         </div>

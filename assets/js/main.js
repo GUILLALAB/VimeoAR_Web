@@ -1,10 +1,7 @@
 const videoElement = document.querySelector('video#gum_video');
 const transparentCanvas = document.querySelector('canvas#transparent_canvas');
-
 const deviceSelect = document.querySelector('select#devices');
-
 const callBtnTransparent = document.querySelector('button#call_transparent');
-
 const videoEnabled = document.querySelector('input#show_video');
 const transparencyEnabled = document.querySelector('input#show_transparency');
 
@@ -16,10 +13,8 @@ let height, width;
 const gFloorRange = 105;
 const rbCeilingRange = 80;
 const FRAME_RATE = 25;
-let videoWidth = 640;
-let videoHeight = 480;
-
-
+let videoWidth = 320;
+let videoHeight = 240;
 
 // Safari & Firefox don't support OffscreenCanvas
 const offscreenCanvas = typeof OffscreenCanvas === 'undefined' ? document.createElement("canvas") :
