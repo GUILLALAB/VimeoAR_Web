@@ -549,7 +549,7 @@ async function start() {
             const now = videoElement.currentTime;
             if (now > lastTime){
                 const fps = (1/(now-lastTime)).toFixed();
-                await segment(videoElement, video, segmentedCanvas);
+                await segment(videoElement, transparentCanvas, segmentedCanvas);
             }
             lastTime = now;
             requestAnimationFrame(getFrames)
@@ -557,7 +557,7 @@ async function start() {
 
         await getFrames();
 
-        addTransparency(segmentedCanvas, transparentGreenCanvas, gFloorRange, rbCeilingRange);
+      //  addTransparency(segmentedCanvas, transparentGreenCanvas, gFloorRange, rbCeilingRange);
 
     };
 
@@ -601,6 +601,10 @@ selfieSegmentation.setOptions({
     transparentCanvas.height = height;
     transparentCanvas.width = width;
     const transparentCtx = transparentCanvas.getContext('2d');
+
+    greenCanvas.height = height;
+    greenCanvas.width = width;
+    const greenCtx = greenCanvas.getContext('2d');
 
     selfieSegmentation.onResults(results=>{
         transparent(results, transparentCtx);
