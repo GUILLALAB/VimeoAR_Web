@@ -40,10 +40,7 @@
 	                        <h1 class="hero-title mt-0">Visualize Live AR</h1>
 	                        <p class="hero-paragraph">Display Live Streaming video in Augmented Reality.
 							</p>
-              <div class="row">
-                <div>
-                    <canvas id="transparent_canvas" class="mirror"></canvas>
-                </div>
+	                      
             
 						</div>
             <input type="text" placeholder="enter channel name" id="myInput">
@@ -69,7 +66,14 @@
               </div>
       
           </div>
-         
+          <div class="row">
+              <div>
+                  <video id="gum_video" autoplay muted playsinline class="mirror"></video>
+              </div>
+              <br>
+              <div>
+                  <canvas id="transparent_canvas" class="mirror"></canvas>
+              </div>
            
           </div>
        <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
@@ -142,6 +146,7 @@
     var channelName;
     var agoraAppId;
     var offscreenCanvas;
+        var videoElement;
         var transparentCanvas;
         var deviceSelect;
         var callBtnTransparent;
@@ -229,6 +234,7 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         renderer.domElement.style.display = 'none';
          offscreenCanvas = typeof OffscreenCanvas === 'undefined' ? document.createElement("canvas") :
     new OffscreenCanvas(1, 1);
+     videoElement = document.querySelector('video#gum_video');
  transparentCanvas = document.querySelector('canvas#transparent_canvas');
  deviceSelect = document.querySelector('select#devices');
  callBtnTransparent = document.querySelector('button#call_transparent');
@@ -455,7 +461,7 @@ function generateToken() {
 
 function createBroadcaster(streamId) {
   // create video element
-  video = document.getElementById( 'video' );
+  video = document.getElementById( 'video' )
   video.id = 'faceVideo-' + streamId;;
     texture = new THREE.VideoTexture( video );
     texture.minFilter = THREE.LinearFilter;
