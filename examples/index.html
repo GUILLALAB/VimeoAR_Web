@@ -162,8 +162,8 @@ let videoDevices = [];
 const gFloorRange = 105;
 const rbCeilingRange = 80;
 const FRAME_RATE = 25;
-let videoWidth = 320;
-let videoHeight = 240;
+let videoWidth = 320/2;
+let videoHeight = 240/2;
 
 // Safari & Firefox don't support OffscreenCanvas
 
@@ -537,8 +537,8 @@ async function start() {
 
         // use the offscreen canvas when the visible one is hidden for improved performance
         segmentedCanvas =  offscreenCanvas;
-        segmentedCanvas.height = 320;
-        segmentedCanvas.width = 240;
+        segmentedCanvas.height = videoElement.height;
+        segmentedCanvas.width = videoElement.width;
 
         let lastTime = new Date();
 
