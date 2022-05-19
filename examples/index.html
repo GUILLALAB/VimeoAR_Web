@@ -162,8 +162,8 @@ let videoDevices = [];
 const gFloorRange = 105;
 const rbCeilingRange = 80;
 const FRAME_RATE = 25;
-let videoWidth = 160;
-let videoHeight = 120;
+let videoWidth = 320;
+let videoHeight = 240;
 
 // Safari & Firefox don't support OffscreenCanvas
 
@@ -507,7 +507,6 @@ function createBroadcaster(streamId) {
 function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
         mesh.position.setFromMatrixPosition( reticle.matrix );
-        
         videoElement.srcObject = agoraStream.stream;
   video.onloadedmetadata = () => {
     // ready to play video
@@ -538,8 +537,8 @@ async function start() {
 
         // use the offscreen canvas when the visible one is hidden for improved performance
         segmentedCanvas =  offscreenCanvas;
-        segmentedCanvas.height = 160;
-        segmentedCanvas.width = 120;
+        segmentedCanvas.height = 320;
+        segmentedCanvas.width = 240;
 
         let lastTime = new Date();
 
