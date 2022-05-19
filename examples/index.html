@@ -3,25 +3,8 @@
     <head>
         <title>Agora AR.js - Live Streamed WebAR</title>
         <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-        <style>
-          p {
-              margin: 2px;
-          }
-  
-          .row {
-              display: flex;
-          }
-  
-          .mirror {
-              transform: scaleX(-1);
-          }
-      </style>
-      </head>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-<script src="https://mrdoob.github.io/stats.js/build/stats.min.js"></script>
-
+    </head>
+    
     <script src="/js/AgoraRTCSDK-3.0.2.js" type="text/javascript"></script>
     <script src="/js/agora-rtm-sdk-1.2.2.js" type="text/javascript"></script>
     <link href="https://fonts.googleapis.com/css?family=Heebo:400,700|Oxygen:700" rel="stylesheet">
@@ -49,33 +32,7 @@
                     </div>
                 </div>
             </section>
-            <div>
-              <div>
-                  <select name="devices" id="devices" class="senderControl"></select>
-                  <br>
-                 
-              </div>
-      
-              <div>
-                  <input type="checkbox" id="show_video" checked/>
-                  <label for="show_video">Webcam video</label>
-      
-                  <input type="checkbox" id="show_transparency" checked/>
-                  <label for="show_transparency">Show Transparency</label>
-      
-              </div>
-      
-          </div>
-          <div class="row">
-              <div>
-                  <video id="gum_video" autoplay muted playsinline class="mirror"></video>
-              </div>
-              <br>
-              <div>
-                  <canvas id="transparent_canvas" class="mirror"></canvas>
-              </div>
-           
-          </div>
+
 
        <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
     <source  id="source" src="video.mp4" type="video/mp4">   
@@ -347,7 +304,7 @@ scene.add( reticle );
       }
 
       function joinChannel() {
-       const token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IADfDNlavGnT8FKZ70l3scrJBAznhOt4HIGvUrfgkAO89VE4yRUAAAAAEABGv362sWCHYgEAAQCwYIdi";
+        const token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IADfDNlavGnT8FKZ70l3scrJBAznhOt4HIGvUrfgkAO89VE4yRUAAAAAEABGv362sWCHYgEAAQCwYIdi";
 
   // set the ro
   client.setClientRole('audience', () => {
