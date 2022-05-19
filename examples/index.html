@@ -653,6 +653,19 @@ function addAlpha(imageData, gFloor=105, rbCeiling=80) {
         const transparentImageData = addAlpha(imageData, gFloorElem.value, rbCeilingElem.value);
         outputCtx.putImageData(transparentImageData, 0, 0);
 
+        outputCtx.canvas.width = source.height;
+        outputCtx.canvas.height = source.width;
+        outputCtx.fillStyle = '#FFF';
+        outputCtx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+const texture = new THREE.CanvasTexture(outputCtx.canvas);
+ 
+const material = new THREE.MeshBasicMaterial({
+  map: texture,
+});
+const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
+cube.position.setFromMatrixPosition( reticle.matrix );
+
         requestAnimationFrame(getImageData);
     };
 
