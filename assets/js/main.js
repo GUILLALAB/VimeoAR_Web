@@ -1,5 +1,5 @@
-import {segment} from "segment.mjs";
-import {addTransparency} from "transparency.mjs";
+import {segment} from "./segment.mjs";
+import {addTransparency} from "./transparency.mjs";
 
 
 
