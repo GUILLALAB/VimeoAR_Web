@@ -383,7 +383,7 @@ scene.add( reticle );
       }
 
       function joinChannel() {
-        const token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IADfDNlavGnT8FKZ70l3scrJBAznhOt4HIGvUrfgkAO89VE4yRUAAAAAEABGv362sWCHYgEAAQCwYIdi";
+        const token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IAD0jDY9OgQwnwUDk/5+To1+H5LZm+FzukKT27JOfrbW8VE4yRUAAAAAEACXaa56uA2GYgEAAQC3DYZi";
 
   // set the ro
   client.setClientRole('audience', () => {
@@ -516,24 +516,8 @@ function connectStreamToVideo(agoraStream, video) {
   video.onloadedmetadata = () => {
     // ready to play video
     video.play();
-    getVideo(agoraStream.stream)
-  }
-}
 
-
-async function getVideo(stream) {
-    
-    videoElement.srcObject = stream;
-    videoElement.play();
-    console.log(`Capture camera with device ${stream.getTracks()[0].label}`);
-}
-
-async function start() {
-    // create a stream and send it to replace when its starts playing
-    videoElement.onplaying = async () => {
-
-        // use the offscreen canvas when the visible one is hidden for improved performance
-        segmentedCanvas =  offscreenCanvas;
+    segmentedCanvas =  offscreenCanvas;
         segmentedCanvas.height = videoElement.height;
         segmentedCanvas.width = videoElement.width;
 
@@ -553,26 +537,10 @@ async function start() {
 
         addTransparency(segmentedCanvas, transparentGreenCanvas, gFloorRange, rbCeilingRange);
 
-    };
-
-    // Note: list of devices may change after first camera permission approval
-    await getDevices();
-    await getVideo();
-
-    callBtnTransparent.onclick = () => sendVideo(transparentGreenCanvas.captureStream(FRAME_RATE));
-
+  }
 }
 
-async function getDevices() {
-    let devices = await navigator.mediaDevices.enumerateDevices();
-    videoDevices = devices.filter(device => device.kind === 'videoinput');
-    console.log("video devices:", videoDevices);
-    videoDevices.forEach(device => {
-        const option = document.createElement('option');
-        option.text = device.label;
-        deviceSelect.appendChild(option);
-    });
-}
+
 
 
 videoEnabled.onclick = async () => {
@@ -681,7 +649,6 @@ function addAlpha(imageData, gFloor=105, rbCeiling=80) {
     getImageData();
 }
       //
-      start().catch(err => console.error(err));
 
       function animate() {
 
