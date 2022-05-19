@@ -464,7 +464,7 @@ function createBroadcaster(streamId) {
   // create video element
   video = document.getElementById( 'video' )
   video.id = 'faceVideo-' + streamId;;
-    texture = new THREE.VideoTexture( transparentCanvas );
+    texture = new THREE.VideoTexture( transparentGreenCanvas );
     texture.minFilter = THREE.LinearFilter;
     texture.magFilter = THREE.LinearFilter;
     texture.format = THREE.RGBFormat;
