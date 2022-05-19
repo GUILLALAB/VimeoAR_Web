@@ -192,7 +192,6 @@
  FRAME_RATE = 25;
  videoWidth = 320;
  videoHeight = 240;
- var videoDevices = [];
 
 // Safari & Firefox don't support OffscreenCanvas
  offscreenCanvas = typeof OffscreenCanvas === 'undefined' ? document.createElement("canvas") :
@@ -243,7 +242,6 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         document.getElementById("btn").addEventListener("click", myFunction);
 
         renderer.domElement.style.display = 'none';
-        deviceSelect.onchange = getVideo;
 
         //
 
@@ -516,44 +514,9 @@ function connectStreamToVideo(agoraStream, video) {
   video.onloadedmetadata = () => {
     // ready to play video
     video.play();
-
-    segmentedCanvas =  offscreenCanvas;
-        segmentedCanvas.height = videoElement.height;
-        segmentedCanvas.width = videoElement.width;
-
-        let lastTime = new Date();
-
-        async function getFrames() {
-            const now = videoElement.currentTime;
-            if (now > lastTime){
-                const fps = (1/(now-lastTime)).toFixed();
-                await segment(videoElement, transparentCanvas, segmentedCanvas);
-            }
-            lastTime = now;
-            requestAnimationFrame(getFrames)
-        }
-
-        await getFrames();
-
-        addTransparency(segmentedCanvas, transparentGreenCanvas, gFloorRange, rbCeilingRange);
-
   }
 }
 
-
-
-
-videoEnabled.onclick = async () => {
-    console.log("Changing video display state");
-    videoElement.parentElement.hidden = !videoElement.parentElement.hidden;
-    await videoElement.play();
-};
-
-transparencyEnabled.onclick = async () => {
-    console.log("Changing transparency display state");
-    transparentCanvas.parentElement.hidden = !transparentCanvas.parentElement.hidden;
-    await videoElement.play();
-};
 
 
 function transparent(results, ctx) {
