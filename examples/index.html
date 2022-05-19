@@ -508,31 +508,33 @@ function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
         mesh.position.setFromMatrixPosition( reticle.matrix );
         
+        videoElement.srcObject = agoraStream.stream;
   video.onloadedmetadata = () => {
     // ready to play video
     video.play();
    
+    videoElement.play();
   }
 }
       //
 
       videoEnabled.onclick = async () => {
     console.log("Changing video display state");
-    video.parentElement.hidden = !video.parentElement.hidden;
-    await video.play();
+    videoElement.parentElement.hidden = !videoElement.parentElement.hidden;
+    await videoElement.play();
 };
 
 transparencyEnabled.onclick = async () => {
     console.log("Changing transparency display state");
     transparentCanvas.parentElement.hidden = !transparentCanvas.parentElement.hidden;
-    await video.play();
+    await videoElement.play();
 };
 
 
 
 async function start() {
     // create a stream and send it to replace when its starts playing
-    video.onplaying = async () => {
+    videoElement.onplaying = async () => {
 
         // use the offscreen canvas when the visible one is hidden for improved performance
         segmentedCanvas =  offscreenCanvas;
@@ -542,10 +544,10 @@ async function start() {
         let lastTime = new Date();
 
         async function getFrames() {
-            const now = video.currentTime;
+            const now = videoElement.currentTime;
             if (now > lastTime){
                 const fps = (1/(now-lastTime)).toFixed();
-                await segment(video, transparentCanvas, segmentedCanvas);
+                await segment(videoElement, transparentCanvas, segmentedCanvas);
             }
             lastTime = now;
             requestAnimationFrame(getFrames)
