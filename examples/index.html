@@ -57,7 +57,7 @@
               </div>
       
               <div>
-                  <input type="checkbox" id="show_video" checked/>
+                  <input type="checkbox" id="show_video" unchecked/>
                   <label for="show_video">Webcam video</label>
       
                   <input type="checkbox" id="show_transparency" checked/>
@@ -458,7 +458,7 @@ function createBroadcaster(streamId) {
   video = document.getElementById( 'video' );
   video.width=240;
   video.height=120;
-  video.id = 'faceVideo-' + streamId;;
+  video.id = 'faceVideo-' + streamId;
     texture = new THREE.VideoTexture( video );
     texture.minFilter = THREE.LinearFilter;
     texture.magFilter = THREE.LinearFilter;
