@@ -496,7 +496,14 @@ function createBroadcaster(streamId) {
 
       isset=1;
 */
-
+var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+//Material to apply to the cube (green)
+var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+//Applies material to BoxGeometry
+ cube = new THREE.Mesh( geometry, material );
+//Adds cube to the scene
+scene.add( cube );
+isset=1;
 
   // add event listener for model loaded: 
 
@@ -539,14 +546,7 @@ async function start() {
     // create a stream and send it to replace when its starts playing
     videoElement.onplaying = async () => {
       console.log("Start transparency display state");
-      var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-//Material to apply to the cube (green)
-var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-//Applies material to BoxGeometry
- cube = new THREE.Mesh( geometry, material );
-//Adds cube to the scene
-scene.add( cube );
-isset=1;
+ 
         // use the offscreen canvas when the visible one is hidden for improved performance
         segmentedCanvas =  offscreenCanvas;
         segmentedCanvas.height = videoElement.height;
