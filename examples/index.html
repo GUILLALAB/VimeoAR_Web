@@ -555,8 +555,6 @@ async function start() {
     };
 
     // Note: list of devices may change after first camera permission approval
-    await getDevices();
-    await getVideo();
 
     callBtnTransparent.onclick = () => sendVideo(transparentGreenCanvas.captureStream(FRAME_RATE));
 
