@@ -341,10 +341,18 @@ rtmChannel.on('ChannelMessage', ({ text }, senderId) => {
   // video.type = ' video/ogg; codecs="theora, vorbis" ';
 
   if(isset==0){
-  
+    var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+//Material to apply to the cube (green)
+var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+//Applies material to BoxGeometry
+var cube = new THREE.Mesh( geometry, material );
+//Adds cube to the scene
+scene.add( cube );
+cube.position.setFromMatrixPosition( reticle.matrix );
+
     }else{
   
-       mesh.position.setFromMatrixPosition( reticle.matrix );
+  //     mesh.position.setFromMatrixPosition( reticle.matrix );
     }
 
   }
