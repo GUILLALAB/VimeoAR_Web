@@ -133,9 +133,9 @@
     let container;
     let camera, scene, renderer,source;
     let controller;
-    var cube;
+
     let reticle;
-    var mesh, video, texture,material;
+    var cube, mesh, video, texture,material;
     var isset=0;
     let videoTexture;
     let videoImageContext ;
@@ -345,7 +345,16 @@ rtmChannel.on('ChannelMessage', ({ text }, senderId) => {
     }else{
   
        mesh.position.setFromMatrixPosition( reticle.matrix );
-     cube.position.setFromMatrixPosition( reticle.matrix );
+       var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+//Material to apply to the cube (green)
+var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+//Applies material to BoxGeometry
+ cube = new THREE.Mesh( geometry, material );
+//Adds cube to the scene
+scene.add( cube );
+       mesh.position.setFromMatrixPosition( reticle.matrix );
+       cube.position.setFromMatrixPosition( reticle.matrix );
+
     }
 
   }
@@ -494,16 +503,7 @@ function createBroadcaster(streamId) {
       mesh = new THREE.Mesh( geometry, material);
       scene.add( mesh );
 
-      const geometry = new BoxBufferGeometry(2, 2, 2);
 
-// create a default (white) Basic material
-const material = new MeshBasicMaterial();
-
-// create a Mesh containing the geometry and material
- cube = new Mesh(geometry, material);
-
-// add the mesh to the scene
-scene.add(cube);
       isset=1;
 
 
