@@ -491,7 +491,7 @@ function createBroadcaster(streamId) {
     material.metalness = 0;
       mesh = new THREE.Mesh( geometry, material);
       scene.add( mesh );
-    //  isset=1;
+      isset=1;
 
 
 
@@ -657,7 +657,7 @@ function addAlpha(imageData, gFloor=105, rbCeiling=80) {
 const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 const cube = new THREE.Mesh( geometry, material );
 scene.add( cube );
-cube.position.setFromMatrixPosition( reticle.matrix );
+cube.position=mesh.position;
 
         requestAnimationFrame(getImageData);
     };
