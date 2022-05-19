@@ -529,7 +529,7 @@ async function start() {
     video.onplaying = async () => {
 
         // use the offscreen canvas when the visible one is hidden for improved performance
-        segmentedCanvas =  offscreenCanvas;
+        segmentedCanvas =  video;
         segmentedCanvas.height = 160;
         segmentedCanvas.width = 120;
 
