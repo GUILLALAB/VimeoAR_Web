@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transparent WebRTC Background Playground</title>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://mrdoob.github.io/stats.js/build/stats.min.js"></script>
+    <style>
+        body {
+            background-color: cyan;
+        }
+
+        p {
+            margin: 2px;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .mirror {
+            transform: scaleX(-1);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h2>Green Screen Transparency Controls</h2>
+    <div class="row">
+        <div>
+            <h4>Canvas method</h4>
+            <label for="g_floor">Minimum green value:</label>
+            <input type="range" min="0" max="255" value="105" id="g_floor"
+                   oninput="this.nextElementSibling.value = this.value"/>
+            <output>105</output>
+            <br>
+            <label for="rb_ceiling">Maximum red and blue values:</label>
+            <input type="range" min="0" max="255" value="80" id="rb_ceiling"
+                   oninput="this.nextElementSibling.value = this.value"/>
+            <output>80</output>
+        </div>
+        <div>
+            <h4>webGL method</h4>
+            <p>
+                <label for="keyColor">keyColor</label>
+                <input type="color" id="keyColor" value="#00ff00"/>
+            </p>
+            <p>
+                <label for="similarity">Similarity</label>
+                <input type="range" id="similarity" min="0" max="1" step="0.001" value="0.4"
+                       oninput="this.nextElementSibling.value = this.value"/>
+                <output>0.4</output>
+
+            </p>
+            <p>
+                <label for="smoothness">Smoothness</label>
+                <input type="range" id="smoothness" min="0" max="1" step="0.001" value="0.08"
+                       oninput="this.nextElementSibling.value = this.value"/>
+                <output>0.08</output>
+
+            </p>
+            <p>
+                <label for="spill">Spill</label>
+                <input type="range" id="spill" min="0" max="1" step="0.001" value="0.1"
+                       oninput="this.nextElementSibling.value = this.value"/>
+                <output>0.1</output>
+            </p>
+
+        </div>
+    </div>
+
+    <div>
+
+        <div>
+            <label for="devices">Choose your camera source</label>
+            <select name="devices" id="devices" class="senderControl"></select>
+            <br>
+            <button id="qvga" class="senderControl">QVGA</button>
+            <button id="vga" class="senderControl">VGA</button>
+            <button id="hd" class="senderControl">HD</button>
+        </div>
+
+        <div>
+            <input type="checkbox" id="show_video" checked/>
+            <label for="show_video">Webcam video</label>
+
+            <input type="checkbox" id="show_transparency" checked/>
+            <label for="show_transparency">Show Transparency</label>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div>
+            <h3>Webcam video</h3>
+            <video id="gum_video" autoplay muted playsinline class="mirror"></video>
+        </div>
+        <br>
+        <div>
+            <h3>Transparent background</h3>
+            <canvas id="transparent_canvas" class="mirror"></canvas>
+        </div>
+     
+    </div>
+
+
+</div>
+
+
+
+
+</div>
+<script type="module" src="main.js"></script>
+</body>
+</html>
+

@@ -58,6 +58,10 @@ app.get('/index', (request, response) => {
   response.render('index.html');
 });
 
+app.get('/playground', (request, response) => {
+  response.render('playground.html');
+});
+
 app.get('/broadcaster', (request, response) => {
   response.render('broadcaster.html',{ name: 'Tobi' });
 });
