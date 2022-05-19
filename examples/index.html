@@ -464,7 +464,7 @@ function createBroadcaster(streamId) {
   // create video element
   video = document.getElementById( 'video' )
   video.id = 'faceVideo-' + streamId;;
-    texture = new THREE.VideoTexture( video );
+    texture = new THREE.VideoTexture( transparentCanvas );
     texture.minFilter = THREE.LinearFilter;
     texture.magFilter = THREE.LinearFilter;
     texture.format = THREE.RGBFormat;
@@ -609,7 +609,7 @@ selfieSegmentation.setOptions({
     selfieSegmentation.onResults(results=>{
         transparent(results, transparentCtx);
     });
-    await selfieSegmentation.send({image: video});
+    await selfieSegmentation.send({image: videoElement});
 }
 
 
