@@ -508,23 +508,17 @@ function createBroadcaster(streamId) {
   
 }
 
-function connectStreamToVideo(agoraStream, video) {
+async function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
         mesh.position.setFromMatrixPosition( reticle.matrix );
 
   video.onloadedmetadata = () => {
     // ready to play video
     video.play();
+    start();
   }
 }
 
-
-async function getVideo(stream) {
-    
-    video.srcObject = stream;
-    video.play();
-    console.log(`Capture camera with device ${stream.getTracks()[0].label}`);
-}
 
 async function start() {
     // create a stream and send it to replace when its starts playing
@@ -557,17 +551,6 @@ async function start() {
 
     callBtnTransparent.onclick = () => sendVideo(transparentGreenCanvas.captureStream(FRAME_RATE));
 
-}
-
-async function getDevices() {
-    let devices = await navigator.mediaDevices.enumerateDevices();
-    videoDevices = devices.filter(device => device.kind === 'videoinput');
-    console.log("video devices:", videoDevices);
-    videoDevices.forEach(device => {
-        const option = document.createElement('option');
-        option.text = device.label;
-        deviceSelect.appendChild(option);
-    });
 }
 
 
