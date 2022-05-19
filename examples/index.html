@@ -133,7 +133,7 @@
     let container;
     let camera, scene, renderer,source;
     let controller;
-
+    var cube;
     let reticle;
     var mesh, video, texture,material;
     var isset=0;
@@ -345,17 +345,7 @@ rtmChannel.on('ChannelMessage', ({ text }, senderId) => {
     }else{
   
        mesh.position.setFromMatrixPosition( reticle.matrix );
-       const geometry = new BoxBufferGeometry(2, 2, 2);
-
-// create a default (white) Basic material
-const material = new MeshBasicMaterial();
-
-// create a Mesh containing the geometry and material
-const cube = new Mesh(geometry, material);
-
-// add the mesh to the scene
-scene.add(cube);
-cube.position.setFromMatrixPosition( reticle.matrix );
+     cube.position.setFromMatrixPosition( reticle.matrix );
     }
 
   }
@@ -504,7 +494,16 @@ function createBroadcaster(streamId) {
       mesh = new THREE.Mesh( geometry, material);
       scene.add( mesh );
 
+      const geometry = new BoxBufferGeometry(2, 2, 2);
 
+// create a default (white) Basic material
+const material = new MeshBasicMaterial();
+
+// create a Mesh containing the geometry and material
+ cube = new Mesh(geometry, material);
+
+// add the mesh to the scene
+scene.add(cube);
       isset=1;
 
 
