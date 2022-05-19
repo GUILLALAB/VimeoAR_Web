@@ -57,7 +57,7 @@
               </div>
       
               <div>
-                  <input type="checkbox" id="show_video" checked/>
+                  <input type="checkbox" id="show_video" unchecked/>
                   <label for="show_video">Webcam video</label>
       
                   <input type="checkbox" id="show_transparency" checked/>
@@ -155,7 +155,7 @@
         var offscreenCanvas;
 let height, width;
 let videoDevices = [];
-
+var cube;
 
 
 // canvas green screen controls
@@ -341,17 +341,11 @@ rtmChannel.on('ChannelMessage', ({ text }, senderId) => {
   // video.type = ' video/ogg; codecs="theora, vorbis" ';
 
   if(isset==0){
-    var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-//Material to apply to the cube (green)
-var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-//Applies material to BoxGeometry
-var cube = new THREE.Mesh( geometry, material );
-//Adds cube to the scene
-scene.add( cube );
-cube.position.setFromMatrixPosition( reticle.matrix );
+
 
     }else{
-  
+      cube.position.setFromMatrixPosition( reticle.matrix );
+
   //     mesh.position.setFromMatrixPosition( reticle.matrix );
     }
 
@@ -662,7 +656,13 @@ function addAlpha(imageData, gFloor=105, rbCeiling=80) {
         const imageData = outputCtx.getImageData(0, 0, width, height);
         const transparentImageData = addAlpha(imageData, gFloorElem.value, rbCeilingElem.value);
         outputCtx.putImageData(transparentImageData, 0, 0);
-
+        var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+//Material to apply to the cube (green)
+var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+//Applies material to BoxGeometry
+ cube = new THREE.Mesh( geometry, material );
+//Adds cube to the scene
+scene.add( cube );
         requestAnimationFrame(getImageData);
     };
 
