@@ -491,7 +491,7 @@ function createBroadcaster(streamId) {
     material.metalness = 0;
       mesh = new THREE.Mesh( geometry, material);
       scene.add( mesh );
-      isset=1;
+    //  isset=1;
 
 
 
@@ -653,11 +653,12 @@ function addAlpha(imageData, gFloor=105, rbCeiling=80) {
         const transparentImageData = addAlpha(imageData, gFloorElem.value, rbCeilingElem.value);
         outputCtx.putImageData(transparentImageData, 0, 0);
 
-        outputCtx.canvas.width = source.height;
-        outputCtx.canvas.height = source.width;
-        outputCtx.fillStyle = '#FFF';
-        outputCtx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-const texture = new THREE.CanvasTexture(outputCtx.canvas);
+        const ctx = document.createElement('canvas').getContext('2d');
+ctx.canvas.width = 256;
+ctx.canvas.height = 256;
+ctx.fillStyle = '#FFF';
+ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+const texture = new THREE.CanvasTexture(ctx.canvas);
  
 const material = new THREE.MeshBasicMaterial({
   map: texture,
