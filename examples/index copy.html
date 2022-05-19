@@ -345,6 +345,16 @@ rtmChannel.on('ChannelMessage', ({ text }, senderId) => {
     }else{
   
        mesh.position.setFromMatrixPosition( reticle.matrix );
+       var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+//Material to apply to the cube (green)
+var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+//Applies material to BoxGeometry
+ cube = new THREE.Mesh( geometry, material );
+//Adds cube to the scene
+scene.add( cube );
+       mesh.position.setFromMatrixPosition( reticle.matrix );
+       cube.position.setFromMatrixPosition( reticle.matrix );
+
     }
 
   }
@@ -464,7 +474,7 @@ function createBroadcaster(streamId) {
   // create video element
   video = document.getElementById( 'video' )
   video.id = 'faceVideo-' + streamId;;
- /*   texture = new THREE.VideoTexture( video );
+    texture = new THREE.VideoTexture( video );
     texture.minFilter = THREE.LinearFilter;
     texture.magFilter = THREE.LinearFilter;
     texture.format = THREE.RGBFormat;
@@ -474,6 +484,8 @@ function createBroadcaster(streamId) {
 
     const vertexShader = document.getElementById("vertexShader").textContent;
     const fragmentShader = document.getElementById("fragmentShader").textContent;
+
+      // Cria o material usando a urlVideoTexture
 
       material = new THREE.ShaderMaterial({
         transparent: true,
@@ -493,7 +505,7 @@ function createBroadcaster(streamId) {
 
 
       isset=1;
-*/
+
 
 
   // add event listener for model loaded: 
