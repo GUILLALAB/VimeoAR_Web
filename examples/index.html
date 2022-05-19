@@ -343,7 +343,13 @@ rtmChannel.on('ChannelMessage', ({ text }, senderId) => {
   if(isset==0){
   
     }else{
+  
        mesh.position.setFromMatrixPosition( reticle.matrix );
+       const geometry = new THREE.BoxGeometry();
+const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+const cube = new THREE.Mesh( geometry, material );
+scene.add( cube );
+cube.position=position.getPositionFromMatrix( reticle.matrix);
     }
 
   }
@@ -491,6 +497,8 @@ function createBroadcaster(streamId) {
     material.metalness = 0;
       mesh = new THREE.Mesh( geometry, material);
       scene.add( mesh );
+
+
       isset=1;
 
 
@@ -655,11 +663,7 @@ function addAlpha(imageData, gFloor=105, rbCeiling=80) {
 
         requestAnimationFrame(getImageData);
     };
-    const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
-cube.position=position.getPositionFromMatrix( mesh.matrixWorld );
+
     getImageData();
 }
 
