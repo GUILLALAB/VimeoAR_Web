@@ -345,11 +345,17 @@ rtmChannel.on('ChannelMessage', ({ text }, senderId) => {
     }else{
   
        mesh.position.setFromMatrixPosition( reticle.matrix );
-       const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
-cube.position=position.getPositionFromMatrix( reticle.matrix);
+       const geometry = new BoxBufferGeometry(2, 2, 2);
+
+// create a default (white) Basic material
+const material = new MeshBasicMaterial();
+
+// create a Mesh containing the geometry and material
+const cube = new Mesh(geometry, material);
+
+// add the mesh to the scene
+scene.add(cube);
+cube.position.setFromMatrixPosition( reticle.matrix );
     }
 
   }
