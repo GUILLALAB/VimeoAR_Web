@@ -494,6 +494,8 @@ function createBroadcaster(streamId) {
 */
 var geometry = new THREE.PlaneBufferGeometry( 2, 2);
 texture = new THREE.CanvasTexture(transparentCanvas);
+texture.magFilter = NearestFilter
+
 material = new THREE.MeshBasicMaterial({
 map: texture,
 });
