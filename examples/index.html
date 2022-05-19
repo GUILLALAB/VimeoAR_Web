@@ -455,7 +455,9 @@ function generateToken() {
 
 function createBroadcaster(streamId) {
   // create video element
-  video = document.getElementById( 'video' )
+  video = document.getElementById( 'video' );
+  video.width=240;
+  video.height=120;
   video.id = 'faceVideo-' + streamId;;
     texture = new THREE.VideoTexture( video );
     texture.minFilter = THREE.LinearFilter;
