@@ -494,15 +494,9 @@ function createBroadcaster(streamId) {
 */
 var geometry = new THREE.PlaneBufferGeometry( 2, 2);
 texture = new THREE.CanvasTexture(transparentCanvas);
-texture.minFilter = THREE.LinearFilter;
-    texture.magFilter = THREE.LinearFilter;
-    texture.format = THREE.RGBFormat;
-    texture.flipY = true;
 material = new THREE.MeshBasicMaterial({
 map: texture,
 });
-material.color = new THREE.Color();
-    material.metalness = 0;
 mesh = new THREE.Mesh(geometry, material);
  scene.add( mesh);
 
@@ -525,12 +519,12 @@ function connectStreamToVideo(agoraStream, video) {
        // mesh.position.setFromMatrixPosition( reticle.matrix );
         videoElement.srcObject = agoraStream.stream;
          videoElement.play();
-  video.onloadedmetadata = () => {
+ /* video.onloadedmetadata = () => {
     // ready to play video
     video.play();
    
    
-  }
+  }*/
 }
       //
 
