@@ -549,7 +549,7 @@ async function start() {
             const now = videoElement.currentTime;
             if (now > lastTime){
                 const fps = (1/(now-lastTime)).toFixed();
-                await segment(videoElement, transparentCanvas, segmentedCanvas);
+                await segment(videoElement, video, segmentedCanvas);
             }
             lastTime = now;
             requestAnimationFrame(getFrames)
