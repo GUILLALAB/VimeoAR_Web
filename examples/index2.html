@@ -146,7 +146,6 @@
     var agoraAppId;
     var offscreenCanvas;
         var videoElement;
-        var transparentCanvas;
         var callBtnTransparent;
         var videoEnabled;
         var transparencyEnabled;
@@ -233,7 +232,6 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
          offscreenCanvas = typeof OffscreenCanvas === 'undefined' ? document.createElement("canvas") :
     new OffscreenCanvas(1, 1);
      videoElement = document.querySelector('video#gum_video');
- transparentCanvas = document.querySelector('canvas#transparent_canvas');
  callBtnTransparent = document.querySelector('button#call_transparent');
  videoEnabled = document.querySelector('input#show_video');
  transparencyEnabled = document.querySelector('input#show_transparency');
@@ -533,11 +531,7 @@ function connectStreamToVideo(agoraStream, video) {
     await videoElement.play();
 };
 
-transparencyEnabled.onclick = async () => {
-    console.log("Changing transparency display state");
-    transparentCanvas.parentElement.hidden = !transparentCanvas.parentElement.hidden;
-    await videoElement.play();
-};
+
 
 
 
