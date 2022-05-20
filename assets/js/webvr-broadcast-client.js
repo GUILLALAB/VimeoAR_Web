@@ -235,7 +235,7 @@ function createCameraStream(uid) {
 
 function createBroadcaster(streamId) {
   // create video element
-  var video = document.createElement('video');
+  var video = document.getElementById('video');
   video.id = 'faceVideo-' + streamId;
   video.setAttribute('webkit-playsinline', 'webkit-playsinline');
   video.setAttribute('playsinline', 'playsinline');
@@ -250,6 +250,7 @@ function createBroadcaster(streamId) {
   const offset = streamCount;
   const position = offset*3 + ' -2 0';
   const rotation = '0 0 0';
+
   video.setAttribute('scale', scale);
   video.setAttribute('position', position);
   video.setAttribute('rotation', rotation);
