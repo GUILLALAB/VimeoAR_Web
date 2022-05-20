@@ -1,7 +1,7 @@
 <!doctype HTML>
 <html>
     <head>
-        <title>Agora AR.js - Live Streamed WebAR</title>
+      <title>Live AR - Visualize Live AR | Greenscreen</title>
         <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
         <style>
           p {
@@ -35,12 +35,12 @@
                     <div class="hero-inner">
 						<div class="hero-copy">
 	                        <h1 class="hero-title mt-0">Visualize Live AR</h1>
-	                        <p class="hero-paragraph">Display Live Streaming video in Augmented Reality with Greenscreen removal.
+	                        <p class="hero-paragraph"> Display Live Streaming video in AR with Greenscreen removal.
 							</p>
 	                      
             
 						</div>
-            <input type="text" placeholder="enter channel name" id="myInput">
+            <input type="text" placeholder="broadcaster channel name" id="myInput">
 
                     </div>
                 </div>
@@ -180,14 +180,7 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         document.getElementById("btn").addEventListener("click", myFunction);
 
         renderer.domElement.style.display = 'none';
-         offscreenCanvas = typeof OffscreenCanvas === 'undefined' ? document.createElement("canvas") :
-    new OffscreenCanvas(1, 1);
-     videoElement = document.querySelector('video#gum_video');
- transparentCanvas = document.querySelector('canvas#transparent_canvas');
- deviceSelect = document.querySelector('select#devices');
- callBtnTransparent = document.querySelector('button#call_transparent');
- videoEnabled = document.querySelector('input#show_video');
- transparencyEnabled = document.querySelector('input#show_transparency');
+
         //
 
 
