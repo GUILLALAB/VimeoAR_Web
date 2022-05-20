@@ -632,7 +632,7 @@ const pose = new Pose({locateFile: (file) => {
     const landmarkContainer = document.getElementsByClassName('landmark-grid-container')[0];
     const grid = new LandmarkGrid(landmarkContainer);
 
-    selfieSegmentation.onResults(results=>{
+    pose.onResults(results=>{
         transparent(results, transparentCtx,grid);
     });
     await pose.send({image: videoElement});
