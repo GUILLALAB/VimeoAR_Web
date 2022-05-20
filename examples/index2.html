@@ -542,8 +542,8 @@ async function start() {
 
         // use the offscreen canvas when the visible one is hidden for improved performance
         segmentedCanvas =  offscreenCanvas;
-        segmentedCanvas.height = videoElement.height;
-        segmentedCanvas.width = videoElement.width;
+        segmentedCanvas.height = videoElement.height*2;
+        segmentedCanvas.width = videoElement.width*2;
 
         let lastTime = new Date();
 
