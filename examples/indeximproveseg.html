@@ -575,6 +575,11 @@ async function start() {
 
 
 function transparent(results, ctx, grid) {
+  if (!results.poseLandmarks) {
+        grid.updateLandmarks([]);
+        return;
+      }
+    
     ctx.clearRect(0, 0, width, height);
 
     // Draw the mask
