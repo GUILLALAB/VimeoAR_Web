@@ -17,10 +17,7 @@
           }
       </style>
       </head>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-<script src="https://mrdoob.github.io/stats.js/build/stats.min.js"></script> 
+ 
     <script src="/js/AgoraRTCSDK-3.0.2.js" type="text/javascript"></script>
     <script src="/js/agora-rtm-sdk-1.2.2.js" type="text/javascript"></script>
     <link href="https://fonts.googleapis.com/css?family=Heebo:400,700|Oxygen:700" rel="stylesheet">
@@ -38,7 +35,7 @@
                     <div class="hero-inner">
 						<div class="hero-copy">
 	                        <h1 class="hero-title mt-0">Visualize Live AR</h1>
-	                        <p class="hero-paragraph">Display Live Streaming video in Augmented Reality.
+	                        <p class="hero-paragraph">Display Live Streaming video in Augmented Reality with Greenscreen removal.
 							</p>
 	                      
             
@@ -49,33 +46,7 @@
                 </div>
             </section>
 
-            <div>
-              <div>
-                  <select name="devices" id="devices" class="senderControl"></select>
-                  <br>
-                 
-              </div>
       
-              <div>
-                  <input type="checkbox" id="show_video" checked/>
-                  <label for="show_video">Webcam video</label>
-      
-                  <input type="checkbox" id="show_transparency" checked/>
-                  <label for="show_transparency">Show Transparency</label>
-      
-              </div>
-      
-          </div>
-          <div class="row">
-              <div>
-                  <video id="gum_video" width="160" height="120" autoplay muted playsinline class="mirror"></video>
-              </div>
-              <br>
-              <div>
-                  <canvas id="transparent_canvas" width="160" height="120" class="mirror"></canvas>
-              </div>
-           
-          </div>
        <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
     <source  id="source" src="video.mp4" type="video/mp4">   
     </video>
@@ -145,30 +116,7 @@
     var streamCount;
     var channelName;
     var agoraAppId;
-    var offscreenCanvas;
-        var videoElement;
-        var transparentCanvas;
-        var deviceSelect;
-        var callBtnTransparent;
-        var videoEnabled;
-        var transparencyEnabled;
-        var offscreenCanvas;
-let height, width;
-let videoDevices = [];
 
-
-
-// canvas green screen controls
-const gFloorRange = 105;
-const rbCeilingRange = 80;
-const FRAME_RATE = 25;
-let videoWidth = 320/2;
-let videoHeight = 240/2;
-
-// Safari & Firefox don't support OffscreenCanvas
-
-
-let segmentedCanvas;
 
 
     init();
@@ -343,17 +291,7 @@ rtmChannel.on('ChannelMessage', ({ text }, senderId) => {
   if(isset==0){
   
     }else{
-  
        mesh.position.setFromMatrixPosition( reticle.matrix );
-       var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-//Material to apply to the cube (green)
-var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-//Applies material to BoxGeometry
- cube = new THREE.Mesh( geometry, material );
-//Adds cube to the scene
-scene.add( cube );
-       mesh.position.setFromMatrixPosition( reticle.matrix );
-       cube.position.setFromMatrixPosition( reticle.matrix );
 
     }
 
@@ -503,7 +441,6 @@ function createBroadcaster(streamId) {
       mesh = new THREE.Mesh( geometry, material);
       scene.add( mesh );
 
-
       isset=1;
 
 
@@ -519,161 +456,14 @@ function createBroadcaster(streamId) {
 
 function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
-        mesh.position.setFromMatrixPosition( reticle.matrix );
-        videoElement.srcObject = agoraStream.stream;
+  mesh.position.setFromMatrixPosition( reticle.matrix );
   video.onloadedmetadata = () => {
     // ready to play video
     video.play();
    
-    videoElement.play();
   }
 }
       //
-
-      videoEnabled.onclick = async () => {
-    console.log("Changing video display state");
-    videoElement.parentElement.hidden = !videoElement.parentElement.hidden;
-    await videoElement.play();
-};
-
-transparencyEnabled.onclick = async () => {
-    console.log("Changing transparency display state");
-    transparentCanvas.parentElement.hidden = !transparentCanvas.parentElement.hidden;
-    await videoElement.play();
-};
-
-
-
-async function start() {
-    // create a stream and send it to replace when its starts playing
-    videoElement.onplaying = async () => {
-      console.log("Start transparency display state");
-
-        // use the offscreen canvas when the visible one is hidden for improved performance
-        segmentedCanvas =  offscreenCanvas;
-        segmentedCanvas.height = videoElement.height;
-        segmentedCanvas.width = videoElement.width;
-
-        let lastTime = new Date();
-
-        async function getFrames() {
-            const now = videoElement.currentTime;
-            if (now > lastTime){
-                const fps = (1/(now-lastTime)).toFixed();
-                await segment(videoElement, transparentCanvas, segmentedCanvas);
-            }
-            lastTime = now;
-            requestAnimationFrame(getFrames)
-        }
-
-        await getFrames();
-
-        addTransparency(segmentedCanvas, transparentGreenCanvas, gFloorRange, rbCeilingRange);
-
-    };
-
-    // Note: list of devices may change after first camera permission approval
-
-    callBtnTransparent.onclick = () => sendVideo(transparentGreenCanvas.captureStream(FRAME_RATE));
-
-}
-
-
-function transparent(results, ctx) {
-    ctx.clearRect(0, 0, width, height);
-
-    // Draw the mask
-    ctx.drawImage(results.segmentationMask, 0, 0, width, height);
-
-    // Add the original video back in only overwriting the masked pixels
-    ctx.globalCompositeOperation = 'source-in';
-    ctx.drawImage(results.image, 0, 0, width, height);
-}
-
-
-
-function greenScreen(results, ctx) {
-    ctx.clearRect(0, 0, width, height);
-
-    // Draw the mask
-    ctx.drawImage(results.segmentationMask, 0, 0, width, height);
-
-    // Fill green on everything but the mask
-    ctx.globalCompositeOperation = 'source-out';
-    ctx.fillStyle = '#00FF00';
-    ctx.fillRect(0, 0, width, height);
-
-    // Add the original video back in (in image) , but only overwrite missing pixels.
-    ctx.globalCompositeOperation =  'destination-atop';
-    ctx.drawImage(results.image, 0, 0, width, height);
-}
-
-const selfieSegmentation = new SelfieSegmentation({locateFile: (file) => {
-        return `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`;
-    }});
-selfieSegmentation.setOptions({
-    modelSelection: 1,
-});
-
-
-
-
-
- async function segment(videoElement, transparentCanvas, greenCanvas){
-
-    width = videoElement.width;
-    height = videoElement.height;
-
-    transparentCanvas.height = height;
-    transparentCanvas.width = width;
-    const transparentCtx = transparentCanvas.getContext('2d');
-
-    greenCanvas.height = height;
-    greenCanvas.width = width;
-    const greenCtx = greenCanvas.getContext('2d');
-
-    selfieSegmentation.onResults(results=>{
-        transparent(results, transparentCtx);
-        greenScreen(results, greenCtx);
-    });
-    await selfieSegmentation.send({image: videoElement});
-}
-
-
-function addAlpha(imageData, gFloor=105, rbCeiling=80) {
-    const {data} = imageData;
-
-    for (let r = 0, g = 1, b = 2, a = 3; a < data.length; r += 4, g += 4, b += 4, a += 4) {
-        if (data[r] <= rbCeiling && data[b] <= rbCeiling && data[g] >= gFloor)
-            data[a] = 0;
-    }
-    return imageData
-}
-
-// ToDo: make this a class
- function addTransparency(source, outputCanvas, gFloorElem, rbCeilingElem) {
-    const outputCtx = outputCanvas.getContext('2d');
-
-    outputCanvas.height = source.height;
-    outputCanvas.width = source.width;
-
-    const getImageData = () => {
-        const width = source.width;
-        const height = source.height;
-
-        outputCtx.drawImage(source, 0, 0, width, height);
-        const imageData = outputCtx.getImageData(0, 0, width, height);
-        const transparentImageData = addAlpha(imageData, gFloorElem.value, rbCeilingElem.value);
-        outputCtx.putImageData(transparentImageData, 0, 0);
-
-        requestAnimationFrame(getImageData);
-    };
-
-    getImageData();
-}
-
-
-start().catch(err => console.error(err));
 
 
       function animate() {
