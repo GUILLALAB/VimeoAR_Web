@@ -459,7 +459,7 @@ function generateToken() {
 
 function createBroadcaster(streamId) {
   // create video element
-  video = document.getElementById( 'transparent_canvas' )
+  video = document.createElement( 'canvas' )
   video.id = 'faceVideo-' + streamId;;
    /* texture = new THREE.VideoTexture( video );
     texture.minFilter = THREE.LinearFilter;
