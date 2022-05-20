@@ -62,6 +62,11 @@ app.get('/playground', (request, response) => {
   response.render('playground.html');
 });
 
+app.get('/indextest', (request, response) => {
+  response.render('indextest.html');
+});
+
+
 app.get('/broadcaster', (request, response) => {
   response.render('broadcaster.html',{ name: 'Tobi' });
 });
