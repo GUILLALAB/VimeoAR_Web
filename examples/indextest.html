@@ -48,33 +48,7 @@
                     </div>
                 </div>
             </section>
-
-            <div>
-              <div>
-                  <br>
-                 
-              </div>
-      
-              <div>
-                  <input type="checkbox" id="show_video" checked/>
-                  <label for="show_video">Webcam video</label>
-      
-                  <input type="checkbox" id="show_transparency" checked/>
-                  <label for="show_transparency">Show Transparency</label>
-      
-              </div>
-      
-          </div>
-          <div class="row">
-              <div>
-                  <video id="gum_video" width="160" height="120" autoplay muted playsinline class="mirror"></video>
-              </div>
-              <br>
-              <div>
-                  <canvas id="transparent_canvas" width="160" height="120" class="mirror"></canvas>
-              </div>
-           
-          </div>
+          
        <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
     <source  id="source" src="video.mp4" type="video/mp4">   
     </video>
@@ -230,13 +204,7 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         document.getElementById("btn").addEventListener("click", myFunction);
 
         renderer.domElement.style.display = 'none';
-         offscreenCanvas = typeof OffscreenCanvas === 'undefined' ? document.createElement("canvas") :
-    new OffscreenCanvas(1, 1);
-     videoElement = document.querySelector('video#gum_video');
- transparentCanvas = document.querySelector('canvas#transparent_canvas');
- callBtnTransparent = document.querySelector('button#call_transparent');
- videoEnabled = document.querySelector('input#show_video');
- transparencyEnabled = document.querySelector('input#show_transparency');
+
         //
 
 
