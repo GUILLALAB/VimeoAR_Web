@@ -61,6 +61,10 @@ app.get('/indeximproveseg', (request, response) => {
   response.render('indeximproveseg.html');
 });
 
+app.get('/index3', (request, response) => {
+  response.render('index3.html');
+});
+
 app.get('/playground', (request, response) => {
   response.render('playground.html');
 });

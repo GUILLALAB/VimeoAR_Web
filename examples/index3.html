@@ -4,68 +4,49 @@
   <meta charset="utf-8">
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils_3d/control_utils_3d.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
   <div class="container">
     <video class="input_video"></video>
     <canvas class="output_canvas" width="1280px" height="720px"></canvas>
-    <div class="landmark-grid-container"></div>
   </div>
   <script type="module">
     const videoElement = document.getElementsByClassName('input_video')[0];
     const canvasElement = document.getElementsByClassName('output_canvas')[0];
     const canvasCtx = canvasElement.getContext('2d');
-    const landmarkContainer = document.getElementsByClassName('landmark-grid-container')[0];
-    const grid = new LandmarkGrid(landmarkContainer);
     
-
     function onResults(results) {
-      if (!results.poseLandmarks) {
-        grid.updateLandmarks([]);
-        return;
-      }
-    
       canvasCtx.save();
       canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-
-// Draw the mask
-canvasCtx.drawImage(results.segmentationMask, 0, 0, canvasElement.width, canvasElement.height);
-
-// Add the original video back in only overwriting the masked pixels
-canvasCtx.globalCompositeOperation = 'source-in';
-canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
-
-    
-      canvasCtx.globalCompositeOperation = 'source-over';
-      drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
-                     {color: '#00FF00', lineWidth: 4});
-      drawLandmarks(canvasCtx, results.poseLandmarks,
-                    {color: '#FF0000', lineWidth: 2});
+      canvasCtx.drawImage(
+          results.image, 0, 0, canvasElement.width, canvasElement.height);
+      if (results.multiHandLandmarks) {
+        for (const landmarks of results.multiHandLandmarks) {
+          drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS,
+                         {color: '#00FF00', lineWidth: 5});
+          drawLandmarks(canvasCtx, landmarks, {color: '#FF0000', lineWidth: 2});
+        }
+      }
       canvasCtx.restore();
-    
-      grid.updateLandmarks(results.poseWorldLandmarks);
     }
     
-    const pose = new Pose({locateFile: (file) => {
-      return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
+    const hands = new Hands({locateFile: (file) => {
+      return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
     }});
-    pose.setOptions({
+    hands.setOptions({
+      maxNumHands: 2,
       modelComplexity: 1,
-      smoothLandmarks: true,
-      enableSegmentation: true,
-      smoothSegmentation: true,
       minDetectionConfidence: 0.5,
       minTrackingConfidence: 0.5
     });
-    pose.onResults(onResults);
+    hands.onResults(onResults);
     
     const camera = new Camera(videoElement, {
       onFrame: async () => {
-        await pose.send({image: videoElement});
+        await hands.send({image: videoElement});
       },
       width: 1280,
       height: 720
