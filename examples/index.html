@@ -490,7 +490,7 @@ function createBroadcaster(streamId) {
 
 */
 var geometry = new THREE.PlaneBufferGeometry( 2, 2);
-texture = new THREE.CanvasTexture(transparentCanvas);
+texture = new THREE.CanvasTexture(video);
 
 material = new THREE.MeshBasicMaterial({
 map: texture,
@@ -514,7 +514,7 @@ mesh = new THREE.Mesh(geometry, material);
 }
 
 function connectStreamToVideo(agoraStream, video) {
-  video.srcObject = agoraStream.stream;// add video stream to video element as source
+ // video.srcObject = agoraStream.stream;// add video stream to video element as source
        // mesh.position.setFromMatrixPosition( reticle.matrix );
         videoElement.srcObject = agoraStream.stream;
          videoElement.play();
@@ -557,7 +557,7 @@ async function start() {
             const now = videoElement.currentTime;
             if (now > lastTime){
                 const fps = (1/(now-lastTime)).toFixed();
-                await segment(videoElement, transparentCanvas, segmentedCanvas);
+                await segment(videoElement, video, segmentedCanvas);
             }
             lastTime = now;
             requestAnimationFrame(getFrames)
