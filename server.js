@@ -55,7 +55,7 @@ app.get('/', (request, response) => {
 });
 
 app.get('/index', (request, response) => {
-  response.render('index.html');
+  response.render('index2.html');
 });
 
 app.get('/playground', (request, response) => {
