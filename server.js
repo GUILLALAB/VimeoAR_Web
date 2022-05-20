@@ -55,7 +55,7 @@ app.get('/', (request, response) => {
 });
 
 app.get('/index', (request, response) => {
-  response.render('index2.html');
+  response.render('indexnocanvas.html');
 });
 app.get('/indeximproveseg', (request, response) => {
   response.render('indeximproveseg.html');
