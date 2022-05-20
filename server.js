@@ -62,8 +62,8 @@ app.get('/playground', (request, response) => {
   response.render('playground.html');
 });
 
-app.get('/indextest', (request, response) => {
-  response.render('indextest.html');
+app.get('/greenscreen', (request, response) => {
+  response.render('greenscreen.html');
 });
 
 
