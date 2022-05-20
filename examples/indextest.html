@@ -461,7 +461,7 @@ function createBroadcaster(streamId) {
   // create video element
   video = document.getElementById( 'video' )
   video.id = 'faceVideo-' + streamId;;
-   /* texture = new THREE.VideoTexture( video );
+    texture = new THREE.VideoTexture( video );
     texture.minFilter = THREE.LinearFilter;
     texture.magFilter = THREE.LinearFilter;
     texture.format = THREE.RGBFormat;
@@ -488,17 +488,7 @@ function createBroadcaster(streamId) {
       mesh = new THREE.Mesh( geometry, material);
       scene.add( mesh );
 
-*/
-var geometry = new THREE.PlaneBufferGeometry( 2, 2);
-texture = new THREE.CanvasTexture(transparentCanvas);
-texture.magFilter = THREE.NearestFilter;
 
-material = new THREE.MeshBasicMaterial({
-map: texture,
-});
-
-mesh = new THREE.Mesh(geometry, material);
- scene.add( mesh);
 
 
  isset=1;
@@ -517,145 +507,16 @@ mesh = new THREE.Mesh(geometry, material);
 function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
        // mesh.position.setFromMatrixPosition( reticle.matrix );
-        videoElement.srcObject = agoraStream.stream;
-         videoElement.play();
- /* video.onloadedmetadata = () => {
+  video.onloadedmetadata = () => {
     // ready to play video
     video.play();
    
    
-  }*/
+  }
 }
       //
 
-      videoEnabled.onclick = async () => {
-    console.log("Changing video display state");
-    videoElement.parentElement.hidden = !videoElement.parentElement.hidden;
-    await videoElement.play();
-};
 
-transparencyEnabled.onclick = async () => {
-    console.log("Changing transparency display state");
-    transparentCanvas.parentElement.hidden = !transparentCanvas.parentElement.hidden;
-    await videoElement.play();
-};
-
-
-
-async function start() {
-    // create a stream and send it to replace when its starts playing
-    videoElement.onplaying = async () => {
-      console.log("Start transparency display state");
-
-        // use the offscreen canvas when the visible one is hidden for improved performance
-        segmentedCanvas =  offscreenCanvas;
-        segmentedCanvas.height = videoElement.height;
-        segmentedCanvas.width = videoElement.width;
-
-        let lastTime = new Date();
-
-        async function getFrames() {
-            const now = videoElement.currentTime;
-            if (now > lastTime){
-                const fps = (1/(now-lastTime)).toFixed();
-                await segment(videoElement, transparentCanvas, segmentedCanvas);
-            }
-            lastTime = now;
-            requestAnimationFrame(getFrames)
-        }
-
-        await getFrames();
-
-      //  addTransparency(segmentedCanvas, transparentGreenCanvas, gFloorRange, rbCeilingRange);
-
-    };
-
-    // Note: list of devices may change after first camera permission approval
-
-    callBtnTransparent.onclick = () => sendVideo(transparentGreenCanvas.captureStream(FRAME_RATE));
-
-}
-
-
-function transparent(results, ctx) {
-    ctx.clearRect(0, 0, width, height);
-
-    // Draw the mask
-    ctx.drawImage(results.segmentationMask, 0, 0, width, height);
-
-    // Add the original video back in only overwriting the masked pixels
-    ctx.globalCompositeOperation = 'source-in';
-    ctx.drawImage(results.image, 0, 0, width, height);
-}
-
-
-
-
-const selfieSegmentation = new SelfieSegmentation({locateFile: (file) => {
-        return `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`;
-    }});
-selfieSegmentation.setOptions({
-    modelSelection: 1,
-});
-
-
-
-
-
- async function segment(videoElement, transparentCanvas, greenCanvas){
-
-    width = videoElement.width;
-    height = videoElement.height;
-
-    transparentCanvas.height = height;
-    transparentCanvas.width = width;
-    const transparentCtx = transparentCanvas.getContext('2d');
-
-    greenCanvas.height = height;
-    greenCanvas.width = width;
-    const greenCtx = greenCanvas.getContext('2d');
-
-    selfieSegmentation.onResults(results=>{
-        transparent(results, transparentCtx);
-    });
-    await selfieSegmentation.send({image: videoElement});
-}
-
-
-function addAlpha(imageData, gFloor=105, rbCeiling=80) {
-    const {data} = imageData;
-
-    for (let r = 0, g = 1, b = 2, a = 3; a < data.length; r += 4, g += 4, b += 4, a += 4) {
-        if (data[r] <= rbCeiling && data[b] <= rbCeiling && data[g] >= gFloor)
-            data[a] = 0;
-    }
-    return imageData
-}
-
-// ToDo: make this a class
- function addTransparency(source, outputCanvas, gFloorElem, rbCeilingElem) {
-    const outputCtx = outputCanvas.getContext('2d');
-
-    outputCanvas.height = source.height;
-    outputCanvas.width = source.width;
-
-    const getImageData = () => {
-        const width = source.width;
-        const height = source.height;
-
-        outputCtx.drawImage(source, 0, 0, width, height);
-        const imageData = outputCtx.getImageData(0, 0, width, height);
-        const transparentImageData = addAlpha(imageData, gFloorElem.value, rbCeilingElem.value);
-        outputCtx.putImageData(transparentImageData, 0, 0);
-
-        requestAnimationFrame(getImageData);
-    };
-
-    getImageData();
-}
-
-
-start().catch(err => console.error(err));
 
 
       function animate() {
