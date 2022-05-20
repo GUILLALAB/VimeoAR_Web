@@ -56,11 +56,9 @@
               </div>
       
               <div>
-                  <input type="checkbox" id="show_video" checked/>
+                  <input type="checkbox" id="show_video" unchecked/>
                   <label for="show_video">Webcam video</label>
       
-                  <input type="checkbox" id="show_transparency" checked/>
-                  <label for="show_transparency">Show Transparency</label>
       
               </div>
       
@@ -148,7 +146,6 @@
         var videoElement;
         var callBtnTransparent;
         var videoEnabled;
-        var transparencyEnabled;
         var offscreenCanvas;
 let height, width;
 let videoDevices = [];
@@ -234,7 +231,6 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
      videoElement = document.querySelector('video#gum_video');
  callBtnTransparent = document.querySelector('button#call_transparent');
  videoEnabled = document.querySelector('input#show_video');
- transparencyEnabled = document.querySelector('input#show_transparency');
         //
 
 
