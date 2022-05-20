@@ -1,0 +1,762 @@
+<!doctype HTML>
+<html>
+    <head>
+      <title>Live AR - Visualize Live AR Body Segmentation</title>
+      <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <style>
+          p {
+              margin: 2px;
+          }
+  
+          .row {
+              display: flex;
+          }
+  
+          .mirror {
+              transform: scaleX(-1);
+          }
+      </style>
+      </head>
+      <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils_3d/control_utils_3d.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
+<script src="https://mrdoob.github.io/stats.js/build/stats.min.js"></script> 
+    <script src="/js/AgoraRTCSDK-3.0.2.js" type="text/javascript"></script>
+    <script src="/js/agora-rtm-sdk-1.2.2.js" type="text/javascript"></script>
+    <link href="https://fonts.googleapis.com/css?family=Heebo:400,700|Oxygen:700" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://unpkg.com/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+    <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    <body style="background-color:black;text-align:center">
+
+      <section class="hero text-center text-light">
+				<div class="hero-bg"></div>
+				<div class="hero-particles-container">
+					<canvas id="hero-particles"></canvas>
+				</div>
+                <div class="container-sm">
+                    <div class="hero-inner">
+						<div class="hero-copy">
+	                        <h1 class="hero-title mt-0">Visualize Live AR</h1>
+	                        <p class="hero-paragraph">Display Live Streaming video in Augmented Reality with Body segmentation.
+							</p>
+	                      
+            
+						</div>
+            <input type="text" placeholder="broadcaster channel name" id="myInput">
+
+                    </div>
+                </div>
+            </section>
+
+            <div>
+              <div>
+                  <br>
+                 
+              </div>
+      
+              <div>
+                  <input type="checkbox" id="show_video" checked/>
+                  <label for="show_video">Webcam video</label>
+      
+                  <input type="checkbox" id="show_transparency" checked/>
+                  <label for="show_transparency">Show Transparency</label>
+      
+              </div>
+      
+          </div>
+          <div class="row">
+              <div>
+                  <video id="gum_video" width="160" height="120" autoplay muted playsinline class="mirror"></video>
+              </div>
+              <br>
+              <div>
+                  <canvas id="transparent_canvas" width="320" height="240" class="mirror"></canvas>
+              </div>
+              <div class="landmark-grid-container"></div>
+            </div>
+           
+          </div>
+       <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
+    <source  id="source" src="video.mp4" type="video/mp4">   
+    </video>
+
+    <button id="btn">Click me</button>
+
+    <script src="utils.js"></script>
+
+    <script type="text/javascript">
+        document.getElementById('btn').style.display="none";  // for hide button
+    </script>
+    <script id="vertexShader" type="glsl">
+
+    varying vec2 vUv;
+    void main( void ) {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+    }
+
+    </script>
+
+
+    <script id="fragmentShader" type="glsl">
+
+    uniform vec3 keyColor;
+    uniform float similarity;
+    uniform float smoothness;
+    varying vec2 vUv;
+    uniform sampler2D map;
+    void main() {
+
+      vec4 videoColor = texture2D(map, vUv);
+
+      float Y1 = 0.299 * keyColor.r + 0.587 * keyColor.g + 0.114 * keyColor.b;
+      float Cr1 = keyColor.r - Y1;
+      float Cb1 = keyColor.b - Y1;
+
+      float Y2 = 0.299 * videoColor.r + 0.587 * videoColor.g + 0.114 * videoColor.b;
+      float Cr2 = videoColor.r - Y2;
+      float Cb2 = videoColor.b - Y2;
+
+      float blend = smoothstep(similarity, similarity + smoothness, distance(vec2(Cr2, Cb2), vec2(Cr1, Cb1)));
+      gl_FragColor = vec4(videoColor.rgb, videoColor.a * blend);
+    }
+
+    </script>
+
+    
+    <script type="module">
+
+    import * as THREE from '../build/three.module.js';
+    import { ARButton } from './jsm/webxr/ARButton.js';
+
+
+    let container;
+    let camera, scene, renderer,source;
+    let controller;
+
+    let reticle;
+    var cube, mesh, video, texture,material;
+    var isset=0;
+    let videoTexture;
+    let videoImageContext ;
+    let hitTestSource = null;
+    let hitTestSourceRequested = false;
+    let client;
+    var streamCount;
+    var channelName;
+    var agoraAppId;
+    var offscreenCanvas;
+        var videoElement;
+        var callBtnTransparent;
+        var videoEnabled;
+        var transparencyEnabled;
+        var offscreenCanvas;
+let height, width;
+let videoDevices = [];
+
+
+
+// canvas green screen controls
+const gFloorRange = 105;
+const rbCeilingRange = 80;
+const FRAME_RATE = 25;
+let videoWidth = 320;
+let videoHeight = 240;
+
+// Safari & Firefox don't support OffscreenCanvas
+
+
+let segmentedCanvas;
+
+
+    init();
+    animate();
+
+    function myFunction() {
+      video.play();
+    }
+
+    function PlayVideo(srcVideo){
+      video.pause();
+      source.src = srcVideo;
+      video.load();
+    }
+
+    function StopVideo(){
+      document.getElementById('video').pause();
+    }
+
+    function init() {
+
+    client = AgoraRTC.createClient({mode: 'live', codec: 'vp8'}); // vp8 to work across mobile devices
+
+ agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
+ channelName = 'web'; 
+
+ streamCount = 0;
+
+// set log level:
+// -- .DEBUG for dev 
+// -- .NONE for prod
+AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG); 
+
+
+      container = document.createElement( 'div' );
+      document.body.appendChild( container );
+
+      scene = new THREE.Scene();
+
+      camera = new THREE.PerspectiveCamera();
+
+
+      const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
+      light.position.set( 0.5, 1, 0.25 );
+      scene.add( light );
+
+        //
+
+        renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
+        renderer.setPixelRatio( window.devicePixelRatio );
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.xr.enabled = true;
+        container.appendChild( renderer.domElement );
+
+        //
+
+
+       
+        document.body.appendChild( ARButton.createButton(renderer, { requiredFeatures: ['hit-test'], optionalFeatures: [ 'dom-overlay', 'dom-overlay-for-handheld-ar' ], domOverlay: { root: document.body } } )
+          );
+        document.getElementById("btn").addEventListener("click", myFunction);
+
+        renderer.domElement.style.display = 'none';
+         offscreenCanvas = typeof OffscreenCanvas === 'undefined' ? document.createElement("canvas") :
+    new OffscreenCanvas(1, 1);
+     videoElement = document.querySelector('video#gum_video');
+ callBtnTransparent = document.querySelector('button#call_transparent');
+ videoEnabled = document.querySelector('input#show_video');
+ transparencyEnabled = document.querySelector('input#show_transparency');
+        //
+
+
+        function onSelect() {
+
+          if ( reticle.visible ) {
+           
+  channelName = document.getElementById("myInput").value;
+  client.init(agoraAppId, () => {
+  console.log('AgoraRTC client initialized');
+  joinChannel(); // join channel upon successfull init
+}, function (err) {
+  console.log('[ERROR] : AgoraRTC client init failed', err);
+});
+
+// connect remote streams
+client.on('stream-added', (evt) => {
+  const stream = evt.stream;
+  const streamId = stream.getId();
+  console.log('New stream added: ' + streamId);
+  console.log('Subscribing to remote stream:' + streamId);
+  // Subscribe to the stream.
+  client.subscribe(stream, (err) => {
+    console.log('[ERROR] : subscribe stream failed', err);
+  });
+
+  streamCount++;
+  createBroadcaster(streamId);  // create 3d broadcaster
+});
+client.on('stream-removed', (evt) => {
+  const stream = evt.stream;
+  stream.stop(); // stop the stream
+  stream.close(); // clean up and close the camera stream
+  console.log('Remote stream is removed ' + stream.getId());
+});
+
+client.on('stream-subscribed', (evt) => {
+  const remoteStream = evt.stream;
+  const remoteId = remoteStream.getId();
+  console.log('Successfully subscribed to remote stream: ' + remoteStream.getId());
+  
+  // get the designated video element and add the stream as its video source
+  var video = document.getElementById('faceVideo-' + remoteId);
+  connectStreamToVideo(remoteStream, video)
+
+});
+
+// remove the remote-container when a user leaves the channel
+client.on('peer-leave', (evt) => {
+  console.log('Remote stream has left the channel: ' + evt.uid);
+  evt.stream.stop(); // stop the stream
+  const remoteId = evt.stream.getId();
+  document.getElementById(remoteId).remove();
+  document.getElementById('faceVideo-' + remoteId);
+  streamCount--;
+});
+
+// show mute icon whenever a remote has muted their mic
+client.on('mute-audio', (evt) => {
+  console.log('mute-audio for: ' + evt.uid);
+});
+
+client.on('unmute-audio', (evt) => {
+  console.log('unmute-audio for: ' + evt.uid);
+});
+
+// show user icon whenever a remote has disabled their video
+client.on('mute-video', (evt) => {
+  console.log('mute-video for: ' + evt.uid);
+});
+
+client.on('unmute-video', (evt) => {
+  console.log('unmute-video for: ' + evt.uid);
+});
+
+const rtmClient = AgoraRTM.createInstance(agoraAppId); 
+const rtmChannel = rtmClient.createChannel(channelName); 
+
+rtmClient.on('ConnectionStateChange', (newState, reason) => {
+  console.log('on connection state changed to ' + newState + ' reason: ' + reason);
+});
+
+// event listener for receiving a channel message
+rtmChannel.on('ChannelMessage', ({ text }, senderId) => { 
+  // text: text of the received channel message; senderId: user ID of the sender.
+  console.log('AgoraRTM msg from user ' + senderId + ' recieved: \n' + text);
+  // convert from string to JSON
+  const msg = JSON.parse(text); 
+  console.log(msg)
+  // Handle RTM msg 
+  if (msg.action == 'rotation') {
+    rotateModel(senderId, msg.direction)
+  } else if (msg.action == 'position') {
+    moveModel(senderId, msg.direction)
+  }
+});
+
+  // video.id = 'video';
+  // video.type = ' video/ogg; codecs="theora, vorbis" ';
+
+  if(isset==0){
+  
+    }else{
+  
+       mesh.position.setFromMatrixPosition( reticle.matrix );
+    }
+
+  }
+
+}
+
+controller = renderer.xr.getController( 0 );
+controller.addEventListener( 'select', onSelect );
+scene.add( controller );
+
+reticle = new THREE.Mesh(
+  new THREE.RingGeometry( 0.15, 0.2, 32 ).rotateX( - Math.PI / 2 ),
+  new THREE.MeshBasicMaterial()
+  );
+reticle.matrixAutoUpdate = false;
+reticle.visible = false;
+scene.add( reticle );
+
+        //
+
+        window.addEventListener( 'resize', onWindowResize );
+
+      }
+
+      function onWindowResize() {
+
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize( window.innerWidth, window.innerHeight );
+
+      }
+
+      function joinChannel() {
+        const token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IABkYmwEAo2XoO6pGY9p4P395Kgx4ffQZl+9pQBfYzRpaVE4yRUAAAAAEABGv362qOKHYgEAAQCo4odi";
+
+  // set the ro
+  client.setClientRole('audience', () => {
+    console.log('Client role set to audience');
+  }, (e) => {
+    console.log('setClientRole failed', e);
+  });
+  
+  client.join(token, channelName, 0, (uid) => {
+    console.log('User ' + uid + ' join channel successfully');
+    joinRTMChannel(uid);
+}, function(err) {
+    console.log('[ERROR] : join channel failed', err);
+});
+}
+
+function leaveChannel() {
+  client.leave(() => {
+    console.log('client leaves channel');
+  }, (err) => {
+    console.log('client leave failed ', err); //error handling
+  });
+}
+
+// Agora RTM
+// setup the RTM client and channel
+
+
+function joinRTMChannel(uid){
+  rtmClient.login({ token: null, uid: String(uid) }).then(() => {
+    console.log('AgoraRTM client login success');
+    // join a channel and send a message
+    rtmChannel.join().then(() => {
+      // join-channel success
+      localStreams.rtmActive = true
+      console.log('RTM Channel join success');
+    }).catch(error => {
+      // join-channel failure
+      console.log('failed to join channel for error: ' +  error);
+    });
+  }).catch(err => {
+    console.log('AgoraRTM client login failure', err);
+  });
+}
+
+function rotateModel(uid, direction) {
+  var model = document.getElementById(uid)
+  if (direction === 'counter-clockwise') {
+    model.object3D.rotation.y += 0.1;
+  } else if (direction === 'clockwise') {
+    model.object3D.rotation.y -= 0.1;
+  }  
+}
+
+function moveModel(uid, direction) {
+  var model = document.getElementById(uid)
+  switch (direction){
+    case 'forward':
+      model.object3D.position.z += 0.1
+      break; 
+    case 'backward':
+      model.object3D.position.z -= 0.1
+      break; 
+    case 'left':
+      model.object3D.position.x -= 0.1
+      break; 
+    case 'right':
+      model.object3D.position.x += 0.1
+      break; 
+    default:
+      console.log('Unable to determin direction: ' + direction);      
+  }   
+}
+
+
+// use tokens for added security
+function generateToken() {
+  return null; // TODO: add a token generation
+}
+
+function createBroadcaster(streamId) {
+  // create video element
+  video = document.createElement( 'canvas' )
+  video.id = 'faceVideo-' + streamId;;
+   /* texture = new THREE.VideoTexture( video );
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    texture.format = THREE.RGBFormat;
+    texture.flipY = true;
+
+    var geometry = new THREE.PlaneBufferGeometry( 1, 1);
+
+    const vertexShader = document.getElementById("vertexShader").textContent;
+    const fragmentShader = document.getElementById("fragmentShader").textContent;
+
+      material = new THREE.ShaderMaterial({
+        transparent: true,
+        uniforms: {
+          map: { value: texture },
+          keyColor: { value: [0.0, 1.0, 0.0] },
+          similarity: { value: 0.74 },
+          smoothness: { value: 0.0 }
+        },
+        vertexShader: vertexShader,
+        fragmentShader: fragmentShader
+      });
+      material.color = new THREE.Color();
+    material.metalness = 0;
+      mesh = new THREE.Mesh( geometry, material);
+      scene.add( mesh );
+
+*/
+var geometry = new THREE.PlaneBufferGeometry( 4, 2);
+texture = new THREE.CanvasTexture(video);
+
+material = new THREE.MeshBasicMaterial({
+map: texture,
+});
+
+mesh = new THREE.Mesh(geometry, material);
+ scene.add( mesh);
+
+
+ isset=1;
+
+
+
+  // add event listener for model loaded: 
+
+      // search the mesh's children for the face-geo
+        // create video texture from video element
+  
+        // set node's material map to video texture
+  
+}
+
+function connectStreamToVideo(agoraStream, video) {
+ // video.srcObject = agoraStream.stream;// add video stream to video element as source
+       // mesh.position.setFromMatrixPosition( reticle.matrix );
+        videoElement.srcObject = agoraStream.stream;
+         videoElement.play();
+  /*video.onloadedmetadata = () => {
+    // ready to play video
+    video.play();
+   
+   
+  }*/
+}
+      //
+
+      videoEnabled.onclick = async () => {
+    console.log("Changing video display state");
+    videoElement.parentElement.hidden = !videoElement.parentElement.hidden;
+    await videoElement.play();
+};
+
+
+
+
+
+async function start() {
+    // create a stream and send it to replace when its starts playing
+    videoElement.onplaying = async () => {
+      console.log("Start transparency display state");
+
+        // use the offscreen canvas when the visible one is hidden for improved performance
+        segmentedCanvas =  offscreenCanvas;
+        segmentedCanvas.height = videoElement.height;
+        segmentedCanvas.width = videoElement.width;
+
+        let lastTime = new Date();
+
+        async function getFrames() {
+            const now = videoElement.currentTime;
+            if (now > lastTime){
+                const fps = (1/(now-lastTime)).toFixed();
+                await segment(videoElement, video, segmentedCanvas);
+            }
+            lastTime = now;
+            requestAnimationFrame(getFrames)
+        }
+
+        await getFrames();
+
+      //  addTransparency(segmentedCanvas, transparentGreenCanvas, gFloorRange, rbCeilingRange);
+
+    };
+
+    // Note: list of devices may change after first camera permission approval
+
+    callBtnTransparent.onclick = () => sendVideo(transparentGreenCanvas.captureStream(FRAME_RATE));
+
+}
+
+
+function transparent(results, ctx, grid) {
+    ctx.clearRect(0, 0, width, height);
+
+    // Draw the mask
+    ctx.drawImage(results.segmentationMask, 0, 0, width, height);
+
+    // Add the original video back in only overwriting the masked pixels
+    ctx.globalCompositeOperation = 'source-in';
+    ctx.drawImage(results.image, 0, 0, width, height);
+
+
+    if (!results.poseLandmarks) {
+        grid.updateLandmarks([]);
+        return;
+      }
+    
+    
+      ctx.globalCompositeOperation = 'source-over';
+      drawConnectors(ctx, results.poseLandmarks, POSE_CONNECTIONS,
+                     {color: '#00FF00', lineWidth: 4});
+      drawLandmarks(ctx, results.poseLandmarks,
+                    {color: '#FF0000', lineWidth: 2});
+                    ctx.restore();
+    
+      grid.updateLandmarks(results.poseWorldLandmarks);
+}
+
+
+
+
+const pose = new Pose({locateFile: (file) => {
+      return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
+    }});
+    pose.setOptions({
+      modelComplexity: 1,
+      smoothLandmarks: true,
+      enableSegmentation: true,
+      smoothSegmentation: true,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5
+    });
+
+
+
+
+
+ async function segment(videoElement, transparentCanvas, greenCanvas){
+
+    width = videoElement.width;
+    height = videoElement.height;
+
+    transparentCanvas.height = height;
+    transparentCanvas.width = width;
+    const transparentCtx = transparentCanvas.getContext('2d');
+
+    const landmarkContainer = document.getElementsByClassName('landmark-grid-container')[0];
+    const grid = new LandmarkGrid(landmarkContainer);
+
+    selfieSegmentation.onResults(results=>{
+        transparent(results, transparentCtx,grid);
+    });
+    await pose.send({image: videoElement});
+}
+
+
+function addAlpha(imageData, gFloor=105, rbCeiling=80) {
+    const {data} = imageData;
+
+    for (let r = 0, g = 1, b = 2, a = 3; a < data.length; r += 4, g += 4, b += 4, a += 4) {
+        if (data[r] <= rbCeiling && data[b] <= rbCeiling && data[g] >= gFloor)
+            data[a] = 0;
+    }
+    return imageData
+}
+
+// ToDo: make this a class
+ function addTransparency(source, outputCanvas, gFloorElem, rbCeilingElem) {
+    const outputCtx = outputCanvas.getContext('2d');
+
+    outputCanvas.height = source.height;
+    outputCanvas.width = source.width;
+
+    const getImageData = () => {
+        const width = source.width;
+        const height = source.height;
+
+        outputCtx.drawImage(source, 0, 0, width, height);
+        const imageData = outputCtx.getImageData(0, 0, width, height);
+        const transparentImageData = addAlpha(imageData, gFloorElem.value, rbCeilingElem.value);
+        outputCtx.putImageData(transparentImageData, 0, 0);
+
+        requestAnimationFrame(getImageData);
+    };
+
+    getImageData();
+}
+
+
+start().catch(err => console.error(err));
+
+
+      function animate() {
+
+        renderer.setAnimationLoop( render );
+
+      }
+
+      function render( timestamp, frame ) {
+
+        if ( frame ) {
+
+          const referenceSpace = renderer.xr.getReferenceSpace();
+          const session = renderer.xr.getSession();
+          const collection = document.getElementsByClassName("bgimg w3-display-container w3-animate-opacity w3-text-white");
+          [...collection].forEach( el => {
+            el.style.display = 'none';
+          });
+
+          const collection2 = document.getElementsByClassName(" hero text-center text-light");
+          [...collection2].forEach( el => {
+            el.style.display = 'none';
+          });
+         
+          if ( hitTestSourceRequested === false ) {
+
+            session.requestReferenceSpace( 'viewer' ).then( function ( referenceSpace ) {
+
+              session.requestHitTestSource( { space: referenceSpace } ).then( function ( source ) {
+
+                hitTestSource = source;
+
+              } );
+
+            } );
+
+            session.addEventListener( 'end', function () {
+             renderer.domElement.style.display = '';
+
+             hitTestSourceRequested = false;
+             hitTestSource = null;
+
+           } );
+
+            hitTestSourceRequested = true;
+
+          }
+
+          if ( hitTestSource ) {
+
+            const hitTestResults = frame.getHitTestResults( hitTestSource );
+
+            if ( hitTestResults.length ) {
+
+              const hit = hitTestResults[ 0 ];
+
+              reticle.visible = true;
+              reticle.matrix.fromArray( hit.getPose( referenceSpace ).transform.matrix );
+
+            } else {
+
+              reticle.visible = false;
+
+            }
+
+          }
+
+        }
+        if(video!=null)
+        {
+          if ( video.readyState === video.HAVE_ENOUGH_DATA ) 
+          {
+            if ( texture ) 
+              texture.needsUpdate = true;
+          }
+        }
+        renderer.render( scene, camera );
+
+      }
+
+      </script>  
+          <script src="/js/main.min.js"></script>
+
+    </body>
+
+    <!-- for broadcast user use: https://digitallysavvy.github.io/group-video-chat -->
+</html>
