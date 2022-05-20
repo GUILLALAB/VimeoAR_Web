@@ -156,8 +156,8 @@
         var offscreenCanvas;
 let height, width;
 let videoDevices = [];
-
-
+var landmarkContainer;
+var grid;
 
 // canvas green screen controls
 const gFloorRange = 105;
@@ -240,7 +240,8 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
  videoEnabled = document.querySelector('input#show_video');
  transparencyEnabled = document.querySelector('input#show_transparency');
         //
-
+         landmarkContainer = document.getElementsByClassName('landmark-grid-container')[0];
+     grid = new LandmarkGrid(landmarkContainer);
 
         function onSelect() {
 
@@ -587,23 +588,7 @@ function transparent(results, ctx, grid) {
 
     // Add the original video back in only overwriting the masked pixels
     ctx.globalCompositeOperation = 'source-in';
-    ctx.drawImage(results.image, 0, 0, width, height);
-
-
-    if (!results.poseLandmarks) {
-        grid.updateLandmarks([]);
-        return;
-      }
-    
-    
-      ctx.globalCompositeOperation = 'source-over';
-      drawConnectors(ctx, results.poseLandmarks, POSE_CONNECTIONS,
-                     {color: '#00FF00', lineWidth: 4});
-      drawLandmarks(ctx, results.poseLandmarks,
-                    {color: '#FF0000', lineWidth: 2});
-                    ctx.restore();
-    
-      grid.updateLandmarks(results.poseWorldLandmarks);
+    ctx.drawImage(results.image, 0, 0, width, height);    
 }
 
 
@@ -634,8 +619,7 @@ const pose = new Pose({locateFile: (file) => {
     transparentCanvas.width = width;
     const transparentCtx = transparentCanvas.getContext('2d');
 
-    const landmarkContainer = document.getElementsByClassName('landmark-grid-container')[0];
-    const grid = new LandmarkGrid(landmarkContainer);
+    
 
     pose.onResults(results=>{
         transparent(results, transparentCtx,grid);
