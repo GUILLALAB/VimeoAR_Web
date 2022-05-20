@@ -576,11 +576,7 @@ async function start() {
 
 
 function transparent(results, ctx, grid) {
-  if (!results.poseLandmarks) {
-        grid.updateLandmarks([]);
-        return;
-      }
-    
+  
     ctx.clearRect(0, 0, width, height);
 
     // Draw the mask
@@ -599,9 +595,8 @@ const pose = new Pose({locateFile: (file) => {
     }});
     pose.setOptions({
       modelComplexity: 1,
-      smoothLandmarks: true,
       enableSegmentation: true,
-      smoothSegmentation: true,
+      smoothSegmentation: false,
       minDetectionConfidence: 0.5,
       minTrackingConfidence: 0.5
     });
@@ -618,8 +613,6 @@ const pose = new Pose({locateFile: (file) => {
     transparentCanvas.height = height;
     transparentCanvas.width = width;
     const transparentCtx = transparentCanvas.getContext('2d');
-
-    
 
     pose.onResults(results=>{
         transparent(results, transparentCtx,grid);
