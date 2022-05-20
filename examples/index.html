@@ -43,7 +43,7 @@
 	                      
             
 						</div>
-            <input type="text" placeholder="enter channel name" id="myInput">
+            <input type="text" placeholder="broadcaster channel name" id="myInput">
 
                     </div>
                 </div>
@@ -51,7 +51,6 @@
 
             <div>
               <div>
-                  <select name="devices" id="devices" class="senderControl"></select>
                   <br>
                  
               </div>
@@ -148,7 +147,6 @@
     var offscreenCanvas;
         var videoElement;
         var transparentCanvas;
-        var deviceSelect;
         var callBtnTransparent;
         var videoEnabled;
         var transparencyEnabled;
@@ -236,7 +234,6 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
     new OffscreenCanvas(1, 1);
      videoElement = document.querySelector('video#gum_video');
  transparentCanvas = document.querySelector('canvas#transparent_canvas');
- deviceSelect = document.querySelector('select#devices');
  callBtnTransparent = document.querySelector('button#call_transparent');
  videoEnabled = document.querySelector('input#show_video');
  transparencyEnabled = document.querySelector('input#show_transparency');
