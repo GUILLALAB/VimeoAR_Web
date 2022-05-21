@@ -493,7 +493,7 @@ function createBroadcaster(streamId) {
       scene.add( mesh );
 
 */
-var geometry = new THREE.PlaneBufferGeometry( 2, 1);
+var geometry = new THREE.PlaneBufferGeometry( 3, 2);
 texture = new THREE.CanvasTexture(video);
 
 material = new THREE.MeshBasicMaterial({
@@ -548,8 +548,8 @@ async function start() {
 
         // use the offscreen canvas when the visible one is hidden for improved performance
         segmentedCanvas =  offscreenCanvas;
-        segmentedCanvas.height = videoElement.height*5;
-        segmentedCanvas.width = videoElement.width*2*5;
+        segmentedCanvas.height = videoElement.height*6;
+        segmentedCanvas.width = videoElement.width*6;
 
         let lastTime = new Date();
 
