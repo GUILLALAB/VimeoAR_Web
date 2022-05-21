@@ -373,7 +373,7 @@ scene.add( reticle );
   //alert(name);
   // set the role
 const token="";
-  fetch("https://livear.herokuapp.com/rte/web/publisher/uid/0/86400").then(function(response) {
+  fetch("https://livear.herokuapp.com/rte/web/audience/uid/28/86400").then(function(response) {
 return response.json();
 }).then(function(data) {
 token = data.rtcToken;
@@ -387,9 +387,9 @@ client.setClientRole('audience', () => {
   
   token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IAASCEmVF09Ym3GILp6tGoIbCli6fXyVK3TQhmhRyNfKC1E4yRUAAAAAEABGv3622FGKYgEAAQDYUYpi";
 
- client.join(token, channelName, 0, (uid) => {
+ client.join(token, channelName, 28, (uid) => {
     console.log('User ' + uid + ' join channel successfully');
-    joinRTMChannel(uid,token);
+    joinRTMChannel(uid);
 }, function(err) {
     console.log('[ERROR] : join channel failed', err);
 });
@@ -412,7 +412,7 @@ function leaveChannel() {
 // setup the RTM client and channel
 
 
-function joinRTMChannel(uid,token){
+function joinRTMChannel(uid){
   rtmClient.login({ token: null, uid: String(uid) }).then(() => {
     console.log('AgoraRTM client login success');
     // join a channel and send a message
