@@ -65,7 +65,7 @@
           </div>
           <div class="row">
               <div>
-                  <video id="gum_video" width="1280" height="720" autoplay muted playsinline class="mirror"></video>
+                  <video id="gum_video" width="210" height="140" autoplay muted playsinline class="mirror"></video>
               </div>
               <br>
               <div>
@@ -548,8 +548,8 @@ async function start() {
 
         // use the offscreen canvas when the visible one is hidden for improved performance
         segmentedCanvas =  offscreenCanvas;
-        segmentedCanvas.height = videoElement.height;
-        segmentedCanvas.width = videoElement.width;
+        segmentedCanvas.height = videoElement.height*5;
+        segmentedCanvas.width = videoElement.width*2*5;
 
         let lastTime = new Date();
 
