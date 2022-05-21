@@ -413,7 +413,7 @@ function leaveChannel() {
 
 
 function joinRTMChannel(uid,token){
-  rtmClient.login({ token: token, uid: String(uid) }).then(() => {
+  rtmClient.login({ token: String(token), uid: String(uid) }).then(() => {
     console.log('AgoraRTM client login success');
     // join a channel and send a message
     rtmChannel.join().then(() => {
