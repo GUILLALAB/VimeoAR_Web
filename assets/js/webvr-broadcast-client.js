@@ -6,7 +6,7 @@
 
 
 const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
-var channelName = ""; 
+const channelName = 'web'; 
 var streamCount = 0;
 var token = "";
 
@@ -40,9 +40,6 @@ var devices = {
   mics: []
 }
 
-function start(){
-  alert("ototo");
-}
 // setup the RTM client and channel
 const rtmClient = AgoraRTM.createInstance(agoraAppId); 
 const rtmChannel = rtmClient.createChannel(channelName); 
