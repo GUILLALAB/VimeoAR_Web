@@ -605,11 +605,9 @@ selfieSegmentation.setOptions({
 
     width = videoElement.width;
     height = videoElement.height;
-    videoElement.width=210;
-    videoElement.height=120;
 
-    transparentCanvas.height =  videoElement.width*6;
-    transparentCanvas.width =  videoElement.height*5.10;
+    transparentCanvas.height = height;
+    transparentCanvas.width = width;
 
     const transparentCtx = transparentCanvas.getContext('2d');
 
