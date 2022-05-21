@@ -389,7 +389,7 @@ client.setClientRole('audience', () => {
 
  client.join(token, channelName, 0, (uid) => {
     console.log('User ' + uid + ' join channel successfully');
-    joinRTMChannel(uid,data.rtmToken);
+    joinRTMChannel(uid,data.rtcToken);
 }, function(err) {
     console.log('[ERROR] : join channel failed', err);
 });
