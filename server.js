@@ -69,7 +69,7 @@ app.get('/playground', (request, response) => {
   response.render('playground.html');
 });
 
-app.get('/greenscreen', (request, response) => {
+app.get('/green', (request, response) => {
   response.render('greenscreen.html');
 });
 
@@ -82,8 +82,8 @@ app.get('/menu', (request, response) => {
 });
 
 
-app.get('/shapes', (request, response) => {
-  response.render('shapes.html');
+app.get('/basic', (request, response) => {
+  response.render('basic.html');
 });
 
 app.get('/album', (request, response) => {
