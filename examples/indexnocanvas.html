@@ -548,16 +548,16 @@ async function start() {
 
         // use the offscreen canvas when the visible one is hidden for improved performance
         segmentedCanvas =  offscreenCanvas;
-        segmentedCanvas.height = video.height;
-        segmentedCanvas.width = video.width;
+        segmentedCanvas.height = videoElement.height;
+        segmentedCanvas.width = videoElement.width;
 
         let lastTime = new Date();
 
         async function getFrames() {
-            const now = video.currentTime;
+            const now = videoElement.currentTime;
             if (now > lastTime){
                 const fps = (1/(now-lastTime)).toFixed();
-                await segment(video, video, segmentedCanvas);
+                await segment(videoElement, video, segmentedCanvas);
             }
             lastTime = now;
             requestAnimationFrame(getFrames)
@@ -606,15 +606,15 @@ selfieSegmentation.setOptions({
     width = videoElement.width;
     height = videoElement.height;
 
-    transparentCanvas.height = 1280;
-    transparentCanvas.width = 720;
+    transparentCanvas.height = height;
+    transparentCanvas.width = width;
 
     const transparentCtx = transparentCanvas.getContext('2d');
 
     selfieSegmentation.onResults(results=>{
         transparent(results, transparentCtx);
     });
-    await selfieSegmentation.send({image: transparentCanvas});
+    await selfieSegmentation.send({image: videoElement});
 }
 
 
