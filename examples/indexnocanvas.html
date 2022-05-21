@@ -493,7 +493,7 @@ function createBroadcaster(streamId) {
       scene.add( mesh );
 
 */
-var geometry = new THREE.PlaneBufferGeometry( 3, 2);
+var geometry = new THREE.PlaneBufferGeometry( 2, 1);
 texture = new THREE.CanvasTexture(video);
 
 material = new THREE.MeshBasicMaterial({
@@ -548,16 +548,16 @@ async function start() {
 
         // use the offscreen canvas when the visible one is hidden for improved performance
         segmentedCanvas =  offscreenCanvas;
-        segmentedCanvas.height = videoElement.height;
-        segmentedCanvas.width = videoElement.width;
+        segmentedCanvas.height = video.height;
+        segmentedCanvas.width = video.width;
 
         let lastTime = new Date();
 
         async function getFrames() {
-            const now = videoElement.currentTime;
+            const now = video.currentTime;
             if (now > lastTime){
                 const fps = (1/(now-lastTime)).toFixed();
-                await segment(videoElement, video, segmentedCanvas);
+                await segment(video, video, segmentedCanvas);
             }
             lastTime = now;
             requestAnimationFrame(getFrames)
@@ -606,15 +606,15 @@ selfieSegmentation.setOptions({
     width = videoElement.width;
     height = videoElement.height;
 
-    transparentCanvas.height = height;
-    transparentCanvas.width = width;
+    transparentCanvas.height = 1280;
+    transparentCanvas.width = 720;
 
     const transparentCtx = transparentCanvas.getContext('2d');
 
     selfieSegmentation.onResults(results=>{
         transparent(results, transparentCtx);
     });
-    await selfieSegmentation.send({image: videoElement});
+    await selfieSegmentation.send({image: transparentCanvas});
 }
 
 
