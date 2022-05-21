@@ -155,13 +155,13 @@ rtcClient.setClientRole('audience', () => {
 });
  // token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IABkYmwEAo2XoO6pGY9p4P395Kgx4ffQZl+9pQBfYzRpaVE4yRUAAAAAEABGv362qOKHYgEAAQCo4odi";
 
-rtcClient.join(token, channelName, 44, (uid) => {
+rtcClient.join(token, channelName, 0, (uid) => {
 
-    console.log('User ' + 44 + ' join channel successfully');
-    localStreams.uid = 44;
-    createBroadcaster(44);   // Load 3D model with video texture
-    createCameraStream(44);  // Create the camera stream
-    joinRTMChannel(44);      // join the RTM channel
+    console.log('User ' + uid + ' join channel successfully');
+    localStreams.uid = uid;
+    createBroadcaster(uid);   // Load 3D model with video texture
+    createCameraStream(uid);  // Create the camera stream
+    joinRTMChannel(uid);      // join the RTM channel
 }, (err) => {
     console.log('[ERROR] : join channel failed', err);
 });
