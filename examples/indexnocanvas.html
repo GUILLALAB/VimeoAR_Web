@@ -65,7 +65,7 @@
           </div>
           <div class="row">
               <div>
-                  <video id="gum_video" width="1280" height="720" autoplay muted playsinline class="mirror"></video>
+                  <video id="gum_video" width="160" height="120" autoplay muted playsinline class="mirror"></video>
               </div>
               <br>
               <div>
@@ -606,8 +606,8 @@ selfieSegmentation.setOptions({
     width = videoElement.width;
     height = videoElement.height;
 
-    transparentCanvas.height = height;
-    transparentCanvas.width = width;
+    transparentCanvas.height = 1280;
+    transparentCanvas.width = 720;
     const transparentCtx = transparentCanvas.getContext('2d');
 
     greenCanvas.height = height;
