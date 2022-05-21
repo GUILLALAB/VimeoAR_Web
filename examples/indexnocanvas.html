@@ -376,7 +376,7 @@ const token="";
   fetch("https://livear.herokuapp.com/rte/web/publisher/uid/0/86400").then(function(response) {
 return response.json();
 }).then(function(data) {
-token = data.rtcToken;
+token = data.rtmToken;
 //  alert(token);
 
 client.setClientRole('audience', () => {
