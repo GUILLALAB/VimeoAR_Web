@@ -153,7 +153,7 @@ rtcClient.setClientRole('audience', () => {
 }, (e) => {
   console.log('setClientRole failed', e);
 });
- // token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IABkYmwEAo2XoO6pGY9p4P395Kgx4ffQZl+9pQBfYzRpaVE4yRUAAAAAEABGv362qOKHYgEAAQCo4odi";
+token= "006e76fbfaa876b4c68a5d92d92aa6ad3b1IAASCEmVF09Ym3GILp6tGoIbCli6fXyVK3TQhmhRyNfKC1E4yRUAAAAAEABGv3622FGKYgEAAQDYUYpi";
 
 rtcClient.join(token, channelName, 0, (uid) => {
 
