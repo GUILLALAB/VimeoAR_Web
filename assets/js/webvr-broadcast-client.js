@@ -7,6 +7,8 @@
 
 const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
 const channelName = 'web'; 
+var rtmClient;
+var rtmChannel;
 var streamCount = 0;
 var token = "";
 
@@ -40,102 +42,105 @@ var devices = {
   mics: []
 }
 
+function Launch(){
 // setup the RTM client and channel
-const rtmClient = AgoraRTM.createInstance(agoraAppId); 
-const rtmChannel = rtmClient.createChannel(channelName); 
+rtmClient = AgoraRTM.createInstance(agoraAppId); 
+rtmChannel = rtmClient.createChannel(channelName); 
 
 rtmClient.on('ConnectionStateChange', (newState, reason) => {
-  console.log('on connection state changed to ' + newState + ' reason: ' + reason);
+ console.log('on connection state changed to ' + newState + ' reason: ' + reason);
 });
 
 // event listener for receiving a channel message
 rtmChannel.on('ChannelMessage', ({ text }, senderId) => { 
-  // text: text of the received channel message; senderId: user ID of the sender.
-  console.log('AgoraRTM msg from user ' + senderId + ' recieved: \n' + text);
-  // convert from string to JSON
-  const msg = JSON.parse(text); 
-  // Handle RTM msg 
-  if (msg.property === 'rotation') {
-    rotateModel(senderId, msg.direction, false)
-  } else if (msg.property == 'position') {
-    moveModel(senderId, msg.direction, false)
-  }
+ // text: text of the received channel message; senderId: user ID of the sender.
+ console.log('AgoraRTM msg from user ' + senderId + ' recieved: \n' + text);
+ // convert from string to JSON
+ const msg = JSON.parse(text); 
+ // Handle RTM msg 
+ if (msg.property === 'rotation') {
+   rotateModel(senderId, msg.direction, false)
+ } else if (msg.property == 'position') {
+   moveModel(senderId, msg.direction, false)
+ }
 });
 
 // create RTC client 
 var rtcClient = AgoraRTC.createClient({mode: 'live', codec: 'vp8'}); // vp8 to work across mobile devices
 
 rtcClient.init(agoraAppId, () => {
-  console.log('AgoraRTC client initialized');
-  joinChannel(); // join channel upon successfull init
+ console.log('AgoraRTC client initialized');
+ joinChannel(); // join channel upon successfull init
 }, function (err) {
-  console.log('[ERROR] : AgoraRTC client init failed', err);
+ console.log('[ERROR] : AgoraRTC client init failed', err);
 });
 
 rtcClient.on('stream-published', function (evt) {
-  console.log('Publish local stream successfully');
+ console.log('Publish local stream successfully');
 });
 
 // connect remote streams
 rtcClient.on('stream-added', (evt) => {
-  const stream = evt.stream;
-  const streamId = stream.getId();
-  console.log('New stream added: ' + streamId);
-  console.log('Subscribing to remote stream:' + streamId);
-  // Subscribe to the remote stream
-  rtcClient.subscribe(stream, (err) => {
-    console.log('[ERROR] : subscribe stream failed', err);
-  });
+ const stream = evt.stream;
+ const streamId = stream.getId();
+ console.log('New stream added: ' + streamId);
+ console.log('Subscribing to remote stream:' + streamId);
+ // Subscribe to the remote stream
+ rtcClient.subscribe(stream, (err) => {
+   console.log('[ERROR] : subscribe stream failed', err);
+ });
 
-  streamCount++; // Increase count of Active Stream Count
-  createBroadcaster(streamId); // Load 3D model with video texture
+ streamCount++; // Increase count of Active Stream Count
+ createBroadcaster(streamId); // Load 3D model with video texture
 });
 
 rtcClient.on('stream-removed', (evt) => {
-  const stream = evt.stream;
-  stream.stop(); // stop the stream
-  stream.close(); // clean up and close the camera stream
-  console.log('Remote stream is removed ' + stream.getId());
+ const stream = evt.stream;
+ stream.stop(); // stop the stream
+ stream.close(); // clean up and close the camera stream
+ console.log('Remote stream is removed ' + stream.getId());
 });
 
 rtcClient.on('stream-subscribed', (evt) => {
-  const remoteStream = evt.stream;
-  const remoteId = remoteStream.getId();
-  console.log('Successfully subscribed to remote stream: ' + remoteStream.getId());
-  
-  // get the designated video element and connect it to the remoteStream
-  var video = document.getElementById('faceVideo-' + remoteId);
-  connectStreamToVideo(remoteStream, video); 
+ const remoteStream = evt.stream;
+ const remoteId = remoteStream.getId();
+ console.log('Successfully subscribed to remote stream: ' + remoteStream.getId());
+ 
+ // get the designated video element and connect it to the remoteStream
+ var video = document.getElementById('faceVideo-' + remoteId);
+ connectStreamToVideo(remoteStream, video); 
 });
 
 // remove the remote-container when a user leaves the channel
 rtcClient.on('peer-leave', (evt) => {
-  console.log('Remote stream has left the channel: ' + evt.uid);
-  evt.stream.stop(); // stop the stream
-  const remoteId = evt.stream.getId();
-  // Remove the 3D and Video elements that were created
-  document.getElementById(remoteId).remove();
-  document.getElementById('faceVideo-' + remoteId).remove();
-  streamCount--;  // Decrease count of Active Stream Count
+ console.log('Remote stream has left the channel: ' + evt.uid);
+ evt.stream.stop(); // stop the stream
+ const remoteId = evt.stream.getId();
+ // Remove the 3D and Video elements that were created
+ document.getElementById(remoteId).remove();
+ document.getElementById('faceVideo-' + remoteId).remove();
+ streamCount--;  // Decrease count of Active Stream Count
 });
 
 // show mute icon whenever a remote has muted their mic
 rtcClient.on('mute-audio', (evt) => {
-  console.log('mute-audio for: ' + evt.uid);
+ console.log('mute-audio for: ' + evt.uid);
 });
 
 rtcClient.on('unmute-audio', (evt) => {
-  console.log('unmute-audio for: ' + evt.uid);
+ console.log('unmute-audio for: ' + evt.uid);
 });
 
 // show user icon whenever a remote has disabled their video
 rtcClient.on('mute-video', (evt) => {
-  console.log('mute-video for: ' + evt.uid);
+ console.log('mute-video for: ' + evt.uid);
 });
 
 rtcClient.on('unmute-video', (evt) => {
-  console.log('unmute-video for: ' + evt.uid);
+ console.log('unmute-video for: ' + evt.uid);
 });
+}
+
 
 // join a channel
 function joinChannel() {
