@@ -3,11 +3,12 @@
     <head>
       <title>Live AR - Visualize Live AR Body Segmentation</title>
       <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-        <style>
-           body,h1 {font-family: "Raleway", sans-serif}
+    
+      <style>
+         body,h1 {font-family: "Raleway", sans-serif}
         body, html {height: 100%}
         .bgimg {
-          background-image: url('/js/testpic.png');
+          background-image: url('112097.jpg');
           min-height: 100%;
           background-position: center;
           background-size: cover;
@@ -35,8 +36,9 @@
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://unpkg.com/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
     <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
-    <body>
-
+    <body style="background-color:black;text-align:center">
+   
+      <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
       <section class="hero text-center text-light">
 				<div class="hero-bg"></div>
 				<div class="hero-particles-container">
@@ -56,7 +58,7 @@
                     </div>
                 </div>
             </section>
-          
+          </div>
        <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
     <source  id="source" src="video.mp4" type="video/mp4">   
     </video>
