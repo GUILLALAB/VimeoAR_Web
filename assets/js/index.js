@@ -20,40 +20,27 @@ import { getFirestore,
   collection,
   addDoc,
   query,
+  getDocs,
   orderBy,
   limit,
   onSnapshot,
   setDoc,
+  where,
   updateDoc,
   doc,
+  Timestamp,
   serverTimestamp } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js"
 import { getAuth,
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
-  signOut, } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js"
+  signOut } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js"
 
- import {
-   getFirestore,
-   collection,
-   addDoc,
-   query,
-   getDocs,
-   orderBy,
-   limit,
-   onSnapshot,
-   setDoc,
-   where,
-   updateDoc,
-   doc,
-   Timestamp,
-   serverTimestamp,
- } from 'firebase/firestore';
  import {
    getStorage,
    ref,
    uploadBytesResumable,
-   getDownloadURL,
+   getDownloadURL
  } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-storage.js"
  import {
    getMessaging,
