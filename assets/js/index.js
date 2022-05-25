@@ -15,25 +15,38 @@
  */
  'use strict';
 
- import { initializeApp } from 'firebase/app';
- import {
-   getAuth,
-   onAuthStateChanged,
-   GoogleAuthProvider,
-   signInWithPopup,
-   signOut,
- } from 'firebase/auth';
+ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js";
+import { getFirestore,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  limit,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+  doc,
+  serverTimestamp } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js"
+import { getAuth,
+  onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut, } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js"
+
  import {
    getFirestore,
    collection,
    addDoc,
    query,
+   getDocs,
    orderBy,
    limit,
    onSnapshot,
    setDoc,
+   where,
    updateDoc,
    doc,
+   Timestamp,
    serverTimestamp,
  } from 'firebase/firestore';
  import {
@@ -41,13 +54,13 @@
    ref,
    uploadBytesResumable,
    getDownloadURL,
- } from 'firebase/storage';
+ } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-storage.js"
  import {
    getMessaging,
    getToken,
    onMessage
- } from 'firebase/messaging'; 
- import { getPerformance } from 'firebase/performance';
+ }  from "https://www.gstatic.com/firebasejs/9.1.1/firebase-messaging.js"
+ import { getPerformance } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-performance.js"
 
  import { getFirebaseConfig } from './firebase-config.js';
  
