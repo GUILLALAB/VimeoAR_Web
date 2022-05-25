@@ -29,6 +29,7 @@
     "ejs": "^2.6.1",
     "event-emitter-es6": "^1.1.5",
     "express": "^4.16.2",
+    "firebase": "^9.8.1",
     "host-validation": "^2.0.1",
     "sync-request": "^6.0.0",
     "three": "^0.89.0",
