@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/Cellar/node/14.4.0/bin/node /usr/local/Cellar/yarn/1.22.4/libexec/bin/yarn.js add @agora-access-token
+  /usr/local/Cellar/node/14.4.0/bin/node /usr/local/Cellar/yarn/1.22.4/libexec/bin/yarn.js install
 
 PATH: 
   /Users/Moi/.local/share/solana/install/active_release/bin:/Users/Moi/.cargo/bin:/usr/local/opt/mongodb@3.0/bin:/usr/local/opt/mongodb@3.0/bin:/Users/Moi/Documents/android-sdk/platform-tools:/Users/Moi/Documents/android-sdk/tools:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/usr/local/rvm/bin
@@ -14,17 +14,16 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@agora-access-token: Request "https://registry.yarnpkg.com/@agora-access-token" returned a 405
-      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:66996:18)
-      at Request.self.callback (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:140748:22)
-      at Request.emit (events.js:315:20)
-      at Request.<anonymous> (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:141720:10)
-      at Request.emit (events.js:315:20)
-      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:141642:12)
+  Error: https://registry.yarnpkg.com/@firebase/firestore/-/firestore-3.4.9.tgz: ESOCKETTIMEDOUT
+      at ClientRequest.<anonymous> (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:141375:19)
       at Object.onceWrapper (events.js:421:28)
-      at IncomingMessage.emit (events.js:327:22)
-      at endReadableNT (_stream_readable.js:1224:12)
-      at processTicksAndRejections (internal/process/task_queues.js:84:21)
+      at ClientRequest.emit (events.js:315:20)
+      at TLSSocket.emitRequestTimeout (_http_client.js:768:9)
+      at Object.onceWrapper (events.js:421:28)
+      at TLSSocket.emit (events.js:327:22)
+      at TLSSocket.Socket._onTimeout (net.js:480:8)
+      at listOnTimeout (internal/timers.js:549:17)
+      at processTimers (internal/timers.js:492:7)
 
 npm manifest: 
   {
@@ -58,6 +57,7 @@ npm manifest:
       "ejs": "^2.6.1",
       "event-emitter-es6": "^1.1.5",
       "express": "^4.16.2",
+      "firebase": "^9.8.1",
       "host-validation": "^2.0.1",
       "sync-request": "^6.0.0",
       "three": "^0.89.0",
