@@ -199,3 +199,18 @@ main, #messages-card {
   top: -1px;
   margin-right: 5px;
 }
+#container{
+  width:990px; 
+ }
+ #left{
+  width:300px; 
+  float:left;
+ }
+ #splitter{
+  width:90px; 
+  float:left;
+ }
+ #right{
+  width:600px;
+  float:left;
+ }
