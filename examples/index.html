@@ -23,6 +23,7 @@
   <meta name="msapplication-tap-highlight" content="no">
 
   <!-- Web Application Manifest -->
+  <link rel="manifest" href="manifest.json">
 
   <!-- Add to homescreen for Chrome on Android -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -73,11 +74,12 @@
     </div>
   </header>
 
-  
+ 
 
   <main class="mdl-layout__content mdl-color--grey-100">
-    <div id="container">
-      <div id="left">
+    <div class="flex-container">
+
+      <div class="flex-child magenta">
         <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
   
           <!-- Messages container -->
@@ -110,9 +112,12 @@
     
         </div>
       </div>
-      <div id="splitter"></div>
-      <div id="right"></div>
-  </div>
+      
+      <div class="flex-child green">
+        Flex Column 2
+      </div>
+      
+    </div>
   </main>
 </div>
 
