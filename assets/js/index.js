@@ -54,7 +54,10 @@ import { getAuth,
  
   function SignEmail(){
   const auth = getAuth();
-  createUserWithEmailAndPassword(auth, email, password)
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
+
+  createUserWithEmailAndPassword(auth, username, password)
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
@@ -68,6 +71,9 @@ import { getAuth,
  }
 
   function SignInEmail(){
+    var email = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+  
   signInWithEmailAndPassword(getAuth(), email, password)
     .then((userCredential) => {
       // Signed in 
