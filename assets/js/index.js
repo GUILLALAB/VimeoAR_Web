@@ -34,6 +34,7 @@ import { getAuth,
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
+  getAuth, signInWithEmailAndPassword,createUserWithEmailAndPassword,
   signOut } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js"
 
  import {
@@ -51,6 +52,33 @@ import { getAuth,
 
  import { getFirebaseConfig } from './firebase-config.js';
  
+ async function SignEmail(){
+  const auth = getAuth();
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
+    });
+ }
+
+ async function SignInEmail(){
+  signInWithEmailAndPassword(getAuth(), email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
+ }
  // Signs-in Friendly Chat.
  async function signIn() {
    // Sign in Firebase using popup auth and Google as the identity provider.
