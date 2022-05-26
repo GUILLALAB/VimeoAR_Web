@@ -5,7 +5,7 @@
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- FontAesome and Bootstrap CSS -->
+        <!-- FontAwesome and Bootstrap CSS -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" rel="stylesheet">
@@ -24,72 +24,63 @@
         <link rel="stylesheet" type="text/css" href="style.css"/>
     </head>
     <body>
-
-        <div class="container">
-            <div class="fixed">
-
-
-            </div>
-            <div class="flex-item"><div class="container-fluid p-0">
-                <div id="main-container">
-                    <div id="buttons-container" class="row justify-content-center mt-3">
-                        <div id="audio-controls" class="col-md-2 text-center btn-group">
-                            <button id="mic-btn" type="button" class="btn btn-block btn-dark btn-lg">
-                            <i id="mic-icon" class="fas fa-microphone"></i>
-                            </button>
-                            <button id="mic-dropdown" type="button" class="btn btn-lg btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <div id="mic-list" class="dropdown-menu dropdown-menu-right">
-                            </div>
+        <div class="container-fluid p-0">
+            <div id="main-container">
+                <div id="buttons-container" class="row justify-content-center mt-3">
+                    <div id="audio-controls" class="col-md-2 text-center btn-group">
+                        <button id="mic-btn" type="button" class="btn btn-block btn-dark btn-lg">
+                        <i id="mic-icon" class="fas fa-microphone"></i>
+                        </button>
+                        <button id="mic-dropdown" type="button" class="btn btn-lg btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div id="mic-list" class="dropdown-menu dropdown-menu-right">
                         </div>
-                        <div id="video-controls" class="col-md-2 text-center btn-group">
-                            <button id="video-btn"  type="button" class="btn btn-block btn-dark btn-lg">
-                            <i id="video-icon" class="fas fa-video"></i>
-                            </button>
-                            <button id="cam-dropdown" type="button" class="btn btn-lg btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <div id="camera-list" class="dropdown-menu dropdown-menu-right">
-                            </div>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <button id="exit-btn"  type="button" class="btn btn-block btn-danger btn-lg">
-                            <i id="exit-icon" class="fas fa-phone-slash"></i>
-                            </button>
-                        </div>
-                        <input type="text" placeholder="broadcast channel name" id="myInput">
-                        <button onclick="start()">Join</button>                    
                     </div>
-                    <div id="full-screen-video">
-                        <a-scene>
-                            <a-assets>
-                                <a-asset-item id="broadcaster" src="broadcaster.glb"></a-asset-item>
-                            </a-assets>
-                            <a-sky color="#ECECEC"></a-sky>
-                            <a-entity
-                                id="camera"
-                                camera
-                                position="0 1 2.5"
-                                orbit-controls="
-                                autoRotate: false;
-                                target: #target;
-                                enableDamping: true;
-                                dampingFactor: 0.25;
-                                rotateSpeed:0.14;
-                                minDistance:2;
-                                maxDistance:15;"
-                                mouse-cursor="">
-                            </a-entity>
-                            <a-entity id="target"></a-entity>
-                        </a-scene>
+                    <div id="video-controls" class="col-md-2 text-center btn-group">
+                        <button id="video-btn"  type="button" class="btn btn-block btn-dark btn-lg">
+                        <i id="video-icon" class="fas fa-video"></i>
+                        </button>
+                        <button id="cam-dropdown" type="button" class="btn btn-lg btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div id="camera-list" class="dropdown-menu dropdown-menu-right">
+                        </div>
                     </div>
+                    <div class="col-md-2 text-center">
+                        <button id="exit-btn"  type="button" class="btn btn-block btn-danger btn-lg">
+                        <i id="exit-icon" class="fas fa-phone-slash"></i>
+                        </button>
+                    </div>
+                    <input type="text" placeholder="broadcast channel name" id="myInput">
+                    <button onclick="start()">Joidn</button>                    
+                </div>
+                <div id="full-screen-video">
+                    <a-scene>
+                        <a-assets>
+                            <a-asset-item id="broadcaster" src="broadcaster.glb"></a-asset-item>
+                        </a-assets>
+                        <a-sky color="#ECECEC"></a-sky>
+                        <a-entity
+                            id="camera"
+                            camera
+                            position="0 1 2.5"
+                            orbit-controls="
+                            autoRotate: false;
+                            target: #target;
+                            enableDamping: true;
+                            dampingFactor: 0.25;
+                            rotateSpeed:0.14;
+                            minDistance:2;
+                            maxDistance:15;"
+                            mouse-cursor="">
+                        </a-entity>
+                        <a-entity id="target"></a-entity>
+                    </a-scene>
                 </div>
             </div>
-            </div></div>
         </div>
-
-        
+        </div>
     </body>
     <script>
         $("#mic-btn").prop("disabled", true);
