@@ -69,6 +69,9 @@ app.get('/firebase', (request, response) => {
   response.render('index.html');
 });
 
+app.get('/login', (request, response) => {
+  response.render('login.html');
+});
 
 app.get('/playground', (request, response) => {
   response.render('playground.html');
