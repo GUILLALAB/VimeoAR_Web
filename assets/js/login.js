@@ -61,6 +61,8 @@ import { getAuth,
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
+      window.location = "https://livear.herokuapp.com/";
+
       // ...
     })
     .catch((error) => {
