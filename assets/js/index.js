@@ -34,7 +34,7 @@ import { getAuth,
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
-  getAuth, signInWithEmailAndPassword,createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,createUserWithEmailAndPassword,
   signOut } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js"
 
  import {
@@ -52,7 +52,7 @@ import { getAuth,
 
  import { getFirebaseConfig } from './firebase-config.js';
  
- async function SignEmail(){
+  function SignEmail(){
   const auth = getAuth();
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -67,7 +67,7 @@ import { getAuth,
     });
  }
 
- async function SignInEmail(){
+  function SignInEmail(){
   signInWithEmailAndPassword(getAuth(), email, password)
     .then((userCredential) => {
       // Signed in 
