@@ -146,7 +146,7 @@ import { getAuth,
    if (user) { // User is signed in!
      // Hide sign-in button.
      signInButtonElement.setAttribute('hidden', 'true');
-     window.location = "menu.html";
+     window.location = "https://livear.herokuapp.com/";
      // We save the Firebase Messaging Device token and enable notifications.
    } else { // User is signed out!
      // Hide user's profile and sign-out button.
