@@ -165,15 +165,25 @@ import { getAuth,
  
  // Enables or disables the submit button depending on the values of the input
  // fields.
+ const signUpButton = document.getElementById('signUp');
+ const signInButton = document.getElementById('signIn');
+ const container = document.getElementById('container');
 
+ signUpButton.addEventListener('click', () => {
+   container.classList.add("right-panel-active");
+ });
+ 
+ signInButton.addEventListener('click', () => {
+   container.classList.remove("right-panel-active");
+ });
  
  // Shortcuts to DOM Elements.
- var signInButtonElement = document.getElementById('sign-in');
- var sign = document.getElementById('sign');
+ //var signInButtonElement = document.getElementById('sign-in');
+// var sign = document.getElementById('sign');
 
  // Saves message on form submit.
- signInButtonElement.addEventListener('click', signIn);
- sign.addEventListener('click', SignEmail);
+ //signInButtonElement.addEventListener('click', signIn);
+ //sign.addEventListener('click', SignEmail);
 
  // Toggle for the button.
  
