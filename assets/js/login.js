@@ -60,7 +60,7 @@ import { getAuth,
   createUserWithEmailAndPassword(auth, username, password)
     .then((userCredential) => {
       const user = userCredential.user;
-
+      alert(user);
     })
     .catch((error) => {
       const errorCode = error.code;
