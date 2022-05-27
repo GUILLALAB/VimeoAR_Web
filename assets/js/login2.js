@@ -60,6 +60,8 @@ import { getAuth,
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
+      window.location = "https://livear.herokuapp.com/";
+
     })
     .catch((error) => {
       const errorCode = error.code;
