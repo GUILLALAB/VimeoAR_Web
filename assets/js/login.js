@@ -178,12 +178,14 @@ import { getAuth,
  });
  
  // Shortcuts to DOM Elements.
- //var signInButtonElement = document.getElementById('sign-in');
+ var signInButtonElement = document.getElementById('sign-in');
 // var sign = document.getElementById('sign');
 
  // Saves message on form submit.
- //signInButtonElement.addEventListener('click', signIn);
+ signInButtonElement.addEventListener('click', SignInEmail);
  //sign.addEventListener('click', SignEmail);
+ var signUp = document.getElementById('sign-up');
+ signUp.addEventListener('click', SignEmail());
 
  // Toggle for the button.
  
