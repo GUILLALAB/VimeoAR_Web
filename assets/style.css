@@ -479,7 +479,7 @@ main, #messages-card {
 } 
 
 div {
-  color: #fff;
+  color: rgb(0, 0, 0);
   font-family: Tahoma, Verdana, Segoe, sans-serif;
   padding: 10px;
 }
