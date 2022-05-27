@@ -91,8 +91,6 @@ import { getAuth,
    }).catch(function(error) {
    var errorCode = error.code;
    var errorMessage = error.message;
-   console.log(errorCode);
-   console.log(errorMessage);
 });
  }
  // Signs-in Friendly Chat.
