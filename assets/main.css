@@ -189,13 +189,6 @@ main, #messages-card {
     background-size: 33px;
   }
 }
-.mdl-textfield__input:after {
-  background-color: #0288D1;
-}
-.mdl-textfield--floating-label.is-focused .mdl-textfield__input {
-  color: #0288D1;
-}
-
 .mdl-textfield__label:after {
   background-color: #0288D1;
 }
@@ -206,6 +199,7 @@ main, #messages-card {
   top: -1px;
   margin-right: 5px;
 }
+
 .flex-container {
   display: flex;
 }
@@ -219,7 +213,7 @@ main, #messages-card {
 } 
 
 div {
-  color: #fff;
+  color: rgb(235, 221, 221);
   font-family: Tahoma, Verdana, Segoe, sans-serif;
   padding: 10px;
 }
@@ -232,6 +226,6 @@ div {
   width: 200px;
 }
 .flex-item {
-  background-color:#7887AB;
+  background-color:#829cd7;
   flex-grow: 1;
 }
