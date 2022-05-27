@@ -145,14 +145,14 @@ import { getAuth,
  function authStateObserver(user) {
    if (user) { // User is signed in!
      // Hide sign-in button.
-     signInButtonElement.setAttribute('hidden', 'true');
+  //   signInButtonElement.setAttribute('hidden', 'true');
      window.location = "https://livear.herokuapp.com/";
      // We save the Firebase Messaging Device token and enable notifications.
    } else { // User is signed out!
      // Hide user's profile and sign-out button.
  
      // Show sign-in button.
-     signInButtonElement.removeAttribute('hidden');
+    // signInButtonElement.removeAttribute('hidden');
    }
  }
  
@@ -168,15 +168,26 @@ import { getAuth,
 
  
  // Shortcuts to DOM Elements.
- var signInButtonElement = document.getElementById('sign-in');
- var sign = document.getElementById('sign');
+ var signIn = document.getElementById('sign-in');
+ var signUp = document.getElementById('sign-up');
+
 
  // Saves message on form submit.
- signInButtonElement.addEventListener('click', signIn);
- sign.addEventListener('click', SignEmail);
+ signIn.addEventListener('click', SignInEmail);
+ signUp.addEventListener('click', SignEmail);
 
  // Toggle for the button.
- 
+ const signUpButton = document.getElementById('signUp');
+const signInButton = document.getElementById('signIn');
+const container = document.getElementById('container');
+
+signUpButton.addEventListener('click', () => {
+	container.classList.add("right-panel-active");
+});
+
+signInButton.addEventListener('click', () => {
+	container.classList.remove("right-panel-active");
+});
 
 
 const firebaseApp = initializeApp(getFirebaseConfig());
