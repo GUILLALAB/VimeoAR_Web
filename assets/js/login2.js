@@ -60,7 +60,16 @@ import { getAuth,
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      
+      try {
+        await addDoc(collection(getFirestore(), 'users'), {
+          name: email,
+          uid: user.uid,
+          timestamp: serverTimestamp()
+        });
+      }
+      catch(error) {
+        console.error('Error writing new message to Firebase Database', error);
+      }
     })
     .catch((error) => {
       const errorCode = error.code;
