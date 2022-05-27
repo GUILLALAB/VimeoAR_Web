@@ -185,7 +185,7 @@ import { getAuth,
  signInButtonElement.addEventListener('click', SignInEmail);
  //sign.addEventListener('click', SignEmail);
  var signUp = document.getElementById('sign-up');
- signUp.addEventListener('click', SignEmail());
+ signUp.addEventListener('click', SignEmail);
 
  // Toggle for the button.
  
