@@ -166,7 +166,7 @@ import { getAuth,
  // Enables or disables the submit button depending on the values of the input
  // fields.
  const signUpButton = document.getElementById('signUp');
- const signInButton = document.getElementById('signIn');
+ const signInButton = document.getElementById('SignIn');
  const container = document.getElementById('container');
 
  signUpButton.addEventListener('click', () => {
