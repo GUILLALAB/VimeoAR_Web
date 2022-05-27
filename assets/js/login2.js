@@ -33,7 +33,7 @@ import { getFirestore,
 import { getAuth,
   onAuthStateChanged,
   GoogleAuthProvider,
-  signInWithPopup,signInAnonymously,
+  signInWithPopup,
   signInWithEmailAndPassword,createUserWithEmailAndPassword,
   signOut } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js"
 
@@ -74,24 +74,16 @@ import { getAuth,
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
   
- /* signInWithEmailAndPassword(getAuth(), email, password)
+  signInWithEmailAndPassword(getAuth(), email, password)
     .then((userCredential) => {
+      // Signed in 
       const user = userCredential.user;
       // ...
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-    });*/
-
-   signInAnonymously()
-.then(function() {
-   console.log('Logged in as Anonymous!')
-   
-   }).catch(function(error) {
-   var errorCode = error.code;
-   var errorMessage = error.message;
-});
+    });
  }
  // Signs-in Friendly Chat.
  async function signIn() {
