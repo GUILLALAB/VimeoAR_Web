@@ -50,7 +50,7 @@ body{
     right: -30px;
     bottom: -80px;
 }
-form{
+div{
     height: 520px;
     width: 400px;
     background-color: rgba(255,255,255,0.13);
@@ -64,14 +64,14 @@ form{
     box-shadow: 0 0 40px rgba(8,7,16,0.6);
     padding: 50px 35px;
 }
-form *{
+div *{
     font-family: 'Poppins',sans-serif;
     color: #ffffff;
     letter-spacing: 0.5px;
     outline: none;
     border: none;
 }
-form h3{
+div h3{
     font-size: 32px;
     font-weight: 500;
     line-height: 42px;
@@ -140,7 +140,7 @@ button{
         <div class="shape"></div>
     </div>
         <h3>Login Here</h3>
-<div>
+<form onsubmit="event.preventDefault(); validateMyForm();">
         <label for="username">Username</label>
         <input type="text" placeholder="Email or Phone" id="email">
 
@@ -154,7 +154,7 @@ button{
           <div  class="go"><i class="fab fa-google"></i>  Google</div>
           <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>
         </div>
-    </div>
+    </form>
     <script type="module" src="/js/login2.js"></script>
 
 </body>
