@@ -99,13 +99,13 @@ input{
     color: #e5e5e5;
 }
 button{
-    margin-top: 50px;
+    margin-top: 40px;
     width: 100%;
     background-color: #ffffff;
     color: #080710;
-    padding: 15px 0;
-    font-size: 18px;
-    font-weight: 600;
+    padding: 10px 0;
+    font-size: 17px;
+    font-weight: 500;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -139,20 +139,20 @@ button{
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
+    <form onsubmit="event.preventDefault(); validateMyForm();">
+
         <h3>Login Here</h3>
-<form onsubmit="event.preventDefault(); validateMyForm();">
         <label for="username">Email</label>
         <input type="text" placeholder="Email" id="email">
 
         <label for="password">Password</label>
         <input type="password" placeholder="Password" id="password">
 
-        <button id="sign-in">Log In</button>         
-        <a href="https://livear.herokuapp.com/login" class="link">Already an account? Log In</a>
-           
+        <button id="sign-in">Log In</button> 
+                  
         <div class="social">
           <div  class="go"><i class="fab fa-google"></i>  Google</div>
-          <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>
+          <a href="https://livear.herokuapp.com/login" class="link">Sign In?</a>
         </div>
     </form>
     <script type="module" src="/js/login2.js"></script>
