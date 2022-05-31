@@ -196,7 +196,7 @@ signInAnonymously(auth)
  // Shortcuts to DOM Elements.
  var SignIn = document.getElementById('sign-in');
  //var SignUp = document.getElementById('sign-up');
- var signInButtonElement = document.getElementById('sign-in');
+ var signInButtonElement = document.getElementById('sign-google');
 
 
  // Saves message on form submit.
