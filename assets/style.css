@@ -250,7 +250,7 @@ main, #messages-card {
   }
   #user-container {
     top: 72px;
-    background-color: rgba(3, 154, 229, 0);
+    background-color: rgb(3,155,229);
     height: 38px;
     padding-top: 3px;
     padding-right: 2px;
@@ -263,10 +263,10 @@ main, #messages-card {
   }
 }
 .mdl-textfield__label:after {
-  background-color: #0289d100;
+  background-color: #0288D1;
 }
 .mdl-textfield--floating-label.is-focused .mdl-textfield__label {
-  color: #0289d100;
+  color: #0288D1;
 }
 .mdl-button .material-icons {
   top: -1px;
@@ -444,7 +444,7 @@ main, #messages-card {
   }
   #user-container {
     top: 72px;
-    background-color: rgba(3, 154, 229, 0);
+    background-color: rgb(3,155,229);
     height: 38px;
     padding-top: 3px;
     padding-right: 2px;
@@ -457,10 +457,10 @@ main, #messages-card {
   }
 }
 .mdl-textfield__label:after {
-  background-color: #0289d100;
+  background-color: #0288D1;
 }
 .mdl-textfield--floating-label.is-focused .mdl-textfield__label {
-  color: #0289d100;
+  color: #0288D1;
 }
 .mdl-button .material-icons {
   top: -1px;
