@@ -484,14 +484,14 @@ div {
   padding: 10px;
 }
 .container {
-  background-color:#7383aa00;
+  background-color:#2E4272;
   display:flex;
 }
 .fixed {
-  background-color:#4f628e00;
+  background-color:#4F628E;
   width: 200px;
 }
 .flex-item {
-  background-color:#7887ab00;
+  background-color:#7887AB;
   flex-grow: 1;
 }
