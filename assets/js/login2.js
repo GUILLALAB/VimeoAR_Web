@@ -75,6 +75,15 @@ import { getAuth,
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
   
+    if (email.length < 1){
+      alert("Please enter an email address");
+      return;
+    }
+    if (password.length < 1){
+      alert("Please enter an email address");
+      return;
+    }
+
   signInWithEmailAndPassword(getAuth(), email, password)
     .then((userCredential) => {
       // Signed in 
@@ -84,6 +93,8 @@ import { getAuth,
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      alert(errorMessage);
+      console.log(error)    
     });
  }
  // Signs-in Friendly Chat.
