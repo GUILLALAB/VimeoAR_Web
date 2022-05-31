@@ -145,6 +145,16 @@ import { getAuth,
  function authStateObserver(user) {
    if (user) { // User is signed in!
      // Hide sign-in button.
+     var profilePicUrl = getProfilePicUrl();
+     var userName = getUserName();
+ 
+     // Set the user's profile pic and name.
+     userPicElement.style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(profilePicUrl) + ')';
+     userNameElement.textContent = userName;
+ 
+     // Show user's profile and sign-out button.
+     userNameElement.removeAttribute('hidden');
+     userPicElement.removeAttribute('hidden');
      signInButtonElement.setAttribute('hidden', 'true');
      window.location = "https://livear.herokuapp.com/";
      // We save the Firebase Messaging Device token and enable notifications.
@@ -171,7 +181,8 @@ import { getAuth,
  // Shortcuts to DOM Elements.
  var signInButtonElement = document.getElementById('sign-in');
  var sign = document.getElementById('sign');
-
+ var userPicElement = document.getElementById('user-pic');
+ var userNameElement = document.getElementById('user-name');
  // Saves message on form submit.
  signInButtonElement.addEventListener('click', signIn);
  sign.addEventListener('click', SignEmail);
