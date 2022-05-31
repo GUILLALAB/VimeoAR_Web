@@ -219,6 +219,7 @@ signInButton.addEventListener('click', () => {
 
 
 const firebaseApp = initializeApp(getFirebaseConfig());
+
 getPerformance();
 initFirebaseAuth();
 
