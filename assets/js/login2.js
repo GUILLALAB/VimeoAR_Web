@@ -52,12 +52,10 @@ import { getAuth,
 
  import { getFirebaseConfig } from './firebase-config.js';
  
-  function SignEmail(){
+  function SignUp(){
   const auth = getAuth();
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
-
-  SignInAnonymous();
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -196,12 +194,12 @@ signInAnonymously(auth)
 
  
  // Shortcuts to DOM Elements.
- var SignIn = document.getElementById('sign-in');
+ //var SignIn = document.getElementById('sign-in');
  //var SignUp = document.getElementById('sign-up');
 
 
  // Saves message on form submit.
- SignIn.addEventListener('click', SignInEmail);
+ //SignIn.addEventListener('click', SignInEmail);
  //SignUp.addEventListener('click', SignEmail);
 
  // Toggle for the button.
