@@ -74,7 +74,7 @@ app.get('/login', (request, response) => {
 });
 
 app.get('/signup', (request, response) => {
-  response.render('login_signup.html');
+  response.render('log_up.html');
 });
 
 app.get('/playground', (request, response) => {
