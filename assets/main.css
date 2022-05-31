@@ -190,10 +190,10 @@ main, #messages-card {
   }
 }
 .mdl-textfield__label:after {
-  background-color: #0288D1;
+  background-color: #ffffff00;
 }
 .mdl-textfield--floating-label.is-focused .mdl-textfield__label {
-  color: #0288D1;
+  color: #0289d100;
 }
 .mdl-button .material-icons {
   top: -1px;
