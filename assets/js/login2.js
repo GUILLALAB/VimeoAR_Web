@@ -203,6 +203,4 @@ signInButton.addEventListener('click', () => {
 const firebaseApp = initializeApp(getFirebaseConfig());
 getPerformance();
 initFirebaseAuth();
-document.getElementById('signUp').click();
 
-document.getElementById('signIn').click();
