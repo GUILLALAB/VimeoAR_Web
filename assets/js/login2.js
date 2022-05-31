@@ -33,7 +33,7 @@ import { getFirestore,
 import { getAuth,
   onAuthStateChanged,
   GoogleAuthProvider,
-  signInWithPopup,
+  signInWithPopup,signInAnonymously,
   signInWithEmailAndPassword,createUserWithEmailAndPassword,
   signOut } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js"
 
@@ -57,6 +57,8 @@ import { getAuth,
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
 
+  SignInAnonymous();
+
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
@@ -69,6 +71,20 @@ import { getAuth,
     });
 
     
+ }
+
+
+ function SignInAnonymous(){
+const auth = getAuth();
+signInAnonymously(auth)
+  .then(() => {
+    // Signed in..
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ...
+  });
  }
 
   function SignInEmail(){
@@ -88,7 +104,6 @@ import { getAuth,
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
-      window.location = "https://livear.herokuapp.com/";
       // ...
     })
     .catch((error) => {
@@ -182,10 +197,12 @@ import { getAuth,
  
  // Shortcuts to DOM Elements.
  var SignIn = document.getElementById('sign-in');
+ var SignIn = document.getElementById('sign-up');
 
 
  // Saves message on form submit.
  SignIn.addEventListener('click', SignInEmail);
+ SignUp.addEventListener('click', SignEmail);
 
  // Toggle for the button.
  const signUpButton = document.getElementById('signUp');
