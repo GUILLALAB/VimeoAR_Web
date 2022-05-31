@@ -70,7 +70,7 @@ app.get('/firebase', (request, response) => {
 });
 
 app.get('/login', (request, response) => {
-  response.render('logitest.html');
+  response.render('log.html');
 });
 
 app.get('/playground', (request, response) => {
