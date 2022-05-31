@@ -200,7 +200,7 @@ var mSignUp = document.getElementById('sign-in');
 
  // Saves message on form submit.
  //SignIn.addEventListener('click', SignInEmail);
- mSignUp.addEventListener('click', SignUp());
+ mSignUp.addEventListener('click', SignUp);
 
  // Toggle for the button.
 
