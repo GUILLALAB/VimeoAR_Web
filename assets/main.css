@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-html, body {
-  font-family: 'Roboto', 'Helvetica', sans-serif;
-}
+
 main, #messages-card {
   height: 100%;
   padding-bottom: 0;
@@ -198,22 +196,4 @@ main, #messages-card {
 .mdl-button .material-icons {
   top: -1px;
   margin-right: 5px;
-}
-
-.flex-container {
-  display: flex;
-}
-
-.flex-child {
-  flex: 1;
-}  
-
-.flex-child:first-child {
-  margin-right: 20px;
-} 
-
-div {
-  color: rgb(0, 0, 0);
-  font-family: Tahoma, Verdana, Segoe, sans-serif;
-  padding: 10px;
 }
