@@ -218,14 +218,14 @@ div {
   padding: 10px;
 }
 .container {
-  background-color:#2E4272;
+  background-color:#2e427200;
   display:flex;
 }
 .fixed {
-  background-color:#4F628E;
+  background-color:#4f628e00;
   width: 200px;
 }
 .flex-item {
-  background-color:#829cd7;
+  background-color:#829cd700;
   flex-grow: 1;
 }
