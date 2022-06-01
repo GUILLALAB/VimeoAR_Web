@@ -45,9 +45,29 @@
 						</div>
 						<div class="content">
 							<div class="inner">
-								<h1>Dimension</h1>
-								<p>A fully responsive site template designed by <a href="https://html5up.net">HTML5 UP</a> and released<br />
-								for free under the <a href="https://html5up.net/license">Creative Commons</a> license.</p>
+                <div id="full-screen-video">
+                  <a-scene>
+                      <a-assets>
+                          <a-asset-item id="broadcaster" src="broadcaster.glb"></a-asset-item>
+                      </a-assets>
+                      <a-sky color="#ECECEC"></a-sky>
+                      <a-entity
+                          id="camera"
+                          camera
+                          position="0 1 2.5"
+                          orbit-controls="
+                          autoRotate: false;
+                          target: #target;
+                          enableDamping: true;
+                          dampingFactor: 0.25;
+                          rotateSpeed:0.14;
+                          minDistance:2;
+                          maxDistance:15;"
+                          mouse-cursor="">
+                      </a-entity>
+                      <a-entity id="target"></a-entity>
+                  </a-scene>
+              </div>
 							</div>
 						</div>
 						<nav>
@@ -152,29 +172,7 @@
                 
                         <div id="main-container">
                             
-                            <div id="full-screen-video">
-                                <a-scene>
-                                    <a-assets>
-                                        <a-asset-item id="broadcaster" src="broadcaster.glb"></a-asset-item>
-                                    </a-assets>
-                                    <a-sky color="#ECECEC"></a-sky>
-                                    <a-entity
-                                        id="camera"
-                                        camera
-                                        position="0 1 2.5"
-                                        orbit-controls="
-                                        autoRotate: false;
-                                        target: #target;
-                                        enableDamping: true;
-                                        dampingFactor: 0.25;
-                                        rotateSpeed:0.14;
-                                        minDistance:2;
-                                        maxDistance:15;"
-                                        mouse-cursor="">
-                                    </a-entity>
-                                    <a-entity id="target"></a-entity>
-                                </a-scene>
-                            </div>
+                           
                     </div>                
               </div>
 
