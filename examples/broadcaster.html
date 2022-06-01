@@ -52,10 +52,35 @@
 						</div>
 						<nav>
 							<ul>
-								<li><a href="#intro">Intro</a></li>
-								<li><a href="#work">Work</a></li>
-								<li><a href="#about">About</a></li>
-								<li><a href="#contact">Contact</a></li>
+                <div id="buttons-container" class="row justify-content-center mt-3">
+                  <div id="audio-controls" class="col-md-2 text-center btn-group">
+                      <button id="mic-btn" type="button" class="btn btn-block btn-dark btn-lg">
+                      <i id="mic-icon" class="fas fa-microphone"></i>
+                      </button>
+                      <button id="mic-dropdown" type="button" class="btn btn-lg btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <div id="mic-list" class="dropdown-menu dropdown-menu-right">
+                      </div>
+                  </div>
+                  <div id="video-controls" class="col-md-2 text-center btn-group">
+                      <button id="video-btn"  type="button" class="btn btn-block btn-dark btn-lg">
+                      <i id="video-icon" class="fas fa-video"></i>
+                      </button>
+                      <button id="cam-dropdown" type="button" class="btn btn-lg btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <div id="camera-list" class="dropdown-menu dropdown-menu-right">
+                      </div>
+                  </div>
+                  <div class="col-md-2 text-center">
+                      <button id="exit-btn"  type="button" class="btn btn-block btn-danger btn-lg">
+                      <i id="exit-icon" class="fas fa-phone-slash"></i>
+                      </button>
+                  </div>
+                  <input type="text" placeholder="broadcast channel name" id="myInput">
+                  <button onclick="start()">Join</button>                    
+              </div>
 								<!--<li><a href="#elements">Elements</a></li>-->
 							</ul>
 						</nav>
@@ -124,35 +149,7 @@
                   </div>
                 
                         <div id="main-container">
-                            <div id="buttons-container" class="row justify-content-center mt-3">
-                                <div id="audio-controls" class="col-md-2 text-center btn-group">
-                                    <button id="mic-btn" type="button" class="btn btn-block btn-dark btn-lg">
-                                    <i id="mic-icon" class="fas fa-microphone"></i>
-                                    </button>
-                                    <button id="mic-dropdown" type="button" class="btn btn-lg btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <div id="mic-list" class="dropdown-menu dropdown-menu-right">
-                                    </div>
-                                </div>
-                                <div id="video-controls" class="col-md-2 text-center btn-group">
-                                    <button id="video-btn"  type="button" class="btn btn-block btn-dark btn-lg">
-                                    <i id="video-icon" class="fas fa-video"></i>
-                                    </button>
-                                    <button id="cam-dropdown" type="button" class="btn btn-lg btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <div id="camera-list" class="dropdown-menu dropdown-menu-right">
-                                    </div>
-                                </div>
-                                <div class="col-md-2 text-center">
-                                    <button id="exit-btn"  type="button" class="btn btn-block btn-danger btn-lg">
-                                    <i id="exit-icon" class="fas fa-phone-slash"></i>
-                                    </button>
-                                </div>
-                                <input type="text" placeholder="broadcast channel name" id="myInput">
-                                <button onclick="start()">Join</button>                    
-                            </div>
+                            
                             <div id="full-screen-video">
                                 <a-scene>
                                     <a-assets>
