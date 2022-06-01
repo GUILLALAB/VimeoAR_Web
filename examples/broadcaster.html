@@ -40,6 +40,21 @@
 
 				<!-- Header -->
 					<header id="header">
+            <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
+              <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
+                <h3><i class="material-icons">chat_bubble_outline</i> Friendly Chat</h3>
+              </div>
+              <div id="user-container">
+                <div hidden id="user-pic"></div>
+                <div hidden id="user-name"></div>
+                <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+                  Sign-out
+                </button>
+                <button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+                  <i class="material-icons">account_circle</i>Sign-in with Google
+                </button>
+              </div>
+            </div>
 						<div class="logo">
 							<span class="icon fa-gem"></span>
 						</div>
@@ -52,7 +67,17 @@
 						</div>
 						<nav>
 							<ul>
-								<li><a href="#intro">Intro</a></li>
+								<li>
+                  <div id="audio-controls" class="col-md-2 text-center btn-group">
+                    <button id="mic-btn" type="button" class="btn btn-block btn-dark btn-lg">
+                    <i id="mic-icon" class="fas fa-microphone"></i>
+                    </button>
+                    <button id="mic-dropdown" type="button" class="btn btn-lg btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div id="mic-list" class="dropdown-menu dropdown-menu-right">
+                    </div>
+                </li>
 								<li><a href="#work">Work</a></li>
 								<li><a href="#about">About</a></li>
 								<li><a href="#contact">Contact</a></li>
@@ -71,25 +96,6 @@
 
 			</div>
         <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
-
-            <header class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
-                <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
-                  <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-                    <h3><i class="material-icons">chat_bubble_outline</i> Friendly Chat</h3>
-                  </div>
-                  <div id="user-container">
-                    <div hidden id="user-pic"></div>
-                    <div hidden id="user-name"></div>
-                    <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-                      Sign-out
-                    </button>
-                    <button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-                      <i class="material-icons">account_circle</i>Sign-in with Google
-                    </button>
-                  </div>
-                </div>
-              </header>
-
                   <div hidden id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
           
                     <!-- Messages container -->
@@ -123,15 +129,7 @@
                 
                         <div id="main-container">
                             <div id="buttons-container" class="row justify-content-center mt-3">
-                                <div id="audio-controls" class="col-md-2 text-center btn-group">
-                                    <button id="mic-btn" type="button" class="btn btn-block btn-dark btn-lg">
-                                    <i id="mic-icon" class="fas fa-microphone"></i>
-                                    </button>
-                                    <button id="mic-dropdown" type="button" class="btn btn-lg btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <div id="mic-list" class="dropdown-menu dropdown-menu-right">
-                                    </div>
+                                
                                 </div>
                                 <div id="video-controls" class="col-md-2 text-center btn-group">
                                     <button id="video-btn"  type="button" class="btn btn-block btn-dark btn-lg">
