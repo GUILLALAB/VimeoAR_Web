@@ -65,6 +65,12 @@ app.get('/index3', (request, response) => {
   response.render('index3.html');
 });
 
+
+app.get('/test', (request, response) => {
+  response.render('test.html');
+});
+
+
 app.get('/firebase', (request, response) => {
   response.render('index.html');
 });
