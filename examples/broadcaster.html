@@ -55,8 +55,8 @@
                 </div>
               </header>
 
-                  <div hidden id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
-            
+                  <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
+          
                     <!-- Messages container -->
                     <div id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
                       <div class="mdl-card__supporting-text mdl-color-text--grey-600">
@@ -80,7 +80,12 @@
                       </div>
                     </div>
               
-                              
+                    <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
+                      <div class="mdl-snackbar__text"></div>
+                      <button class="mdl-snackbar__action" type="button"></button>
+                    </div>
+                  </div>
+                
                         <div id="main-container">
                             <div id="buttons-container" class="row justify-content-center mt-3">
                                 <div id="audio-controls" class="col-md-2 text-center btn-group">
@@ -134,7 +139,7 @@
                                     <a-entity id="target"></a-entity>
                                 </a-scene>
                             </div>
-                        </div>
+                    </div>                
               </div>
 
 
