@@ -250,7 +250,7 @@ main, #messages-card {
   }
   #user-container {
     top: 72px;
-    background-color: rgb(3,155,229);
+    background-color: rgba(3, 154, 229, 0);
     height: 38px;
     padding-top: 3px;
     padding-right: 2px;
@@ -444,7 +444,7 @@ main, #messages-card {
   }
   #user-container {
     top: 72px;
-    background-color: rgb(3,155,229);
+    background-color: rgba(3, 154, 229, 0);
     height: 38px;
     padding-top: 3px;
     padding-right: 2px;
@@ -484,14 +484,14 @@ div {
   padding: 10px;
 }
 .container {
-  background-color:#2E4272;
+  background-color:#2e427200;
   display:flex;
 }
 .fixed {
-  background-color:#4F628E;
+  background-color:#4f628e00;
   width: 200px;
 }
 .flex-item {
-  background-color:#7887AB;
+  background-color:#7887ab00;
   flex-grow: 1;
 }
