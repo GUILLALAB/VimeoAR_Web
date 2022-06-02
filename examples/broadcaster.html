@@ -39,23 +39,26 @@
             <div id="wrapper">
 
 				<!-- Header -->
-					  <header class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
-              <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
-                <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-                  <h3><i class="material-icons">chat_bubble_outline</i> Friendly Chat</h3>
-                </div>
-                <div id="user-container">
-                  <div hidden id="user-pic"></div>
-                  <div hidden id="user-name"></div>
-                  <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-                    Sign-out
-                  </button>
-                  <button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-                    <i class="material-icons">account_circle</i>Sign-in with Google
-                  </button>
-                </div>
-              </div>
-            </header>
+        <header class="site-header text-light">
+          <div class="container">
+        <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
+          <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
+          <h3><i class="material-icons"></i></h3>
+          </div>
+          <div id="user-container">
+          <div hidden id="user-pic"></div>
+          <div hidden id="user-name"></div>
+          <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+            Sign-out
+          </button>
+          <button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+            <i class="material-icons">account_circle</i>Sign-in with Google
+          </button>
+          </div>
+        </div>				
+             
+          </div>
+      </header>
 						<div class="content">
 							  <div id="full-screen-video">
                   <a-scene>
@@ -111,17 +114,21 @@
                   <i id="exit-icon" class="fas fa-phone-slash"></i>
                   </button>
               </div></li>
-								<li>    <div class="col-md-2 text-center"></div> 
+								<li>     
                   <input type="text" placeholder="broadcast channel name" id="myInput">
-                  <button onclick="start()">Join</button> </div> </li>
+                  <button onclick="start()">Join</button>  </li>
 								<!--<li><a href="#elements">Elements</a></li>-->
 							</ul>
 						</nav>
+					</header>
 
 				<!-- Main -->
 					
 
-	
+				<!-- Footer -->
+					<footer id="footer">
+						<p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+					</footer>
 
 			</div>
 
@@ -155,7 +162,10 @@
                       </div>
                     </div>
               
-                  
+                    <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
+                      <div class="mdl-snackbar__text"></div>
+                      <button class="mdl-snackbar__action" type="button"></button>
+                    </div>
                   </div>
                 
                         <div id="main-container">
