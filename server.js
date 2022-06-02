@@ -67,7 +67,7 @@ app.get('/index3', (request, response) => {
 
 
 app.get('/test', (request, response) => {
-  response.render('test.html');
+  response.render('test2.html');
 });
 
 
