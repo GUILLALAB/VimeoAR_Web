@@ -63,7 +63,7 @@ var rtcClient = AgoraRTC.createClient({mode: 'live', codec: 'vp8'}); // vp8 to w
 
 rtcClient.init(agoraAppId, () => {
   console.log('AgoraRTC client initialized');
- // joinChannel(); // join channel upon successfull init
+  joinChannel(); // join channel upon successfull init
 }, function (err) {
   console.log('[ERROR] : AgoraRTC client init failed', err);
 });
@@ -154,9 +154,9 @@ rtcClient.join(token, channelName, 0, (uid) => {
 
     console.log('User ' + uid + ' join channel successfully');
     localStreams.uid = uid;
-    createBroadcaster(uid);   // Load 3D model with video texture
-    createCameraStream(uid);  // Create the camera stream
-    joinRTMChannel(uid);      // join the RTM channel
+  //  createBroadcaster(uid);   // Load 3D model with video texture
+  //  createCameraStream(uid);  // Create the camera stream
+ //   joinRTMChannel(uid);      // join the RTM channel
 }, (err) => {
     console.log('[ERROR] : join channel failed', err);
 });
