@@ -197,3 +197,6 @@ main, #messages-card {
   top: -1px;
   margin-right: 5px;
 }
+p.ex {
+  color: rgb(255, 255, 255);
+}
