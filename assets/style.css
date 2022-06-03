@@ -398,7 +398,7 @@ main, #messages-card {
   position: absolute;
   display: flex;
   flex-direction: row;
-  top: 22px;
+  top: 10px;
   width: 100%;
   right: 0;
   padding-left: 10px;
@@ -443,7 +443,7 @@ main, #messages-card {
     padding-bottom: 80px !important;
   }
   #user-container {
-    top: 72px;
+    top: 10px;
     background-color: rgba(3, 154, 229, 0);
     height: 38px;
     padding-top: 3px;
