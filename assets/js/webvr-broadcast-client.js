@@ -37,6 +37,20 @@ var devices = {
   mics: []
 }
 
+if(rtmChannel !=null){
+  rtmChannel.on('ChannelMessage', ({ text }, senderId) => { 
+    // text: text of the received channel message; senderId: user ID of the sender.
+    console.log('AgoraRTM msg from user ' + senderId + ' recieved: \n' + text);
+    // convert from string to JSON
+    const msg = JSON.parse(text); 
+    // Handle RTM msg 
+    if (msg.property === 'rotation') {
+      rotateModel(senderId, msg.direction, false)
+    } else if (msg.property == 'position') {
+      moveModel(senderId, msg.direction, false)
+    }
+  });
+  }
 if(rtmClient !=null){
 rtmClient.on('ConnectionStateChange', (newState, reason) => {
   console.log('on connection state changed to ' + newState + ' reason: ' + reason);
@@ -110,18 +124,7 @@ if(rtcClient !=null){
 
 }
 // event listener for receiving a channel message
-rtmChannel.on('ChannelMessage', ({ text }, senderId) => { 
-  // text: text of the received channel message; senderId: user ID of the sender.
-  console.log('AgoraRTM msg from user ' + senderId + ' recieved: \n' + text);
-  // convert from string to JSON
-  const msg = JSON.parse(text); 
-  // Handle RTM msg 
-  if (msg.property === 'rotation') {
-    rotateModel(senderId, msg.direction, false)
-  } else if (msg.property == 'position') {
-    moveModel(senderId, msg.direction, false)
-  }
-});
+
 
 // create RTC client 
 var rtcClient = AgoraRTC.createClient({mode: 'live', codec: 'vp8'}); // vp8 to work across mobile devices
