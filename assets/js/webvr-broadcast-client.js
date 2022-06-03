@@ -155,8 +155,8 @@ rtcClient.join(token, channelName, 0, (uid) => {
     console.log('User ' + uid + ' join channel successfully');
     localStreams.uid = uid;
   //  createBroadcaster(uid);   // Load 3D model with video texture
-  //  createCameraStream(uid);  // Create the camera stream
- //   joinRTMChannel(uid);      // join the RTM channel
+    createCameraStream(uid);  // Create the camera stream
+    joinRTMChannel(uid);      // join the RTM channel
 }, (err) => {
     console.log('[ERROR] : join channel failed', err);
 });
