@@ -133,7 +133,7 @@ start.addEventListener('click', init);
 
 function init(){
   // setup the RTM client and channel
-  if(document.getElementById("myInput").value.length>1){
+  if(document.getElementById("myInput").value.length()>1){
     channelName=document.getElementById("myInput").value;
  rtmClient = AgoraRTM.createInstance(agoraAppId); 
  rtmChannel = rtmClient.createChannel(channelName); 
