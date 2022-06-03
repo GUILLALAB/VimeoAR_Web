@@ -27,7 +27,16 @@ body {font-family: "Lato", sans-serif}
     <a href="https://livear.herokuapp.com/" class="w3-bar-item w3-button w3-padding-large">HOME</a>
     <a href="https://livear.herokuapp.com/broadcaster" class="w3-bar-item w3-button w3-padding-large w3-hide-small">BAND</a>
     <a href="https://livear.herokuapp.com/green" class="w3-bar-item w3-button w3-padding-large w3-hide-small">TOUR</a>
-  
+	<div id="user-container">
+		<div hidden id="user-pic"></div>
+		<div hidden id="user-name"></div>
+		<button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+		  Sign-out
+		</button>
+		<button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+		  <i class="material-icons">account_circle</i>Sign-in with Google
+		</button>
+	  </div>
     <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
   </div>
 </div>
@@ -69,7 +78,33 @@ body {font-family: "Lato", sans-serif}
  
 
  
+  <div hidden class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+	<div  id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
 
+	  <!-- Messages container -->
+	  <div id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
+		<div class="mdl-card__supporting-text mdl-color-text--grey-600">
+		  <div id="messages">
+		  </div>
+		  <form id="message-form" action="#">
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			  <input class="mdl-textfield__input" type="text" id="message" autocomplete="off">
+			  <label class="mdl-textfield__label" for="message">Message...</label>
+			</div>
+			<button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+			  Send
+			</button>
+		  </form>
+		  <form id="image-form" action="#">
+			<input id="mediaCapture" type="file" accept="image/*" capture="camera">
+			<button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
+			  <i class="material-icons">image</i>
+			</button>
+		  </form>
+		</div>
+	  </div>
+	</div> 	             
+</div>
 
  
   
@@ -641,6 +676,7 @@ function connectStreamToVideo(agoraStream, video) {
       }
 
       </script>  
+	  <script type="module" src="/js/index.js"></script>
           <script src="/js/main.min.js"></script>
 </body>
 </html>
