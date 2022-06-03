@@ -5,8 +5,8 @@ const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID her
 var channelName = 'web'; 
 var streamCount = 0;
 var token = "";
-var rtmClient;
-var rtmChannel;
+var rtmClient=null;
+var rtmChannel=null;
 // video profile settings
 var cameraVideoProfile = '720p_6'; // 960 × 720 @ 30fps  & 750kbs
 
