@@ -2,10 +2,11 @@
 //import {sayHello} from './server.js';
 
 const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
-const channelName = 'web'; 
+var channelName = 'web'; 
 var streamCount = 0;
 var token = "";
-
+var rtmClient;
+var rtmChannel;
 // video profile settings
 var cameraVideoProfile = '720p_6'; // 960 × 720 @ 30fps  & 750kbs
 
@@ -36,9 +37,6 @@ var devices = {
   mics: []
 }
 
-// setup the RTM client and channel
-const rtmClient = AgoraRTM.createInstance(agoraAppId); 
-const rtmChannel = rtmClient.createChannel(channelName); 
 
 rtmClient.on('ConnectionStateChange', (newState, reason) => {
   console.log('on connection state changed to ' + newState + ' reason: ' + reason);
@@ -64,6 +62,11 @@ var start = document.getElementById('start');
 start.addEventListener('click', init);
 
 function init(){
+  // setup the RTM client and channel
+ rtmClient = AgoraRTM.createInstance(agoraAppId); 
+ rtmChannel = rtmClient.createChannel(channelName); 
+
+
   rtcClient.init(agoraAppId, () => {
     console.log('AgoraRTC client initialized');
     joinChannel(); // join channel upon successfull init
