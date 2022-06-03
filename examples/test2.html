@@ -24,16 +24,17 @@ body {font-family: "Lato", sans-serif}
 <div class="w3-top">
   <div class="w3-bar w3-black w3-card">
     <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="https://livear.herokuapp.com/" class="w3-bar-item w3-button w3-padding-large">HOME</a>
     <a href="https://livear.herokuapp.com/broadcaster" class="w3-bar-item w3-button w3-padding-large w3-hide-small">BAND</a>
     <a href="https://livear.herokuapp.com/green" class="w3-bar-item w3-button w3-padding-large w3-hide-small">TOUR</a>
 	<div id="user-container">
 		<div hidden id="user-pic"></div>
 		<div hidden id="user-name"></div>
-		<button hidden id="sign-out" class="w3-bar-item w3-button w3-padding-large">
+		<button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
 		  Sign-out
 		</button>
-		<button hidden id="sign-in" class="w3-bar-item w3-button w3-padding-large">
-		  <i class="material-icons"></i>Sign-in
+		<button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+		  <i class="material-icons">account_circle</i>Sign-in with Google
 		</button>
 	  </div>
     <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
@@ -49,11 +50,10 @@ body {font-family: "Lato", sans-serif}
 
 <!-- Page content -->
 <div class="w3-content" style="max-width:2000px;margin-top:46px">
+	<input type="text" placeholder="broadcaster channel name" id="myInput">
 
   <!-- Automatic Slideshow Images -->
   <div class="mySlides w3-display-container w3-center">
-	<input type="text" placeholder="broadcaster channel name" id="myInput">
-
     <img src="/w3images/la.jpg" style="width:100%">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
       <h3>Los Angeles</h3>
