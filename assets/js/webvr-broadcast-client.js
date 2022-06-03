@@ -37,11 +37,78 @@ var devices = {
   mics: []
 }
 
-
+if(rtmClient !=null){
 rtmClient.on('ConnectionStateChange', (newState, reason) => {
   console.log('on connection state changed to ' + newState + ' reason: ' + reason);
 });
+}
+if(rtcClient !=null){
+  rtcClient.on('stream-published', function (evt) {
+    console.log('Publish local stream successfully');
+  });
+  
+  // connect remote streams
+  rtcClient.on('stream-added', (evt) => {
+    const stream = evt.stream;
+    const streamId = stream.getId();
+    console.log('New stream added: ' + streamId);
+    console.log('Subscribing to remote stream:' + streamId);
+    // Subscribe to the remote stream
+    rtcClient.subscribe(stream, (err) => {
+      console.log('[ERROR] : subscribe stream failed', err);
+    });
+  
+    streamCount++; // Increase count of Active Stream Count
+    createBroadcaster(streamId); // Load 3D model with video texture
+  });
+  
+  rtcClient.on('stream-removed', (evt) => {
+    const stream = evt.stream;
+    stream.stop(); // stop the stream
+    stream.close(); // clean up and close the camera stream
+    console.log('Remote stream is removed ' + stream.getId());
+  });
+  
+  rtcClient.on('stream-subscribed', (evt) => {
+    const remoteStream = evt.stream;
+    const remoteId = remoteStream.getId();
+    console.log('Successfully subscribed to remote stream: ' + remoteStream.getId());
+    
+    // get the designated video element and connect it to the remoteStream
+    var video = document.getElementById('faceVideo-' + remoteId);
+    connectStreamToVideo(remoteStream, video); 
+  });
+  
+  // remove the remote-container when a user leaves the channel
+  rtcClient.on('peer-leave', (evt) => {
+    console.log('Remote stream has left the channel: ' + evt.uid);
+    evt.stream.stop(); // stop the stream
+    const remoteId = evt.stream.getId();
+    // Remove the 3D and Video elements that were created
+    document.getElementById(remoteId).remove();
+    document.getElementById('faceVideo-' + remoteId).remove();
+    streamCount--;  // Decrease count of Active Stream Count
+  });
+  
+  // show mute icon whenever a remote has muted their mic
+  rtcClient.on('mute-audio', (evt) => {
+    console.log('mute-audio for: ' + evt.uid);
+  });
+  
+  rtcClient.on('unmute-audio', (evt) => {
+    console.log('unmute-audio for: ' + evt.uid);
+  });
+  
+  // show user icon whenever a remote has disabled their video
+  rtcClient.on('mute-video', (evt) => {
+    console.log('mute-video for: ' + evt.uid);
+  });
+  
+  rtcClient.on('unmute-video', (evt) => {
+    console.log('unmute-video for: ' + evt.uid);
+  });
 
+}
 // event listener for receiving a channel message
 rtmChannel.on('ChannelMessage', ({ text }, senderId) => { 
   // text: text of the received channel message; senderId: user ID of the sender.
@@ -76,70 +143,7 @@ function init(){
 }
 
 
-rtcClient.on('stream-published', function (evt) {
-  console.log('Publish local stream successfully');
-});
 
-// connect remote streams
-rtcClient.on('stream-added', (evt) => {
-  const stream = evt.stream;
-  const streamId = stream.getId();
-  console.log('New stream added: ' + streamId);
-  console.log('Subscribing to remote stream:' + streamId);
-  // Subscribe to the remote stream
-  rtcClient.subscribe(stream, (err) => {
-    console.log('[ERROR] : subscribe stream failed', err);
-  });
-
-  streamCount++; // Increase count of Active Stream Count
-  createBroadcaster(streamId); // Load 3D model with video texture
-});
-
-rtcClient.on('stream-removed', (evt) => {
-  const stream = evt.stream;
-  stream.stop(); // stop the stream
-  stream.close(); // clean up and close the camera stream
-  console.log('Remote stream is removed ' + stream.getId());
-});
-
-rtcClient.on('stream-subscribed', (evt) => {
-  const remoteStream = evt.stream;
-  const remoteId = remoteStream.getId();
-  console.log('Successfully subscribed to remote stream: ' + remoteStream.getId());
-  
-  // get the designated video element and connect it to the remoteStream
-  var video = document.getElementById('faceVideo-' + remoteId);
-  connectStreamToVideo(remoteStream, video); 
-});
-
-// remove the remote-container when a user leaves the channel
-rtcClient.on('peer-leave', (evt) => {
-  console.log('Remote stream has left the channel: ' + evt.uid);
-  evt.stream.stop(); // stop the stream
-  const remoteId = evt.stream.getId();
-  // Remove the 3D and Video elements that were created
-  document.getElementById(remoteId).remove();
-  document.getElementById('faceVideo-' + remoteId).remove();
-  streamCount--;  // Decrease count of Active Stream Count
-});
-
-// show mute icon whenever a remote has muted their mic
-rtcClient.on('mute-audio', (evt) => {
-  console.log('mute-audio for: ' + evt.uid);
-});
-
-rtcClient.on('unmute-audio', (evt) => {
-  console.log('unmute-audio for: ' + evt.uid);
-});
-
-// show user icon whenever a remote has disabled their video
-rtcClient.on('mute-video', (evt) => {
-  console.log('mute-video for: ' + evt.uid);
-});
-
-rtcClient.on('unmute-video', (evt) => {
-  console.log('unmute-video for: ' + evt.uid);
-});
 
 // join a channel
 function joinChannel() {
