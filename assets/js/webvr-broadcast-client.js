@@ -61,6 +61,15 @@ rtmChannel.on('ChannelMessage', ({ text }, senderId) => {
 // create RTC client 
 var rtcClient = AgoraRTC.createClient({mode: 'live', codec: 'vp8'}); // vp8 to work across mobile devices
 
+rtcClient.init(agoraAppId, () => {
+  console.log('AgoraRTC client initialized');
+  joinChannel(); // join channel upon successfull init
+}, function (err) {
+  console.log('[ERROR] : AgoraRTC client init failed', err);
+});
+
+
+
 
 
 
