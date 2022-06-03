@@ -206,7 +206,7 @@ function createCameraStream(uid) {
     }
     console.log('accessAllowed');
   });*/
-
+  
   // The user has denied access to the camera and mic.
   localStream.on('accessDenied', () => {
     console.log('accessDenied');
