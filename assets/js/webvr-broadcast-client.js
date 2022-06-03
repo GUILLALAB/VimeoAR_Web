@@ -198,15 +198,14 @@ function createCameraStream(uid) {
   localStream.setVideoProfile(cameraVideoProfile);
 
   // The user has granted access to the camera and mic.
-  /*localStream.on('accessAllowed', () => {
+  localStream.on('accessAllowed', () => {
     if(devices.cameras.length === 0 && devices.mics.length === 0) {
       console.log('[DEBUG] : checking for cameras & mics');
       getCameraDevices();
       getMicDevices();
     }
     console.log('accessAllowed');
-  });*/
-  
+  });
   // The user has denied access to the camera and mic.
   localStream.on('accessDenied', () => {
     console.log('accessDenied');
