@@ -62,6 +62,7 @@ import { getAuth,
  function signOutUser() {
    // Sign out of Firebase.
    signOut(getAuth());
+   window.location = "https://livear.herokuapp.com/login";
  }
  
  // Initialize firebase auth
@@ -250,7 +251,6 @@ import { getAuth,
      saveMessagingDeviceToken();
    } else { // User is signed out!
      // Hide user's profile and sign-out button.
-     window.location = "https://livear.herokuapp.com/login";
 
      userNameElement.setAttribute('hidden', 'true');
      userPicElement.setAttribute('hidden', 'true');
