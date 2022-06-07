@@ -46,7 +46,6 @@ textarea:focus, input:focus {
 		<noscript><link rel="stylesheet" href="/cssgreen/noscript.css" /></noscript>
 	
     <body class="is-preload">
-      <div id="wrapper">
         <div id="bg"></div>
         <div id="overlay"></div>
         <div id="main">
@@ -523,11 +522,15 @@ function connectStreamToVideo(agoraStream, video) {
 
           const referenceSpace = renderer.xr.getReferenceSpace();
           const session = renderer.xr.getSession();
-          const collection = document.getElementById("header");
+          const collection = document.getElementsByClassName("bgimg w3-display-container w3-animate-opacity w3-text-white");
           [...collection].forEach( el => {
             el.style.display = 'none';
           });
 
+          const collection2 = document.getElementsByClassName(" hero text-center text-light");
+          [...collection2].forEach( el => {
+            el.style.display = 'none';
+          });
          
           if ( hitTestSourceRequested === false ) {
 
