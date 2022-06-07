@@ -4,7 +4,33 @@ body {
   margin: 0;
   padding: 0;
 }
+html, input, select, textarea {
+  font-size: 16pt;
+}
 
+  @media screen and (max-width: 1680px) {
+
+    html, input, select, textarea {
+      font-size: 13pt;
+    }
+
+  }
+
+  @media screen and (max-width: 1280px) {
+
+    html, input, select, textarea {
+      font-size: 12pt;
+    }
+
+  }
+
+  @media screen and (max-width: 360px) {
+
+    html, input, select, textarea {
+      font-size: 11pt;
+    }
+
+  }
 body .btn:focus{ 
   outline: none !important;
   box-shadow:none !important;
