@@ -35,8 +35,8 @@
     <link href="https://fonts.googleapis.com/css?family=Heebo:400,700|Oxygen:700" rel="stylesheet">
     <script src="https://unpkg.com/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
     <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
-    <link rel="stylesheet" href="/cssgreen/main.css" />
-		<noscript><link rel="stylesheet" href="/cssgreen/noscript.css" /></noscript>
+    <link rel="stylesheet" href="/css/main.css" />
+		<noscript><link rel="stylesheet" href="/css/noscript.css" /></noscript>
 
     <body>
         <div id="bg"></div>
@@ -45,14 +45,14 @@
   
           <!-- Header -->
             <header id="header">
-              <h1>Live AR</h1>
-              <p>Visualize Live content in Augmented Reality</p>
-          
               <nav>
                 <ul>
                   <input type="text" placeholder="broadcaster channel name" id="myInput">
                 </ul>
               </nav>
+              <p>Visualize Live content in Augmented Reality</p>
+              <h1>Live AR</h1>
+
             </header>
   
       
@@ -519,7 +519,7 @@ function connectStreamToVideo(agoraStream, video) {
 
           const referenceSpace = renderer.xr.getReferenceSpace();
           const session = renderer.xr.getSession();
-          const collection = document.getElementById("header");
+          const collection = document.getElementsByClassName("header");
           [...collection].forEach( el => {
             el.style.display = 'none';
           });
