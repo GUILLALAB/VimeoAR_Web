@@ -39,7 +39,6 @@
 		<noscript><link rel="stylesheet" href="/css/noscript.css" /></noscript>
 
     <body>
-      <div id="wrapper">
         <div id="bg"></div>
         <div id="overlay"></div>
         <div id="main">
@@ -58,7 +57,6 @@
       
   
         </div>
-      </div>
 
 
        <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
@@ -520,7 +518,7 @@ function connectStreamToVideo(agoraStream, video) {
 
           const referenceSpace = renderer.xr.getReferenceSpace();
           const session = renderer.xr.getSession();
-          const collection = document.getElementsByClassName("wrapper");
+          const collection = document.getElementsByClassName("header");
           [...collection].forEach( el => {
             el.style.display = 'none';
           });
@@ -585,11 +583,7 @@ function connectStreamToVideo(agoraStream, video) {
 
       </script>  
           <script src="/js/main.min.js"></script>
-          <script>
-            window.onload = function() { document.body.classList.remove('is-preload'); }
-            window.ontouchmove = function() { return false; }
-            window.onorientationchange = function() { document.body.scrollTop = 0; }
-          </script>
+
     </body>
 
     <!-- for broadcast user use: https://digitallysavvy.github.io/group-video-chat -->
