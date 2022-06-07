@@ -39,8 +39,7 @@
 		<noscript><link rel="stylesheet" href="/css/noscript.css" /></noscript>
 
     <body style="background-color:black;text-align:center">
-      <div id="bg"></div>
-        <div id="overlay"></div>
+     
         <div id="main">
   
           <!-- Header -->
@@ -519,7 +518,7 @@ function connectStreamToVideo(agoraStream, video) {
 
           const referenceSpace = renderer.xr.getReferenceSpace();
           const session = renderer.xr.getSession();
-          const collection = document.getElementsByClassName("header");
+          const collection = document.getElementsByClassName("main");
           [...collection].forEach( el => {
             el.style.display = 'none';
           });
