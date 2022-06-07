@@ -61,8 +61,7 @@ textarea:focus, input:focus {
                 </ul>
               </nav>
             </header>
-  </div>
-  </div>
+  
   
        <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
     <source  id="source" src="video.mp4" type="video/mp4">   
@@ -523,12 +522,15 @@ function connectStreamToVideo(agoraStream, video) {
 
           const referenceSpace = renderer.xr.getReferenceSpace();
           const session = renderer.xr.getSession();
-          const collection = document.getElementsByClassName("wrapper");
+          const collection = document.getElementsByClassName("bg");
           [...collection].forEach( el => {
             el.style.display = 'none';
           });
 
-
+          const collection2 = document.getElementsByClassName("header");
+          [...collection2].forEach( el => {
+            el.style.display = 'none';
+          });
          
           if ( hitTestSourceRequested === false ) {
 
