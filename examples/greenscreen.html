@@ -48,6 +48,7 @@ textarea:focus, input:focus {
     <body class="is-preload">
       <div id="wrapper">
         <div id="bg"></div>
+        <div id="overlay"></div>
         <div id="main">
   
           <!-- Header -->
@@ -522,12 +523,12 @@ function connectStreamToVideo(agoraStream, video) {
 
           const referenceSpace = renderer.xr.getReferenceSpace();
           const session = renderer.xr.getSession();
-          const collection = document.getElementsByClassName("bg");
+          const collection = document.getElementsByClassName("header");
           [...collection].forEach( el => {
             el.style.display = 'none';
           });
 
-          const collection2 = document.getElementsByClassName("header");
+          const collection2 = document.getElementsByClassName(" hero text-center text-light");
           [...collection2].forEach( el => {
             el.style.display = 'none';
           });
