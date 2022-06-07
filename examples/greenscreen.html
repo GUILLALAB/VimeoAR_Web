@@ -523,28 +523,12 @@ function connectStreamToVideo(agoraStream, video) {
 
           const referenceSpace = renderer.xr.getReferenceSpace();
           const session = renderer.xr.getSession();
-          const collection = document.getElementsByClassName("bg");
+          const collection = document.getElementById("bg");
           [...collection].forEach( el => {
             el.style.display = 'none';
           });
 
-          const collection2 = document.getElementsByClassName("overlay");
-          [...collection2].forEach( el => {
-            el.style.display = 'none';
-          });
-          const collection3 = document.getElementsByClassName("main");
-          [...collection3].forEach( el => {
-            el.style.display = 'none';
-          });
-
-          const collection4 = document.getElementsByClassName("wrapper");
-          [...collection4].forEach( el => {
-            el.style.display = 'none';
-          });
-          const collection5 = document.getElementsByClassName("header");
-          [...collection5].forEach( el => {
-            el.style.display = 'none';
-          });
+         
           if ( hitTestSourceRequested === false ) {
 
             session.requestReferenceSpace( 'viewer' ).then( function ( referenceSpace ) {
