@@ -46,6 +46,8 @@ textarea:focus, input:focus {
 		<noscript><link rel="stylesheet" href="/cssgreen/noscript.css" /></noscript>
 	
     <body class="is-preload">
+      <div id="wrapper">
+        <div id="bg"></div>
         <div id="main">
   
           <!-- Header -->
@@ -59,6 +61,7 @@ textarea:focus, input:focus {
                 </ul>
               </nav>
             </header>
+  </div>
   </div>
   
        <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
@@ -520,7 +523,7 @@ function connectStreamToVideo(agoraStream, video) {
 
           const referenceSpace = renderer.xr.getReferenceSpace();
           const session = renderer.xr.getSession();
-          const collection = document.getElementsByClassName("main");
+          const collection = document.getElementsByClassName("wrapper");
           [...collection].forEach( el => {
             el.style.display = 'none';
           });
