@@ -24,10 +24,6 @@
           .mirror {
               transform: scaleX(-1);
           }
-
-          #myInput{
-	font-size:17px;  
-}
       </style>
       </head>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js"
@@ -40,29 +36,31 @@
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://unpkg.com/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
     <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
-    <body style="background-color:black;text-align:center">
-   
-      <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-      <section class="hero text-center text-light">
-				<div class="hero-bg"></div>
-				<div class="hero-particles-container">
-					<canvas id="hero-particles"></canvas>
-				</div>
-                <div class="container-sm">
-                    <div class="hero-inner">
-						<div class="hero-copy">
-	                        <h1 class="hero-title mt-0">Visualize Live AR</h1>
-	                        <p class="hero-paragraph">Display Live video in Augmented Reality with GreenScreen Removal.
-							</p>
-	                      
-            
-						</div>
-            <input type="text" placeholder="broadcaster channel name" id="myInput">
-
-                    </div>
-                </div>
-            </section>
-          </div>
+    <link rel="stylesheet" href="/css/main.css" />
+		<noscript><link rel="stylesheet" href="/css/noscript.css" /></noscript>
+	
+    <body class="is-preload">
+      <div id="wrapper">
+        <div id="bg"></div>
+        <div id="overlay"></div>
+        <div id="main">
+  
+          <!-- Header -->
+            <header id="header">
+              <h1>Adam Jensen</h1>
+              <p>Security Chief &nbsp;&bull;&nbsp; Cyborg &nbsp;&bull;&nbsp; Never asked for this</p>
+              <nav>
+                <ul>
+                  <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                  <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+                  <li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
+                  <li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+                  <li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+                </ul>
+              </nav>
+            </header>
+  
+  
        <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
     <source  id="source" src="video.mp4" type="video/mp4">   
     </video>
@@ -590,7 +588,11 @@ function connectStreamToVideo(agoraStream, video) {
 
       </script>  
           <script src="/js/main.min.js"></script>
-
+          <script>
+            window.onload = function() { document.body.classList.remove('is-preload'); }
+            window.ontouchmove = function() { return false; }
+            window.onorientationchange = function() { document.body.scrollTop = 0; }
+          </script>
     </body>
 
     <!-- for broadcast user use: https://digitallysavvy.github.io/group-video-chat -->
