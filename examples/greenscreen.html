@@ -50,6 +50,8 @@ textarea:focus, input:focus {
       <div id="overlay"></div>
       
   
+        <div id="main">
+  
           <!-- Header -->
             <header id="header">
               <h1>Live AR</h1>
@@ -522,7 +524,7 @@ function connectStreamToVideo(agoraStream, video) {
           const referenceSpace = renderer.xr.getReferenceSpace();
           const session = renderer.xr.getSession();
         
-          const collection2 = document.getElementById("header");
+          const collection2 = document.getElementById("bg");
           [...collection2].forEach( el => {
             el.style.display = 'none';
           });
