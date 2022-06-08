@@ -258,15 +258,17 @@ var video = document.getElementById("video");
   // add video object to the DOM
 
 }
-
+function update(ctx,video){
+  ctx.drawImage(video,0,0,256,256);   
+  requestAnimationFrame(update)
+}
 function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
   const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
   video.onloadedmetadata = () => {
-    ctx.drawImage(video,0,0,256,256);   
-    requestAnimationFrame();
+   update(ctx,video);
   }
 }
 
