@@ -249,7 +249,7 @@ function createCameraStream(uid) {
 function createBroadcaster(streamId) {
   // create video element
 
-var video = document.createElement("video");
+var video = document.getElementById("video");
 
   video.id = 'faceVideo-' + streamId;
   video.setAttribute('webkit-playsinline', 'webkit-playsinline');
@@ -268,7 +268,7 @@ function connectStreamToVideo(agoraStream, video) {
 const ctx = canvas.getContext("2d");
 
   video.onloadedmetadata = () => {
-   video.play();
+    video.play();
    update(ctx,video);
   }
 }
