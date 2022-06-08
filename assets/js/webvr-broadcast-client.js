@@ -270,6 +270,7 @@ function connectStreamToVideo(agoraStream, video) {
  ctx = canvas.getContext("2d");
 
   video.onloadedmetadata = () => {
+    video.play();
    update();
   }
 }
