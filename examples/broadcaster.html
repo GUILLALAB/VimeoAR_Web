@@ -44,6 +44,38 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 </head>
 <body>
 
+	<!-- Header -->
+<header class="w3-container w3-black w3-center" style="padding:90px 20px">
+	
+	<lu>  
+		<div id="audio-controls" class="col-md-1 text-center btn-group">
+		<button id="mic-btn" type="button" class="btn btn-block btn-dark btn-lg">
+		<i id="mic-icon" class="fas fa-microphone"></i>
+		</button>
+		<button id="mic-dropdown" type="button" class="btn btn-lg btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<span class="sr-only">Toggle Dropdown</span>
+		</button>
+		<div id="mic-list" class="dropdown-menu dropdown-menu-right">
+		</div>
+	</div></lu>
+					  <lu> <div id="video-controls" class="col-md-1 text-center btn-group">
+		<button id="video-btn"  type="button" class="btn btn-block btn-dark btn-lg">
+		<i id="video-icon" class="fas fa-video"></i>
+		</button>
+		<button id="cam-dropdown" type="button" class="btn btn-lg btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<span class="sr-only">Toggle Dropdown</span>
+		</button>
+		<div id="camera-list" class="dropdown-menu dropdown-menu-right">
+		</div>
+	</div></lu>
+		<lu> <div class="col-md-1 text-center btn-group">
+		<button id="exit-btn"  type="button" class="btn btn-block btn-danger btn-lg">
+		<i id="exit-icon" class="fas fa-phone-slash"></i>
+		</button>
+	
+	</div></lu> 
+</header>
+
 <!-- Navbar -->
 <div class="w3-top">
   <div class="w3-bar w3-black w3-card w3-left-align w3-large">
@@ -75,37 +107,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 			</video>
 </div>
 
-<!-- Header -->
-<header class="w3-container w3-black w3-center" style="padding:90px 20px">
-	
-	<lu>  
-		<div id="audio-controls" class="col-md-1 text-center btn-group">
-		<button id="mic-btn" type="button" class="btn btn-block btn-dark btn-lg">
-		<i id="mic-icon" class="fas fa-microphone"></i>
-		</button>
-		<button id="mic-dropdown" type="button" class="btn btn-lg btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		<span class="sr-only">Toggle Dropdown</span>
-		</button>
-		<div id="mic-list" class="dropdown-menu dropdown-menu-right">
-		</div>
-	</div></lu>
-					  <lu> <div id="video-controls" class="col-md-1 text-center btn-group">
-		<button id="video-btn"  type="button" class="btn btn-block btn-dark btn-lg">
-		<i id="video-icon" class="fas fa-video"></i>
-		</button>
-		<button id="cam-dropdown" type="button" class="btn btn-lg btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		<span class="sr-only">Toggle Dropdown</span>
-		</button>
-		<div id="camera-list" class="dropdown-menu dropdown-menu-right">
-		</div>
-	</div></lu>
-		<lu> <div class="col-md-1 text-center btn-group">
-		<button id="exit-btn"  type="button" class="btn btn-block btn-danger btn-lg">
-		<i id="exit-icon" class="fas fa-phone-slash"></i>
-		</button>
-	
-	</div></lu> 
-</header>
 
 
 <div hidden class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
