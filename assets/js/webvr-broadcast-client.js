@@ -10,10 +10,6 @@ var rtmChannel=null;
 // video profile settings
 var cameraVideoProfile = '720p_6'; // 960 × 720 @ 30fps  & 750kbs
 
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-const video = document.getElementById("video");
-
 // set log level:
 // -- .DEBUG for dev 
 // -- .NONE for prod
@@ -303,13 +299,7 @@ function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
   video.onloadedmetadata = () => {
     // ready to play video
-
     video.play();
-    function step() {
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-      requestAnimationFrame(step)
-    }
-    requestAnimationFrame(step);
   }
 }
 
