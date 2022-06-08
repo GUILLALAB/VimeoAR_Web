@@ -270,8 +270,8 @@ const ctx = canvas.getContext("2d");
 
   video.onloadedmetadata = () => {
     video.play();
-    // ready to play video
-    update(ctx,video);
+   update(ctx,video);
+  }
 }
 
 function changeStreamSource (deviceIndex, deviceType) {
