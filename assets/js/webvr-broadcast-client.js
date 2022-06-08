@@ -199,6 +199,8 @@ function leaveChannel() {
     $('#mic-btn').prop('disabled', true);
     $('#video-btn').prop('disabled', true);
     $('#exit-btn').prop('disabled', true);
+    ctx.canvas.hidden=true;
+
   }, (err) => {
     console.log('client leave failed ', err); //error handling
   });
@@ -273,6 +275,8 @@ function connectStreamToVideo(agoraStream, video) {
  ctx = canvas.getContext("2d");
  ctx.canvas.width  = window.innerWidth;
  ctx.canvas.height = window.innerHeight;
+ ctx.canvas.hidden=false;
+
   video.onloadedmetadata = () => {
     video.play();
    update();
