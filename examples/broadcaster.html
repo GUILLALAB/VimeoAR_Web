@@ -71,27 +71,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <!-- Header -->
 <header class="w3-container w3-black w3-center" style="padding:110px 16px">
 	<div id="full-screen-video">
-		<a-scene>
-			<a-assets>
-				<a-asset-item id="broadcaster" src="broadcaster.glb"></a-asset-item>
-			</a-assets>
-			<a-sky color="#ECECEC"></a-sky>
-			<a-entity
-				id="camera"
-				camera
-				position="0 1 2.5"
-				orbit-controls="
-				autoRotate: false;
-				target: #target;
-				enableDamping: true;
-				dampingFactor: 0.25;
-				rotateSpeed:0.14;
-				minDistance:2;
-				maxDistance:15;"
-				mouse-cursor="">
-			</a-entity>
-			<a-entity id="target"></a-entity>
-		</a-scene>
+		<canvas id="myCanvas" width = "532" height ="300" >
+			<video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
+				<source  id="source" src="video.mp4" type="video/mp4">   
+				</video>
 	</div>
 
 	
