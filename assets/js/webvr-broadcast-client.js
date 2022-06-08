@@ -260,6 +260,7 @@ var video = document.getElementById("video");
 }
 function update(ctx,video){
   ctx.drawImage(video,0,0,256,256);   
+  requestAnimationFrame(update(ctx,video));
 }
 function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
