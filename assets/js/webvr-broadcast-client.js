@@ -262,7 +262,7 @@ function createBroadcaster(streamId) {
 }
 function update(){
   ctx.drawImage(video,0,0,256,256);   
-  requestAnimationFrame(update)
+  requestAnimationFrame(update);
 }
 function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
