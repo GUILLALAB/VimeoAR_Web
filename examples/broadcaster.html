@@ -71,32 +71,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <!-- Header -->
 <header class="w3-container w3-black w3-center" style="padding:110px 16px">
 	<div id="full-screen-video">
-		<a-scene>
-			<a-assets>
-				<a-asset-item id="broadcaster" src="broadcaster.glb"></a-asset-item>
-			</a-assets>
-			<a-sky color="#ECECEC"></a-sky>
-			<a-entity
-				id="camera"
-				camera
-				position="0 1 2.5"
-				orbit-controls="
-				autoRotate: false;
-				target: #target;
-				enableDamping: true;
-				dampingFactor: 0.25;
-				rotateSpeed:0.14;
-				minDistance:2;
-				maxDistance:15;"
-				mouse-cursor="">
-			</a-entity>
-			<a-entity id="target"></a-entity>
-		</a-scene>
+		<canvas id="canvas" width = "532" height ="300" >
+			<video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
+				</video>
 	</div>
 
 	
 	<li>  
-		<div id="audio-controls" class="col-md-2 text-center btn-group">
+		<div id="audio-controls" class="col-md-1 text-center btn-group">
 		<button id="mic-btn" type="button" class="btn btn-block btn-dark btn-lg">
 		<i id="mic-icon" class="fas fa-microphone"></i>
 		</button>
@@ -106,7 +88,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 		<div id="mic-list" class="dropdown-menu dropdown-menu-right">
 		</div>
 	</div></li>
-					  <li> <div id="video-controls" class="col-md-2 text-center btn-group">
+					  <li> <div id="video-controls" class="col-md-1 text-center btn-group">
 		<button id="video-btn"  type="button" class="btn btn-block btn-dark btn-lg">
 		<i id="video-icon" class="fas fa-video"></i>
 		</button>
@@ -116,7 +98,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 		<div id="camera-list" class="dropdown-menu dropdown-menu-right">
 		</div>
 	</div></li>
-		<li> <div class="col-md-2 text-center btn-group">
+		<li> <div class="col-md-1 text-center btn-group">
 		<button id="exit-btn"  type="button" class="btn btn-block btn-danger btn-lg">
 		<i id="exit-icon" class="fas fa-phone-slash"></i>
 		</button>
