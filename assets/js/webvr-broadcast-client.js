@@ -266,6 +266,7 @@ const ctx = canvas.getContext("2d");
 
 
   video.onloadedmetadata = () => {
+    video.play();
     // ready to play video
     function step() {
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
