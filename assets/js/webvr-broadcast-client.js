@@ -16,8 +16,8 @@ var cameraVideoProfile = '720p_6'; // 960 × 720 @ 30fps  & 750kbs
 AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG); 
 //sayHello('Jack');
 var video = document.getElementById("video");
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
 // keep track of streams
 var localStreams = {
   uid: '',
