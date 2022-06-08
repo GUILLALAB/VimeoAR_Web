@@ -43,44 +43,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 </style>
 </head>
 <body>
-	<div class="w3-top">
-		<div class="w3-bar w3-black w3-card w3-left-align w3-large">
-		  <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-black" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-		  <div id="user-container">
-			  <div hidden id="user-pic"></div>
-			  <div hidden id="user-name"></div>
-			  <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-				Sign-out
-			  </button>
-			  <button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-				<i class="material-icons">account_circle</i>Sign-in with Google
-			  </button>
-			</div>
-		  <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"></a>
-		</div>
-	  
-		<!-- Navbar on small screens -->
-		<div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-		  <a href="#" class="w3-bar-item w3-button w3-padding-large"></a>
-		</div>
-		
-	  </div>
-	  
-	<div id="full-screen-video">
-		<canvas id="canvas" width = "532" height ="300" >
-			<video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
-				</video>
-	</div>
+
 	<!-- Header -->
-	<!-- Navbar -->
-
-
 <header class="w3-container w3-black w3-center" style="padding:90px 20px">
-	<div class="w3-bar w3-black w3-card w3-left-align w3-large">
-
-		<input type="text" placeholder="broadcast channel name" id="myInput">
-	  <button id="start">Join</button>  </li>
-	  </div>
+	
 	<lu>  
 		<div id="audio-controls" class="col-md-1 text-center btn-group">
 		<button id="mic-btn" type="button" class="btn btn-block btn-dark btn-lg">
@@ -108,9 +74,42 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 		</button>
 	
 	</div></lu> 
-	
+	<div class="w3-bar w3-black w3-card w3-left-align w3-large">
+
+	<input type="text" placeholder="broadcast channel name" id="myInput">
+  <button id="start">Join</button>  </li>
+  </div>
 </header>
 
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-black w3-card w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-black" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+	<div id="user-container">
+		<div hidden id="user-pic"></div>
+		<div hidden id="user-name"></div>
+		<button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+		  Sign-out
+		</button>
+		<button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+		  <i class="material-icons">account_circle</i>Sign-in with Google
+		</button>
+	  </div>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"></a>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large"></a>
+  </div>
+  
+</div>
+
+<div id="full-screen-video">
+	<canvas id="canvas" width = "532" height ="300" >
+		<video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
+			</video>
+</div>
 
 
 
