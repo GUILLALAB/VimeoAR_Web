@@ -261,7 +261,10 @@ function createBroadcaster(streamId) {
 
 }
 function update(){
-  ctx.drawImage(video,0,0,window.innerWidth,window.innerHeight);   
+  var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+  var height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
+
+  ctx.drawImage(video,0,0,width,height);   
   requestAnimationFrame(update);
 }
 function connectStreamToVideo(agoraStream, video) {
