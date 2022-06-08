@@ -199,6 +199,8 @@ function leaveChannel() {
     $('#mic-btn').prop('disabled', true);
     $('#video-btn').prop('disabled', true);
     $('#exit-btn').prop('disabled', true);
+    ctx.canvas.hidden=true;
+
   }, (err) => {
     console.log('client leave failed ', err); //error handling
   });
@@ -261,7 +263,10 @@ function createBroadcaster(streamId) {
 
 }
 function update(){
-  ctx.drawImage(video,0,0,window.innerWidth,window.innerHeight);   
+  var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+  var height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
+
+  ctx.drawImage(video,0,0,width,height);   
   requestAnimationFrame(update);
 }
 function connectStreamToVideo(agoraStream, video) {
@@ -270,6 +275,8 @@ function connectStreamToVideo(agoraStream, video) {
  ctx = canvas.getContext("2d");
  ctx.canvas.width  = window.innerWidth;
  ctx.canvas.height = window.innerHeight;
+ ctx.canvas.hidden=false;
+
   video.onloadedmetadata = () => {
     video.play();
    update();
