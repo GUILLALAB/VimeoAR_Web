@@ -15,7 +15,9 @@ var cameraVideoProfile = '720p_6'; // 960 × 720 @ 30fps  & 750kbs
 // -- .NONE for prod
 AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG); 
 //sayHello('Jack');
-
+var video = document.getElementById("video");
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
 // keep track of streams
 var localStreams = {
   uid: '',
@@ -249,7 +251,7 @@ function createCameraStream(uid) {
 function createBroadcaster(streamId) {
   // create video element
 
-var video = document.getElementById("video");
+ video = document.getElementById("video");
 
   video.id = 'faceVideo-' + streamId;
   video.setAttribute('webkit-playsinline', 'webkit-playsinline');
@@ -258,18 +260,19 @@ var video = document.getElementById("video");
   // add video object to the DOM
 
 }
-function update(ctx,video){
-  ctx.drawImage(video,0,0,256,256);   
-  requestAnimationFrame(update); // wait for the browser to be ready to present another animation fram.       
+function update(){
+  ctx.drawImage(video,0,0,window.innerWidth,window.innerHeight);   
+  requestAnimationFrame(update);
 }
 function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
-  const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-
+   canvas = document.getElementById("canvas");
+ ctx = canvas.getContext("2d");
+ ctx.canvas.width  = window.innerWidth;
+ ctx.canvas.height = window.innerHeight;
   video.onloadedmetadata = () => {
     video.play();
-   update(ctx,video);
+   update();
   }
 }
 
