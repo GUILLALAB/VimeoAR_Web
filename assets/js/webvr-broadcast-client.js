@@ -260,7 +260,7 @@ function createBroadcaster(streamId) {
   // add video object to the DOM
 
 }
-function update(ctx,video){
+function update(){
   ctx.drawImage(video,0,0,256,256);   
   requestAnimationFrame(update)
 }
@@ -270,7 +270,7 @@ function connectStreamToVideo(agoraStream, video) {
  ctx = canvas.getContext("2d");
 
   video.onloadedmetadata = () => {
-   update(ctx,video);
+   update();
   }
 }
 
