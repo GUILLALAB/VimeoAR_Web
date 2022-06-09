@@ -37,14 +37,11 @@ var devices = {
   cameras: [],
   mics: []
 }
-
-
 var rtcClient = AgoraRTC.createClient({mode: 'live', codec: 'vp8'}); // vp8 to work across mobile devices
 const rtmClient = AgoraRTM.createInstance(agoraAppId); 
 
 var start = document.getElementById('start');
 start.addEventListener('click', init);
-
 
 if(rtmChannel !=null){
   rtmChannel.on('ChannelMessage', ({ text }, senderId) => { 
@@ -65,7 +62,7 @@ rtmClient.on('ConnectionStateChange', (newState, reason) => {
   console.log('on connection state changed to ' + newState + ' reason: ' + reason);
 });
 }
-
+if(rtcClient !=null){
   rtcClient.on('stream-published', function (evt) {
     console.log('Publish local stream successfully');
   });
@@ -131,7 +128,7 @@ rtmClient.on('ConnectionStateChange', (newState, reason) => {
     console.log('unmute-video for: ' + evt.uid);
   });
 
-
+}
 // event listener for receiving a channel message
 
 
