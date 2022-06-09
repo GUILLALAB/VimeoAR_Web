@@ -255,12 +255,13 @@ function createCameraStream(uid) {
 function createBroadcaster(streamId) {
   // create video element
 
- var video = document.createElement("video");
+ var video = document.getElementById("video");
 
   video.id = 'faceVideo-' + streamId;
   video.setAttribute('webkit-playsinline', 'webkit-playsinline');
   video.setAttribute('playsinline', 'playsinline');
   video.setAttribute('poster', '/imgs/no-video.jpg');
+  video.setAttribute('id', streamId);
 
   // add video object to the DOM
   const offset = streamCount;
@@ -283,7 +284,7 @@ function connectStreamToVideo(agoraStream, video) {
 
   video.onloadedmetadata = () => {
     video.play();
-   update(video);
+   update();
   }
 }
 
