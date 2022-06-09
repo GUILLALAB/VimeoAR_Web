@@ -5,7 +5,6 @@ const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID her
 var channelName = ''; 
 var streamCount = 0;
 var token = "";
-var rtmClient=null;
 var rtmChannel=null;
 // video profile settings
 var cameraVideoProfile = '720p_6'; // 960 × 720 @ 30fps  & 750kbs
@@ -38,6 +37,13 @@ var devices = {
   cameras: [],
   mics: []
 }
+
+
+var rtcClient = AgoraRTC.createClient({mode: 'live', codec: 'vp8'}); // vp8 to work across mobile devices
+const rtmClient = AgoraRTM.createInstance(agoraAppId); 
+
+var start = document.getElementById('start');
+start.addEventListener('click', init);
 
 if(rtmChannel !=null){
   rtmChannel.on('ChannelMessage', ({ text }, senderId) => { 
@@ -129,25 +135,23 @@ if(rtcClient !=null){
 
 
 // create RTC client 
-var rtcClient = AgoraRTC.createClient({mode: 'live', codec: 'vp8'}); // vp8 to work across mobile devices
-var start = document.getElementById('start');
-start.addEventListener('click', init);
+
 
 function init(){
   // setup the RTM client and channel
   if(document.getElementById("myInput").value.length>1){
     channelName=document.getElementById("myInput").value;
- rtmClient = AgoraRTM.createInstance(agoraAppId); 
  rtmChannel = rtmClient.createChannel(channelName); 
-
 
   rtcClient.init(agoraAppId, () => {
     console.log('AgoraRTC client initialized');
-    joinChannel(); // join channel upon successfull init
   }, function (err) {
     console.log('[ERROR] : AgoraRTC client init failed', err);
   });
 }else{alert("Enter a channel name");}
+
+joinChannel(); // join channel upon successfull init
+
 }
 
 
