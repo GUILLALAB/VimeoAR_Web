@@ -452,8 +452,7 @@ function createBroadcaster(streamId) {
     const vertexShader = document.getElementById("vertexShader").textContent;
     const fragmentShader = document.getElementById("fragmentShader").textContent;
 
-    
-
+  
       material = new THREE.ShaderMaterial({
         transparent: true,
         uniforms: {
@@ -493,6 +492,10 @@ const offset = streamCount;
 function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
        // mesh.position.setFromMatrixPosition( reticle.matrix );
+       var position = new THREE.Vector3();
+     position.getPositionFromMatrix( reticle.matrixWorld);
+const offset = streamCount;
+      mesh.position.set(offset*3 + position.x, position.y, position.z);
   video.onloadedmetadata = () => {
     // ready to play video
     video.play();
