@@ -256,7 +256,7 @@ function createCameraStream(uid) {
 function createBroadcaster(streamId) {
   // create video element
 
- video = document.getElementById("video");
+ var video = document.createElement("video");
 
   video.id = 'faceVideo-' + streamId;
   video.setAttribute('webkit-playsinline', 'webkit-playsinline');
@@ -268,12 +268,12 @@ function createBroadcaster(streamId) {
   const offset = streamCount;
   const position = offset*3 + ' -1.8 0';
 }
-function update(){
+function update(video){
   var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
   var height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
 
   ctx.drawImage(video,0,0,width,height);   
-  requestAnimationFrame(update);
+  requestAnimationFrame(update(video));
 }
 function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
