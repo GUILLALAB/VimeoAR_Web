@@ -260,7 +260,8 @@ function createBroadcaster(streamId) {
   video.setAttribute('playsinline', 'playsinline');
   video.setAttribute('poster', '/imgs/no-video.jpg');
   // add video object to the DOM
-
+  const offset = streamCount;
+  const position = offset*3 + ' -1.8 0';
 }
 function update(){
   var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
