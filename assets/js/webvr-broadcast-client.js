@@ -15,7 +15,9 @@ var cameraVideoProfile = '720p_6'; // 960 × 720 @ 30fps  & 750kbs
 // -- .NONE for prod
 AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG); 
 //sayHello('Jack');
-
+var video = document.getElementById("video");
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
 // keep track of streams
 var localStreams = {
   uid: '',
@@ -197,6 +199,8 @@ function leaveChannel() {
     $('#mic-btn').prop('disabled', true);
     $('#video-btn').prop('disabled', true);
     $('#exit-btn').prop('disabled', true);
+    ctx.canvas.hidden=true;
+
   }, (err) => {
     console.log('client leave failed ', err); //error handling
   });
@@ -248,58 +252,34 @@ function createCameraStream(uid) {
 
 function createBroadcaster(streamId) {
   // create video element
-  var video = document.createElement('video');
+
+ video = document.getElementById("video");
+
   video.id = 'faceVideo-' + streamId;
   video.setAttribute('webkit-playsinline', 'webkit-playsinline');
   video.setAttribute('playsinline', 'playsinline');
   video.setAttribute('poster', '/imgs/no-video.jpg');
-  console.log(video);
   // add video object to the DOM
-  document.querySelector('a-assets').appendChild(video);
 
-  // configure the new broadcaster
-  const gltfModel = '#broadcaster';
-  const scale = '1 1 1'; 
-  const offset = streamCount;
-  const position = offset*3 + ' -1.8 0';
-  const rotation = '0 0 0';
-
-  // create the broadcaster element using the given settings 
-  const parent = document.querySelector('a-scene');
-  var newBroadcaster = document.createElement('a-gltf-model');
-  newBroadcaster.setAttribute('id', streamId);
-  newBroadcaster.setAttribute('gltf-model', gltfModel);
-  newBroadcaster.setAttribute('scale', scale);
-  newBroadcaster.setAttribute('position', position);
-  newBroadcaster.setAttribute('rotation', rotation);
-  parent.appendChild(newBroadcaster);
-
-  console.log(newBroadcaster);
-  // add event listener for model loaded: 
-  newBroadcaster.addEventListener('model-loaded', () => {
-    var mesh = newBroadcaster.getObject3D('mesh');
-    mesh.traverse((node) => {
-      // search the mesh's children for the face-geo
-      if (node.isMesh && node.name == 'face-geo') {
-        // create video texture from video element
-        var texture = new THREE.VideoTexture(video);
-        texture.minFilter = THREE.LinearFilter; 
-        texture.magFilter = THREE.LinearFilter; 
-        texture.flipY = false;
-        // set node's material map to video texture
-        node.material.map = texture
-        node.material.color = new THREE.Color();
-        node.material.metalness = 0;
-      }
-    });
-  }); 
 }
+function update(){
+  var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+  var height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
 
+  ctx.drawImage(video,0,0,width,height);   
+  requestAnimationFrame(update);
+}
 function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
+   canvas = document.getElementById("canvas");
+ ctx = canvas.getContext("2d");
+ ctx.canvas.width  = window.innerWidth;
+ ctx.canvas.height = window.innerHeight;
+ ctx.canvas.hidden=false;
+
   video.onloadedmetadata = () => {
-    // ready to play video
     video.play();
+   update();
   }
 }
 
