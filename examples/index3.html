@@ -21,7 +21,6 @@ const canvasCtx = videoElement.getContext('2d');
 
 function onResults(results) {
   canvasCtx.save();
-  canvasCtx.clearRect(0, 0, videoElement.width, videoElement.height);
   canvasCtx.drawImage(
       results.image, 0, 0, videoElement.width, videoElement.height);
   if (results.multiHandLandmarks) {
