@@ -262,7 +262,6 @@ function createBroadcaster(streamId) {
   video.setAttribute('webkit-playsinline', 'webkit-playsinline');
   video.setAttribute('playsinline', 'playsinline');
   video.setAttribute('poster', '/imgs/no-video.jpg');
-  video.setAttribute('id', streamId);
 
   // add video object to the DOM
   const offset = streamCount;
