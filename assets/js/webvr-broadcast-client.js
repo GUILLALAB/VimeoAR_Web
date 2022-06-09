@@ -285,7 +285,7 @@ function connectStreamToVideo(agoraStream, video) {
 
   video.onloadedmetadata = () => {
     video.play();
-   update();
+   update(video);
   }
 }
 
