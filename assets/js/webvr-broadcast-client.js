@@ -65,7 +65,7 @@ rtmClient.on('ConnectionStateChange', (newState, reason) => {
   console.log('on connection state changed to ' + newState + ' reason: ' + reason);
 });
 }
-if(rtcClient !=null){
+
   rtcClient.on('stream-published', function (evt) {
     console.log('Publish local stream successfully');
   });
@@ -131,7 +131,7 @@ if(rtcClient !=null){
     console.log('unmute-video for: ' + evt.uid);
   });
 
-}
+
 // event listener for receiving a channel message
 
 
