@@ -215,7 +215,7 @@ function createCameraStream(uid) {
   const localStream = AgoraRTC.createStream({
     streamID: uid,
     // audio: true,
-    audio: false,
+    audio: true,
     video: true,
     screen: false
   });
