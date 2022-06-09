@@ -256,7 +256,7 @@ function createCameraStream(uid) {
 function createBroadcaster(streamId) {
   // create video element
 
- video = document.createElement("video");
+ video = document.getElementById("video");
 
   video.id = 'faceVideo-' + streamId;
   video.setAttribute('webkit-playsinline', 'webkit-playsinline');
