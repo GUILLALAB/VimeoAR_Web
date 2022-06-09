@@ -55,10 +55,10 @@ app.get('/', (request, response) => {
 });
 
 app.get('/index', (request, response) => {
-  response.render('indexnocanvas.html');
+  response.render('indexsegallbody.html');
 });
 app.get('/indexseg', (request, response) => {
-  response.render('indeximproveseg.html');
+  response.render('indexnocanvas.html');
 });
 
 app.get('/index3', (request, response) => {
@@ -108,13 +108,9 @@ app.get('/album', (request, response) => {
   response.render('album.html');
 });
 
-app.get('/two-and-a-half-d', (request, response) => {
-  response.render('two-and-a-half-d.html');
-});
 
-app.get('/depthkit', (request, response) => {
-  response.render('depthkit.html');
-});
+
+
 
 // The route for getting videos from the vimeo API
 app.get('/vimeo/api', (request, response) => {
