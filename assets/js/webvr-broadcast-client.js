@@ -14,6 +14,7 @@ var cameraVideoProfile = '720p_6'; // 960 × 720 @ 30fps  & 750kbs
 // -- .NONE for prod
 AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG); 
 //sayHello('Jack');
+var video = document.getElementById("video");
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 // keep track of streams
@@ -255,24 +256,22 @@ function createCameraStream(uid) {
 function createBroadcaster(streamId) {
   // create video element
 
- var video = document.getElementById("video");
+ video = document.getElementById("video");
 
   video.id = 'faceVideo-' + streamId;
   video.setAttribute('webkit-playsinline', 'webkit-playsinline');
   video.setAttribute('playsinline', 'playsinline');
   video.setAttribute('poster', '/imgs/no-video.jpg');
-  video.setAttribute('id', streamId);
-
   // add video object to the DOM
   const offset = streamCount;
   const position = offset*3 + ' -1.8 0';
 }
-function update(video){
+function update(){
   var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
   var height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
 
   ctx.drawImage(video,0,0,width,height);   
-  requestAnimationFrame(update(video));
+  requestAnimationFrame(update);
 }
 function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
