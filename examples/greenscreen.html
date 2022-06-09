@@ -117,10 +117,11 @@
     let videoImageContext ;
     let hitTestSource = null;
     let hitTestSourceRequested = false;
-    let client;
+    var client=null;
     var streamCount;
     var channelName;
     var agoraAppId;
+    var rtmClient=null;
     var offscreenCanvas;
         var videoElement;
         var transparentCanvas;
@@ -166,12 +167,12 @@ let segmentedCanvas;
 
     function init() {
 
-    client = AgoraRTC.createClient({mode: 'live', codec: 'vp8'}); // vp8 to work across mobile devices
 
  agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
  channelName = ''; 
  streamCount = 0;
-
+ client = AgoraRTC.createClient({mode: 'live', codec: 'vp8'}); // vp8 to work across mobile devices
+rtmClient = AgoraRTM.createInstance(agoraAppId); 
 AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG); 
 
 
@@ -212,8 +213,6 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
 });
 
 
-const rtmClient = AgoraRTM.createInstance(agoraAppId); 
-const rtmChannel = rtmClient.createChannel(channelName); 
 
 
   // video.id = 'video';
@@ -274,7 +273,6 @@ client.setClientRole('audience', () => {
 
  client.join(data.rtcToken, channelName, 0, (uid) => {
     console.log('User ' + uid + ' join channel successfully');
-    joinRTMChannel(uid);
 }, function(err) {
     console.log('[ERROR] : join channel failed', err);
 });
@@ -296,22 +294,6 @@ function leaveChannel() {
 // setup the RTM client and channel
 
 
-function joinRTMChannel(uid){
-  rtmClient.login({ token: null, uid: String(uid) }).then(() => {
-    console.log('AgoraRTM client login success');
-    // join a channel and send a message
-    rtmChannel.join().then(() => {
-      // join-channel success
-      localStreams.rtmActive = true
-      console.log('RTM Channel join success');
-    }).catch(error => {
-      // join-channel failure
-      console.log('failed to join channel for error: ' +  error);
-    });
-  }).catch(err => {
-    console.log('AgoraRTM client login failure', err);
-  });
-}
 
 function rotateModel(uid, direction) {
   var model = document.getElementById(uid)
@@ -461,21 +443,6 @@ if(rtmClient!=null){
 });
 }
 
-if(rtmChannel!=null){
-  rtmChannel.on('ChannelMessage', ({ text }, senderId) => { 
-  // text: text of the received channel message; senderId: user ID of the sender.
-  console.log('AgoraRTM msg from user ' + senderId + ' recieved: \n' + text);
-  // convert from string to JSON
-  const msg = JSON.parse(text); 
-  console.log(msg)
-  // Handle RTM msg 
-  if (msg.action == 'rotation') {
-    rotateModel(senderId, msg.direction)
-  } else if (msg.action == 'position') {
-    moveModel(senderId, msg.direction)
-  }
-});
-}
 // event listener for receiving a channel message
 
 
