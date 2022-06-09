@@ -118,26 +118,11 @@
     var channelName;
     var agoraAppId;
     var rtmClient=null;
-    var offscreenCanvas;
-        var videoElement;
-        var transparentCanvas;
-        var callBtnTransparent;
-        var videoEnabled;
-        var transparencyEnabled;
-        var offscreenCanvas;
-let height, width;
-let videoDevices = [];
 
 
 
 // canvas green screen controls
-const gFloorRange = 105;
-const rbCeilingRange = 80;
-const FRAME_RATE = 25;
-let videoWidth = 320;
-let videoHeight = 240;
 
-// Safari & Firefox don't support OffscreenCanvas
 
 
 let segmentedCanvas;
@@ -190,7 +175,6 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         document.body.appendChild( ARButton.createButton(renderer, { requiredFeatures: ['hit-test'], optionalFeatures: [ 'dom-overlay', 'dom-overlay-for-handheld-ar' ], domOverlay: { root: document.body } } )
           );
         document.getElementById("btn").addEventListener("click", myFunction);
-
         renderer.domElement.style.display = 'none';
 
         //
