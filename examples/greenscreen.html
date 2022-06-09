@@ -452,6 +452,8 @@ function createBroadcaster(streamId) {
     const vertexShader = document.getElementById("vertexShader").textContent;
     const fragmentShader = document.getElementById("fragmentShader").textContent;
 
+    
+
       material = new THREE.ShaderMaterial({
         transparent: true,
         uniforms: {
@@ -467,7 +469,11 @@ function createBroadcaster(streamId) {
     material.metalness = 0;
       mesh = new THREE.Mesh( geometry, material);
       scene.add( mesh );
-
+    /*  var position = new THREE.Vector3();
+     position.getPositionFromMatrix( reticle.matrixWorld);
+const offset = streamCount;
+      mesh.position.set(offset*3 + position.x, position.y, position.z);
+*/
 
 
 
