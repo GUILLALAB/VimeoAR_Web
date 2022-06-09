@@ -441,6 +441,9 @@ function createBroadcaster(streamId) {
   // create video element
   video = document.getElementById( 'video' )
   video.id = 'faceVideo-' + streamId;;
+  video.setAttribute('webkit-playsinline', 'webkit-playsinline');
+  video.setAttribute('playsinline', 'playsinline');
+  video.setAttribute('poster', '/imgs/no-video.jpg');
     texture = new THREE.VideoTexture( video );
     texture.minFilter = THREE.LinearFilter;
     texture.magFilter = THREE.LinearFilter;
@@ -468,13 +471,6 @@ function createBroadcaster(streamId) {
     material.metalness = 0;
       mesh = new THREE.Mesh( geometry, material);
       scene.add( mesh );
-    /*  var position = new THREE.Vector3();
-     position.getPositionFromMatrix( reticle.matrixWorld);
-const offset = streamCount;
-      mesh.position.set(offset*3 + position.x, position.y, position.z);
-*/
-
-
 
  isset=1;
 
