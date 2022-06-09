@@ -582,12 +582,12 @@ async function start() {
 function transparent(results, ctx) {
   ctx.globalCompositeOperation = 'source-in';
   ctx.fillStyle = '#00FF00';
-  ctx.fillRect(0, 0, canvasElement.width, canvasElement.height);
+  ctx.fillRect(0, 0, width, height);
     
       // Only overwrite missing pixels.
       ctx.globalCompositeOperation = 'destination-atop';
       ctx.drawImage(
-          results.image, 0, 0, canvasElement.width, canvasElement.height);
+          results.image, 0, 0, width, height);
     
           ctx.globalCompositeOperation = 'source-over';
       drawConnectors(ctx, results.poseLandmarks, POSE_CONNECTIONS,
