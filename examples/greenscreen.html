@@ -119,14 +119,6 @@
     var agoraAppId;
     var rtmClient=null;
 
-
-
-// canvas green screen controls
-
-
-
-let segmentedCanvas;
-
    
     init(); 
     InitClient();
@@ -187,26 +179,17 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
   channelName = document.getElementById("myInput").value;
   client.init(agoraAppId, () => {
   console.log('AgoraRTC client initialized');
-  joinChannel(); // join channel upon successfull init
+  joinChannel(channelName); // join channel upon successfull init
 }, function (err) {
   console.log('[ERROR] : AgoraRTC client init failed', err);
 });
 
 
-
-
-  // video.id = 'video';
-  // video.type = ' video/ogg; codecs="theora, vorbis" ';
-
   if(isset==0){
-  
     }else{
-  
        mesh.position.setFromMatrixPosition( reticle.matrix );
     }
-
   }
-
 }
 
 controller = renderer.xr.getController( 0 );
@@ -221,7 +204,6 @@ reticle.matrixAutoUpdate = false;
 reticle.visible = false;
 scene.add( reticle );
 
-        //
 
         window.addEventListener( 'resize', onWindowResize );
 
@@ -236,7 +218,7 @@ scene.add( reticle );
 
       }
 
-      function joinChannel() {
+      function joinChannel(channelName) {
   //alert(name);
   // set the role
   fetch("https://livear.herokuapp.com/rte/"+channelName+"/audience/uid/0/86400").then(function(response) {
