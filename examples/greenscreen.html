@@ -215,24 +215,6 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
 const rtmClient = AgoraRTM.createInstance(agoraAppId); 
 const rtmChannel = rtmClient.createChannel(channelName); 
 
-rtmClient.on('ConnectionStateChange', (newState, reason) => {
-  console.log('on connection state changed to ' + newState + ' reason: ' + reason);
-});
-
-// event listener for receiving a channel message
-rtmChannel.on('ChannelMessage', ({ text }, senderId) => { 
-  // text: text of the received channel message; senderId: user ID of the sender.
-  console.log('AgoraRTM msg from user ' + senderId + ' recieved: \n' + text);
-  // convert from string to JSON
-  const msg = JSON.parse(text); 
-  console.log(msg)
-  // Handle RTM msg 
-  if (msg.action == 'rotation') {
-    rotateModel(senderId, msg.direction)
-  } else if (msg.action == 'position') {
-    moveModel(senderId, msg.direction)
-  }
-});
 
   // video.id = 'video';
   // video.type = ' video/ogg; codecs="theora, vorbis" ';
@@ -472,6 +454,31 @@ client.on('unmute-video', (evt) => {
   console.log('unmute-video for: ' + evt.uid);
 });
 }
+
+if(rtmClient!=null){
+  rtmClient.on('ConnectionStateChange', (newState, reason) => {
+  console.log('on connection state changed to ' + newState + ' reason: ' + reason);
+});
+}
+
+if(rtmChannel!=null){
+  rtmChannel.on('ChannelMessage', ({ text }, senderId) => { 
+  // text: text of the received channel message; senderId: user ID of the sender.
+  console.log('AgoraRTM msg from user ' + senderId + ' recieved: \n' + text);
+  // convert from string to JSON
+  const msg = JSON.parse(text); 
+  console.log(msg)
+  // Handle RTM msg 
+  if (msg.action == 'rotation') {
+    rotateModel(senderId, msg.direction)
+  } else if (msg.action == 'position') {
+    moveModel(senderId, msg.direction)
+  }
+});
+}
+// event listener for receiving a channel message
+
+
 }
       //
 
