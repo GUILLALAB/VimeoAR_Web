@@ -580,25 +580,37 @@ async function start() {
 
 
 function transparent(results, ctx) {
-    ctx.clearRect(0, 0, width, height);
+  ctx.globalCompositeOperation = 'source-in';
+  ctx.fillStyle = '#00FF00';
+  ctx.fillRect(0, 0, canvasElement.width, canvasElement.height);
+    
+      // Only overwrite missing pixels.
+      ctx.globalCompositeOperation = 'destination-atop';
+      ctx.drawImage(
+          results.image, 0, 0, canvasElement.width, canvasElement.height);
+    
+          ctx.globalCompositeOperation = 'source-over';
+      drawConnectors(ctx, results.poseLandmarks, POSE_CONNECTIONS,
+                     {color: '#00FF00', lineWidth: 4});
+      drawLandmarks(ctx, results.poseLandmarks,
+                    {color: '#FF0000', lineWidth: 2});
 
-    // Draw the mask
-    ctx.drawImage(results.segmentationMask, 0, 0, width, height);
-
-    // Add the original video back in only overwriting the masked pixels
-    ctx.globalCompositeOperation = 'source-in';
-    ctx.drawImage(results.image, 0, 0, width, height);
 }
 
 
 
 
-const selfieSegmentation = new SelfieSegmentation({locateFile: (file) => {
-        return `https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/${file}`;
+const pose = new Pose({locateFile: (file) => {
+      return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
     }});
-selfieSegmentation.setOptions({
-    modelSelection: 1,
-});
+    pose.setOptions({
+      modelComplexity: 1,
+      smoothLandmarks: true,
+      enableSegmentation: true,
+      smoothSegmentation: true,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5
+    });
 
 
 
@@ -614,10 +626,10 @@ selfieSegmentation.setOptions({
 
     const transparentCtx = transparentCanvas.getContext('2d');
 
-    selfieSegmentation.onResults(results=>{
+    pose.onResults(results=>{
         transparent(results, transparentCtx);
     });
-    await selfieSegmentation.send({image: videoElement});
+    await pose.send({image: videoElement});
 }
 
 
