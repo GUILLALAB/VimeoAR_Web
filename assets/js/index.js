@@ -107,6 +107,28 @@ import { getAuth,
    }
  }
 
+ export async function LoadBroadcast(){
+  const recentMessagesQuery = query(collection(getFirestore(), 'Broadcast'), orderBy('timestamp', 'desc'), limit(12));
+   
+  // Start listening to the query.
+  onSnapshot(recentMessagesQuery, function(snapshot) {
+    snapshot.docChanges().forEach(function(change) {
+      console.log('BIP LoadBroadcast', change.doc.id);
+    });
+  });
+
+ }
+   
+  if(docRefId!=null){
+   getFirestore().collection("Broadcast").doc(docRefId).delete().then(function() {
+     console.log("Document successfully deleted!");
+ }).catch(function(error) {
+     console.error("Error removing document: ", error);
+ });
+// await deleteDoc(doc(getFirestore(), "Broadcast", docRefId));
+}
+}
+
  export async function UserStopBroadcast(){
    
    if(docRefId!=null){
