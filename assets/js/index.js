@@ -108,7 +108,6 @@ import { getAuth,
   // Add a new message entry to the Firebase database.
   try {
   const docRef = await addDoc(collection(getFirestore(), "Broadcast"), {
-    id:docRef.id,
     name: getUserName(),
     text: getUserUid(),
     chan:channelName,
