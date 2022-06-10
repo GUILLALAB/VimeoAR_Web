@@ -106,18 +106,17 @@ import { getAuth,
 
  export async function UserStartBroadcast(channelName) {
   // Add a new message entry to the Firebase database.
-  
   try {
   const newId = db.createId();
-  db.collection("Broadcast").doc(newId).set({
+  await db.collection("Broadcast").doc(newId).set({
     name: getUserName(),
     text: getUserUid(),
     chan:channelName,
     profilePicUrl: getProfilePicUrl(),
     timestamp: serverTimestamp()
-  })
-
+  });
   }
+
   catch(error) {
     console.error('Error writing new message to Firebase Database', error);
   }
