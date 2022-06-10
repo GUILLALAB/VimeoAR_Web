@@ -107,7 +107,8 @@ import { getAuth,
  export async function UserStartBroadcast(channelName) {
   // Add a new message entry to the Firebase database.
   try {
-  const docRef = await addDoc(collection(db, "cities"), {
+  const docRef = await addDoc(collection(getFirestore(), "Broadcast"), {
+    id:docRef.id,
     name: getUserName(),
     text: getUserUid(),
     chan:channelName,
