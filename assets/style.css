@@ -8,6 +8,11 @@ html, input, select, textarea {
   font-size: 16pt;
 }
 
+input[type=text] {
+  border: 2px solid rgb(73, 73, 73)(165, 163, 163)(165, 163, 163)(52, 47, 47)(32, 32, 32);
+  border-radius: 4px;
+}
+
   @media screen and (max-width: 1680px) {
 
     html, input, select, textarea {
