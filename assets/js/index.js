@@ -80,7 +80,9 @@ import { getAuth,
  function getUserName() {
    return getAuth().currentUser.displayName;
  }
- 
+ function getUserUid() {
+  return getAuth().currentUser.uid;
+}
  // Returns true if a user is signed-in.
  function isUserSignedIn() {
    return !!getAuth().currentUser;
@@ -101,6 +103,22 @@ import { getAuth,
      console.error('Error writing new message to Firebase Database', error);
    }
  }
+
+ async function UserStartBroadcast(id) {
+  // Add a new message entry to the Firebase database.
+  try {
+    await addDoc(collection(getFirestore(), 'Broadcast'), {
+      name: getUserName(),
+      text: getUserUid(),
+      streamid: id,
+      profilePicUrl: getProfilePicUrl(),
+      timestamp: serverTimestamp()
+    });
+  }
+  catch(error) {
+    console.error('Error writing new message to Firebase Database', error);
+  }
+}
  
  // Loads chat messages history and listens for upcoming ones.
  function loadMessages() {
