@@ -1942,7 +1942,7 @@ input, select, textarea {
 	button,
 	.button {
 		background-color: transparent;
-		color: #2a2a2a !important;
+		color: #979797 !important;
 		box-shadow: inset 0 0 0 2px #e6e6e6;
 	}
 
@@ -3147,7 +3147,7 @@ input, select, textarea {
 			.wrapper.style2 button,
 			.wrapper.style2 .button {
 				background-color: transparent;
-				color: #242424 !important;
+				color: #ffffff !important;
 				box-shadow: inset 0 0 0 2px #e6e6e6;
 			}
 
@@ -3361,7 +3361,7 @@ input, select, textarea {
 			.wrapper.style3 button,
 			.wrapper.style3 .button {
 				background-color: transparent;
-				color: #161616 !important;
+				color: #ffffff !important;
 				box-shadow: inset 0 0 0 2px #d6d6d6;
 			}
 
