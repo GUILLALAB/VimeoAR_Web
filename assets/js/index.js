@@ -110,14 +110,13 @@ import { getAuth,
  export async function UserStopBroadcast(){
    
    if(docRefId!=null){
-  
     getFirestore().collection("Broadcast").doc(docRefId).delete().then(function() {
       console.log("Document successfully deleted!");
   }).catch(function(error) {
       console.error("Error removing document: ", error);
   });
  // await deleteDoc(doc(getFirestore(), "Broadcast", docRefId));
-  
+}
  }
  export async function UserStartBroadcast(channelName) {
   // Add a new message entry to the Firebase database.
