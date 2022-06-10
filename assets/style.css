@@ -9,7 +9,7 @@ html, input, select, textarea {
 }
 
 input[type=text] {
-  border: 2px solid rgb(73, 73, 73)(165, 163, 163)(165, 163, 163)(52, 47, 47)(32, 32, 32);
+  border: 2px solid white;
   border-radius: 4px;
 }
 
