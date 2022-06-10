@@ -104,14 +104,16 @@ import { getAuth,
    }
  }
 
- export async function UserStartBroadcast() {
+ export async function UserStartBroadcast(channelName) {
   // Add a new message entry to the Firebase database.
   try {
-    await addDoc(collection(getFirestore(), 'Broadcast'), {
+    const analysisRef = db.collection('Broadcast');
+    const analysisDoc = analysisRef.doc();
+    const analysisCreate = await analysisDoc.set({
+      id: analysisDoc.id,
       name: getUserName(),
       text: getUserUid(),
-      streamid: "test",
-      chan:"test",
+      chan:channelName,
       profilePicUrl: getProfilePicUrl(),
       timestamp: serverTimestamp()
     });

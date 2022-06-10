@@ -278,7 +278,7 @@ function connectStreamToVideo(agoraStream, video) {
  ctx.canvas.width  = window.innerWidth;
  ctx.canvas.height = window.innerHeight;
  ctx.canvas.hidden=false;
-UserStartBroadcast(video.id,channelName);
+UserStartBroadcast(channelName);
   video.onloadedmetadata = () => {
     video.play();
    update();
