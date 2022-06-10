@@ -106,28 +106,17 @@ import { getAuth,
      console.error('Error writing new message to Firebase Database', error);
    }
  }
-
  export async function LoadBroadcast(){
-  const recentMessagesQuery = query(collection(getFirestore(), 'Broadcast'), orderBy('timestamp', 'desc'), limit(12));
-   
-  // Start listening to the query.
-  onSnapshot(recentMessagesQuery, function(snapshot) {
-    snapshot.docChanges().forEach(function(change) {
-      console.log('BIP LoadBroadcast', change.doc.id);
-    });
-  });
 
- }
+ const recentMessagesQuery = query(collection(getFirestore(), 'Broadcast'), orderBy('timestamp', 'desc'), limit(12));
    
-  if(docRefId!=null){
-   getFirestore().collection("Broadcast").doc(docRefId).delete().then(function() {
-     console.log("Document successfully deleted!");
- }).catch(function(error) {
-     console.error("Error removing document: ", error);
+ // Start listening to the query.
+ onSnapshot(recentMessagesQuery, function(snapshot) {
+   snapshot.docChanges().forEach(function(change) {
+     console.log('BIP LoadBroadcast', change.doc.id);
+   });
  });
-// await deleteDoc(doc(getFirestore(), "Broadcast", docRefId));
-}
-}
+ }
 
  export async function UserStopBroadcast(){
    
