@@ -109,7 +109,7 @@ import { getAuth,
 
  export async function UserStopBroadcast(){
   try {
-  await deleteDoc(collection(getFirestore(), "Broadcast").doc(docRefId));
+  await deleteDoc(colle(getFirestore(), "Broadcast", "DoEgcmlNkBgVA5aNxOxz"));
   }catch(error) {
     console.error('Error delete doc Firebase Database', error);
   }
