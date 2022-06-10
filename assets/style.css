@@ -513,7 +513,7 @@ main, #messages-card {
 div {
   color: rgb(255, 255, 255);
   font-family: Tahoma, Verdana, Segoe, sans-serif;
-  padding: 10px;
+  padding: 0px;
 }
 .container {
   background-color:#2e427200;
