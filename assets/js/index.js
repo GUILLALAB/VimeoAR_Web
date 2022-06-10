@@ -108,8 +108,14 @@ import { getAuth,
  }
 
  export async function UserStopBroadcast(){
-  await deleteDoc(doc(getFirestore(), "Broadcast", "DoEgcmlNkBgVA5aNxOxz"));
-  
+   
+   if(docRefId!=null){
+  try {
+  await deleteDoc(doc(getFirestore(), "Broadcast", docRefId));
+  }catch(error) {
+    console.error('Error delete doc Firebase Database', error);
+  }
+   }
  }
  export async function UserStartBroadcast(channelName) {
   // Add a new message entry to the Firebase database.
