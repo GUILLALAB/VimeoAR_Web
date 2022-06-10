@@ -1,6 +1,6 @@
 // Agora settings
 //import {sayHello} from './server.js';
-import { UserStartBroadcast } from './index.js';
+import { UserStartBroadcast,UserStopBroadcast,LoadBroadcast() } from './index.js';
 
 const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
 var channelName = ''; 
@@ -201,7 +201,8 @@ function leaveChannel() {
     $('#video-btn').prop('disabled', true);
     $('#exit-btn').prop('disabled', true);
     ctx.canvas.hidden=true;
-
+    UserStopBroadcast();
+    LoadBroadcast();
   }, (err) => {
     console.log('client leave failed ', err); //error handling
   });
