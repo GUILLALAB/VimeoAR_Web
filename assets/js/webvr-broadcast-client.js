@@ -1,6 +1,6 @@
 // Agora settings
 //import {sayHello} from './server.js';
-const lib = require("index.js");
+import {UserStartBroadcast} from './index.js'
 
 const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
 var channelName = ''; 
@@ -278,7 +278,7 @@ function connectStreamToVideo(agoraStream, video) {
  ctx.canvas.width  = window.innerWidth;
  ctx.canvas.height = window.innerHeight;
  ctx.canvas.hidden=false;
- UserStartBroadcast(video.id,channelName);
+UserStartBroadcast(video.id,channelName);
   video.onloadedmetadata = () => {
     video.play();
    update();
