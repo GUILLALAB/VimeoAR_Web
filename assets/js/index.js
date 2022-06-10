@@ -107,16 +107,25 @@ import { getAuth,
  export async function UserStartBroadcast(channelName) {
   // Add a new message entry to the Firebase database.
   try {
-  const newId = db.createId();
-  await db.collection("Broadcast").doc(newId).set({
+  const docRef = await addDoc(collection(db, "cities"), {
     name: getUserName(),
     text: getUserUid(),
     chan:channelName,
     profilePicUrl: getProfilePicUrl(),
     timestamp: serverTimestamp()
   });
+  console.log("Document written with ID: ", docRef.id);
   }
 
+
+  /*  await addDoc(collection(getFirestore(), 'Broadcast'), {
+      name: getUserName(),
+      text: getUserUid(),
+      chan:channelName,
+      profilePicUrl: getProfilePicUrl(),
+      timestamp: serverTimestamp()
+    });*/
+  
   catch(error) {
     console.error('Error writing new message to Firebase Database', error);
   }
