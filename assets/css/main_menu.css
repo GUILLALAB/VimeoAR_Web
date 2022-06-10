@@ -176,6 +176,7 @@ input, select, textarea {
 
 	p {
 		margin: 0 0 2em 0;
+		color: #141414;
 	}
 
 	h1, h2, h3, h4, h5, h6 {
@@ -2684,6 +2685,7 @@ input, select, textarea {
 	header p {
 		position: relative;
 		margin: 0 0 1.5em 0;
+		color: white;
 	}
 
 		@media screen and (max-width: 736px) {
