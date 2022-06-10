@@ -52,7 +52,8 @@ import { getAuth,
 
  import { getFirebaseConfig } from './firebase-config.js';
  
- export var docRefId=null;
+  var docRefId=null;
+
  // Signs-in Friendly Chat.
  async function signIn() {
    // Sign in Firebase using popup auth and Google as the identity provider.
