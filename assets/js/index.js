@@ -27,6 +27,7 @@ import { getFirestore,
   setDoc,
   where,
   updateDoc,
+  deleteDoc,
   doc,
   Timestamp,
   serverTimestamp } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js"
@@ -51,6 +52,7 @@ import { getAuth,
 
  import { getFirebaseConfig } from './firebase-config.js';
  
+ export var docRefId=null;
  // Signs-in Friendly Chat.
  async function signIn() {
    // Sign in Firebase using popup auth and Google as the identity provider.
@@ -104,6 +106,15 @@ import { getAuth,
    }
  }
 
+ export async function UserStopBroadcast(){
+   if(docRefId!=null){
+  try {
+  await deleteDoc(doc(getFirestore(), "Broadcast", docRefId));
+  }catch(error) {
+    console.error('Error delete doc Firebase Database', error);
+  }
+   }
+ }
  export async function UserStartBroadcast(channelName) {
   // Add a new message entry to the Firebase database.
   try {
@@ -115,6 +126,7 @@ import { getAuth,
     timestamp: serverTimestamp()
   });
   console.log("Document written with ID: ", docRef.id);
+  docRefId=docRef.id;
   }
 
 
