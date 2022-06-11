@@ -116,7 +116,7 @@ import { getAuth,
   onSnapshot(recentMessagesQuery, function(snapshot) {
     snapshot.docChanges().forEach(function(change) {
       var item = document.createElement('li');
-      item.addEventListener('click', doStuff, false);
+      item.addEventListener('click', doStuff(change.doc.data().name), false);
       
       item.innerText = change.doc.data().name;
       listElm.appendChild(item);
@@ -135,8 +135,8 @@ import { getAuth,
   LoadBroadcast();*/
  }
 
- function doStuff(){
-   alert("toto");
+ function doStuff(name){
+   alert(name);
  }
  export async function UserStopBroadcast(){
    
