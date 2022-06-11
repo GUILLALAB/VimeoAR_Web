@@ -118,11 +118,25 @@ import { getAuth,
       var item = document.createElement('li');
       item.innerText = change.doc.id + nextItem++;
       listElm.appendChild(item);
+      
       console.log('BIP LoadBroadcast', change.doc.id);
     });
   });
-
-
+  document.querySelector("#infinite-list").addEventListener("click",function(e) {
+    // e.target is our targetted element.
+                // try doing console.log(e.target.nodeName), it will result LI
+    if(e.target && e.target.nodeName == "LI") {
+        alert(e.target.id + " was clicked");
+    }
+});
+  
+ /* listElm.addEventListener('scroll', function() {
+    if (listElm.scrollTop + listElm.clientHeight >= listElm.scrollHeight) {
+      LoadBroadcast();
+    }
+  });
+  
+  LoadBroadcast();*/
  }
 
  export async function UserStopBroadcast(){
