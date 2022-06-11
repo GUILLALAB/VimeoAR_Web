@@ -116,8 +116,9 @@ import { getAuth,
   onSnapshot(recentMessagesQuery, function(snapshot) {
     snapshot.docChanges().forEach(function(change) {
       var item = document.createElement('li');
-      item.addEventListener('click', doStuff(change.doc.data().name), false);
-      
+      item.addEventListener('click', myFunc, false);
+      item.myParam = change.doc.data().name;
+
       item.innerText = change.doc.data().name;
       listElm.appendChild(item);
       
@@ -135,8 +136,9 @@ import { getAuth,
   LoadBroadcast();*/
  }
 
- function doStuff(name){
-   alert(name);
+ function myFunc(evt)
+ {
+   window.alert(evt.currentTarget.myParam);
  }
  export async function UserStopBroadcast(){
    
