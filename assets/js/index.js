@@ -118,7 +118,7 @@ import { getAuth,
       var item = document.createElement('li');
       item.addEventListener('click', doStuff, false);
       
-      item.innerText = change.doc.id;
+      item.innerText = change.doc.name;
       listElm.appendChild(item);
       
       console.log('BIP LoadBroadcast', change.doc.id);
