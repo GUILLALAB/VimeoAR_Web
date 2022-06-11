@@ -187,6 +187,7 @@ main, #messages-card {
   height: 30px;
   background-size: 30px;
   border-radius: 20px;
+  margin-left: 20px;
 }
 .message-container .spacing {
   display: table-cell;
