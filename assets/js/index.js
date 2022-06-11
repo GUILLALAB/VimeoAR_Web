@@ -122,16 +122,7 @@ import { getAuth,
     });
   });
 
-  
-  // Detect when scrolled to bottom.
-  listElm.addEventListener('scroll', function() {
-    if (listElm.scrollTop + listElm.clientHeight >= listElm.scrollHeight) {
-      LoadBroadcast();
-    }
-  });
-  
-  // Initially load some items.
-  LoadBroadcast();
+
  }
 
  export async function UserStopBroadcast(){
