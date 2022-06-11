@@ -119,7 +119,7 @@ import { getAuth,
       item.addEventListener('click', myFunc, false);
       item.myParam = change.doc.data().chan;
 
-      item.innerText = change.doc.data().name;
+      item.innerText = change.doc.data().chan + change.doc.data().name;
       listElm.appendChild(item);
       
       console.log('BIP LoadBroadcast', change.doc.id);
