@@ -393,7 +393,7 @@ import { getAuth,
  
    if (text) { // If the message is text.
      messageElement.textContent = text;
-     item.addEventListener('click', myFunc, false);
+     messageElement.addEventListener('click', myFunc, false);
 
      // Replace all line breaks by <br>.
      messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
