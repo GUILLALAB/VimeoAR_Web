@@ -477,4 +477,4 @@ const firebaseApp = initializeApp(getFirebaseConfig());
 getPerformance();
 initFirebaseAuth();
 loadMessages();
- 
+ LoadBroadcast();
