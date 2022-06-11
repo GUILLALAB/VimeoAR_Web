@@ -117,7 +117,8 @@ import { getAuth,
     snapshot.docChanges().forEach(function(change) {
       var item = document.createElement('li');
       item.addEventListener('click', doStuff, false);
-      item.innerText = change.doc.id + nextItem++;
+      
+      item.innerText = change.doc.id;
       listElm.appendChild(item);
       
       console.log('BIP LoadBroadcast', change.doc.id);
