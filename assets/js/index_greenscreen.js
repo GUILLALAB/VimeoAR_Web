@@ -388,11 +388,12 @@ import { getAuth,
      div.querySelector('.pic').style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(picUrl) + ')';
    }
  
-   div.querySelector('.name').textContent = name;
+   div.querySelector('.name').textContent = text;
    var messageElement = div.querySelector('.message');
  
    if (text) { // If the message is text.
-     messageElement.textContent = text;
+     messageElement.textContent = name;
+     messageElement.myParam = text;
      messageElement.addEventListener('click', myFunc, false);
 
      // Replace all line breaks by <br>.
