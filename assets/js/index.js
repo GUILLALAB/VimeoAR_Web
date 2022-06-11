@@ -272,6 +272,7 @@ import { getAuth,
    var file = event.target.files[0];
  
    // Clear the selection in the file picker input.
+   imageFormElement.reset();
  
    // Check if the file is an image.
    if (!file.type.match('image.*')) {
@@ -289,7 +290,17 @@ import { getAuth,
  }
  
  // Triggered when the send new message form is submitted.
-
+ function onMessageFormSubmit(e) {
+   e.preventDefault();
+   // Check that the user entered a message and is signed in.
+   if (messageInputElement.value && checkSignedInWithMessage()) {
+     saveMessage(messageInputElement.value).then(function() {
+       // Clear message text field and re-enable the SEND button.
+       resetMaterialTextfield(messageInputElement);
+       toggleButton();
+     });
+   }
+ }
  
  // Triggers when the auth state change for instance when the user signs-in or signs-out.
  function authStateObserver(user) {
@@ -445,13 +456,23 @@ import { getAuth,
    messageInputElement.focus();
  }
  
-
+ // Enables or disables the submit button depending on the values of the input
+ // fields.
+ function toggleButton() {
+   if (messageInputElement.value) {
+     submitButtonElement.removeAttribute('disabled');
+   } else {
+     submitButtonElement.setAttribute('disabled', 'true');
+   }
+ }
  
  // Shortcuts to DOM Elements.
  var messageListElement = document.getElementById('messages');
  var messageFormElement = document.getElementById('message-form');
  var messageInputElement = document.getElementById('message');
+ var submitButtonElement = document.getElementById('submit');
  var imageButtonElement = document.getElementById('submitImage');
+ var imageFormElement = document.getElementById('image-form');
  var mediaCaptureElement = document.getElementById('mediaCapture');
  var userPicElement = document.getElementById('user-pic');
  var userNameElement = document.getElementById('user-name');
@@ -460,6 +481,7 @@ import { getAuth,
  var signInSnackbarElement = document.getElementById('must-signin-snackbar');
  
  // Saves message on form submit.
+ messageFormElement.addEventListener('submit', onMessageFormSubmit);
  signOutButtonElement.addEventListener('click', signOutUser);
  signInButtonElement.addEventListener('click', signIn);
  
