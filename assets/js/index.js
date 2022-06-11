@@ -122,10 +122,10 @@ import { getAuth,
       console.log('BIP LoadBroadcast', change.doc.id);
     });
   });
-  document.querySelector("#infinite-list").addEventListener("click",function(e) {
+  document.getElementById("infinite-list").addEventListener("click",function(e) {
     // e.target is our targetted element.
                 // try doing console.log(e.target.nodeName), it will result LI
-    if(e.target && e.target.nodeName == "LI") {
+    if(e.target && e.target.nodeName == "li") {
         alert(e.target.id + " was clicked");
     }
 });
