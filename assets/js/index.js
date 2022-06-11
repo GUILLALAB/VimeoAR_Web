@@ -138,7 +138,7 @@ import { getAuth,
 
  function myFunc(evt)
  {
-  return evt.currentTarget.myParam;
+   window.alert(evt.currentTarget.myParam);
  }
  export async function UserStopBroadcast(){
    
