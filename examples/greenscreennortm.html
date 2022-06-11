@@ -84,8 +84,7 @@ li:hover {
   </div>
   
 </div>
-<ul id='infinite-list'>
-</ul>
+
 
 <div  class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <div  id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
@@ -98,7 +97,6 @@ li:hover {
       <form id="message-form" action="#">
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <input class="mdl-textfield__input" type="text" id="message" autocomplete="off">
-        <label class="mdl-textfield__label" for="message">Message...</label>
       </div>
    
       </form>
@@ -569,8 +567,6 @@ if(rtmClient!=null){
           <script src="/js/main.min.js"></script>
 <script type="module">
   import {LoadBroadcast,loadMessages} from '/js/index.js';
-
-   LoadBroadcast();
    loadMessages();
    
 </script>
