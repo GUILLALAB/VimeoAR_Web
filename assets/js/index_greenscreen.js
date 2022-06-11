@@ -252,28 +252,7 @@ import { getAuth,
    }
  }
  
- // Triggered when a file is selected via the media picker.
- function onMediaFileSelected(event) {
-   event.preventDefault();
-   var file = event.target.files[0];
- 
-   // Clear the selection in the file picker input.
-   imageFormElement.reset();
- 
-   // Check if the file is an image.
-   if (!file.type.match('image.*')) {
-     var data = {
-       message: 'You can only share images',
-       timeout: 2000
-     };
-     signInSnackbarElement.MaterialSnackbar.showSnackbar(data);
-     return;
-   }
-   // Check if the user is signed-in
-   if (checkSignedInWithMessage()) {
-     saveImageMessage(file);
-   }
- }
+
  
 
  
@@ -420,26 +399,14 @@ import { getAuth,
    // Show the card fading-in and scroll to view the new message.
    setTimeout(function() {div.classList.add('visible')}, 1);
    messageListElement.scrollTop = messageListElement.scrollHeight;
-   messageInputElement.focus();
  }
  
  // Enables or disables the submit button depending on the values of the input
  // fields.
- function toggleButton() {
-   if (messageInputElement.value) {
-     submitButtonElement.removeAttribute('disabled');
-   } else {
-     submitButtonElement.setAttribute('disabled', 'true');
-   }
- }
+
  
  // Shortcuts to DOM Elements.
  var messageListElement = document.getElementById('messages');
- var messageInputElement = document.getElementById('message');
- var submitButtonElement = document.getElementById('submit');
- var imageButtonElement = document.getElementById('submitImage');
- var imageFormElement = document.getElementById('image-form');
- var mediaCaptureElement = document.getElementById('mediaCapture');
  var userPicElement = document.getElementById('user-pic');
  var userNameElement = document.getElementById('user-name');
  var signInButtonElement = document.getElementById('sign-in');
@@ -449,17 +416,8 @@ import { getAuth,
  // Saves message on form submit.
  signOutButtonElement.addEventListener('click', signOutUser);
  signInButtonElement.addEventListener('click', signIn);
+
  
- // Toggle for the button.
- messageInputElement.addEventListener('keyup', toggleButton);
- messageInputElement.addEventListener('change', toggleButton);
- 
- // Events for image upload.
- imageButtonElement.addEventListener('click', function(e) {
-   e.preventDefault();
-   mediaCaptureElement.click();
- });
- mediaCaptureElement.addEventListener('change', onMediaFileSelected);
 
 const firebaseApp = initializeApp(getFirebaseConfig());
 getPerformance();
