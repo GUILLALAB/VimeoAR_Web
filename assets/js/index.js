@@ -114,6 +114,7 @@ import { getAuth,
  onSnapshot(recentMessagesQuery, function(snapshot) {
    snapshot.docChanges().forEach(function(change) {
      console.log('BIP LoadBroadcast', change.doc.id);
+     alert(change.doc.id);
    });
  });
  }
