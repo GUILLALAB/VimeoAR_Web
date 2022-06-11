@@ -117,7 +117,7 @@ import { getAuth,
     snapshot.docChanges().forEach(function(change) {
       var item = document.createElement('li');
       item.addEventListener('click', myFunc, false);
-      item.myParam = change.doc.data().name;
+      item.myParam = change.doc.data().chan;
 
       item.innerText = change.doc.data().name;
       listElm.appendChild(item);
