@@ -107,16 +107,31 @@ import { getAuth,
    }
  }
  export async function LoadBroadcast(){
+  var listElm = document.querySelector('#infinite-list');
 
- const recentMessagesQuery = query(collection(getFirestore(), 'Broadcast'), orderBy('timestamp', 'desc'), limit(12));
-   
- // Start listening to the query.
- onSnapshot(recentMessagesQuery, function(snapshot) {
-   snapshot.docChanges().forEach(function(change) {
-     console.log('BIP LoadBroadcast', change.doc.id);
-     alert(change.doc.id);
-   });
- });
+  const recentMessagesQuery = query(collection(getFirestore(), 'Broadcast'), orderBy('timestamp', 'desc'), limit(12));
+  var nextItem = 1;
+
+  // Start listening to the query.
+  onSnapshot(recentMessagesQuery, function(snapshot) {
+    snapshot.docChanges().forEach(function(change) {
+      var item = document.createElement('li');
+      item.innerText = change.doc.id + nextItem++;
+      listElm.appendChild(item);
+      console.log('BIP LoadBroadcast', change.doc.id);
+    });
+  });
+
+  
+  // Detect when scrolled to bottom.
+  listElm.addEventListener('scroll', function() {
+    if (listElm.scrollTop + listElm.clientHeight >= listElm.scrollHeight) {
+      LoadBroadcast();
+    }
+  });
+  
+  // Initially load some items.
+  LoadBroadcast();
  }
 
  export async function UserStopBroadcast(){
@@ -478,4 +493,3 @@ const firebaseApp = initializeApp(getFirebaseConfig());
 getPerformance();
 initFirebaseAuth();
 loadMessages();
- LoadBroadcast();
