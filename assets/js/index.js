@@ -139,7 +139,9 @@ import { getAuth,
  function myFunc(evt)
  {
    window.alert(evt.currentTarget.myParam);
+   document.getElementById("myInput").value=evt.currentTarget.myParam;
  }
+ 
  export async function UserStopBroadcast(){
    
    if(docRefId!=null){
