@@ -194,7 +194,7 @@ main, #messages-card {
   vertical-align: top;
 }
 .message-container .message {
-  display: table-cell;
+  display: inline-block;
   width: calc(100% - 40px);
   padding: 5px 0 5px 10px;
   color: black;
