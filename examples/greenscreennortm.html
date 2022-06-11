@@ -267,12 +267,7 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
           if ( reticle.visible ) {
            
   channelName = document.getElementById("myInput").value;
-  client.init(agoraAppId, () => {
-  console.log('AgoraRTC client initialized');
-  joinChannel(); // join channel upon successfull init
-}, function (err) {
-  console.log('[ERROR] : AgoraRTC client init failed', err);
-});
+  initAgora(channelName);
 
 
 
@@ -318,6 +313,17 @@ scene.add( reticle );
 
       }
 
+
+      function initAgora(channelName){
+        channelName = document.getElementById("myInput").value;
+  client.init(agoraAppId, () => {
+  console.log('AgoraRTC client initialized');
+  joinChannel(); // join channel upon successfull init
+}, function (err) {
+  console.log('[ERROR] : AgoraRTC client init failed', err);
+});
+
+      }
       function joinChannel() {
   //alert(name);
   // set the role
