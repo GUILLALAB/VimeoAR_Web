@@ -103,7 +103,7 @@ li:hover {
     <source  id="source" src="video.mp4" type="video/mp4">   
     </video>
 
-    <div hidden class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <div  class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
       <div  id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
     
         <!-- Messages container -->
@@ -570,13 +570,13 @@ if(rtmClient!=null){
       }
 
       </script>  
-      <script type="module" src="/js/index.js"></script>
+      <script type="module" src="/js/index_greenscreen.js"></script>
           <script src="/js/main.min.js"></script>
 <script type="module">
-  import {LoadBroadcast} from '/js/index.js';
+  import {LoadBroadcast,loadMessages} from '/js/index.js';
 
    LoadBroadcast();
-
+   loadMessages();
    
 </script>
     </body>
