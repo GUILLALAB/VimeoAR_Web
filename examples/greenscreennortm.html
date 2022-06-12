@@ -572,9 +572,9 @@ if(rtmClient!=null){
    loadMessages();
    let inputElem = document.getElementById('myInput');
    inputElem.addEventListener('input', function (evt) {
-    alert(this.value);
+    alert(inputElem.value);
   leaveChannel();
-  initAgora(this.value);
+  initAgora(inputElem.value);
 });
 
 
