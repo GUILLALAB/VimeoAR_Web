@@ -364,7 +364,7 @@ client.setClientRole('audience', () => {
 
 function leaveChannel() {
   client.leave(() => {
-    video = document.getElementById( 'video' )
+    video = document.getElementById( 'video' );
   video.pause();
   video.removeAttribute('src'); // empty source
   video.load();
