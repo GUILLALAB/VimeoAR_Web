@@ -226,9 +226,17 @@ let segmentedCanvas;
     function StopVideo(){
       document.getElementById('video').pause();
     }
+   
+    function Timer(detail) {
+        leaveChannel();
+   setTimeout("Timer()",900);
+     initAgora(detail);
+   }
+
 
     function init() {
 
+ 
 
  agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
  channelName = ''; 
@@ -258,9 +266,11 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         document.getElementById("btn").addEventListener("click", myFunction);
         document.addEventListener("buttonclick", function(e) {
  // alert(e.detail);
-leaveChannel();
-  initAgora(e.detail);
+Timer(e.detail);
 });
+
+
+
         renderer.domElement.style.display = 'none';
 
         //

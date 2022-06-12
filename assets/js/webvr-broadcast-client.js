@@ -202,7 +202,7 @@ function leaveChannel() {
     $('#exit-btn').prop('disabled', true);
     ctx.canvas.hidden=true;
     UserStopBroadcast();
-    LoadBroadcast();
+    //LoadBroadcast();
   }, (err) => {
     console.log('client leave failed ', err); //error handling
   });
