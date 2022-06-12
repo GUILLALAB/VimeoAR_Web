@@ -261,6 +261,7 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         document.getElementById("btn").addEventListener("click", myFunction);
         document.addEventListener("buttonclick", function(e) {
  // alert(e.detail);
+ document.getElementById("myInput").value=e.detail;
  channelName=e.detail;
 Timer();
 });
@@ -376,7 +377,9 @@ function leaveChannel() {
 
 function createBroadcaster(streamId) {
   // create video element
-  video = document.getElementById( 'video' )
+  video = document.createElement( 'video' )
+  video.setAttribute('webkit-playsinline', 'webkit-playsinline');
+  video.setAttribute('playsinline', 'playsinline');
   video.id = 'faceVideo-' + streamId;;
     texture = new THREE.VideoTexture( video );
     texture.minFilter = THREE.LinearFilter;
