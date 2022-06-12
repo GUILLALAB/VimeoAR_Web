@@ -53,7 +53,7 @@ import { getAuth,
  import { getFirebaseConfig } from './firebase-config.js';
  
   var docRefId=null;
-  var minputValue="";
+
  // Signs-in Friendly Chat.
  async function signIn() {
    // Sign in Firebase using popup auth and Google as the identity provider.
@@ -136,14 +136,9 @@ import { getAuth,
   LoadBroadcast();*/
  }
 
- export function myFunc(evt)
+ function myFunc(evt)
  {
    document.getElementById("myInput").value=evt.currentTarget.myParam;
-   inputValue();
- }
- 
- export function inputValue(){
-   return minputValue;
  }
  
  export async function UserStopBroadcast(){
