@@ -566,9 +566,13 @@ if(rtmClient!=null){
       <script type="module" src="/js/index_greenscreen.js"></script>
           <script src="/js/main.min.js"></script>
 <script type="module">
-  import {LoadBroadcast,loadMessages} from '/js/index.js';
+  import {LoadBroadcast,loadMessages,myFunc} from '/js/index.js';
    loadMessages();
-   
+   let inputElem = document.querySelector('myInput');
+
+inputElem.addEventListener('myInput', () => {
+  joinChannel(inputElem.value);
+});
 </script>
     </body>
 
