@@ -570,13 +570,14 @@ if(rtmClient!=null){
 <script type="module">
   import {LoadBroadcast,loadMessages} from '/js/index.js';
    loadMessages();
-   let inputElem = document.querySelector('myInput');
-
-inputElem.addEventListener('myInput', () => {
-  alert(inputElem.value);
+   let inputElem = document.getElementById('myInput');
+   inputElem.addEventListener('input', function (evt) {
+    alert(this.value);
   leaveChannel();
-  initAgora(inputElem.value);
+  initAgora(this.value);
 });
+
+
 </script>
     </body>
 
