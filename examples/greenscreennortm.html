@@ -173,7 +173,7 @@ li:hover {
     let controller;
 
     let reticle;
-    var cube, mesh, video, texture,material;
+    var cube, mesh, texture,material;
     var isset=0;
     let videoTexture;
     let videoImageContext ;
@@ -376,7 +376,7 @@ function leaveChannel() {
 
 function createBroadcaster(streamId) {
   // create video element
-  video = document.createElement( 'video' )
+var video = document.createElement( 'video' )
   video.id = 'faceVideo-' + streamId;;
   video.setAttribute('webkit-playsinline', 'webkit-playsinline');
   video.setAttribute('playsinline', 'playsinline');
@@ -567,14 +567,14 @@ if(rtmClient!=null){
           }
 
         }
-        if(video!=null)
+       /* if(video!=null)
         {
           if ( video.readyState === video.HAVE_ENOUGH_DATA ) 
           {
             if ( texture ) 
               texture.needsUpdate = true;
           }
-        }
+        }*/
         renderer.render( scene, camera );
 
       }
