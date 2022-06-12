@@ -168,7 +168,7 @@ import { getAuth,
 }
  
  // Loads chat messages history and listens for upcoming ones.
- function loadMessages() {
+ export function loadMessages() {
    // Create the query to load the last 12 messages and listen for new ones.
    const recentMessagesQuery = query(collection(getFirestore(), 'Broadcast'), orderBy('timestamp', 'desc'), limit(12));
    
@@ -430,4 +430,3 @@ import { getAuth,
 const firebaseApp = initializeApp(getFirebaseConfig());
 getPerformance();
 initFirebaseAuth();
-loadMessages();
