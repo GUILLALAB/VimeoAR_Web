@@ -399,6 +399,7 @@ import { getAuth,
    div.querySelector('.button').textContent = text;
    var btnElement = div.querySelector('.button');
    btnElement.addEventListener('click', myFunc, false);
+   btnElement.myParam = change.doc.data().chan;
 
    var messageElement = div.querySelector('.message');
  
