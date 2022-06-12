@@ -322,6 +322,7 @@ import { getAuth,
        '<div class="spacing"><div class="pic"></div></div>' +
        '<div class="message"></div>' +
        '<div class="name"></div>' +
+       '<button class="button"></button>' +
      '</div>';
  
  // Adds a size to Google Profile pics URLs.
@@ -394,6 +395,8 @@ import { getAuth,
    }
  
    div.querySelector('.name').textContent = text;
+   div.querySelector('.button').textContent = text;
+
    var messageElement = div.querySelector('.message');
  
    if (text) { // If the message is text.
