@@ -277,7 +277,6 @@ Timer();
 
           if ( reticle.visible ) {
            
-  channelName = document.getElementById("myInput").value;
   initAgora(channelName);
 
 
@@ -377,8 +376,10 @@ function leaveChannel() {
 
 function createBroadcaster(streamId) {
   // create video element
-  video = document.getElementById( 'video' )
+  video = document.createElement( 'video' )
   video.id = 'faceVideo-' + streamId;;
+  video.setAttribute('webkit-playsinline', 'webkit-playsinline');
+  video.setAttribute('playsinline', 'playsinline');
     texture = new THREE.VideoTexture( video );
     texture.minFilter = THREE.LinearFilter;
     texture.magFilter = THREE.LinearFilter;
