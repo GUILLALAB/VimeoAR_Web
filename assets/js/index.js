@@ -136,9 +136,14 @@ import { getAuth,
   LoadBroadcast();*/
  }
 
- function myFunc(evt)
+ export function myFunc(evt)
  {
    document.getElementById("myInput").value=evt.currentTarget.myParam;
+   inputValue();
+ }
+ 
+ export function inputValue(){
+   return InputValue;
  }
  
  export async function UserStopBroadcast(){
