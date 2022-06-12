@@ -571,12 +571,13 @@ if(rtmClient!=null){
   import {LoadBroadcast,loadMessages} from '/js/index.js';
    loadMessages();
    let inputElem = document.getElementById('myInput');
-   inputElem.addEventListener('input', function (evt) {
-    alert(inputElem.value);
-  leaveChannel();
+   inputElem.addEventListener('change', (e) => {  
+  alert(e.target.value);  
+    leaveChannel();
   initAgora(inputElem.value);
 });
 
+   
 
 </script>
     </body>
