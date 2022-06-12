@@ -227,10 +227,10 @@ let segmentedCanvas;
       document.getElementById('video').pause();
     }
    
-    function Timer(detail) {
+    function Timer() {
         leaveChannel();
    setTimeout("Timer()",900);
-     initAgora(detail);
+     initAgora(channelName);
    }
 
 
@@ -266,7 +266,8 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         document.getElementById("btn").addEventListener("click", myFunction);
         document.addEventListener("buttonclick", function(e) {
  // alert(e.detail);
-Timer(e.detail);
+ channelName=e.detail;
+Timer();
 });
 
 
