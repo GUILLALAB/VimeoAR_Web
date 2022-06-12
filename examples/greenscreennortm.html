@@ -226,12 +226,7 @@ let segmentedCanvas;
     function StopVideo(){
       document.getElementById('video').pause();
     }
-   
-    function Timer() {
-        leaveChannel();
-   setTimeout("Timer()",900);
-     initAgora(channelName);
-   }
+
 
 
     function init() {
@@ -497,7 +492,12 @@ if(rtmClient!=null){
 
 }
       //
-
+   
+      function Timer() {
+        leaveChannel();
+   setTimeout("Timer()",900);
+     initAgora(channelName);
+   }
 
 
 
