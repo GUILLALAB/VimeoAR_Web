@@ -568,13 +568,16 @@ if(rtmClient!=null){
       <script type="module" src="/js/index_greenscreen.js"></script>
           <script src="/js/main.min.js"></script>
 <script type="module">
-  import {LoadBroadcast,loadMessages} from '/js/index.js';
+  import {LoadBroadcast,loadMessages,inputValue} from '/js/index.js';
    loadMessages();
 
-
-document.getElementById('myInput').addEventListener('change',function(event) {
-    alert(event.target);
-});
+var channel = inputValue();
+if(channel.length>1){
+  alert(channel);  
+    leaveChannel();
+  initAgora(channel);
+}
+   
 
 </script>
     </body>
