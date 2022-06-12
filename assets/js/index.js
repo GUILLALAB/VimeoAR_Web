@@ -139,8 +139,6 @@ import { getAuth,
  function myFunc(evt)
  {
    document.getElementById("myInput").value=evt.currentTarget.myParam;
-var evt = new CustomEvent('change');
-document.getElementById('myInput').dispatchEvent(evt);
  }
  
  export async function UserStopBroadcast(){

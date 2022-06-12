@@ -571,13 +571,20 @@ if(rtmClient!=null){
   import {LoadBroadcast,loadMessages} from '/js/index.js';
    loadMessages();
  
-   document.getElementById('myInput').addEventListener('change',function(event) {
-    alert(event.target);  
-  //  leaveChannel();
- // initAgora(ev);
-});
+const inputElem = document.querySelector('myInput')
 
+// bind "change" event listener
+inputElem.addEventListener('change', e => console.log(e.target.value))
 
+// programatically change the input's value every 1 second
+setInterval(() => { 
+  // generate random value
+  inputElem.value = Math.random() * 100 | 0; 
+  
+  // simulate the "change" event
+  var evt = new CustomEvent('change')
+  inputElem.dispatchEvent(evt)
+}, 1000);
 
 </script>
     </body>
