@@ -173,7 +173,7 @@ li:hover {
     let controller;
 
     let reticle;
-    var cube, mesh, texture,material;
+    var cube, mesh, video, texture,material;
     var isset=0;
     let videoTexture;
     let videoImageContext ;
@@ -376,9 +376,9 @@ function leaveChannel() {
 
 function createBroadcaster(streamId) {
   // create video element
-var video = document.createElement( 'video' )
+  video = document.createElement( 'video' )
   video.id = 'faceVideo-' + streamId;;
-  video.setAttribute('webkit-playsinline', 'webkit-playsinline');
+    video.setAttribute('webkit-playsinline', 'webkit-playsinline');
   video.setAttribute('playsinline', 'playsinline');
     texture = new THREE.VideoTexture( video );
     texture.minFilter = THREE.LinearFilter;
