@@ -571,6 +571,7 @@ if(rtmClient!=null){
    let inputElem = document.querySelector('myInput');
 
 inputElem.addEventListener('myInput', () => {
+  leaveChannel();
   initAgora(inputElem.value);
 });
 </script>
