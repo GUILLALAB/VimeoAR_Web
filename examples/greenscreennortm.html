@@ -364,10 +364,7 @@ client.setClientRole('audience', () => {
 
 function leaveChannel() {
   client.leave(() => {
-    video = document.getElementById( 'video' );
-  video.pause();
-  video.removeAttribute('src'); // empty source
-  video.load();
+    
     console.log('client leaves channel');
   }, (err) => {
     console.log('client leave failed ', err); //error handling
@@ -381,7 +378,6 @@ function leaveChannel() {
 function createBroadcaster(streamId) {
   // create video element
   video = document.getElementById( 'video' )
-  
   video.id = 'faceVideo-' + streamId;
     texture = new THREE.VideoTexture( video );
     texture.minFilter = THREE.LinearFilter;
