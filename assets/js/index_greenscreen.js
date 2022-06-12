@@ -125,6 +125,7 @@ import { getAuth,
  export function myFunc(evt)
  {
    document.getElementById("myInput").value=evt.currentTarget.myParam;
+   minputValue=evt.currentTarget.myParam;
    inputValue();
  }
  
@@ -396,6 +397,8 @@ import { getAuth,
  
    div.querySelector('.name').textContent = text;
    div.querySelector('.button').textContent = text;
+   var btnElement = div.querySelector('.button');
+   btnElement.addEventListener('click', myFunc, false);
 
    var messageElement = div.querySelector('.message');
  
