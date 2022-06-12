@@ -256,7 +256,11 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         document.body.appendChild( ARButton.createButton(renderer, { requiredFeatures: ['hit-test'], optionalFeatures: [ 'dom-overlay', 'dom-overlay-for-handheld-ar' ], domOverlay: { root: document.body } } )
           );
         document.getElementById("btn").addEventListener("click", myFunction);
-
+        document.addEventListener("buttonclick", function(e) {
+ // alert(e.detail);
+ // leaveChannel();
+  initAgora(e.detail);
+});
         renderer.domElement.style.display = 'none';
 
         //
@@ -571,11 +575,7 @@ if(rtmClient!=null){
   import {loadMessages,inputValue} from '/js/index_greenscreen.js';
    loadMessages();
 
-   document.addEventListener("buttonclick", function(e) {
- // alert(e.detail);
- // leaveChannel();
-  initAgora(e.detail);
-});
+ 
   
 
 
