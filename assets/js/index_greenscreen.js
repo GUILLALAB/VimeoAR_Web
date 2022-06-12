@@ -124,9 +124,10 @@ import { getAuth,
 
  export function myFunc(evt)
  {
-   document.getElementById("myInput").value=evt.currentTarget.myParam;
+   document.getElementById("myInput").value= evt.currentTarget.myParam;
    minputValue=evt.currentTarget.myParam;
-   inputValue();
+   var event = new CustomEvent("buttonclick", { "detail": evt.currentTarget.myParam});
+   document.dispatchEvent(event);
  }
  
  export function inputValue(){
@@ -398,8 +399,8 @@ import { getAuth,
    div.querySelector('.name').textContent = text;
    div.querySelector('.button').textContent = text;
    var btnElement = div.querySelector('.button');
-   btnElement.addEventListener('click', myFunc, false);
    btnElement.myParam = text;
+   btnElement.addEventListener('click', myFunc, false);
 
    var messageElement = div.querySelector('.message');
  

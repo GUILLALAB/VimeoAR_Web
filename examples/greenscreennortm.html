@@ -571,8 +571,10 @@ if(rtmClient!=null){
   import {loadMessages,inputValue} from '/js/index_greenscreen.js';
    loadMessages();
 
-var channel = inputValue();
-  alert(channel);  
+   document.addEventListener("buttonclick", function(e) {
+  alert(e.detail);  
+});
+  
 
 
 </script>
