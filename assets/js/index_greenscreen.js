@@ -321,7 +321,7 @@ import { getAuth,
  // Template for messages.
  var MESSAGE_TEMPLATE =
      '<div class="message-container">' +
-       '<div class="spacing"><div class="pic"></div></div>' +
+       '<div class="spacing">  <div class="circle"><img src="" alt=""/><svg viewBox="0 0 100 100" xmlns="" style="enable-background:new -580 439 577.9 194;"xml:space="preserve"> <circle cx="50" cy="50" r="40" /></svg></div></div>' +
        '<div class="message"></div>' +
        '<div class="name"></div>' +
        '<button class="button"></button>' +
@@ -393,7 +393,7 @@ import { getAuth,
  
    // profile picture
    if (picUrl) {
-     div.querySelector('.pic').style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(picUrl) + ')';
+    document.getElementById(".circle").getElementsByTagName('img').src = 'url(' + addSizeToGoogleProfilePic(picUrl) + ')';
    }
  
    div.querySelector('.name').textContent = text;
