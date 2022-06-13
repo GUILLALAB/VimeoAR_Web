@@ -161,7 +161,6 @@ main, #messages-card {
   margin-bottom: 10px;
   height: calc(100% - 80px);
   display: flex;
-  flex-direction: column;
 }
 #message-filler {
   flex-grow: 1;
