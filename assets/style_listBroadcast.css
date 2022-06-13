@@ -132,6 +132,8 @@ main, #messages-card {
 }
 #messages-card {
   margin-top: 15px;
+  overflow: auto;
+
 }
 .mdl-layout__header-row span {
   margin-left: 15px;
@@ -174,7 +176,6 @@ main, #messages-card {
   border-top: 1px solid #f3f3f3;
   padding-top: 10px;
   opacity: 0;
-  overflow: auto;
   transition: opacity 1s ease-in-out;
 }
 .message-container.visible {
