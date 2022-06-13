@@ -171,7 +171,7 @@ li:hover {
     let controller;
 
     let reticle;
-    var cube, mesh, texture,material;
+    var cube, mesh, video, texture,material;
     var isset=0;
     let videoTexture;
     let videoImageContext ;
@@ -375,11 +375,8 @@ function leaveChannel() {
 
 function createBroadcaster(streamId) {
   // create video element
- var video = document.createElement( 'video' );
+  video = document.getElementById( 'video' )
   video.id = 'faceVideo-' + streamId;
-  video.setAttribute('webkit-playsinline', 'webkit-playsinline');
-  video.setAttribute('playsinline', 'playsinline');
-  video.setAttribute('poster', '/imgs/no-video.jpg');
     texture = new THREE.VideoTexture( video );
     texture.minFilter = THREE.LinearFilter;
     texture.magFilter = THREE.LinearFilter;
@@ -567,7 +564,14 @@ if(rtmClient!=null){
           }
 
         }
-     
+        if(video!=null)
+        {
+          if ( video.readyState === video.HAVE_ENOUGH_DATA ) 
+          {
+            if ( texture ) 
+              texture.needsUpdate = true;
+          }
+        }
         renderer.render( scene, camera );
 
       }
