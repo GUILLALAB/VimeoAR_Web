@@ -132,6 +132,8 @@ main, #messages-card {
 }
 #messages-card {
   margin-top: 15px;
+  display: flex;
+  justify-content: space-between; /* could also try with space-around */
 }
 .mdl-layout__header-row span {
   margin-left: 15px;
@@ -323,6 +325,7 @@ main, #messages-card {
   padding-bottom: 0;
 }
 #messages-card-container {
+  
   height: calc(100% - 35px);
   padding-bottom: 0;
 }
