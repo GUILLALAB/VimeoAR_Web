@@ -375,10 +375,7 @@ function leaveChannel() {
 
 function createBroadcaster(streamId) {
   // create video element
- var video = document.createElement( 'video' );
-  video.setAttribute('webkit-playsinline', 'webkit-playsinline');
-  video.setAttribute('playsinline', 'playsinline');
-  video.setAttribute('poster', '/imgs/no-video.jpg');
+  video = document.getElementById( 'video' );
   video.id = 'faceVideo-' + streamId;
     texture = new THREE.VideoTexture( video );
     texture.minFilter = THREE.LinearFilter;
@@ -410,8 +407,7 @@ function createBroadcaster(streamId) {
  isset=1;  
 }
 
-function connectStreamToVideo(agoraStream, vidz) {
-  video=vidz;
+function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
   video.onloadedmetadata = () => {
     // ready to play video
