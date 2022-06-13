@@ -394,7 +394,7 @@ main, #messages-card {
   border-radius: 20px;
 }
 .message-container .spacing {
-  display: table-cell;
+  display: inline;
   vertical-align: top;
 }
 .message-container .message {
