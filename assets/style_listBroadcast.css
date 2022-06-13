@@ -354,6 +354,7 @@ main, #messages-card {
 .mdl-card__supporting-text {
   width: auto;
   height: 100%;
+  display: flex;
   padding-top: 0;
   padding-bottom: 0;
 }
@@ -372,7 +373,7 @@ main, #messages-card {
   border-top-width: 0;
 }
 .message-container {
-  display: flex;
+  display: block;
   margin-top: 10px;
   border-top: 1px solid #f3f3f3;
   padding-top: 10px;
