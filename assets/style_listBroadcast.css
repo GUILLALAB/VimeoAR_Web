@@ -190,7 +190,7 @@ main, #messages-card {
   margin-left: 20px;
 }
 .message-container .spacing {
-  display: table-cell;
+  display: initial;
   vertical-align: top;
 }
 .message-container .message {
