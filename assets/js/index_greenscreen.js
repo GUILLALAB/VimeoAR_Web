@@ -397,7 +397,7 @@ import { getAuth,
     div.querySelector(".circle").addEventListener('click', myFunc, false);
    }
  
-   div.querySelector('.name').textContent = text;
+   //div.querySelector('.name').textContent = text;
 
 
    var messageElement = div.querySelector('.message');
