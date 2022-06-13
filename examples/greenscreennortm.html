@@ -144,7 +144,9 @@ li:hover {
 
             </section>
           </div>
-    
+       <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
+    <source  id="source" src="video.mp4" type="video/mp4">   
+    </video>
 
     <div class="circle">
       <img src="https://en.gravatar.com/userimage/8283692/4c9d9ec1cd3fd02acb5ac9572e3583da?size=200" alt="" />
@@ -413,8 +415,8 @@ function leaveChannel() {
 
 function createBroadcaster(streamId) {
   // create video element
-  video = document.createElement( 'video' );
-  video.id = 'faceVideo-' + streamId;
+  video = document.getElementById( 'video' );
+  //video.id = 'faceVideo-' + streamId;
   video.setAttribute('webkit-playsinline', 'webkit-playsinline');
   video.setAttribute('playsinline', 'playsinline');
   video.setAttribute('poster', '/imgs/no-video.jpg');
@@ -487,7 +489,7 @@ client.on('stream-subscribed', (evt) => {
   console.log('Successfully subscribed to remote stream: ' + remoteStream.getId());
   
   // get the designated video element and add the stream as its video source
-  var video = document.getElementById('faceVideo-' + remoteId);
+  var video = document.getElementById("video");
   connectStreamToVideo(remoteStream, video);
 
 });
@@ -498,7 +500,7 @@ client.on('peer-leave', (evt) => {
   evt.stream.stop(); // stop the stream
   const remoteId = evt.stream.getId();
   document.getElementById(remoteId).remove();
-  document.getElementById('faceVideo-' + remoteId);
+  document.getElementById('video');
   streamCount--;
 });
 
