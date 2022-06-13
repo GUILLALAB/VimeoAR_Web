@@ -375,7 +375,7 @@ function leaveChannel() {
 
 function createBroadcaster(streamId) {
   // create video element
-  video = document.getElementById( 'video' )
+  video = document.createElement( 'video' )
   video.id = 'faceVideo-' + streamId;
     texture = new THREE.VideoTexture( video );
     texture.minFilter = THREE.LinearFilter;
@@ -446,7 +446,7 @@ client.on('stream-subscribed', (evt) => {
   console.log('Successfully subscribed to remote stream: ' + remoteStream.getId());
   
   // get the designated video element and add the stream as its video source
-  video = document.getElementById('faceVideo-' + remoteId);
+  var video = document.getElementById('faceVideo-' + remoteId);
   connectStreamToVideo(remoteStream, video);
 
 });
