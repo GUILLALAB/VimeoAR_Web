@@ -446,7 +446,7 @@ client.on('stream-subscribed', (evt) => {
   console.log('Successfully subscribed to remote stream: ' + remoteStream.getId());
   
   // get the designated video element and add the stream as its video source
-  var video = document.getElementById('faceVideo-' + remoteId);
+  video = document.getElementById('faceVideo-' + remoteId);
   connectStreamToVideo(remoteStream, video);
 
 });
