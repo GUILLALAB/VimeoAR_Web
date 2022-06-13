@@ -393,7 +393,7 @@ import { getAuth,
  
    // profile picture
    if (picUrl) {
-    div.querySelector(".circle img").src = 'url(' + addSizeToGoogleProfilePic(picUrl) + ')';
+    div.querySelector(".circle img").src = addSizeToGoogleProfilePic(picUrl);
    }
  
    div.querySelector('.name').textContent = text;
