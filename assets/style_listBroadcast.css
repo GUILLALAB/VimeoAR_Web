@@ -521,7 +521,7 @@ main, #messages-card {
 } 
 
 div {
-  color: rgb(255, 255, 255);
+  color: rgba(255, 255, 255, 0);
   font-family: Tahoma, Verdana, Segoe, sans-serif;
   padding: 0px;
 }
