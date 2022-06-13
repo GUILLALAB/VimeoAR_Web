@@ -333,10 +333,7 @@ main, #messages-card {
 }
 #messages-card {
   margin-top: 15px;
-  display: flex;
-  height: 100px;
-  width: 100%;
-  justify-content: space-between; /* could also try with space-around */
+  
 }
 .mdl-layout__header-row span {
   margin-left: 15px;
