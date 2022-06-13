@@ -324,6 +324,7 @@ import { getAuth,
        '<div class="spacing">  <div class="circle"><img src="" alt=""/><svg viewBox="0 0 100 100" xmlns="" style="enable-background:new -580 439 577.9 194;"xml:space="preserve"> <circle cx="50" cy="50" r="40" /></svg></div></div>' +
        '<div class="message"></div>' +
        '<div class="name"></div>' +
+       '<button class="button"></button>' +
      '</div>';
  
  // Adds a size to Google Profile pics URLs.
@@ -398,7 +399,10 @@ import { getAuth,
    }
  
    div.querySelector('.name').textContent = text;
-
+   div.querySelector('.button').textContent = text;
+   var btnElement = div.querySelector('.button');
+   btnElement.myParam = text;
+   btnElement.addEventListener('click', myFunc, false);
 
    var messageElement = div.querySelector('.message');
  
