@@ -547,7 +547,7 @@ div {
   fill: none;
   stroke: #8a3ab9;
   stroke-linecap: round;
-  stroke-width: 3;
+  stroke-width: 2;
   stroke-dasharray: 1;
   stroke-dashoffset: 0;
   animation: stroke-draw 6s ease-out infinite alternate;
