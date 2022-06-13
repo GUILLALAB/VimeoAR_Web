@@ -144,9 +144,7 @@ li:hover {
 
             </section>
           </div>
-       <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
-    <source  id="source" src="video.mp4" type="video/mp4">   
-    </video>
+    
 
     <div class="circle">
       <img src="https://en.gravatar.com/userimage/8283692/4c9d9ec1cd3fd02acb5ac9572e3583da?size=200" alt="" />
@@ -415,8 +413,11 @@ function leaveChannel() {
 
 function createBroadcaster(streamId) {
   // create video element
-  video = document.getElementById( 'video' );
+  video = document.createElement( 'video' );
   video.id = 'faceVideo-' + streamId;
+  video.setAttribute('webkit-playsinline', 'webkit-playsinline');
+  video.setAttribute('playsinline', 'playsinline');
+  video.setAttribute('poster', '/imgs/no-video.jpg');
     texture = new THREE.VideoTexture( video );
     texture.minFilter = THREE.LinearFilter;
     texture.magFilter = THREE.LinearFilter;
