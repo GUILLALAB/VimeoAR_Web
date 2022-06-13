@@ -174,6 +174,7 @@ main, #messages-card {
   border-top: 1px solid #f3f3f3;
   padding-top: 10px;
   opacity: 0;
+  overflow: auto;
   transition: opacity 1s ease-in-out;
 }
 .message-container.visible {
