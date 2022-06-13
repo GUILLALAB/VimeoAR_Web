@@ -375,8 +375,11 @@ function leaveChannel() {
 
 function createBroadcaster(streamId) {
   // create video element
-  video = document.getElementById( 'video' )
+ var video = document.createElement( 'video' );
   video.id = 'faceVideo-' + streamId;
+  video.setAttribute('webkit-playsinline', 'webkit-playsinline');
+  video.setAttribute('playsinline', 'playsinline');
+  video.setAttribute('poster', '/imgs/no-video.jpg');
     texture = new THREE.VideoTexture( video );
     texture.minFilter = THREE.LinearFilter;
     texture.magFilter = THREE.LinearFilter;
@@ -447,7 +450,7 @@ client.on('stream-subscribed', (evt) => {
   
   // get the designated video element and add the stream as its video source
   var video = document.getElementById('faceVideo-' + remoteId);
-  connectStreamToVideo(remoteStream, video)
+  connectStreamToVideo(remoteStream, video);
 
 });
 
