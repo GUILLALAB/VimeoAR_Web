@@ -375,7 +375,7 @@ function leaveChannel() {
 
 function createBroadcaster(streamId) {
   // create video element
-  video = document.createElement( 'video' );
+ var video = document.createElement( 'video' );
   video.setAttribute('webkit-playsinline', 'webkit-playsinline');
   video.setAttribute('playsinline', 'playsinline');
   video.setAttribute('poster', '/imgs/no-video.jpg');
@@ -410,7 +410,8 @@ function createBroadcaster(streamId) {
  isset=1;  
 }
 
-function connectStreamToVideo(agoraStream, video) {
+function connectStreamToVideo(agoraStream, vidz) {
+  video=vidz;
   video.srcObject = agoraStream.stream;// add video stream to video element as source
   video.onloadedmetadata = () => {
     // ready to play video
