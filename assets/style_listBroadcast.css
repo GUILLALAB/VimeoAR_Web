@@ -321,10 +321,15 @@ main, #messages-card {
 main, #messages-card {
   height: 100%;
   padding-bottom: 0;
+  display: flex;
+  justify-content: space-between; /* could also try with space-around */
+}
 }
 #messages-card-container {
   height: calc(100% - 35px);
   padding-bottom: 0;
+  display: flex;
+   justify-content: space-between; /* could also try with space-around */
 }
 #messages-card {
   margin-top: 15px;
@@ -353,11 +358,12 @@ main, #messages-card {
   padding-bottom: 0;
 }
 #messages {
-  overflow-y: auto;
-  margin-bottom: 10px;
   height: calc(100% - 80px);
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  margin: 10px; /* for demonstration purposes */
 }
 #message-filler {
   flex-grow: 1;
