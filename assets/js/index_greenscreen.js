@@ -394,6 +394,8 @@ import { getAuth,
    // profile picture
    if (picUrl) {
     div.querySelector(".circle img").src = addSizeToGoogleProfilePic(picUrl);
+    btnElement.myParam = text;
+    div.querySelector(".circle").addEventListener('click', myFunc, false);
    }
  
    div.querySelector('.name').textContent = text;
