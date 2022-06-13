@@ -321,7 +321,7 @@ import { getAuth,
  // Template for messages.
  var MESSAGE_TEMPLATE =
      '<div class="message-container">' +
-       '<div class="spacing">  <div class="circle"><img id="image" src="https://en.gravatar.com/userimage/8283692/4c9d9ec1cd3fd02acb5ac9572e3583da?size=200" alt=""/><svg viewBox="0 0 100 100" xmlns="" style="enable-background:new -580 439 577.9 194;"xml:space="preserve"> <circle cx="50" cy="50" r="40" /></svg></div></div>' +
+       '<div class="spacing">  <div class="circle"><img src="" alt=""/><svg viewBox="0 0 100 100" xmlns="" style="enable-background:new -580 439 577.9 194;"xml:space="preserve"> <circle cx="50" cy="50" r="40" /></svg></div></div>' +
        '<div class="message"></div>' +
        '<div class="name"></div>' +
        '<button class="button"></button>' +
@@ -330,7 +330,7 @@ import { getAuth,
  // Adds a size to Google Profile pics URLs.
  function addSizeToGoogleProfilePic(url) {
    if (url.indexOf('googleusercontent.com') !== -1 && url.indexOf('?') === -1) {
-     return url + '?sz=100';
+     return url + '?sz=150';
    }
    return url;
  }
@@ -393,7 +393,7 @@ import { getAuth,
  
    // profile picture
    if (picUrl) {
-    div.querySelector(".circle").getElementById('image').src = 'url(' + addSizeToGoogleProfilePic(picUrl) + ')';
+    div.querySelector(".circle").getElementsByTagName('img').src = 'url(' + addSizeToGoogleProfilePic(picUrl) + ')';
    }
  
    div.querySelector('.name').textContent = text;
