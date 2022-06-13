@@ -197,13 +197,13 @@ main, #messages-card {
   display: table-cell;
   width: calc(100% - 40px);
   padding: 5px 0 5px 10px;
-  color: black;
+  color: white;
 }
 .message-container .name {
   display: inline-block;
   width: 100%;
   padding-left: 40px;
-  color: #bbb;
+  color: white;
   font-style: italic;
   font-size: 12px;
   box-sizing: border-box;
@@ -541,8 +541,8 @@ div {
 
 .circle {
   position: relative;
-  width: 70px;
-  height: 70px;
+  width: 100px;
+  height: 100px;
 }
 .circle svg {
   fill: none;
