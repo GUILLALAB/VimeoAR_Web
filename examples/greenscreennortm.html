@@ -526,10 +526,12 @@ if(rtmClient!=null){
 
           const referenceSpace = renderer.xr.getReferenceSpace();
           const session = renderer.xr.getSession();
-          const collection = document.getElementsByClassName("bgimg w3-display-container w3-animate-opacity w3-text-white");
+         /* const collection = document.getElementsByClassName("bgimg w3-display-container w3-animate-opacity w3-text-white");
           [...collection].forEach( el => {
             el.style.display = 'none';
-          });
+          });*/
+          document.getElementById("bgimg w3-display-container w3-animate-opacity w3-text-white").style.visibility = "hidden";
+
 
           const collection2 = document.getElementsByClassName(" hero text-center text-light");
           [...collection2].forEach( el => {
