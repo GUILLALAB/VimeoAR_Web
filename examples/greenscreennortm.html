@@ -467,9 +467,9 @@ function setAds3DModel(){
                 scene.add( gltf.scene );
                 chair = gltf.scene;
                 chair.visible = false;
-                self.loadingBar.visible = false;
+                loadingBar.visible = false;
                 chair.position.setFromMatrixPosition( reticle.matrix );
-
+                chair.visible = true;
                 renderer.setAnimationLoop(render.bind(this) );
             },
             // called while loading is progressing
