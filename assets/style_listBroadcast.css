@@ -329,7 +329,7 @@ main, #messages-card {
 }
 
 #messages-card-container {
-  height: calc(50% - 35px);
+  height: calc(50% - 25px);
   padding-bottom: 0;
   bottom: 0px;
   display: flex;
