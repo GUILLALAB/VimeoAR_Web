@@ -432,7 +432,7 @@ import { getAuth,
   });
 }
 function displayAds(imageUrl) {
-    var image = document.getElementById('img');
+    var image = document.getElementById('ads');
     image.src = imageUrl + '&' + new Date().getTime();
 }
 

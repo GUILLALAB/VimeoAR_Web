@@ -129,7 +129,7 @@ li:hover {
    
 
     <button id="btn">Click me</button>
-
+    <img id="ads" src="" alt="" width="100" height="100">
     <script src="utils.js"></script>
 
     <script type="text/javascript">
@@ -183,7 +183,7 @@ li:hover {
     let controller;
 
     let reticle;
-    var cube, mesh, video, texture,material;
+    var cube, mesh, ads, video, texture,material;
     var isset=0;
     let videoTexture;
     let videoImageContext ;
@@ -418,6 +418,14 @@ function createBroadcaster(streamId) {
       mesh = new THREE.Mesh( geometry, material);
       scene.add( mesh );
 
+var textureLoader = new THREE.TextureLoader().load( document.getElementById("ads").src);
+textureLoader.crossOrigin = "Anonymous"
+var geometry = new THREE.PlaneBufferGeometry( 1, 1);
+var material = new THREE.MeshBasicMaterial( { map: textureLoader } );
+ ads = new THREE.Mesh( geometry, material );
+scene.add( ads );
+
+
  isset=1;  
 }
 
@@ -427,7 +435,8 @@ function connectStreamToVideo(agoraStream, video) {
     // ready to play video
     video.play();
     mesh.position.setFromMatrixPosition( reticle.matrix );
-    
+    ads.position.setFromMatrixPosition( reticle.matrix );
+
   }
 }
 
@@ -596,9 +605,9 @@ if(rtmClient!=null){
       <script type="module" src="/js/index_greenscreen.js"></script>
           <script src="/js/main.min.js"></script>
 <script type="module">
-  import {loadMessages,inputValue} from '/js/index_greenscreen.js';
+  import {loadMessages,inputValue,loadAds} from '/js/index_greenscreen.js';
    loadMessages();
-
+   loadAds();
  
   
 
