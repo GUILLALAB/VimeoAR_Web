@@ -566,7 +566,7 @@ div {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 70px;
+  width: 50px;
   border-radius: 50%;
 }
 @keyframes stroke-draw {
