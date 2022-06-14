@@ -128,7 +128,7 @@ li:hover {
    
 
     <button id="btn">Click me</button>
-    <div id="ads"><img src=""></div>
+    <img hidden id="ads" src="" alt="" width="20" height="20">
     <script src="utils.js"></script>
 
     <script type="text/javascript">
@@ -419,9 +419,8 @@ function createBroadcaster(streamId) {
       scene.add( mesh );
 
       //ads
-   //  var url = "https://imageonline.co/image.jpg";
-     var url = document.querySelectorAll('#ads img')[0].src
-alert(url);
+     var url = document.getElementById('img').src
+
 const geo = new THREE.PlaneBufferGeometry(1, 1); // width, height, no depth for plane
  tex = new THREE.TextureLoader().load(
   url
