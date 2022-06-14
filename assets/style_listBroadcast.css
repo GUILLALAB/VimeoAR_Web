@@ -335,6 +335,10 @@ main, #messages-card {
    justify-content: space-between; /* could also try with space-around */
 }
 #messages-card {
+  padding-bottom: 0px;
+  padding-top: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
   margin-top: 15px;
   
 }
