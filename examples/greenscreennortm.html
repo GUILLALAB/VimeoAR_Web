@@ -182,13 +182,14 @@ li:hover {
     let controller;
 
     let reticle;
-    var cube, mesh, ads, video, texture,material;
+    var cube, mesh, ads,video, texture,material;
     var isset=0;
     let videoTexture;
     let videoImageContext ;
     let hitTestSource = null;
     let hitTestSourceRequested = false;
     var client=null;
+    var tex=null;
     var streamCount;
     var channelName;
     var agoraAppId;
@@ -420,7 +421,7 @@ function createBroadcaster(streamId) {
       //ads
      var url = "https://imageonline.co/image.jpg";
 const geo = new THREE.PlaneBufferGeometry(1, 1); // width, height, no depth for plane
-var tex = new THREE.TextureLoader().load(
+ tex = new THREE.TextureLoader().load(
   url
 ); 
 
@@ -595,6 +596,9 @@ if(rtmClient!=null){
 
           }
 
+        }
+        if(tex!=null){
+          tex.needsUpdate = true;
         }
         if(video!=null)
         {
