@@ -415,6 +415,50 @@ import { getAuth,
    messageListElement.scrollTop = messageListElement.scrollHeight;
  }
  
+
+ ///////
+ function loadAds() {
+  // Create the query to load the last 12 messages and listen for new ones.
+  const recentMessagesQuery = query(collection(getFirestore(), 'ads'), orderBy('timestamp', 'desc'), limit(12));
+  
+  // Start listening to the query.
+  onSnapshot(recentMessagesQuery, function(snapshot) {
+    snapshot.docChanges().forEach(function(change) {
+    
+        var message = change.doc.data();
+        displayMessage(change.doc.id, message.timestamp, message.name,
+                      message.text, message.profilePicUrl, message.imageUrl);
+      
+    });
+  });
+}
+function displayAds(id, timestamp, name, text, picUrl, imageUrl) {
+  var div = document.getElementById(id) || createAndInsertMessage(id, timestamp);
+
+  // profile picture
+  if (picUrl) {
+    div.querySelector('.pic').style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(picUrl) + ')';
+  }
+
+  div.querySelector('.name').textContent = name;
+  var messageElement = div.querySelector('.message');
+
+  if (text) { // If the message is text.
+    messageElement.textContent = text;
+    // Replace all line breaks by <br>.
+    messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
+  } else if (imageUrl) { // If the message is an image.
+    var image = document.createElement('img');
+    image.addEventListener('load', function() {
+      messageListElement.scrollTop = messageListElement.scrollHeight;
+    });
+    image.src = imageUrl + '&' + new Date().getTime();
+    messageElement.innerHTML = '';
+    messageElement.appendChild(image);
+  }
+
+}
+
  // Enables or disables the submit button depending on the values of the input
  // fields.
 
