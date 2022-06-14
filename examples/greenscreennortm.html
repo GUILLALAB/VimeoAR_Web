@@ -466,7 +466,7 @@ function setAds3DModel(){
                 chair.visible = false;
                 chair.position.setFromMatrixPosition( reticle.matrix );
 
-                renderer.setAnimationLoop(render.bind(this) );
+                renderer.setAnimationLoop(render);
             },
             // called while loading is progressing
             function ( xhr ) {
