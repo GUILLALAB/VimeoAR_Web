@@ -79,6 +79,11 @@ app.get('/login', (request, response) => {
   response.render('login.html');
 });
 
+
+app.get('/adsmanager', (request, response) => {
+  response.render('ads_interface.html');
+});
+
 app.get('/signup', (request, response) => {
   response.render('login_signup.html');
 });
