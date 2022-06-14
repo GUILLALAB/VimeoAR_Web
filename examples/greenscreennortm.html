@@ -52,7 +52,6 @@ li:hover {
 
       </style>
       </head>
-
     <script src="/js/AgoraRTCSDK-3.0.2.js" type="text/javascript"></script>
     <script src="/js/agora-rtm-sdk-1.2.2.js" type="text/javascript"></script>
     <link href="https://fonts.googleapis.com/css?family=Heebo:400,700|Oxygen:700" rel="stylesheet">
@@ -175,14 +174,15 @@ li:hover {
 
     import * as THREE from '../build/three.module.js';
     import { ARButton } from './jsm/webxr/ARButton.js';
-
+    import { GLTFLoader } from './jsm/GLTFLoader.js';
+    import { LoadingBar } from './jsm/LoadingBar.js';
 
     let container;
     let camera, scene, renderer,source;
     let controller;
 
     let reticle;
-    var cube, mesh, ads,video, texture,material;
+    var cube, mesh, chair, ads,video, texture,material;
     var isset=0;
     let videoTexture;
     let videoImageContext ;
@@ -419,7 +419,7 @@ function createBroadcaster(streamId) {
       scene.add( mesh );
 
       //ads
-     var url = document.getElementById('ads').src;
+var url = document.getElementById('ads').src;
 
 const geo = new THREE.PlaneBufferGeometry(1, 1); // width, height, no depth for plane
 //load the texture
@@ -430,6 +430,8 @@ var mat = new THREE.MeshBasicMaterial({ map: tex });
  ads = new THREE.Mesh(geo, mat);
 
 scene.add(ads);
+
+setAds3DModel();
  isset=1;  
 }
 
@@ -444,6 +446,42 @@ function connectStreamToVideo(agoraStream, video) {
   }
 }
 
+
+function setAds3DModel(){
+  var assetsPath = '/ar-shop/';
+  var loadingBar = new LoadingBar();
+   loadingBar.visible = true;
+
+  const loader = new GLTFLoader( ).setPath(assetsPath);
+        const self = this;
+        // Load a glTF resource
+        loader.load(
+            // resource URL
+            `chair1.glb`,
+            // called when the resource is loaded
+            function ( gltf ) {
+                scene.add( gltf.scene );
+                chair = gltf.scene;
+                chair.visible = false;
+                chair.position.setFromMatrixPosition( reticle.matrix );
+
+                renderer.setAnimationLoop(render.bind(this) );
+            },
+            // called while loading is progressing
+            function ( xhr ) {
+
+                loadingBar.progress = (xhr.loaded / xhr.total);
+                
+            },
+            // called when loading has errors
+            function ( error ) {
+
+                console.log( 'An error happened' );
+
+            }
+        );
+
+}
 function InitClient(){
   if(client!=null){
   // connect remote streams
