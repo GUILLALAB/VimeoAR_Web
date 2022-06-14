@@ -322,14 +322,13 @@ main, #messages-card {
 } 
 
 main, #messages-card {
-  height: 100%;
+  height: 50%;
   padding-bottom: 0;
   display: flex;
   justify-content: space-between; /* could also try with space-around */
 }
 
 #messages-card-container {
-  position: relative;
   height: calc(100% - 35px);
   padding-bottom: 0;
   display: flex;
