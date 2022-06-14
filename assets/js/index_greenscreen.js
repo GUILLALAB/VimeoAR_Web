@@ -275,8 +275,8 @@ import { getAuth,
      userNameElement.textContent = userName;
  
      // Show user's profile and sign-out button.
-     userNameElement.removeAttribute('hidden');
-     userPicElement.removeAttribute('hidden');
+    // userNameElement.removeAttribute('hidden');
+     //userPicElement.removeAttribute('hidden');
      signOutButtonElement.removeAttribute('hidden');
  
      // Hide sign-in button.
