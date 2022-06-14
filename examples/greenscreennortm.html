@@ -182,7 +182,7 @@ import { GLTFLoader } from './jsm/GLTFLoader.js';
     let controller;
 
     let reticle;
-    var cube, mesh, chair, ads,video, texture,material;
+    var cube, mesh, ads,video, texture,material;
     var isset=0;
     let videoTexture;
     let videoImageContext ;
@@ -190,6 +190,7 @@ import { GLTFLoader } from './jsm/GLTFLoader.js';
     let hitTestSourceRequested = false;
     var client=null;
     var tex=null;
+    var chair=null;
     var streamCount;
     var channelName;
     var agoraAppId;
@@ -212,10 +213,10 @@ const rbCeilingRange = 80;
 const FRAME_RATE = 25;
 let videoWidth = 320;
 let videoHeight = 240;
-
+var assetsPath;
 // Safari & Firefox don't support OffscreenCanvas
 
-
+var loadingBar;
 let segmentedCanvas;
 
    
@@ -242,6 +243,9 @@ let segmentedCanvas;
     function init() {
 
  
+       assetsPath = './ar-shop/';
+   loadingBar = new LoadingBar();
+   loadingBar.visible = false;
 
  agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
  channelName = ''; 
@@ -449,9 +453,8 @@ function connectStreamToVideo(agoraStream, video) {
 
 
 function setAds3DModel(){
-  var assetsPath = './ar-shop/';
-  var loadingBar = new LoadingBar();
-   loadingBar.visible = true;
+  loadingBar.visible = true;
+
 
   const loader = new GLTFLoader( ).setPath(assetsPath);
         const self = this;
@@ -464,9 +467,10 @@ function setAds3DModel(){
                 scene.add( gltf.scene );
                 chair = gltf.scene;
                 chair.visible = false;
+                self.loadingBar.visible = false;
                 chair.position.setFromMatrixPosition( reticle.matrix );
 
-                renderer.setAnimationLoop(render);
+                renderer.setAnimationLoop(render.bind(this) );
             },
             // called while loading is progressing
             function ( xhr ) {
