@@ -420,7 +420,7 @@ function createBroadcaster(streamId) {
 
       //ads
 var url = document.getElementById('ads').src;
-
+if (url.length>5){
 const geo = new THREE.PlaneBufferGeometry(1, 1); // width, height, no depth for plane
 //load the texture
 var tex = new THREE.TextureLoader().load(url);
@@ -430,6 +430,7 @@ var mat = new THREE.MeshBasicMaterial({ map: tex });
  ads = new THREE.Mesh(geo, mat);
 
 scene.add(ads);
+}
 
 setAds3DModel();
  isset=1;  
