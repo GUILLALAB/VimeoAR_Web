@@ -419,7 +419,9 @@ function createBroadcaster(streamId) {
       scene.add( mesh );
 
       //ads
-     var url = "https://imageonline.co/image.jpg";
+   //  var url = "https://imageonline.co/image.jpg";
+     var url = document.querySelectorAll('#ads img')[0].src
+
 const geo = new THREE.PlaneBufferGeometry(1, 1); // width, height, no depth for plane
  tex = new THREE.TextureLoader().load(
   url
