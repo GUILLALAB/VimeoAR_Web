@@ -418,18 +418,18 @@ function createBroadcaster(streamId) {
       scene.add( mesh );
 
      var url = document.getElementById("ads").src;
-const geometry = new THREE.PlaneBufferGeometry(1, 1); // width, height, no depth for plane
+const geo = new THREE.PlaneBufferGeometry(1, 1); // width, height, no depth for plane
 var texture = new THREE.TextureLoader().load(
   url
 ); 
 texture.crossOrigin = "";
 
-const material = new THREE.MeshBasicMaterial({
+const mat = new THREE.MeshBasicMaterial({
   color: 0xeba6f5,
   side: THREE.DoubleSide,
   map: texture // texture as a map for material
 });
-ads = new THREE.Mesh(geometry, material); // mesh takes just two parameters
+ads = new THREE.Mesh(geo, mat); // mesh takes just two parameters
 scene.add(ads);
 
 
