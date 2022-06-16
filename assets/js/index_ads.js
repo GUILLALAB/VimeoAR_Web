@@ -95,7 +95,7 @@ import { getAuth,
  async function saveMessage(messageText) {
    // Add a new message entry to the Firebase database.
    try {
-     await addDoc(collection(getFirestore(), 'object'), {  //ads
+     await addDoc(collection(getFirestore(), 'ads'), {  //ads
        name: getUserName(),
        text: messageText,
        profilePicUrl: getProfilePicUrl(),
@@ -200,7 +200,7 @@ import { getAuth,
  async function saveImageMessage(file) {
    try {
      // 1 - We add a message with a loading icon that will get updated with the shared image.
-     const messageRef = await addDoc(collection(getFirestore(), 'object'), { //ads
+     const messageRef = await addDoc(collection(getFirestore(), 'ads'), { //ads
        name: getUserName(),
        imageUrl: LOADING_IMAGE_URL,
        profilePicUrl: getProfilePicUrl(),
