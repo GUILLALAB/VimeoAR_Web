@@ -275,14 +275,14 @@ import { getAuth,
    imageFormElement.reset();
  
    // Check if the file is an image.
-   if (!file.type.match('image.*') || !file.type.match('.glb')) {
+   /*if (!file.type.match('image.*') || !file.type.match('.glb')) {
      var data = {
        message: 'You can only share images',
        timeout: 2000
      };
      signInSnackbarElement.MaterialSnackbar.showSnackbar(data);
      return;
-   }
+   }*/
    // Check if the user is signed-in
    if (checkSignedInWithMessage()) {
      saveImageMessage(file);
