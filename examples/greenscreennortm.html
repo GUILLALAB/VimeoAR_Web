@@ -128,6 +128,7 @@ li:hover {
 
     <button id="btn">Click me</button>
     <img  id="ads" src="" alt="" width="20" height="20">
+
     <script src="utils.js"></script>
 
     <script type="text/javascript">
@@ -175,7 +176,7 @@ import * as THREE from './jsm/three.module.js';
 import { GLTFLoader } from './jsm/GLTFLoader.js';
     import { LoadingBar } from './jsm/LoadingBar.js';
     import { ARButton } from './jsm/webxr/ARButton.js';
-  
+    import {loadObject,Object} from './js/index_greenscreen.js';
 
     let container;
     let camera, scene, renderer,source;
@@ -278,6 +279,8 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
  document.getElementById("myInput").value=e.detail;
  channelName=e.detail;
 Timer();
+loadObject();
+
 });
 
 
@@ -456,12 +459,12 @@ function setAds3DModel(){
   loadingBar.visible = true;
 
 
-  const loader = new GLTFLoader( ).setPath(assetsPath);
+  const loader = new GLTFLoader( );
         const self = this;
         // Load a glTF resource
         loader.load(
             // resource URL
-            `chair1.glb`,
+            Object.link,
             // called when the resource is loaded
             function ( gltf ) {
                 scene.add( gltf.scene );

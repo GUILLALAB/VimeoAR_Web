@@ -431,9 +431,29 @@ import { getAuth,
     });
   });
 }
-function displayAds(imageUrl) {
-    var image = document.getElementById('ads');
-    image.src = imageUrl + '&' + new Date().getTime();
+
+export var Object =
+{
+    link : null
+};
+
+export function loadObject() {
+  // Create the query to load the last 12 messages and listen for new ones.
+  const recentMessagesQuery = query(collection(getFirestore(), 'object'), orderBy('timestamp', 'desc'), limit(12));
+  
+  // Start listening to the query.
+  onSnapshot(recentMessagesQuery, function(snapshot) {
+    snapshot.docChanges().forEach(function(change) {
+    
+        var message = change.doc.data();
+        displayObject(message.imageUrl);
+      
+    });
+  });
+}
+
+function displayObject(imageUrl) {
+  Object.link=imageUrl + '&' + new Date().getTime();
 }
 
  // Enables or disables the submit button depending on the values of the input
