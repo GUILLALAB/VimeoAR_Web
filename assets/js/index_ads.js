@@ -95,7 +95,7 @@ import { getAuth,
  async function saveMessage(messageText) {
    // Add a new message entry to the Firebase database.
    try {
-     await addDoc(collection(getFirestore(), 'ads'), {
+     await addDoc(collection(getFirestore(), 'object'), {
        name: getUserName(),
        text: messageText,
        profilePicUrl: getProfilePicUrl(),
