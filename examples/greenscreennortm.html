@@ -176,14 +176,14 @@ import * as THREE from './jsm/three.module.js';
 import { GLTFLoader } from './jsm/GLTFLoader.js';
     import { LoadingBar } from './jsm/LoadingBar.js';
     import { ARButton } from './jsm/webxr/ARButton.js';
-    import {Object,loadAds} from './js/index_greenscreen.js';
+    import {loadObject,Object} from './js/index_greenscreen.js';
 
     let container;
     let camera, scene, renderer,source;
     let controller;
 
     let reticle;
-    var cube, mesh,video, texture,material;
+    var cube, mesh, ads,video, texture,material;
     var isset=0;
     let videoTexture;
     let videoImageContext ;
@@ -192,7 +192,6 @@ import { GLTFLoader } from './jsm/GLTFLoader.js';
     var client=null;
     var tex=null;
     var chair=null;
-    var ads=null;
     var streamCount;
     var channelName;
     var agoraAppId;
@@ -293,8 +292,8 @@ Timer();
         function onSelect() {
 
           if ( reticle.visible ) {
-            loadAds();   
-            initAgora(channelName);
+            loadObject();   
+  initAgora(channelName);
 
 
 
@@ -426,41 +425,30 @@ function createBroadcaster(streamId) {
       scene.add( mesh );
 
       //ads
-var url = Object.link;
-if ( url.length>5 && isValidImageURL(url) ){
-  const geo = new THREE.PlaneBufferGeometry(1, 1); // width, height, no depth for plane
+var url = document.getElementById('ads').src;
+if (url.length>5){
+const geo = new THREE.PlaneBufferGeometry(1, 1); // width, height, no depth for plane
 //load the texture
 var tex = new THREE.TextureLoader().load(url);
 
 //set the texture as map parameter of the material
 var mat = new THREE.MeshBasicMaterial({ map: tex });
  ads = new THREE.Mesh(geo, mat);
+
 scene.add(ads);
-}else if(isValidModelURL(url)){
-  setAds3DModel();
 }
 
+setAds3DModel();
  isset=1;  
 }
 
-
-function isValidImageURL(str){
-    if ( typeof str !== 'string' ) return false;
-    return !!str.match(/\w+\.(jpg|jpeg|gif|png|tiff|bmp)$/gi);
-}
-function isValidModelURL(str){
-    if ( typeof str !== 'string' ) return false;
-    return !!str.match(/\w+\.(glb|gltf)$/gi);
-}
 function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
   video.onloadedmetadata = () => {
     // ready to play video
     video.play();
     mesh.position.setFromMatrixPosition( reticle.matrix );
-    if(ads!=null){
     ads.position.setFromMatrixPosition( reticle.matrix );
-  }
 
   }
 }
@@ -669,9 +657,9 @@ if(rtmClient!=null){
       <script type="module" src="/js/index_greenscreen.js"></script>
           <script src="/js/main.min.js"></script>
 <script type="module">
-  import {loadMessages,inputValue} from '/js/index_greenscreen.js';
+  import {loadMessages,inputValue,loadAds} from '/js/index_greenscreen.js';
    loadMessages();
- 
+   loadAds();
  
   
 
