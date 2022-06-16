@@ -176,7 +176,7 @@ import * as THREE from './jsm/three.module.js';
 import { GLTFLoader } from './jsm/GLTFLoader.js';
     import { LoadingBar } from './jsm/LoadingBar.js';
     import { ARButton } from './jsm/webxr/ARButton.js';
-    import {loadObject,Object} from './js/index_greenscreen.js';
+    import {Object,loadAds} from './js/index_greenscreen.js';
 
     let container;
     let camera, scene, renderer,source;
@@ -292,7 +292,7 @@ Timer();
         function onSelect() {
 
           if ( reticle.visible ) {
-            loadObject();   
+            loadAds();   
   initAgora(channelName);
 
 
@@ -425,23 +425,33 @@ function createBroadcaster(streamId) {
       scene.add( mesh );
 
       //ads
-var url = document.getElementById('ads').src;
-if (url.length>5){
-const geo = new THREE.PlaneBufferGeometry(1, 1); // width, height, no depth for plane
+var url = Object.link;
+let url = "folder/myImage.png";
+if ( url.length>5 && isValidImageURL(url) ){
+  const geo = new THREE.PlaneBufferGeometry(1, 1); // width, height, no depth for plane
 //load the texture
 var tex = new THREE.TextureLoader().load(url);
 
 //set the texture as map parameter of the material
 var mat = new THREE.MeshBasicMaterial({ map: tex });
  ads = new THREE.Mesh(geo, mat);
-
 scene.add(ads);
+}else if(isValidModelURL(url){
+  setAds3DModel();
 }
 
-setAds3DModel();
  isset=1;  
 }
 
+
+function isValidImageURL(str){
+    if ( typeof str !== 'string' ) return false;
+    return !!str.match(/\w+\.(jpg|jpeg|gif|png|tiff|bmp)$/gi);
+}
+function isValidModelURL(str){
+    if ( typeof str !== 'string' ) return false;
+    return !!str.match(/\w+\.(glb|gltf)$/gi);
+}
 function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
   video.onloadedmetadata = () => {
@@ -657,9 +667,9 @@ if(rtmClient!=null){
       <script type="module" src="/js/index_greenscreen.js"></script>
           <script src="/js/main.min.js"></script>
 <script type="module">
-  import {loadMessages,inputValue,loadAds} from '/js/index_greenscreen.js';
+  import {loadMessages,inputValue} from '/js/index_greenscreen.js';
    loadMessages();
-   loadAds();
+ 
  
   
 

@@ -417,7 +417,7 @@ import { getAuth,
  
 
  ///////
- export function loadAds() {
+ /*export function loadAds() {
   // Create the query to load the last 12 messages and listen for new ones.
   const recentMessagesQuery = query(collection(getFirestore(), 'ads'), orderBy('timestamp', 'desc'), limit(12));
   
@@ -430,16 +430,16 @@ import { getAuth,
       
     });
   });
-}
+}*/
 
 export var Object =
 {
     link : null
 };
 
-export function loadObject() {
+export function loadAds() {
   // Create the query to load the last 12 messages and listen for new ones.
-  const recentMessagesQuery = query(collection(getFirestore(), 'object'), orderBy('timestamp', 'desc'), limit(12));
+  const recentMessagesQuery = query(collection(getFirestore(), 'ads'), orderBy('timestamp', 'desc'), limit(12));
   
   // Start listening to the query.
   onSnapshot(recentMessagesQuery, function(snapshot) {
@@ -456,10 +456,6 @@ function displayObject(imageUrl) {
   Object.link=imageUrl + '&' + new Date().getTime();
 }
 
-function displayAds(imageUrl) {
-var image = document.getElementById('ads');
-image.src = imageUrl + '&' + new Date().getTime();
-}
  // Enables or disables the submit button depending on the values of the input
  // fields.
 
