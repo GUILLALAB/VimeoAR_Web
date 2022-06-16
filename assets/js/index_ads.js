@@ -274,6 +274,8 @@ import { getAuth,
    // Clear the selection in the file picker input.
    imageFormElement.reset();
  
+   // Check if the file is an image.
+  
    // Check if the user is signed-in
    if (checkSignedInWithMessage()) {
      saveImageMessage(file);
