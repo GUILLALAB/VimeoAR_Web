@@ -200,7 +200,7 @@ import { getAuth,
  async function saveImageMessage(file) {
    try {
      // 1 - We add a message with a loading icon that will get updated with the shared image.
-     const messageRef = await addDoc(collection(getFirestore(), 'ads'), {
+     const messageRef = await addDoc(collection(getFirestore(), 'object'), {
        name: getUserName(),
        imageUrl: LOADING_IMAGE_URL,
        profilePicUrl: getProfilePicUrl(),
@@ -225,34 +225,6 @@ import { getAuth,
    }
  }
  
-
- async function saveGlbFile(file) {
-  try {
-    // 1 - We add a message with a loading icon that will get updated with the shared image.
-    const messageRef = await addDoc(collection(getFirestore(), 'objects'), {
-      name: getUserName(),
-      imageUrl: LOADING_IMAGE_URL,
-      profilePicUrl: getProfilePicUrl(),
-      timestamp: serverTimestamp()
-    });
-
-    // 2 - Upload the image to Cloud Storage.
-    const filePath = `${getAuth().currentUser.uid}/${messageRef.id}/${file.name}`;
-    const newImageRef = ref(getStorage(), filePath);
-    const fileSnapshot = await uploadBytesResumable(newImageRef, file);
-    
-    // 3 - Generate a public URL for the file.
-    const publicImageUrl = await getDownloadURL(newImageRef);
-
-    // 4 - Update the chat message placeholder with the image’s URL.
-    await updateDoc(messageRef,{
-      imageUrl: publicImageUrl,
-      storageUri: fileSnapshot.metadata.fullPath
-    });
-  } catch (error) {
-    console.error('There was an error uploading a file to Cloud Storage:', error);
-  }
-}
  // Saves the messaging device token to Cloud Firestore.
  async function saveMessagingDeviceToken() {
    try {
@@ -302,35 +274,12 @@ import { getAuth,
    // Clear the selection in the file picker input.
    imageFormElement.reset();
  
-   // Check if the file is an image.
-   if (!file.type.match('image.*')) {
-     var data = {
-       message: 'You can only share images',
-       timeout: 2000
-     };
-     signInSnackbarElement.MaterialSnackbar.showSnackbar(data);
-     return;
-   }
    // Check if the user is signed-in
    if (checkSignedInWithMessage()) {
      saveImageMessage(file);
    }
  }
  
-
- function onMediaFileGlbSelected(event) {
-  event.preventDefault();
-  var file = event.target.files[0];
-
-  // Clear the selection in the file picker input.
-  imageFormElement.reset();
-
-  // Check if the user is signed-in
-  if (checkSignedInWithMessage()) {
-    saveGlbFile(file);
-  }
-}
-
  // Triggered when the send new message form is submitted.
  function onMessageFormSubmit(e) {
    e.preventDefault();
@@ -516,8 +465,6 @@ import { getAuth,
  var imageButtonElement = document.getElementById('submitImage');
  var imageFormElement = document.getElementById('image-form');
  var mediaCaptureElement = document.getElementById('mediaCapture');
- var mediaCaptureGlb = document.getElementById('mediaCaptureglb');
-
  var userPicElement = document.getElementById('user-pic');
  var userNameElement = document.getElementById('user-name');
  var signInButtonElement = document.getElementById('sign-in');
@@ -539,7 +486,6 @@ import { getAuth,
    mediaCaptureElement.click();
  });
  mediaCaptureElement.addEventListener('change', onMediaFileSelected);
- mediaCaptureGlb.addEventListener('change', onMediaFileGlbSelected);
 
 const firebaseApp = initializeApp(getFirebaseConfig());
 getPerformance();
