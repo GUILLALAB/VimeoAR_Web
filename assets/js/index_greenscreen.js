@@ -452,7 +452,7 @@ export function loadAds() {
   });
 }
 
-function displayObject(imageUrl) {
+export function displayObject(imageUrl) {
   Object.link=imageUrl + '&' + new Date().getTime();
 }
 
