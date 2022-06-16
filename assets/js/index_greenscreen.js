@@ -456,6 +456,10 @@ function displayObject(imageUrl) {
   Object.link=imageUrl + '&' + new Date().getTime();
 }
 
+function displayAds(imageUrl) {
+var image = document.getElementById('ads');
+image.src = imageUrl + '&' + new Date().getTime();
+}
  // Enables or disables the submit button depending on the values of the input
  // fields.
 
