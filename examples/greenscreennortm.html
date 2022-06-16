@@ -426,7 +426,6 @@ function createBroadcaster(streamId) {
 
       //ads
 var url = Object.link;
-let url = "folder/myImage.png";
 if ( url.length>5 && isValidImageURL(url) ){
   const geo = new THREE.PlaneBufferGeometry(1, 1); // width, height, no depth for plane
 //load the texture
@@ -436,7 +435,7 @@ var tex = new THREE.TextureLoader().load(url);
 var mat = new THREE.MeshBasicMaterial({ map: tex });
  ads = new THREE.Mesh(geo, mat);
 scene.add(ads);
-}else if(isValidModelURL(url){
+}else if(isValidModelURL(url)){
   setAds3DModel();
 }
 
