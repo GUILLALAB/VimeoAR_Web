@@ -315,7 +315,7 @@ import { getAuth,
  
      // Show user's profile and sign-out button.
      //userNameElement.removeAttribute('hidden');
-     userPicElement.removeAttribute('hidden');
+     //userPicElement.removeAttribute('hidden');
      signOutButtonElement.removeAttribute('hidden');
  
      // Hide sign-in button.
