@@ -98,6 +98,7 @@ import { getAuth,
      await addDoc(collection(getFirestore(), 'object'), {  //ads
        name: getUserName(),
        text: messageText,
+       userid: getUserUid(),
        profilePicUrl: getProfilePicUrl(),
        timestamp: serverTimestamp()
      });
@@ -203,6 +204,7 @@ import { getAuth,
      const messageRef = await addDoc(collection(getFirestore(), 'object'), { //ads
        name: getUserName(),
        imageUrl: LOADING_IMAGE_URL,
+       userid: getUserUid(),
        profilePicUrl: getProfilePicUrl(),
        timestamp: serverTimestamp()
      });
