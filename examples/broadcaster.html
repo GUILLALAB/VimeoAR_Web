@@ -153,10 +153,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 
 
-<div  class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">  
-	<div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
-	  <h2>Diffuse Image or 3D Models Ads</h2>
-  
+<div hidden class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+	<div  id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
+
 	  <!-- Messages container -->
 	  <div id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
 		<div class="mdl-card__supporting-text mdl-color-text--grey-600">
@@ -172,22 +171,15 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 			</button>
 		  </form>
 		  <form id="image-form" action="#">
-			<input id="mediaCapture" type="file" accept="image/*, .glb">
-		  <!--   <input id="mediaCapture" type="file" accept="image/*" capture="camera">-->
+			<input id="mediaCapture" type="file" accept="image/*" capture="camera">
 			<button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
 			  <i class="material-icons">image</i>
 			</button>
 		  </form>
 		</div>
 	  </div>
-  
-	  <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
-		<div class="mdl-snackbar__text"></div>
-		<button class="mdl-snackbar__action" type="button"></button>
-	  </div>
-  
-	</div>
-	</div>
+	</div> 	             
+</div>
 
 
 
@@ -200,7 +192,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 	$("#video-btn").prop("disabled", true);
 	$("#exit-btn").prop("disabled", true);
 </script>
-<script type="module" src="/js/index_ads.js"></script>
+<script type="module" src="/js/index.js"></script>
 <script src="/js/webvr-broadcast-client.js" type="module"></script>
 
 </body>
