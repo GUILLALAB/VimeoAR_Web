@@ -84,6 +84,10 @@ app.get('/adsmanager', (request, response) => {
   response.render('ads_interface.html',{ name: 'Tobi' });
 });
 
+app.get('/ads', (request, response) => {
+  response.render('ads.html',{ name: 'Tobi' });
+});
+
 app.get('/signup', (request, response) => {
   response.render('login_signup.html');
 });
