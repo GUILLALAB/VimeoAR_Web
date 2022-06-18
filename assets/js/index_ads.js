@@ -208,6 +208,14 @@ import { getAuth,
        profilePicUrl: getProfilePicUrl(),
        timestamp: serverTimestamp()
      });
+     
+     const docRef = doc(getFirestore(), "Broadcast", getUserUid());
+const colRef = collection(docRef, "objects")
+addDoc(colRef, {
+ price: "test",
+ and: test,
+ more: test,
+});
  
      // 2 - Upload the image to Cloud Storage.
      const filePath = `${getAuth().currentUser.uid}/${messageRef.id}/${file.name}`;
