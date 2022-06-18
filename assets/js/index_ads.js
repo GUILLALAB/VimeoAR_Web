@@ -162,8 +162,8 @@ import { getAuth,
   console.log("Document written with ID: ", docRef.id);
   docRefId=docRef.id;
 
-  addDoc(doc(getFirestore(), "Broadcast", docRefId, "messages", "message1"));
-  
+  const testCollection = collection(getFirestore(), "Broadcast", docRefId, "test");
+addDoc(testCollection, { title: "hello world" });
   }
 
   /*  await addDoc(collection(getFirestore(), 'Broadcast'), {
