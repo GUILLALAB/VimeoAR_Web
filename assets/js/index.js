@@ -160,6 +160,14 @@ import { getAuth,
   });
   console.log("Document written with ID: ", docRef.id);
   docRefId=docRef.id;
+  
+  const doc = await addDoc(
+    collection(getFirestore(), "Broadcast", docRefId, "object"),
+    {
+      text: getUserUid(),
+      title: "Test",
+    }
+  );
   }
 
 
