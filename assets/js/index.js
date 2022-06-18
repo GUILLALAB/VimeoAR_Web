@@ -319,7 +319,7 @@ import { getAuth,
  export async function AddUser() {
   // Add a new message entry to the Firebase database.
   try {
-  const docRef = await setDoc(collection(getFirestore(), "Users"), {
+  const docRef = await addDoc(collection(getFirestore(), "Users"), {
     name: getUserName(),
     text: getUserUid(),
     profilePicUrl: getProfilePicUrl(),
