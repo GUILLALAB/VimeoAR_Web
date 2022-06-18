@@ -162,22 +162,13 @@ import { getAuth,
   console.log("Document written with ID: ", docRef.id);
   docRefId=docRef.id;
 
-
+ // const testCollection = collection(getFirestore(), "Broadcast", docRef.id, "test");
+//addDoc(testCollection, { title: "hello world" });
   }
-
-  /*  await addDoc(collection(getFirestore(), 'Broadcast'), {
-      name: getUserName(),
-      text: getUserUid(),
-      chan:channelName,
-      profilePicUrl: getProfilePicUrl(),
-      timestamp: serverTimestamp()
-    });*/
   
   catch(error) {
     console.error('Error writing new message to Firebase Database', error);
   }
-  const testCollection = collection(getFirestore(), "Broadcast", docRef.id, "test");
-  addDoc(testCollection, { title: "hello world" });
 }
  
  // Loads chat messages history and listens for upcoming ones.
