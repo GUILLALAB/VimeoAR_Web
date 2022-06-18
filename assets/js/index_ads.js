@@ -162,7 +162,7 @@ import { getAuth,
   console.log("Document written with ID: ", docRef.id);
   docRefId=docRef.id;
 
-addDoc(collection(getFirestore(), 'Broadcast', docRefId, 'College'), { name:"tunio" });
+  const notesRef = doc(getFirestore(), 'Broadcast', docRefId, 'notes'); 
 
   }
 
