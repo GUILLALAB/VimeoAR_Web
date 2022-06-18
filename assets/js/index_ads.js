@@ -209,12 +209,12 @@ import { getAuth,
        timestamp: serverTimestamp()
      });
      
-     const docRef = doc(getFirestore(), "Broadcast", getUserUid());
+     const docRef = doc(getFirestore(), "Broadcast", docRefId);
 const colRef = collection(docRef, "objects")
 addDoc(colRef, {
  price: "test",
- and: test,
- more: test,
+ and: "test",
+ more: "test",
 });
  
      // 2 - Upload the image to Cloud Storage.
