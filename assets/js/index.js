@@ -41,6 +41,7 @@ import { getAuth,
    getStorage,
    ref,
    uploadBytesResumable,
+   deleteObject,
    getDownloadURL
  } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-storage.js"
  import {
@@ -144,7 +145,11 @@ import { getAuth,
  export async function UserStopBroadcast(){
    
    if(docRefId!=null){
+    await deleteDoc(doc(getFirestore(), "Broadcast", docRefId),"objects");
     await deleteDoc(doc(getFirestore(), "Broadcast", docRefId));
+
+
+    
  // await deleteDoc(doc(getFirestore(), "Broadcast", docRefId));
 }
  }
