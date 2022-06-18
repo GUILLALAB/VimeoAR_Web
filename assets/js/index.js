@@ -206,7 +206,7 @@ import { getAuth,
    try {
      // 1 - We add a message with a loading icon that will get updated with the shared image.
 
-     const messageRef = await addDoc(
+    /* const messageRef = await addDoc(
       collection(getFirestore(), "Broadcast", docRefId, "objects"),
       {
         name: getUserName(),
@@ -214,7 +214,14 @@ import { getAuth,
         profilePicUrl: getProfilePicUrl(),
         timestamp: serverTimestamp()
       }
-    );
+    );*/
+
+     const messageRef = await addDoc(collection(getFirestore(), 'object'), {
+       name: getUserName(),
+       imageUrl: LOADING_IMAGE_URL,
+       profilePicUrl: getProfilePicUrl(),
+       timestamp: serverTimestamp()
+     });
  
      // 2 - Upload the image to Cloud Storage.
      const filePath = `${getAuth().currentUser.uid}/${messageRef.id}/${file.name}`;
@@ -284,7 +291,7 @@ import { getAuth,
    imageFormElement.reset();
  
    // Check if the file is an image.
-   if (!file.type.match('image.*' || !file.type.match('.glb'))) {
+   if (!file.type.match('image.*')) {
      var data = {
        message: 'You can only share images',
        timeout: 2000
