@@ -162,13 +162,9 @@ import { getAuth,
   console.log("Document written with ID: ", docRef.id);
   docRefId=docRef.id;
 
-  getFirestore().collection('Broadcast').doc(docRefId).collection('Warenkorb').doc("test").set({
-    WarenkorbName: 'test'
-})
+addDoc(collection(getFirestore(), 'Broadcast', docRefId, 'College'), { name:"tunio" });
 
   }
-
-
 
   /*  await addDoc(collection(getFirestore(), 'Broadcast'), {
       name: getUserName(),
