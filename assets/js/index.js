@@ -313,13 +313,10 @@ import { getAuth,
    }
  }
  
- function getUserUid() {
-  return getAuth().currentUser.uid;
-}
+
  export async function AddUser() {
   // Add a new message entry to the Firebase database.
   try {
-  
   
   await setDoc(doc(getFirestore(), "Users", getUserUid()), {
     name: getUserName(),
