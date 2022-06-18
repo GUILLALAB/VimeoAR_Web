@@ -161,8 +161,16 @@ import { getAuth,
   });
   console.log("Document written with ID: ", docRef.id);
   docRefId=docRef.id;
-  }
 
+
+  const docRe = doc(getFirestore(), "Broadcast", docRefId);
+  const colRef = collection(docRe, "objects")
+  addDoc(colRef, {
+   price: "test",
+   and: "test",
+   more: "test",
+  });
+  }
 
   /*  await addDoc(collection(getFirestore(), 'Broadcast'), {
       name: getUserName(),
@@ -209,13 +217,7 @@ import { getAuth,
        timestamp: serverTimestamp()
      });
      
-     const docRef = doc(getFirestore(), "Broadcast", docRefId);
-const colRef = collection(docRef, "objects")
-addDoc(colRef, {
- price: "test",
- and: "test",
- more: "test",
-});
+
  
      // 2 - Upload the image to Cloud Storage.
      const filePath = `${getAuth().currentUser.uid}/${messageRef.id}/${file.name}`;
