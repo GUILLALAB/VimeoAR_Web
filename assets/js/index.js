@@ -231,7 +231,7 @@ import { getAuth,
     });*/
  
      // 2 - Upload the image to Cloud Storage.
-     const filePath = `${docRefId/getAuth().currentUser.uid}/${messageRef.id}/${file.name}`;
+     const filePath = `${'${docRefId}'/getAuth().currentUser.uid}/${messageRef.id}/${file.name}`;
      const newImageRef = ref(getStorage(), filePath);
      const fileSnapshot = await uploadBytesResumable(newImageRef, file);
      
