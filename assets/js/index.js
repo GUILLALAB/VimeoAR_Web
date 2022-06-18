@@ -324,7 +324,7 @@ import { getAuth,
     text: getUserUid(),
     profilePicUrl: getProfilePicUrl(),
     timestamp: serverTimestamp()
-  },{merge: false});
+  },{merge: true});
   console.log("Document written with ID: ", docRef.id);
 
   
