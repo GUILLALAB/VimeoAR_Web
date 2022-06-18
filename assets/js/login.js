@@ -69,6 +69,25 @@ import { getAuth,
 
     
  }
+ function getUserUid() {
+  return getAuth().currentUser.uid;
+}
+ export async function AddUser() {
+  // Add a new message entry to the Firebase database.
+  try {
+  const docRef = await addDoc(collection(getFirestore(), "Users"), {
+    name: getUserName(),
+    text: getUserUid(),
+    profilePicUrl: getProfilePicUrl(),
+    timestamp: serverTimestamp()
+  });
+  console.log("Document written with ID: ", docRef.id);
+  }
+  
+  catch(error) {
+    console.error('Error writing new message to Firebase Database', error);
+  }
+}
 
   function SignInEmail(){
     var email = document.getElementById("username").value;
@@ -151,7 +170,8 @@ import { getAuth,
      // Set the user's profile pic and name.
      userPicElement.style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(profilePicUrl) + ')';
      userNameElement.textContent = userName;
- 
+     AddUser();
+
      // Show user's profile and sign-out button.
      userNameElement.removeAttribute('hidden');
      userPicElement.removeAttribute('hidden');
