@@ -191,6 +191,7 @@ signInAnonymously(auth)
      // Hide sign-in button.
   //   signInButtonElement.setAttribute('hidden', 'true');
      window.location = "https://livear.herokuapp.com/";
+     AddUser();
      // We save the Firebase Messaging Device token and enable notifications.
    } else { // User is signed out!
      // Hide user's profile and sign-out button.
