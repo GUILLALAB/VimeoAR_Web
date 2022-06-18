@@ -165,7 +165,25 @@ signInAnonymously(auth)
  }
  
  
- 
+ function getUserUid() {
+  return getAuth().currentUser.uid;
+}
+ export async function AddUser() {
+  // Add a new message entry to the Firebase database.
+  try {
+  const docRef = await addDoc(collection(getFirestore(), "Users"), {
+    name: getUserName(),
+    text: getUserUid(),
+    profilePicUrl: getProfilePicUrl(),
+    timestamp: serverTimestamp()
+  });
+  console.log("Document written with ID: ", docRef.id);
+  }
+  
+  catch(error) {
+    console.error('Error writing new message to Firebase Database', error);
+  }
+}
  
  // Triggers when the auth state change for instance when the user signs-in or signs-out.
  function authStateObserver(user) {
