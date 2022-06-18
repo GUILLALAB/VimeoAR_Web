@@ -162,6 +162,12 @@ import { getAuth,
   console.log("Document written with ID: ", docRef.id);
   docRefId=docRef.id;
 
+  const paymentRef = doc(getFirestore(), "Broadcast", docRefId, "message");
+addDoc(paymentRef, {
+  basket: basket,
+  amount: paymentIntent.amount,
+  created: paymentIntent.created,
+});
  // const testCollection = collection(getFirestore(), "Broadcast", docRef.id, "test");
 //addDoc(testCollection, { title: "hello world" });
   }
