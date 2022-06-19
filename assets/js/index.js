@@ -167,7 +167,6 @@ import { getAuth,
   console.log("Document written with ID: ", docRef.id);
   docRefId=docRef.id;
   
-
   }
 
 
