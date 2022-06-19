@@ -247,7 +247,7 @@ import { getAuth,
      console.error('There was an error uploading a file to Cloud Storage:', error);
    }
 
-   const docRef = doc(db, "Broadcast", docRefId);
+   const docRef = doc(getFirestore(), "Broadcast", docRefId);
 const q = query(collection(docRef, "objects"));
 
 const querySnapshot = await getDocs(q);
