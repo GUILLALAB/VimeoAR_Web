@@ -145,8 +145,20 @@ import { getAuth,
  export async function UserStopBroadcast(){
    
    if(docRefId!=null){
+    const storage = getStorage();
+
+    // Create a reference to the file to delete
+    const desertRef = ref(storage, docRefId);
+    
+    // Delete the file
+    deleteObject(desertRef).then(() => {
+     
+    }).catch((error) => {
+      // Uh-oh, an error occurred!
+    });
     await deleteDoc(doc(getFirestore(), "Broadcast", docRefId),"objects");
     await deleteDoc(doc(getFirestore(), "Broadcast", docRefId));
+   
 
 
     
