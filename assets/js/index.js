@@ -150,7 +150,6 @@ import { getAuth,
     await deleteDoc(doc(getFirestore(), "Broadcast", docRefId));
 
 
-    
  // await deleteDoc(doc(getFirestore(), "Broadcast", docRefId));
 }
  }
