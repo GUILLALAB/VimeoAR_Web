@@ -246,6 +246,10 @@ import { getAuth,
    } catch (error) {
      console.error('There was an error uploading a file to Cloud Storage:', error);
    }
+
+    const subColRef = collection(getFirestore(), "Broadcast", docRefId, "objects");
+const qSnap = getDocs(subColRef)
+console.log(qSnap.docs.map(d => ({id: d.id, ...d.data()})));
  }
  
  // Saves the messaging device token to Cloud Firestore.
