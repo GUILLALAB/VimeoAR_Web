@@ -399,9 +399,21 @@ import { getAuth,
  
    //div.querySelector('.name').textContent = text;
 
-
+    var Broadcaster =
+   {
+       id : null,
+       channel : null,
+       username : name,
+       picurl : picUrl,
+       time : timestamp
+   };
    var messageElement = div.querySelector('.message');
- 
+   Broadcaster.id=id;
+   Broadcaster.channel=text;
+   Broadcaster.username=name;
+   Broadcaster.picurl=picUrl;
+   Broadcaster.time=timestamp;
+
    if (text) { // If the message is text.
      messageElement.textContent = name;
      messageElement.myParam = text;
@@ -450,6 +462,10 @@ export function loadObject() {
       
     });
   });
+
+ /* const subColRef = collection(getFirestore(), "Broadcast", broadcastid, "objects");
+const qSnap = getDocs(subColRef)
+console.log(qSnap.docs.map(d => ({id: d.id, ...d.data()})));*/
 }
 
 function displayObject(imageUrl) {
