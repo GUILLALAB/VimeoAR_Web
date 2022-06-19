@@ -126,7 +126,7 @@ import { getAuth,
  {
    document.getElementById("myInput").value= evt.currentTarget.myParam.channel;
    minputValue=evt.currentTarget.myParam.channel;
-   var event = new CustomEvent("buttonclick", { "detail": evt.currentTarget.myParam.channel});
+   var event = new CustomEvent("buttonclick", { "detail": evt.currentTarget.myParam});
    document.dispatchEvent(event);
  }
  
@@ -455,9 +455,7 @@ export var Broadcaster =
 
 export function loadObject(docRefId) {
   // Create the query to load the last 12 messages and listen for new ones.
-  const docRef = doc(getFirestore(), "Broadcast", docRefId);
-
-  const recentMessagesQuery = query(collection(docRef, 'objects'), orderBy('timestamp', 'desc'), limit(12));
+ /* const recentMessagesQuery = query(collection(getFirestore(), 'object'), orderBy('timestamp', 'desc'), limit(12));
   
   onSnapshot(recentMessagesQuery, function(snapshot) {
     snapshot.docChanges().forEach(function(change) {
@@ -467,10 +465,11 @@ export function loadObject(docRefId) {
       
     });
   });
+*/
 
 
 
-/*onst docRef = doc(getFirestore(), "Broadcast", docRefId);
+const docRef = doc(getFirestore(), "Broadcast", docRefId);
 const q = query(collection(docRef, "objects"));
 
 const querySnapshot = await getDocs(q);
@@ -480,7 +479,7 @@ querySnapshot.forEach((doc) => {
   var message = doc.data();
   displayObject(message.imageUrl);
 });
-*/
+
 }
 
 function displayObject(imageUrl) {

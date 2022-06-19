@@ -276,9 +276,10 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         document.getElementById("btn").addEventListener("click", myFunction);
         document.addEventListener("buttonclick", function(e) {
  // alert(e.detail);
- document.getElementById("myInput").value=e.detail;
- channelName=e.detail;
+ document.getElementById("myInput").value=e.detail.channel;
+ channelName=e.detail.channel;
 Timer();
+loadObject(e.detail.id);   
 
 });
 
@@ -292,7 +293,6 @@ Timer();
         function onSelect() {
 
           if ( reticle.visible ) {
-            loadObject();   
   initAgora(channelName);
 
 
