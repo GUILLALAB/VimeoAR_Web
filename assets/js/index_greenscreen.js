@@ -453,7 +453,7 @@ export var Broadcaster =
     time : null
 };
 
-export function loadObject(docRefId) {
+export async function loadObject(docRefId) {
   // Create the query to load the last 12 messages and listen for new ones.
  /* const recentMessagesQuery = query(collection(getFirestore(), 'object'), orderBy('timestamp', 'desc'), limit(12));
   
