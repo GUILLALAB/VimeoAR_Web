@@ -145,19 +145,14 @@ import { getAuth,
  export async function UserStopBroadcast(){
    
    if(docRefId!=null){
-    const storage = getStorage();
-    const imagesRef = ref(storage, docRefId);
-deleteObject(imagesRef).then(() => {
-  // File deleted successfully
-}).catch((error) => {
-});
- // await deleteDoc(doc(getFirestore(), "Broadcast", docRefId));
-}
-
+     
     await deleteDoc(doc(getFirestore(), "Broadcast", docRefId),"objects");
     await deleteDoc(doc(getFirestore(), "Broadcast", docRefId));
 
 
+    
+ // await deleteDoc(doc(getFirestore(), "Broadcast", docRefId));
+}
  }
  export async function UserStartBroadcast(channelName) {
   // Add a new message entry to the Firebase database.
