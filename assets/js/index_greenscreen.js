@@ -455,7 +455,9 @@ export var Broadcaster =
 
 export function loadObject(docRefId) {
   // Create the query to load the last 12 messages and listen for new ones.
- /* const recentMessagesQuery = query(collection(getFirestore(), 'object'), orderBy('timestamp', 'desc'), limit(12));
+  const docRef = doc(getFirestore(), "Broadcast", docRefId);
+
+  const recentMessagesQuery = query(collection(docRef, 'objects'), orderBy('timestamp', 'desc'), limit(12));
   
   onSnapshot(recentMessagesQuery, function(snapshot) {
     snapshot.docChanges().forEach(function(change) {
@@ -465,10 +467,10 @@ export function loadObject(docRefId) {
       
     });
   });
-*/
 
 
-const docRef = doc(getFirestore(), "Broadcast", docRefId);
+
+c/*onst docRef = doc(getFirestore(), "Broadcast", docRefId);
 const q = query(collection(docRef, "objects"));
 
 const querySnapshot = await getDocs(q);
@@ -478,7 +480,7 @@ querySnapshot.forEach((doc) => {
   var message = doc.data();
   displayObject(message.imageUrl);
 });
-
+*/
 }
 
 function displayObject(imageUrl) {
