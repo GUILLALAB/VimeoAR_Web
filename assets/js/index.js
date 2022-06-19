@@ -247,14 +247,13 @@ import { getAuth,
      console.error('There was an error uploading a file to Cloud Storage:', error);
    }
 
-   const docRef = doc(getFirestore(), "Broadcast", docRefId);
+  /* const docRef = doc(getFirestore(), "Broadcast", docRefId);
 const q = query(collection(docRef, "objects"));
 
 const querySnapshot = await getDocs(q);
 querySnapshot.forEach((doc) => {
-  // doc.data() is never undefined for query doc snapshots
   console.log(doc.id, " => ", doc.data());
-});
+});*/
  }
  
  // Saves the messaging device token to Cloud Firestore.
