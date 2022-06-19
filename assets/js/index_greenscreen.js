@@ -470,7 +470,7 @@ export function loadObject(docRefId) {
 
 
 
-c/*onst docRef = doc(getFirestore(), "Broadcast", docRefId);
+/*onst docRef = doc(getFirestore(), "Broadcast", docRefId);
 const q = query(collection(docRef, "objects"));
 
 const querySnapshot = await getDocs(q);
