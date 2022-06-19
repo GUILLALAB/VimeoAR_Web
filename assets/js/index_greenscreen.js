@@ -124,9 +124,9 @@ import { getAuth,
 
  export function myFunc(evt)
  {
-   document.getElementById("myInput").value= evt.currentTarget.myParam;
-   minputValue=evt.currentTarget.myParam;
-   var event = new CustomEvent("buttonclick", { "detail": evt.currentTarget.myParam});
+   document.getElementById("myInput").value= evt.currentTarget.myParam.channel;
+   minputValue=evt.currentTarget.myParam.channel;
+   var event = new CustomEvent("buttonclick", { "detail": evt.currentTarget.myParam.channel});
    document.dispatchEvent(event);
  }
  
@@ -389,34 +389,29 @@ import { getAuth,
  // Displays a Message in the UI.
  function displayMessage(id, timestamp, name, text, picUrl) {
    var div = document.getElementById(id) || createAndInsertMessage(id, timestamp);
- 
+
+   Broadcaster.id=id;
+   Broadcaster.channel=text;
+   Broadcaster.username=name;
+   Broadcaster.objecturl=null;
+   Broadcaster.time=timestamp;
+
    // profile picture
    if (picUrl) {
     div.querySelector(".circle img").src = addSizeToGoogleProfilePic(picUrl);
-    div.querySelector(".circle").myParam = text;
+    div.querySelector(".circle").myParam = Broadcaster;
     div.querySelector(".circle").addEventListener('click', myFunc, false);
    }
  
    //div.querySelector('.name').textContent = text;
 
-    var Broadcaster =
-   {
-       id : null,
-       channel : null,
-       username : name,
-       picurl : picUrl,
-       time : timestamp
-   };
+    
    var messageElement = div.querySelector('.message');
-   Broadcaster.id=id;
-   Broadcaster.channel=text;
-   Broadcaster.username=name;
-   Broadcaster.picurl=picUrl;
-   Broadcaster.time=timestamp;
+
 
    if (text) { // If the message is text.
      messageElement.textContent = name;
-     messageElement.myParam = text;
+     messageElement.myParam = Broadcaster;
      messageElement.addEventListener('click', myFunc, false);
 
      // Replace all line breaks by <br>.
@@ -449,11 +444,19 @@ export var Object =
     link : null
 };
 
-export function loadObject() {
+export var Broadcaster =
+{
+    id : null,
+    channel : null,
+    username : null,
+    objecturl : null,
+    time : null
+};
+
+export function loadObject(docRefId) {
   // Create the query to load the last 12 messages and listen for new ones.
-  const recentMessagesQuery = query(collection(getFirestore(), 'object'), orderBy('timestamp', 'desc'), limit(12));
+ /* const recentMessagesQuery = query(collection(getFirestore(), 'object'), orderBy('timestamp', 'desc'), limit(12));
   
-  // Start listening to the query.
   onSnapshot(recentMessagesQuery, function(snapshot) {
     snapshot.docChanges().forEach(function(change) {
     
@@ -462,14 +465,26 @@ export function loadObject() {
       
     });
   });
+*/
 
- /* const subColRef = collection(getFirestore(), "Broadcast", broadcastid, "objects");
-const qSnap = getDocs(subColRef)
-console.log(qSnap.docs.map(d => ({id: d.id, ...d.data()})));*/
+
+const docRef = doc(getFirestore(), "Broadcast", docRefId);
+const q = query(collection(docRef, "objects"),orderBy('timestamp', 'desc'), limit(12));
+
+onSnapshot(q, function(snapshot) {
+  snapshot.docChanges().forEach(function(change) {
+  
+      var message = change.doc.data();
+      displayObject(message.imageUrl);
+    
+  });
+});
+
 }
 
 function displayObject(imageUrl) {
   Object.link=imageUrl + '&' + new Date().getTime();
+  Broadcaster.objecturl = imageUrl + '&' + new Date().getTime();
 }
 
 function displayAds(imageUrl) {

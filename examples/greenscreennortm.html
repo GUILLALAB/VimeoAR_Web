@@ -176,7 +176,7 @@ import * as THREE from './jsm/three.module.js';
 import { GLTFLoader } from './jsm/GLTFLoader.js';
     import { LoadingBar } from './jsm/LoadingBar.js';
     import { ARButton } from './jsm/webxr/ARButton.js';
-    import {loadObject,Object} from './js/index_greenscreen.js';
+    import {loadObject,Object,Broadcaster} from './js/index_greenscreen.js';
 
     let container;
     let camera, scene, renderer,source;
@@ -463,7 +463,7 @@ function setAds3DModel(){
         // Load a glTF resource
         loader.load(
             // resource URL
-            Object.link,
+            Broadcaster.objecturl,
             // called when the resource is loaded
             function ( gltf ) {
                 scene.add( gltf.scene );
