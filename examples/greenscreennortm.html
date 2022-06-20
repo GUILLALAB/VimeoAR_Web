@@ -472,7 +472,7 @@ function setAds3DModel(){
                 scene.add( gltf.scene );
                 chair = gltf.scene;
                 chair.visible = false;
-                loadingBar.visible = false;
+                loadingBar.visible = true;
                 chair.position.setFromMatrixPosition( reticle.matrix );
                 chair.visible = true;
                 renderer.setAnimationLoop(render.bind(this) );
@@ -487,7 +487,7 @@ function setAds3DModel(){
             function ( error ) {
 
                 console.log( 'An error happened' );
-                chair.visible = false;
+                loadingBar.visible = false;
 
 
             }
