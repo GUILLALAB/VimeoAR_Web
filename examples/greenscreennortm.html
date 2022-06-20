@@ -471,6 +471,7 @@ function setAds3DModel(){
             function ( gltf ) {
                 scene.add( gltf.scene );
                 chair = gltf.scene;
+                chair.visible = false;
                 loadingBar.visible = false;
                 chair.position.setFromMatrixPosition( reticle.matrix );
                 chair.visible = true;
