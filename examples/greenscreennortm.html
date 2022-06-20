@@ -449,6 +449,7 @@ function connectStreamToVideo(agoraStream, video) {
     // ready to play video
     video.play();
     mesh.position.setFromMatrixPosition( reticle.matrix );
+    isset=1;
     if(ads!=null){
     ads.position.setFromMatrixPosition( reticle.matrix );
     }
