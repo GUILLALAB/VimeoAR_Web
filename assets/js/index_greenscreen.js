@@ -477,9 +477,6 @@ onSnapshot(q, function(snapshot) {
   
       var message = change.doc.data();
       displayObject(message.imageUrl);
-      var event = new CustomEvent("3Dobjects", { "url": message.imageUrl});
-      document.dispatchEvent(event);
-
     
   });
 });
