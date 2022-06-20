@@ -472,13 +472,22 @@ export async function loadObject(docRefId) {
 const docRef = doc(getFirestore(), "Broadcast", docRefId);
 const q = query(collection(docRef, "objects"));
 
-const querySnapshot = await getDocs(q);
+onSnapshot(q, function(snapshot) {
+  snapshot.docChanges().forEach(function(change) {
+  
+      var message = change.doc.data();
+      displayObject(message.imageUrl);
+    
+  });
+});
+
+/*const querySnapshot = await getDocs(q);
 querySnapshot.forEach((doc) => {
   // doc.data() is never undefined for query doc snapshots
   console.log(doc.id, " => ", doc.data());
   var message = doc.data();
   displayObject(message.imageUrl);
-});
+});*/
 
 }
 
