@@ -159,7 +159,7 @@ function joinChannel() {
   //alert(name);
   // set the role
 
-  fetch("https://livear.herokuapp.com/rte/"+channelName+"/publisher/uid/0/86400").then(function(response) {
+  fetch("https://livear.herokuapp.com/rte/"+channelName+"/publisher/uid/"+getUserUid()+"/86400").then(function(response) {
 return response.json();
 }).then(function(data) {
 token = data.rtcToken;
@@ -171,7 +171,7 @@ rtcClient.setClientRole('audience', () => {
   console.log('setClientRole failed', e);
 });
 
-rtcClient.join(token, channelName, 0, (uid) => {
+rtcClient.join(token, channelName, getUserUid(), (uid) => {
 
     console.log('User ' + uid + ' join channel successfully');
     localStreams.uid = uid;
