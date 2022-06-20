@@ -286,6 +286,8 @@ loadObject(e.detail.id);
 
 
 
+
+
         renderer.domElement.style.display = 'none';
 
         //
@@ -439,7 +441,11 @@ var mat = new THREE.MeshBasicMaterial({ map: tex });
 scene.add(ads);
 }
 
-setAds3DModel();
+
+document.addEventListener("3Dobjects", function(e) {
+  setAds3DModel(e);
+
+});
  isset=1;  
 }
 
@@ -457,7 +463,7 @@ function connectStreamToVideo(agoraStream, video) {
 }
 
 
-function setAds3DModel(){
+function setAds3DModel(e){
   loadingBar.visible = true;
 
 
@@ -466,7 +472,7 @@ function setAds3DModel(){
         // Load a glTF resource
         loader.load(
             // resource URL
-            Broadcaster.objecturl,
+            e.url,
             // called when the resource is loaded
             function ( gltf ) {
                 scene.add( gltf.scene );
