@@ -183,13 +183,14 @@ import { GLTFLoader } from './jsm/GLTFLoader.js';
     let controller;
 
     let reticle;
-    var cube, mesh, ads,video, texture,material;
+    var cube, mesh,video, texture,material;
     var isset=0;
     let videoTexture;
     let videoImageContext ;
     let hitTestSource = null;
     let hitTestSourceRequested = false;
     var client=null;
+    var ads=null;
     var tex=null;
     var chair=null;
     var streamCount;
@@ -448,8 +449,9 @@ function connectStreamToVideo(agoraStream, video) {
     // ready to play video
     video.play();
     mesh.position.setFromMatrixPosition( reticle.matrix );
+    if(ads!=null){
     ads.position.setFromMatrixPosition( reticle.matrix );
-
+    }
   }
 }
 
