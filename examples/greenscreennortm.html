@@ -476,7 +476,7 @@ function setAds3DModel(){
                 chair.position.setFromMatrixPosition( reticle.matrix );
                 var position = new THREE.Vector3();
      position.getPositionFromMatrix( mesh.matrixWorld);
-chair.position.set(1 + position.x, position.y, position.z);
+chair.position.set(0.4 + position.x, position.y, position.z);
 
                 chair.visible = true;
                 renderer.setAnimationLoop(render.bind(this) );
