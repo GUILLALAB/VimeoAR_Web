@@ -367,7 +367,7 @@ client.setClientRole('audience', () => {
   });
   
 
- client.join(data.rtcToken, channelName, 0, (uid) => {
+ client.join(data.rtcToken, channelName, getUserUid(), (uid) => {
     console.log('User ' + uid + ' join channel successfully');
 }, function(err) {
     console.log('[ERROR] : join channel failed', err);
