@@ -83,7 +83,7 @@ import { getAuth,
  function getUserName() {
    return getAuth().currentUser.displayName;
  }
- function getUserUid() {
+ export function getUserUid() {
   return getAuth().currentUser.uid;
 }
  // Returns true if a user is signed-in.
