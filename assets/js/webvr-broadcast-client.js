@@ -1,6 +1,6 @@
 // Agora settings
 //import {sayHello} from './server.js';
-import { UserStartBroadcast,UserStopBroadcast,LoadBroadcast} from './index.js';
+import { UserStartBroadcast,UserStopBroadcast,LoadBroadcast,getUserUid} from './index.js';
 
 const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
 var channelName = ''; 
@@ -159,7 +159,7 @@ function joinChannel() {
   //alert(name);
   // set the role
 
-  fetch("https://livear.herokuapp.com/rte/"+channelName+"/publisher/uid/0/86400").then(function(response) {
+  fetch("https://livear.herokuapp.com/rte/"+channelName+"/publisher/uid/"+getUserUid()+"/86400").then(function(response) {
 return response.json();
 }).then(function(data) {
 token = data.rtcToken;
