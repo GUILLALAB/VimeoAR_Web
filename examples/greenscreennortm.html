@@ -176,7 +176,7 @@ import * as THREE from './jsm/three.module.js';
 import { GLTFLoader } from './jsm/GLTFLoader.js';
     import { LoadingBar } from './jsm/LoadingBar.js';
     import { ARButton } from './jsm/webxr/ARButton.js';
-    import {loadObject,Object,Broadcaster,getUserUid} from './js/index_greenscreen.js';
+    import {loadObject,Object,Broadcaster} from './js/index_greenscreen.js';
 
     let container;
     let camera, scene, renderer,source;
@@ -355,7 +355,7 @@ scene.add( reticle );
   function joinChannel() {
   //alert(name);
   // set the role
-  fetch("https://livear.herokuapp.com/rte/"+channelName+"/audience/uid/"+getUserUid()+"/86400").then(function(response) {
+  fetch("https://livear.herokuapp.com/rte/"+channelName+"/audience/uid/0/86400").then(function(response) {
 return response.json();
 }).then(function(data) {
 //  alert(token);
@@ -367,7 +367,7 @@ client.setClientRole('audience', () => {
   });
   
 
- client.join(data.rtcToken, channelName, getUserUid(), (uid) => {
+ client.join(data.rtcToken, channelName, 0, (uid) => {
     console.log('User ' + uid + ' join channel successfully');
 }, function(err) {
     console.log('[ERROR] : join channel failed', err);
