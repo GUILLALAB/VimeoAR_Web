@@ -286,7 +286,21 @@ loadObject(e.detail.id);
 
 });
 
+document.addEventListener("models", function(e) {
+ // alert(e.detail);
+Ads.link=e.detail;
+if (Ads.link!=null){
+const geo = new THREE.PlaneBufferGeometry(0.3,0.3); // width, height, no depth for plane
+//load the texture
+var tex = new THREE.TextureLoader().load(Ads.link);
 
+//set the texture as map parameter of the material
+var mat = new THREE.MeshBasicMaterial({ map: tex });
+ ads = new THREE.Mesh(geo, mat);
+
+scene.add(ads);
+}
+});
 
         renderer.domElement.style.display = 'none';
 
@@ -435,17 +449,6 @@ function createBroadcaster(streamId) {
       scene.add( mesh );
 
       //ads
-if (Ads.link!=null){
-const geo = new THREE.PlaneBufferGeometry(0.3,0.3); // width, height, no depth for plane
-//load the texture
-var tex = new THREE.TextureLoader().load(Ads.link);
-
-//set the texture as map parameter of the material
-var mat = new THREE.MeshBasicMaterial({ map: tex });
- ads = new THREE.Mesh(geo, mat);
-
-scene.add(ads);
-}
 
 if(Broadcaster.objecturl!=null){
 setAds3DModel();

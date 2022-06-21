@@ -436,6 +436,7 @@ export function loadAds() {
         var message = change.doc.data();
         displayAds(message.imageUrl);
       
+      
     });
   });
 }
@@ -504,7 +505,10 @@ function displayObject(imageUrl) {
 
 function displayAds(imageUrl) {
 //var image = document.getElementById('ads');
-Ads.link = imageUrl + '&' + new Date().getTime();
+var event = new CustomEvent("models", { "detail": imageUrl+ '&' + new Date().getTime()});
+document.dispatchEvent(event);
+
+//Ads.link = imageUrl + '&' + new Date().getTime();
 }
  // Enables or disables the submit button depending on the values of the input
  // fields.
