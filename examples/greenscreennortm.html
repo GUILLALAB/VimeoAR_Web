@@ -275,6 +275,8 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         document.body.appendChild( ARButton.createButton(renderer, { requiredFeatures: ['hit-test'], optionalFeatures: [ 'dom-overlay', 'dom-overlay-for-handheld-ar' ], domOverlay: { root: document.body } } )
           );
         document.getElementById("btn").addEventListener("click", myFunction);
+        loadAds();
+        
         document.addEventListener("buttonclick", function(e) {
  // alert(e.detail);
  document.getElementById("myInput").value=e.detail.channel;
@@ -342,7 +344,7 @@ scene.add( reticle );
 
 
       function initAgora(channelName){
-        loadAds();
+        
 
         channelName = document.getElementById("myInput").value;
   client.init(agoraAppId, () => {
