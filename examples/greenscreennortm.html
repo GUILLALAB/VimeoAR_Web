@@ -180,7 +180,7 @@ import { GLTFLoader } from './jsm/GLTFLoader.js';
     let controller;
 
     let reticle;
-    var cube, mesh,video, texture,material;
+    var cube,video, texture,material;
     var isset=0;
     let videoTexture;
     let videoImageContext ;
@@ -188,6 +188,7 @@ import { GLTFLoader } from './jsm/GLTFLoader.js';
     let hitTestSourceRequested = false;
     var client=null;
     var ads=null;
+    var mesh=null;
     var tex=null;
     var chair=null;
     var streamCount;
@@ -318,7 +319,7 @@ setAds3DModel(Broadcaster.objecturl);
             if(ads!=null){
               ads.position.setFromMatrixPosition( reticle.matrix );
             }
-  initAgora(channelName);
+            initAgora(channelName);
 
 
 
@@ -372,8 +373,7 @@ scene.add( reticle );
 
       function initAgora(channelName){
         
-
-        channelName = document.getElementById("myInput").value;
+  channelName = document.getElementById("myInput").value;
   client.init(agoraAppId, () => {
   console.log('AgoraRTC client initialized');
   joinChannel(); // join channel upon successfull init
@@ -672,6 +672,10 @@ if(rtmClient!=null){
 
         }
        
+        if(mesh!=null){
+          mesh.lookAt(camera.position);
+
+        }
         if(video!=null)
         {
           if ( video.readyState === video.HAVE_ENOUGH_DATA ) 
