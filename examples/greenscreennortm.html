@@ -309,6 +309,11 @@ loadObject(e.detail.id);
     }else{
   
        mesh.position.setFromMatrixPosition( reticle.matrix );
+    if(ads!=null){
+    var position = new THREE.Vector3();
+     position.getPositionFromMatrix( mesh.matrixWorld);
+     ads.position.set(-0.05 + position.x, position.y, position.z);
+    }
     }
 
   }
@@ -458,7 +463,7 @@ function connectStreamToVideo(agoraStream, video) {
     if(ads!=null){
     var position = new THREE.Vector3();
      position.getPositionFromMatrix( mesh.matrixWorld);
-     ads.position.set(-0.1 + position.x, position.y, position.z);
+     ads.position.set(-0.05 + position.x, position.y, position.z);
     }
   }
 }
