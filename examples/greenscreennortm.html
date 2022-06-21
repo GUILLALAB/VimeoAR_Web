@@ -276,7 +276,7 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
           );
         document.getElementById("btn").addEventListener("click", myFunction);
         loadAds();
-        
+
         document.addEventListener("buttonclick", function(e) {
  // alert(e.detail);
  document.getElementById("myInput").value=e.detail.channel;
@@ -433,7 +433,7 @@ function createBroadcaster(streamId) {
 if (Ads.link!=null){
 const geo = new THREE.PlaneBufferGeometry(1, 1); // width, height, no depth for plane
 //load the texture
-var tex = new THREE.TextureLoader().load(url);
+var tex = new THREE.TextureLoader().load(Ads.link);
 
 //set the texture as map parameter of the material
 var mat = new THREE.MeshBasicMaterial({ map: tex });
