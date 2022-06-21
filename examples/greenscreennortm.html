@@ -290,7 +290,7 @@ document.addEventListener("models", function(e) {
  // alert(e.detail);
 Ads.link=e.detail;
 if (Ads.link!=null){
-const geo = new THREE.PlaneBufferGeometry(0.3,0.3); // width, height, no depth for plane
+const geo = new THREE.PlaneBufferGeometry(0.5,0.5); // width, height, no depth for plane
 //load the texture
 var tex = new THREE.TextureLoader().load(Ads.link);
 
@@ -496,6 +496,11 @@ function setAds3DModel(link){
             // called when the resource is loaded
             function ( gltf ) {
                 scene.add( gltf.scene );
+                if(chair!=null){
+                  chair.geometry.dispose();
+                  chair.material.dispose();
+                  scene.remove( chair );
+                }
                 chair = gltf.scene;
                 chair.visible = false;
                 loadingBar.visible = false;
