@@ -1,6 +1,6 @@
 // Agora settings
 //import {sayHello} from './server.js';
-import { UserStartBroadcast,UserStopBroadcast,LoadBroadcast,getUserUid} from './index.js';
+import { UserStartBroadcast,UserStopBroadcast,LoadBroadcast,getUserUid,loadMessages} from './index.js';
 
 const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
 var channelName = ''; 
@@ -172,6 +172,7 @@ rtcClient.setClientRole('audience', () => {
 });
 
 rtcClient.join(token, channelName, getUserUid(), (uid) => {
+  loadMessages();
 
     console.log('User ' + uid + ' join channel successfully');
     localStreams.uid = uid;
