@@ -554,4 +554,3 @@ querySnapshot.forEach((doc) => {
 const firebaseApp = initializeApp(getFirebaseConfig());
 getPerformance();
 initFirebaseAuth();
-loadMessages();
