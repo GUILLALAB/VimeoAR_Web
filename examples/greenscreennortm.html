@@ -176,7 +176,7 @@ import * as THREE from './jsm/three.module.js';
 import { GLTFLoader } from './jsm/GLTFLoader.js';
     import { LoadingBar } from './jsm/LoadingBar.js';
     import { ARButton } from './jsm/webxr/ARButton.js';
-    import {loadObject,Object,Broadcaster} from './js/index_greenscreen.js';
+    import {Ads, loadAds,loadObject,Object,Broadcaster} from './js/index_greenscreen.js';
 
     let container;
     let camera, scene, renderer,source;
@@ -342,6 +342,8 @@ scene.add( reticle );
 
 
       function initAgora(channelName){
+        loadAds();
+
         channelName = document.getElementById("myInput").value;
   client.init(agoraAppId, () => {
   console.log('AgoraRTC client initialized');
@@ -426,8 +428,7 @@ function createBroadcaster(streamId) {
       scene.add( mesh );
 
       //ads
-var url = document.getElementById('ads').src;
-if (url.length>5){
+if (Ads.link!=null){
 const geo = new THREE.PlaneBufferGeometry(1, 1); // width, height, no depth for plane
 //load the texture
 var tex = new THREE.TextureLoader().load(url);
@@ -670,10 +671,7 @@ if(rtmClient!=null){
 <script type="module">
   import {loadMessages,inputValue,loadAds} from '/js/index_greenscreen.js';
    loadMessages();
-   loadAds();
  
-  
-
 
 </script>
     </body>

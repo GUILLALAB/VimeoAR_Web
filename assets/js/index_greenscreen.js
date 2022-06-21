@@ -426,6 +426,7 @@ import { getAuth,
  ///////
 export function loadAds() {
   // Create the query to load the last 12 messages and listen for new ones.
+  Ads.link=null;
   const recentMessagesQuery = query(collection(getFirestore(), 'ads'), orderBy('timestamp', 'desc'), limit(12));
   
   // Start listening to the query.
@@ -438,6 +439,11 @@ export function loadAds() {
     });
   });
 }
+
+export var Ads =
+{
+    link : null
+};
 
 export var Object =
 {
@@ -497,8 +503,8 @@ function displayObject(imageUrl) {
 }
 
 function displayAds(imageUrl) {
-var image = document.getElementById('ads');
-image.src = imageUrl + '&' + new Date().getTime();
+//var image = document.getElementById('ads');
+Ads.link = imageUrl + '&' + new Date().getTime();
 }
  // Enables or disables the submit button depending on the values of the input
  // fields.
