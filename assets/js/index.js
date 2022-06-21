@@ -96,12 +96,16 @@ import { getAuth,
  async function saveMessage(messageText) {
    // Add a new message entry to the Firebase database.
    try {
-     await addDoc(collection(getFirestore(), 'messages'), {
-       name: getUserName(),
-       text: messageText,
-       profilePicUrl: getProfilePicUrl(),
-       timestamp: serverTimestamp()
-     });
+    await addDoc(
+      collection(getFirestore(), "Broadcast", docRefId, "messages"),
+      {
+        name: getUserName(),
+        text: messageText,
+        profilePicUrl: getProfilePicUrl(),
+        timestamp: serverTimestamp()
+      }
+    );
+
    }
    catch(error) {
      console.error('Error writing new message to Firebase Database', error);
@@ -189,7 +193,7 @@ import { getAuth,
  // Loads chat messages history and listens for upcoming ones.
  function loadMessages() {
    // Create the query to load the last 12 messages and listen for new ones.
-   const recentMessagesQuery = query(collection(getFirestore(), 'messages'), orderBy('timestamp', 'desc'), limit(12));
+   const recentMessagesQuery = query(collection(getFirestore(), "Broadcast", docRefId, "messages"), orderBy('timestamp', 'desc'), limit(12));
    
    // Start listening to the query.
    onSnapshot(recentMessagesQuery, function(snapshot) {
