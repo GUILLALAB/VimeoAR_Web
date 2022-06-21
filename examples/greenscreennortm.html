@@ -496,11 +496,7 @@ function setAds3DModel(link){
             // called when the resource is loaded
             function ( gltf ) {
                 scene.add( gltf.scene );
-                if(chair!=null){
-                  chair.geometry.dispose();
-                  chair.material.dispose();
-                  scene.remove(chair);
-                }
+             
                 chair = gltf.scene;
                 chair.visible = false;
                 loadingBar.visible = false;
