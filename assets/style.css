@@ -229,7 +229,7 @@ main, #messages-card {
   min-height: 0;
 }
 .mdl-card {
-  background: linear-gradient(white, #f9f9f9);
+  background: rgba(224, 224, 224, 0.093);
   justify-content: space-between;
 }
 #user-container {
@@ -390,13 +390,13 @@ main, #messages-card {
   display: table-cell;
   width: calc(100% - 40px);
   padding: 5px 0 5px 10px;
-  color: black;
+  color: rgb(255, 255, 255);
 }
 .message-container .name {
   display: inline-block;
   width: 100%;
   padding-left: 40px;
-  color: #bbb;
+  color: rgb(225, 225, 225);
   font-style: italic;
   font-size: 12px;
   box-sizing: border-box;
