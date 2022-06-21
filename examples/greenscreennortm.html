@@ -408,7 +408,7 @@ function createBroadcaster(streamId) {
     texture.format = THREE.RGBFormat;
     texture.flipY = true;
 
-    var geometry = new THREE.PlaneBufferGeometry( 1, 1);
+    var geometry = new THREE.PlaneBufferGeometry( 1.5, 1.5);
 
     const vertexShader = document.getElementById("vertexShader").textContent;
     const fragmentShader = document.getElementById("fragmentShader").textContent;
@@ -431,7 +431,7 @@ function createBroadcaster(streamId) {
 
       //ads
 if (Ads.link!=null){
-const geo = new THREE.PlaneBufferGeometry(1, 1); // width, height, no depth for plane
+const geo = new THREE.PlaneBufferGeometry(0.5,0.5); // width, height, no depth for plane
 //load the texture
 var tex = new THREE.TextureLoader().load(Ads.link);
 
@@ -481,7 +481,7 @@ function setAds3DModel(){
                 chair.position.setFromMatrixPosition( reticle.matrix );
                 var position = new THREE.Vector3();
      position.getPositionFromMatrix( mesh.matrixWorld);
-chair.position.set(0.4 + position.x, position.y, position.z);
+chair.position.set(0.3 + position.x, position.y, position.z);
 
                 chair.visible = true;
                 renderer.setAnimationLoop(render.bind(this) );
