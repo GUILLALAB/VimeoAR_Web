@@ -477,7 +477,7 @@ function connectStreamToVideo(agoraStream, video) {
     if(ads!=null){
     var position = new THREE.Vector3();
      position.getPositionFromMatrix( mesh.matrixWorld);
-     ads.position.set(-0.05 + position.x, position.y, position.z);
+     ads.position.set(-0.10 + position.x, position.y, position.z);
     }
   }
 }
@@ -499,15 +499,15 @@ function setAds3DModel(link){
                 if(chair!=null){
                   chair.geometry.dispose();
                   chair.material.dispose();
-                  scene.remove( chair );
+                  scene.remove(chair);
                 }
                 chair = gltf.scene;
                 chair.visible = false;
                 loadingBar.visible = false;
                 chair.position.setFromMatrixPosition( reticle.matrix );
                 var position = new THREE.Vector3();
-     position.getPositionFromMatrix( mesh.matrixWorld);
-chair.position.set(0.3 + position.x, position.y, position.z);
+                position.getPositionFromMatrix( mesh.matrixWorld);
+                chair.position.set(0.3 + position.x, position.y, position.z);
 
                 chair.visible = true;
                 renderer.setAnimationLoop(render.bind(this) );
