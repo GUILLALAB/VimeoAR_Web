@@ -467,7 +467,7 @@ export async function loadObject(docRefId) {
   });
 */
 
-
+Broadcaster.objecturl=null;
 
 const docRef = doc(getFirestore(), "Broadcast", docRefId);
 const q = query(collection(docRef, "objects"));
