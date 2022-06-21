@@ -53,7 +53,7 @@ import { getAuth,
 
  import { getFirebaseConfig } from './firebase-config.js';
  
-  var docRefId=null;
+  export var docRefId=null;
 
  // Signs-in Friendly Chat.
  async function signIn() {
@@ -170,7 +170,8 @@ import { getAuth,
   });
   console.log("Document written with ID: ", docRef.id);
   docRefId=docRef.id;
-  
+  loadMessages(docRefId);
+
   }
 
 
