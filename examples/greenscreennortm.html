@@ -124,13 +124,9 @@ li:hover {
 
    
 
-    <button id="btn">Click me</button>
-
     <script src="utils.js"></script>
 
-    <script type="text/javascript">
-        document.getElementById('btn').style.display="none";  // for hde button
-    </script>
+    
     <script id="vertexShader" type="glsl">
 
     varying vec2 vUv;
@@ -272,7 +268,6 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
        
         document.body.appendChild( ARButton.createButton(renderer, { requiredFeatures: ['hit-test'], optionalFeatures: [ 'dom-overlay', 'dom-overlay-for-handheld-ar' ], domOverlay: { root: document.body } } )
           );
-        document.getElementById("btn").addEventListener("click", myFunction);
         loadAds();
 
         document.addEventListener("buttonclick", function(e) {
@@ -322,8 +317,7 @@ setAds3DModel(Broadcaster.objecturl);
             initAgora(channelName);
 
 
-
-
+            
   // video.id = 'video';
   // video.type = ' video/ogg; codecs="theora, vorbis" ';
 
@@ -647,7 +641,16 @@ if(rtmClient!=null){
 
             session.addEventListener( 'end', function () {
              renderer.domElement.style.display = '';
-
+             if(mesh!=null){
+                mesh.remove();
+             }
+             if(ads!=null){
+                ads.remove();
+             }
+             if(chair!=null){
+                chair.remove();
+             }
+        {
              hitTestSourceRequested = false;
              hitTestSource = null;
 
