@@ -138,6 +138,7 @@ if(rtcClient !=null){
 
 function init(){
   // setup the RTM client and channel
+
   if(document.getElementById("myInput").value.length>1){
     channelName=document.getElementById("myInput").value;
  rtmChannel = rtmClient.createChannel(channelName); 
