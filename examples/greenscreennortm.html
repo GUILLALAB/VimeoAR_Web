@@ -337,6 +337,11 @@ setAds3DModel(Broadcaster.objecturl);
      position.getPositionFromMatrix( mesh.matrixWorld);
      ads.position.set(-0.05 + position.x, position.y, position.z);
     }
+    if(mesh!=null && chair!=null){
+                var position = new THREE.Vector3();
+                position.getPositionFromMatrix( mesh.matrixWorld);
+                chair.position.set(0.3 + position.x, position.y, position.z);
+                }
     }
 
   }
@@ -498,10 +503,11 @@ function setAds3DModel(link){
                 chair.visible = false;
                 loadingBar.visible = false;
                 chair.position.setFromMatrixPosition( reticle.matrix );
+                if(reticle!=null){
                 var position = new THREE.Vector3();
-                position.getPositionFromMatrix( mesh.matrixWorld);
+                position.getPositionFromMatrix( reticle.matrixWorld);
                 chair.position.set(0.3 + position.x, position.y, position.z);
-
+                }
                 chair.visible = true;
                 renderer.setAnimationLoop(render.bind(this) );
             },
