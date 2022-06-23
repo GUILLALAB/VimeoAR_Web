@@ -86,7 +86,7 @@ app.get('/adsmanager', (request, response) => {
 
 
 app.get('/art', (request, response) => {
-  response.render('art');
+  response.render('art.html');
 });
 
 
