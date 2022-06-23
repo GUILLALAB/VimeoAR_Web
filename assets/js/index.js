@@ -203,7 +203,7 @@ export function loadMultiplesImages(imageFile) {
 uploadImageAsPromise(recentMessagesQuery,imageFile);
 }
 //Handle waiting to upload each file using promise
-export function uploadImageAsPromise (recentMessagesQuery,files) {
+export async function uploadImageAsPromise (recentMessagesQuery,files) {
     const promises = []
     files.map((file) => {
         console.log('loop');
@@ -235,7 +235,7 @@ export function uploadImageAsPromise (recentMessagesQuery,files) {
         .then(() => alert('All images uploaded'))
         .then(err => console.log(err))
 
-};
+}
  
 
  // Loads chat messages history and listens for upcoming ones.
