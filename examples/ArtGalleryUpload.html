@@ -47,6 +47,9 @@
      //   alert("Selected file(s) :\n____________________\n"+filenames);
 		loadMultiplesImages(filenames);
     }
+
+	document.getElementById('valide').addEventListener('click', uploadFiles)
+
   </script>
 
 <script>
@@ -60,7 +63,7 @@
         <input type="file" id="file_upload" multiple />
     </div>
     <br>
-    <button class="upload-btn" onclick="uploadFiles()">Submit</button> 
+    <button id="valide" class="upload-btn">Submit</button> 
 	<input hidden type="text" placeholder="enter a group name" id="myInput">
 	<button hidden class="button-9" role="button" id="start">Join</button> 
 	<!-- Navbar -->
