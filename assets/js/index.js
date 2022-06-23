@@ -633,8 +633,8 @@ querySnapshot.forEach((doc) => {
  mediaCaptureElement.addEventListener('change', onMediaFileSelected);
 
  if(document.getElementById("myButtonId") != null){
+  document.getElementById('file_upload').addEventListener('change', onMediaFilesSelected);
  }
- document.getElementById('file_upload').addEventListener('change', onMediaFilesSelected);
 
  function onMediaFilesSelected(event) {
   event.preventDefault();
