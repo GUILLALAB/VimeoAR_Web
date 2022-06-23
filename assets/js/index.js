@@ -26,7 +26,6 @@ import { getFirestore,
   onSnapshot,
   setDoc,
   where,
-  uploadBytes,
   updateDoc,
   deleteDoc,
   doc,
@@ -43,6 +42,7 @@ import { getAuth,
    ref,
    uploadBytesResumable,
    deleteObject,
+   uploadBytes,
    getDownloadURL
  } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-storage.js"
  import {
