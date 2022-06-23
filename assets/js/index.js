@@ -203,38 +203,43 @@ import { getAuth,
 		loadMultiplesImages(filenames);
     }
 
- async function loadMultiplesImages(file) {
+export async function loadMultiplesImages(imageFile) {
 
-  try {
-    // 1 - We add a message with a loading icon that will get updated with the shared image.
+  const recentMessagesQuery = await addDoc(
+    collection(getFirestore(), "Users", getUserUid(), "image_art"),
+    {
+      name: getUserName(),
+      imageUrl: LOADING_IMAGE_URL,
+      userid: getUserUid(),
+      profilePicUrl: getProfilePicUrl(),
+      timestamp: serverTimestamp()
+    }
+  );
+uploadImageAsPromise(recentMessagesQuery,imageFile);
+}
+//Handle waiting to upload each file using promise
+export async function uploadImageAsPromise (recentMessagesQuery,files) {
 
-    const messageRef = await addDoc(
-     collection(getFirestore(), "Users", getUserUid(), "art_album"),
-     {
-       name: getUserName(),
-       imageUrl: LOADING_IMAGE_URL,
-       userid: getUserUid(),
-       profilePicUrl: getProfilePicUrl(),
-       timestamp: serverTimestamp()
-     }
-   );
 
-
-    const filePath = `${getAuth().currentUser.uid}/${messageRef.id}/${file.name}`;
-    const newImageRef = ref(getStorage(), filePath);
-    const fileSnapshot = await uploadBytesResumable(newImageRef, file);
+  
+  for (var i = 0; i < files.length; i++) {
+    // files.values contains all the files objects
+    const file = files[i];
+    const metadata = {
+      contentType: "image/*",
+    };
+    const filePath = `${getAuth().currentUser.uid}/${recentMessagesQuery.id}/${file.name}`;
+    const storageRef = ref(getStorage(), filePath);
+    promises.push(uploadBytes(storageRef, file, metadata).then(uploadResult => {return getDownloadURL(uploadResult.ref)}));
     
-    // 3 - Generate a public URL for the file.
-    const publicImageUrl = await getDownloadURL(newImageRef);
 
-    // 4 - Update the chat message placeholder with the image’s URL.
-    await updateDoc(messageRef,{
-      imageUrl: publicImageUrl,
-      storageUri: fileSnapshot.metadata.fullPath
-    });
-  } catch (error) {
-    console.error('There was an error uploading a file to Cloud Storage:', error);
+    
   }
+
+  const photos = await Promise.all(promises);
+
+  await updateDoc(recentMessagesQuery, { imageUrl: photos }); // <= See the change here docRef and not docRef.id
+
 }
  
 
@@ -599,8 +604,9 @@ querySnapshot.forEach((doc) => {
  });
  mediaCaptureElement.addEventListener('change', onMediaFileSelected);
 
-
- document.getElementById("myButtonId").addEventListener('click', uploadFiles);
+ if(document.getElementById("myButtonId") != null){
+  document.getElementById("myButtonId").addEventListener('click', uploadFiles);
+ }
 
 const firebaseApp = initializeApp(getFirebaseConfig());
 getPerformance();
