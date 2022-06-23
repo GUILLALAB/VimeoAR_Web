@@ -230,20 +230,25 @@ export async function uploadImageAsPromise (recentMessagesQuery,files) {
     const metadata = {
       contentType: "image/*",
     };
-    const filePath = `${getAuth().currentUser.uid}/${recentMessagesQuery.id}/${file.name}`;
-    const storageRef = ref(getStorage(), filePath);
-    promises.push(uploadBytesResumable(storageRef, file).then(uploadResult => {return getDownloadURL(uploadResult.ref)}));
-         
+    const filePath = docRefId+`${getAuth().currentUser.uid}/${recentMessagesQuery.id}/${file.name}`;
+    const newImageRef = ref(getStorage(), filePath);
+    const fileSnapshot = await uploadBytesResumable(newImageRef, file);
+    
+    // 3 - Generate a public URL for the file.
+    const publicImageUrl = await getDownloadURL(newImageRef);
+
+    // 4 - Update the chat message placeholder with the image’s URL.
+    await updateDoc(recentMessagesQuery,{
+      imageUrl: publicImageUrl,
+      storageUri: fileSnapshot.metadata.fullPath
+    });
     // 3 - Generate a public URL for the file.
 
    
     
   }
 
-  const photos = await Promise.all(promises);
-
-  await updateDoc(recentMessagesQuery, { imageUrl: photos }); // <= See the change here docRef and not docRef.id
-
+ 
 }
  
 
