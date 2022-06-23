@@ -204,36 +204,25 @@ uploadImageAsPromise(recentMessagesQuery,imageFile);
 }
 //Handle waiting to upload each file using promise
 export  function uploadImageAsPromise (recentMessagesQuery,files) {
-    const promises = []
-    files.map((file) => {
-        console.log('loop');
-        const filePath = `${getAuth().currentUser.uid}/${recentMessagesQuery.id}/${file.name}`;
-        const sotrageRef = ref(getStorage(), filePath);
 
-        const uploadTask = uploadBytesResumable(sotrageRef, file);
-        promises.push(uploadTask)
-        uploadTask.on(
-            "state_changed",
-            (snapshot) => {
-                const prog = Math.round(
-                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                );
-                setProgress(prog);
-            },
-            (error) => console.log(error),
-            async () => {
-                await getDownloadURL(uploadTask.snapshot.ref).then((downloadURLs) => {
-                    setURLs(prevState => [...prevState, downloadURLs])
-                    console.log("File available at", downloadURLs);
-                });
-            }
-        );
+  const promises = [];
 
+  for (var i = 0; i < this.files.length; i++) {
+    // files.values contains all the files objects
+    const file = this.files[i];
+    const storage = getStorage();
+    const metadata = {
+      contentType: "image/jpeg",
+    };
+    const storageRef = ref(storage, "temp/" + recentMessagesQuery.id + "/" + file.name);
 
-    })
-    Promise.all(promises)
-        .then(() => alert('All images uploaded'))
-        .then(err => console.log(err))
+    promises.push(uploadBytes(storageRef, file, metadata).then(uploadResult => {return getDownloadURL(uploadResult.ref)}))
+    
+  }
+
+  const photos = await Promise.all(promises);
+
+  await updateDoc(recentMessagesQuery, { imageUrl: photos }); // <= See the change here docRef and not docRef.id
 
 }
  
