@@ -200,7 +200,8 @@ import { GLTFLoader } from './jsm/GLTFLoader.js';
         var offscreenCanvas;
 let height, width;
 let videoDevices = [];
-
+var userid=null;
+var stream=0;
 
 
 // canvas green screen controls
@@ -275,7 +276,8 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
  document.getElementById("myInput").value=e.detail.channel;
  channelName=e.detail.channel;
 Timer();
-loadImageAlbum(e.detail.id);   
+userid=e.detail.id;
+loadImageAlbum(userid);   
 console.log(e.detail.id);
 });
 
@@ -291,15 +293,17 @@ document.addEventListener("broadcastmodel", function(e) {
  // alert(e.detail);
  Broadcaster.objecturl=e.detail;
  console.log(e.detail);
-
 if (Broadcaster.objecturl!=null){
+  stream=stream+0.05;
   const geo = new THREE.PlaneBufferGeometry(0.5,0.5); // width, height, no depth for plane
 //load the texture
 var tex = new THREE.TextureLoader().load(Broadcaster.objecturl);
 
 var mat = new THREE.MeshBasicMaterial({ map: tex });
- ads = new THREE.Mesh(geo, mat);
-
+var ads = new THREE.Mesh(geo, mat);
+var position = new THREE.Vector3();
+     position.getPositionFromMatrix( reticle.matrixWorld);
+     ads.position.set(stream + position.x, position.y, position.z);
 scene.add(ads);
 }
 });
@@ -312,9 +316,13 @@ scene.add(ads);
         function onSelect() {
 
           if ( reticle.visible ) {
-            if(ads!=null){
-              ads.position.setFromMatrixPosition( reticle.matrix );
+            if(ads==null){
+              loadImageAlbum(userid);   
             }
+
+           /* if(ads!=null){
+              ads.position.setFromMatrixPosition( reticle.matrix );
+            }*/
           //  initAgora(channelName);
 
 
