@@ -33,9 +33,10 @@
 </style>
 <script type="module" src="/js/index.js"></script>
 
-<script>
+<script type="module">
 	import {loadMultiplesImages} from '/js/index.js';
-   
+	document.getElementById("myButtonId").onclick = doSomething;
+
     function uploadFiles() {
         var files = document.getElementById('file_upload').files;
         if(files.length==0){
@@ -62,7 +63,7 @@
         <input type="file" id="file_upload" multiple />
     </div>
     <br>
-    <button class="upload-btn" onclick="uploadFiles()">Submit</button> 
+    <button id="myButtonId" class="upload-btn">Submit</button> 
 	<input hidden type="text" placeholder="enter a group name" id="myInput">
 	<button hidden class="button-9" role="button" id="start">Join</button> 
 	<!-- Navbar -->
