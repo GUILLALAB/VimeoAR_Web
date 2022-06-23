@@ -187,6 +187,22 @@ import { getAuth,
      });
    });
  }
+
+ export function loadAllUsers() {
+  // Create the query to load the last 12 messages and listen for new ones.
+  const recentMessagesQuery = query(collection(getFirestore(), 'Users'), orderBy('timestamp', 'desc'), limit(12));
+  
+  // Start listening to the query.
+  onSnapshot(recentMessagesQuery, function(snapshot) {
+    snapshot.docChanges().forEach(function(change) {
+    
+        var message = change.doc.data();
+        displayMessage(change.doc.id, message.timestamp, message.name,
+                      message.text, message.profilePicUrl);
+      
+    });
+  });
+}
  
  // Saves a new message containing an image in Firebase.
  // This first saves the image in Firebase storage.
