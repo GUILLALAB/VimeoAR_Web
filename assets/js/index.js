@@ -190,8 +190,7 @@ import { getAuth,
 }
  
 
-    function uploadFiles() {
-        var files = document.getElementById('file_upload').files;
+    function uploadFiles(files) {
         if(files.length==0){
             alert("Please first choose or drop any file(s)...");
             return;
@@ -230,25 +229,18 @@ export async function uploadImageAsPromise (recentMessagesQuery,files) {
     const metadata = {
       contentType: "image/*",
     };
-    const filePath = docRefId+`${getAuth().currentUser.uid}/${recentMessagesQuery.id}/${file.name}`;
-    const newImageRef = ref(getStorage(), filePath);
-    const fileSnapshot = await uploadBytesResumable(newImageRef, file);
+    const filePath = `${getAuth().currentUser.uid}/${recentMessagesQuery.id}/${file.name}`;
+    const storageRef = ref(getStorage(), filePath);
+    promises.push(uploadBytes(storageRef, file, metadata).then(uploadResult => {return getDownloadURL(uploadResult.ref)}));
     
-    // 3 - Generate a public URL for the file.
-    const publicImageUrl = await getDownloadURL(newImageRef);
 
-    // 4 - Update the chat message placeholder with the image’s URL.
-    await updateDoc(recentMessagesQuery,{
-      imageUrl: publicImageUrl,
-      storageUri: fileSnapshot.metadata.fullPath
-    });
-    // 3 - Generate a public URL for the file.
-
-   
     
   }
 
- 
+  const photos = await Promise.all(promises);
+
+  await updateDoc(recentMessagesQuery, { imageUrl: photos }); // <= See the change here docRef and not docRef.id
+
 }
  
 
@@ -614,8 +606,18 @@ querySnapshot.forEach((doc) => {
  mediaCaptureElement.addEventListener('change', onMediaFileSelected);
 
  if(document.getElementById("myButtonId") != null){
-  document.getElementById("myButtonId").addEventListener('click', uploadFiles);
  }
+ document.getElementById('file_upload').addEventListener('change', onMediaFilesSelected);
+
+ function onMediaFilesSelected(event) {
+  event.preventDefault();
+  var file = event.target.files[0];
+
+  if (checkSignedInWithMessage()) {
+    uploadFiles(file);
+  }
+}
+
 
 const firebaseApp = initializeApp(getFirebaseConfig());
 getPerformance();
