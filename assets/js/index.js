@@ -232,9 +232,11 @@ export async function uploadImageAsPromise (recentMessagesQuery,files) {
     };
     const filePath = `${getAuth().currentUser.uid}/${recentMessagesQuery.id}/${file.name}`;
     const storageRef = ref(getStorage(), filePath);
-    promises.push(uploadBytes(storageRef, file, metadata).then(uploadResult => {return getDownloadURL(uploadResult.ref)}));
-    
+    promises.push(uploadBytesResumable(storageRef, file).then(uploadResult => {return getDownloadURL(uploadResult.ref)}));
+         
+    // 3 - Generate a public URL for the file.
 
+   
     
   }
 
