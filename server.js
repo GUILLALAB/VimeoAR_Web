@@ -89,6 +89,9 @@ app.get('/art', (request, response) => {
   response.render('art.html');
 });
 
+app.get('/artupload', (request, response) => {
+  response.render('ArtGalleryUpload.html');
+});
 
 app.get('/ads', (request, response) => {
   response.render('ads.html',{ name: 'Tobi' });
