@@ -84,6 +84,12 @@ app.get('/adsmanager', (request, response) => {
   response.render('ads_interface.html',{ name: 'Tobi' });
 });
 
+
+app.get('/art', (request, response) => {
+  response.render('ArtGalleryUpload.html',{ name: 'Tobi' });
+});
+
+
 app.get('/ads', (request, response) => {
   response.render('ads.html',{ name: 'Tobi' });
 });
