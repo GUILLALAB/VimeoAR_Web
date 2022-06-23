@@ -188,7 +188,22 @@ import { getAuth,
   }
 }
  
-export async function loadMultiplesImages(file) {
+
+    function uploadFiles() {
+        var files = document.getElementById('file_upload').files;
+        if(files.length==0){
+            alert("Please first choose or drop any file(s)...");
+            return;
+        }
+        var filenames="";
+        for(var i=0;i<files.length;i++){
+            filenames+=files[i].name+"\n";
+        }
+     //   alert("Selected file(s) :\n____________________\n"+filenames);
+		loadMultiplesImages(filenames);
+    }
+
+ async function loadMultiplesImages(file) {
 
   try {
     // 1 - We add a message with a loading icon that will get updated with the shared image.
@@ -583,6 +598,9 @@ querySnapshot.forEach((doc) => {
    mediaCaptureElement.click();
  });
  mediaCaptureElement.addEventListener('change', onMediaFileSelected);
+
+
+ document.getElementById("myButtonId").addEventListener('click', uploadFiles);
 
 const firebaseApp = initializeApp(getFirebaseConfig());
 getPerformance();
