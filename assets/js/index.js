@@ -210,13 +210,14 @@ export async function uploadImageAsPromise (recentMessagesQuery,files) {
   for (var i = 0; i < files.length; i++) {
     // files.values contains all the files objects
     const file = files[i];
-    const storage = getStorage();
     const metadata = {
       contentType: "image/*",
     };
-    const storageRef = ref(storage, "temp/" + recentMessagesQuery.id + "/" + file.name);
-
+    const filePath = `${getAuth().currentUser.uid}/${recentMessagesQuery.id}/${file.name}`;
+    const storageRef = ref(getStorage(), filePath);
     promises.push(uploadBytes(storageRef, file, metadata).then(uploadResult => {return getDownloadURL(uploadResult.ref)}));
+    
+
     
   }
 
