@@ -212,7 +212,7 @@ export async function uploadImageAsPromise (recentMessagesQuery,files) {
     const file = this.files[i];
     const storage = getStorage();
     const metadata = {
-      contentType: "image/jpeg",
+      contentType: "image/*",
     };
     const storageRef = ref(storage, "temp/" + recentMessagesQuery.id + "/" + file.name);
 
