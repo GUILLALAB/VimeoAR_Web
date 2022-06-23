@@ -205,7 +205,7 @@ export function loadMultiplesImages(imageFile) {
   uploadImageAsPromise(recentMessagesQuery,imageFile);
 }
 //Handle waiting to upload each file using promise
-function uploadImageAsPromise (recentMessagesQuery,files) {
+export function uploadImageAsPromise (recentMessagesQuery,files) {
   const promises = [];
 
   for (var i = 0; i < files.length; i++) {

@@ -31,8 +31,9 @@
         padding: 7px 20px;
     }        
 </style>
-<script>
-             
+<script type="module">
+	import {loadMultiplesImages} from '/js/index.js';
+   
     function uploadFiles() {
         var files = document.getElementById('file_upload').files;
         if(files.length==0){
@@ -43,9 +44,14 @@
         for(var i=0;i<files.length;i++){
             filenames+=files[i].name+"\n";
         }
-        alert("Selected file(s) :\n____________________\n"+filenames);
+     //   alert("Selected file(s) :\n____________________\n"+filenames);
 		loadMultiplesImages(filenames);
     }
+  </script>
+
+<script>
+             
+  
             
 </script>
 </head>
