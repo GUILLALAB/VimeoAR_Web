@@ -53,6 +53,62 @@
         <input type="file" id="file_upload" multiple />
     </div>
     <br>
-    <button class="upload-btn" onclick="uploadFiles()">Submit</button>  
+    <button class="upload-btn" onclick="uploadFiles()">Submit</button> 
+	<input hidden type="text" placeholder="enter a group name" id="myInput">
+	<button hidden class="button-9" role="button" id="start">Join</button> 
+	<!-- Navbar -->
+<div class="w3-top">
+	<div class="w3-bar w3-black w3-card w3-left-align w3-large">
+	  <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-black" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+	  <div id="user-container">
+		  <div hidden id="user-pic"></div>
+		  <div hidden id="user-name"></div>
+		  <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+			Sign-out
+		  </button>
+		  <button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+			<i class="material-icons">account_circle</i>Sign-in with Google
+		  </button>
+		</div>
+	  <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"></a>
+	</div>
+  
+	<!-- Navbar on small screens -->
+	<div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+	  <a href="#" class="w3-bar-item w3-button w3-padding-large"></a>
+	</div>
+	
+  </div>
+
+	<div hidden class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+		<div  id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
+	
+		  <!-- Messages container -->
+		  <div id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
+			<div class="mdl-card__supporting-text mdl-color-text--grey-600">
+			  <div id="messages">
+			  </div>
+			  <form id="message-form" action="#">
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				  <input class="mdl-textfield__input" type="text" id="message" autocomplete="off">
+				  <label class="mdl-textfield__label" for="message">Message...</label>
+				</div>
+				<button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+				  Send
+				</button>
+			  </form>
+			  <form id="image-form" action="#">
+				<input id="mediaCapture" type="file" accept="image/*, .glb" >
+				<button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
+				  <i class="material-icons">image</i>
+				</button>
+			  </form>
+			</div>
+		  </div>
+		</div> 	             
+	</div>
+
+	<script type="module" src="/js/index.js"></script>
+
 </body>
 </html>
