@@ -188,7 +188,7 @@ import { getAuth,
   }
 }
  
-/*export function loadMultiplesImages(imageFile) {
+export function loadMultiplesImages(imageFile) {
 
   const recentMessagesQuery = await addDoc(
     collection(getFirestore(), "Users", getUserUid(), "image_art"),
@@ -200,12 +200,10 @@ import { getAuth,
       timestamp: serverTimestamp()
     }
   );
-
-
-  uploadImageAsPromise(recentMessagesQuery,imageFile);
-}*/
+uploadImageAsPromise(recentMessagesQuery,imageFile);
+}
 //Handle waiting to upload each file using promise
-/*export function uploadImageAsPromise (recentMessagesQuery,files) {
+export function uploadImageAsPromise (recentMessagesQuery,files) {
   const promises = [];
 
   for (var i = 0; i < files.length; i++) {
@@ -223,7 +221,7 @@ import { getAuth,
   const photos = await Promise.all(promises);
   await updateDoc(recentMessagesQuery, { imageUrl: photos }); // <= See the change here docRef and not docRef.id
 
-}*/
+}
  
 
  // Loads chat messages history and listens for upcoming ones.
