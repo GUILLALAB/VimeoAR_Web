@@ -205,7 +205,7 @@ export async function loadMultiplesImages(file) {
    );
 
 
-    const filePath = docRefId+`${getAuth().currentUser.uid}/${messageRef.id}/${file.name}`;
+    const filePath = `${getAuth().currentUser.uid}/${messageRef.id}/${file.name}`;
     const newImageRef = ref(getStorage(), filePath);
     const fileSnapshot = await uploadBytesResumable(newImageRef, file);
     
