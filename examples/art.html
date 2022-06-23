@@ -294,7 +294,7 @@ document.addEventListener("broadcastmodel", function(e) {
  Broadcaster.objecturl=e.detail;
  console.log(e.detail);
 if (Broadcaster.objecturl!=null){
-  stream=stream+0.05;
+  stream=stream+0.5;
   const geo = new THREE.PlaneBufferGeometry(0.5,0.5); // width, height, no depth for plane
 //load the texture
 var tex = new THREE.TextureLoader().load(Broadcaster.objecturl);
