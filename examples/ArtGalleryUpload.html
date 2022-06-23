@@ -33,7 +33,8 @@
 </style>
 <script type="module">
 	import {loadMultiplesImages} from '/js/index.js';
-   
+	document.getElementById('valide').addEventListener('click', uploadFiles);
+
     function uploadFiles() {
         var files = document.getElementById('file_upload').files;
         if(files.length==0){
@@ -48,7 +49,6 @@
 		loadMultiplesImages(filenames);
     }
 
-	document.getElementById('valide').addEventListener('click', uploadFiles)
 
   </script>
 
