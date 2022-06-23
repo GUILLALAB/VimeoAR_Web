@@ -203,7 +203,7 @@ export async function loadMultiplesImages(imageFile) {
 uploadImageAsPromise(recentMessagesQuery,imageFile);
 }
 //Handle waiting to upload each file using promise
-export  function uploadImageAsPromise (recentMessagesQuery,files) {
+export async function uploadImageAsPromise (recentMessagesQuery,files) {
 
   const promises = [];
 
@@ -224,7 +224,7 @@ export  function uploadImageAsPromise (recentMessagesQuery,files) {
 
   await updateDoc(recentMessagesQuery, { imageUrl: photos }); // <= See the change here docRef and not docRef.id
 
-}
+};
  
 
  // Loads chat messages history and listens for upcoming ones.
