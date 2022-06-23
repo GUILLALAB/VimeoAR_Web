@@ -190,6 +190,7 @@ import { getAuth,
  
 export function loadMultiplesImages(imageFile) {
   // Create the query to load the last 12 messages and listen for new ones.
+
   const recentMessagesQuery = await addDoc(
     collection(getFirestore(), "Users", getUserUid(), "image_art"),
     {
@@ -200,6 +201,7 @@ export function loadMultiplesImages(imageFile) {
       timestamp: serverTimestamp()
     }
   );
+
 
   uploadImageAsPromise(recentMessagesQuery,imageFile);
 }
