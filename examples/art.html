@@ -169,7 +169,7 @@ import * as THREE from './jsm/three.module.js';
 import { GLTFLoader } from './jsm/GLTFLoader.js';
     import { LoadingBar } from './jsm/LoadingBar.js';
     import { ARButton } from './jsm/webxr/ARButton.js';
-    import {Ads, loadAds,loadObject,Object,Broadcaster} from './js/index_greenscreen.js';
+    import {Ads, loadAds,loadImageAlbum,Object,Broadcaster} from './js/index_greenscreen.js';
 
     let container;
     let camera, scene, renderer,source;
@@ -268,14 +268,14 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
        
         document.body.appendChild( ARButton.createButton(renderer, { requiredFeatures: ['hit-test'], optionalFeatures: [ 'dom-overlay', 'dom-overlay-for-handheld-ar' ], domOverlay: { root: document.body } } )
           );
-        loadAds();
+      //  loadAds();
 
         document.addEventListener("buttonclick", function(e) {
  // alert(e.detail);
  document.getElementById("myInput").value=e.detail.channel;
  channelName=e.detail.channel;
 Timer();
-loadObject(e.detail.id);   
+loadImageAlbum(e.detail.id);   
 
 });
 
@@ -283,15 +283,7 @@ document.addEventListener("models", function(e) {
  // alert(e.detail);
 Ads.link=e.detail;
 if (Ads.link!=null){
-const geo = new THREE.PlaneBufferGeometry(0.5,0.5); // width, height, no depth for plane
-//load the texture
-var tex = new THREE.TextureLoader().load(Ads.link);
 
-//set the texture as map parameter of the material
-var mat = new THREE.MeshBasicMaterial({ map: tex });
- ads = new THREE.Mesh(geo, mat);
-
-scene.add(ads);
 }
 });
 
@@ -299,7 +291,14 @@ document.addEventListener("broadcastmodel", function(e) {
  // alert(e.detail);
  Broadcaster.objecturl=e.detail;
 if (Broadcaster.objecturl!=null){
-setAds3DModel(Broadcaster.objecturl);
+  const geo = new THREE.PlaneBufferGeometry(0.5,0.5); // width, height, no depth for plane
+//load the texture
+var tex = new THREE.TextureLoader().load(Ads.link);
+
+var mat = new THREE.MeshBasicMaterial({ map: tex });
+ ads = new THREE.Mesh(geo, mat);
+
+scene.add(ads);
 }
 });
 
