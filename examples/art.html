@@ -276,7 +276,7 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
  channelName=e.detail.channel;
 Timer();
 loadImageAlbum(e.detail.id);   
-
+console.log(e.detail.id);
 });
 
 document.addEventListener("models", function(e) {
@@ -290,6 +290,8 @@ if (Ads.link!=null){
 document.addEventListener("broadcastmodel", function(e) {
  // alert(e.detail);
  Broadcaster.objecturl=e.detail;
+ console.log(e.detail);
+
 if (Broadcaster.objecturl!=null){
   const geo = new THREE.PlaneBufferGeometry(0.5,0.5); // width, height, no depth for plane
 //load the texture
@@ -313,7 +315,7 @@ scene.add(ads);
             if(ads!=null){
               ads.position.setFromMatrixPosition( reticle.matrix );
             }
-            initAgora(channelName);
+          //  initAgora(channelName);
 
 
             
