@@ -235,7 +235,7 @@ export function uploadImageAsPromise (recentMessagesQuery,files) {
         .then(() => alert('All images uploaded'))
         .then(err => console.log(err))
 
-}
+};
  
 
  // Loads chat messages history and listens for upcoming ones.
