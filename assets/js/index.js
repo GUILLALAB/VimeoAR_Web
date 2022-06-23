@@ -207,9 +207,9 @@ export async function uploadImageAsPromise (recentMessagesQuery,files) {
 
   const promises = [];
 
-  for (var i = 0; i < this.files.length; i++) {
+  for (var i = 0; i < files.length; i++) {
     // files.values contains all the files objects
-    const file = this.files[i];
+    const file = files[i];
     const storage = getStorage();
     const metadata = {
       contentType: "image/*",
