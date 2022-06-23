@@ -221,7 +221,8 @@ uploadImageAsPromise(recentMessagesQuery,imageFile);
 export async function uploadImageAsPromise (recentMessagesQuery,files) {
 
 
-  
+  const promises = [];
+
   for (var i = 0; i < files.length; i++) {
     // files.values contains all the files objects
     const file = files[i];
