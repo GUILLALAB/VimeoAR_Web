@@ -1,172 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<title>Live AR - Broadcast</title>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" rel="stylesheet">
-<!-- jQuery and Bootstrap JS -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-<!-- AFrame -->
-<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-<script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
-<script src="https://cdn.rawgit.com/tizzle/aframe-orbit-controls-component/master/dist/aframe-orbit-controls-component.min.js"></script>
-<!-- Agora.io -->
-<script src="/js/AgoraRTCSDK-3.0.2.js" type="text/javascript"></script>
-<script src="/js/agora-rtm-sdk-1.2.2.js" type="text/javascript"></script>
-
-<!-- Material Design Lite -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.orange-indigo.min.css">
-<script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
-
-<!-- App Styling -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
-<script type="text/javascript">!function(n,e){var t,o,i,c=[],f={passive:!0,capture:!0},r=new Date,a="pointerup",u="pointercancel";function p(n,c){t||(t=c,o=n,i=new Date,w(e),s())}function s(){o>=0&&o<i-r&&(c.forEach(function(n){n(o,t)}),c=[])}function l(t){if(t.cancelable){var o=(t.timeStamp>1e12?new Date:performance.now())-t.timeStamp;"pointerdown"==t.type?function(t,o){function i(){p(t,o),r()}function c(){r()}function r(){e(a,i,f),e(u,c,f)}n(a,i,f),n(u,c,f)}(o,t):p(o,t)}}function w(n){["click","mousedown","keydown","touchstart","pointerdown"].forEach(function(e){n(e,l,f)})}w(n),self.perfMetrics=self.perfMetrics||{},self.perfMetrics.onFirstInputDelay=function(n){c.push(n),s()}}(addEventListener,removeEventListener);</script>
-<link rel="stylesheet" type="text/css" href="style.css"/>
-
-<!-- TODO: Enable First Input Delay polyfill library. -->
-
+<meta name="viewport" content="width=device-width, initial-scale=1">    
 <style>
-	#filelist {
-		margin-top: 15px;
-	}
-	
-	#uploadFilesButtonContainer, #selectFilesButtonContainer, #overallProgress {
-		display: inline-block;
-	}
-	
-	#overallProgress {
-		float: right;
-	}
-	</style>
-	
-	<div id="uploaderContainer">
-		<div id="selectFilesButtonContainer">
-		</div>
-		<div id="uploadFilesButtonContainer">
-		  <button type="button" id="uploadFilesButton"
-				  class="yui3-button" style="width:250px; height:35px;">Upload Files</button>
-		</div>
-		<div id="overallProgress">
-		</div>
-	</div>
-	
-	<div id="filelist">
-	  <table id="filenames">
-		<thead>
-		   <tr><th>File name</th><th>File size</th><th>Percent uploaded</th></tr>
-		   <tr id="nofiles">
-			<td colspan="3">
-				No files have been selected.
-			</td>
-		   </tr>
-		</thead>
-		<tbody>
-		</tbody>
-	  </table>
-	</div>
-	
-	<script>
-	
-	YUI({filter:"raw"}).use("uploader", function(Y) {
-	Y.one("#overallProgress").set("text", "Uploader type: " + Y.Uploader.TYPE);
-	   if (Y.Uploader.TYPE != "none" && !Y.UA.ios) {
-		   var uploader = new Y.Uploader({width: "250px",
-										  height: "35px",
-										  multipleFiles: true,
-										  swfURL: "flashuploader.swf?t=" + Math.random(),
-										  uploadURL: "http://yuilibrary.com/sandbox/upload/",
-										  simLimit: 2,
-										  withCredentials: false
-										 });
-		   var uploadDone = false;
-	
-		   uploader.render("#selectFilesButtonContainer");
-	
-		   uploader.after("fileselect", function (event) {
-	
-			  var fileList = event.fileList;
-			  var fileTable = Y.one("#filenames tbody");
-			  if (fileList.length > 0 && Y.one("#nofiles")) {
-				Y.one("#nofiles").remove();
-			  }
-	
-			  if (uploadDone) {
-				uploadDone = false;
-				fileTable.setHTML("");
-			  }
-	
-			  Y.each(fileList, function (fileInstance) {
-				  fileTable.append("<tr id='" + fileInstance.get("id") + "_row" + "'>" +
-										"<td class='filename'>" + fileInstance.get("name") + "</td>" +
-										"<td class='filesize'>" + fileInstance.get("size") + "</td>" +
-										"<td class='percentdone'>Hasn't started yet</td>");
-								 });
-		   });
-	
-		   uploader.on("uploadprogress", function (event) {
-				var fileRow = Y.one("#" + event.file.get("id") + "_row");
-					fileRow.one(".percentdone").set("text", event.percentLoaded + "%");
-		   });
-	
-		   uploader.on("uploadstart", function (event) {
-				uploader.set("enabled", false);
-				Y.one("#uploadFilesButton").addClass("yui3-button-disabled");
-				Y.one("#uploadFilesButton").detach("click");
-		   });
-	
-		   uploader.on("uploadcomplete", function (event) {
-				var fileRow = Y.one("#" + event.file.get("id") + "_row");
-					fileRow.one(".percentdone").set("text", "Finished!");
-		   });
-	
-		   uploader.on("totaluploadprogress", function (event) {
-					Y.one("#overallProgress").setHTML("Total uploaded: <strong>" + event.percentLoaded + "%" + "</strong>");
-		   });
-	
-		   uploader.on("alluploadscomplete", function (event) {
-						 uploader.set("enabled", true);
-						 uploader.set("fileList", []);
-						 Y.one("#uploadFilesButton").removeClass("yui3-button-disabled");
-						 Y.one("#uploadFilesButton").on("click", function () {
-							  if (!uploadDone && uploader.get("fileList").length > 0) {
-								 uploader.uploadAll();
-							  }
-						 });
-						 Y.one("#overallProgress").set("text", "Uploads complete!");
-						 uploadDone = true;
-		   });
-	
-		   Y.one("#uploadFilesButton").on("click", function () {
-			 if (!uploadDone && uploader.get("fileList").length > 0) {
-				uploader.uploadAll();
-			 }
-		   });
-	   }
-	   else {
-		   Y.one("#uploaderContainer").set("text", "We are sorry, but to use the uploader, you either need a browser that support HTML5 or have the Flash player installed on your computer.");
-	   }
-	
-	
-	});
-	
-	</script>
-<script type="module" src="/js/index.js"></script>
-<script src="/js/webvr-broadcast-client.js" type="module"></script>
-
+    .upload-container {
+        position: relative;
+    }
+    .upload-container input {
+        border: 1px solid #92b0b3;
+        background: #f1f1f1;
+        outline: 2px dashed #92b0b3;
+        outline-offset: -10px;
+        padding: 100px 0px 100px 250px;
+        text-align: center !important;
+        width: 500px;
+    }
+    .upload-container input:hover {
+        background: #ddd;
+    }   
+    .upload-container:before {
+        position: absolute;
+        bottom: 50px;
+        left: 245px;
+        content: " (or) Drag and Drop files here. ";
+        color: #3f8188;
+        font-weight: 900;
+    }   
+    .upload-btn {
+        margin-left: 300px;
+        padding: 7px 20px;
+    }        
+</style>
+<script>
+             
+    function uploadFiles() {
+        var files = document.getElementById('file_upload').files;
+        if(files.length==0){
+            alert("Please first choose or drop any file(s)...");
+            return;
+        }
+        var filenames="";
+        for(var i=0;i<files.length;i++){
+            filenames+=files[i].name+"\n";
+        }
+        alert("Selected file(s) :\n____________________\n"+filenames);
+    }
+            
+</script>
+</head>
+<body>
+    <div class="upload-container">
+        <input type="file" id="file_upload" multiple />
+    </div>
+    <br>
+    <button class="upload-btn" onclick="uploadFiles()">Submit</button>  
 </body>
-
 </html>
-
-
-
