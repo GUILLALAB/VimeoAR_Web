@@ -188,7 +188,7 @@ import { getAuth,
   }
 }
  
-export function loadMultiplesImages(imageFile) {
+export async function loadMultiplesImages(imageFile) {
 
   const recentMessagesQuery = await addDoc(
     collection(getFirestore(), "Users", getUserUid(), "image_art"),
@@ -203,7 +203,7 @@ export function loadMultiplesImages(imageFile) {
 uploadImageAsPromise(recentMessagesQuery,imageFile);
 }
 //Handle waiting to upload each file using promise
-export async function uploadImageAsPromise (recentMessagesQuery,files) {
+export  function uploadImageAsPromise (recentMessagesQuery,files) {
     const promises = []
     files.map((file) => {
         console.log('loop');
