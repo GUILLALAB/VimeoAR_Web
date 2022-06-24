@@ -202,6 +202,7 @@ let height, width;
 let videoDevices = [];
 var userid=null;
 var stream=0;
+var obj=[];
 
 
 // canvas green screen controls
@@ -304,6 +305,7 @@ var position = new THREE.Vector3();
      position.getPositionFromMatrix( reticle.matrixWorld);
      ads.position.set(stream + position.x, position.y, position.z);
 scene.add(ads);
+obj.push(ads);
 }
 });
 
@@ -319,6 +321,14 @@ scene.add(ads);
               loadImageAlbum(userid);   
             }
 
+            if(obj.length!= 0){
+              for(i=0;i<obj.length;i++){
+                
+                var position = new THREE.Vector3();
+     position.getPositionFromMatrix( reticle.matrixWorld);
+     obj[i].position.set(0.9 + position.x, position.y, position.z);
+              }
+            }
            /* if(ads!=null){
               ads.position.setFromMatrixPosition( reticle.matrix );
             }*/
