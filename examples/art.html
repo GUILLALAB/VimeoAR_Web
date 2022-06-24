@@ -291,6 +291,7 @@ if (Ads.link!=null){
 
 document.addEventListener("broadcastmodel", function(e) {
  // alert(e.detail);
+ var ystream=0;
  Broadcaster.objecturl=e.detail;
  console.log(e.detail);
 if (Broadcaster.objecturl!=null && reticle!= null){
@@ -303,7 +304,15 @@ var mat = new THREE.MeshBasicMaterial({ map: tex });
 var ads = new THREE.Mesh(geo, mat);
 var position = new THREE.Vector3();
      position.getPositionFromMatrix( reticle.matrixWorld);
+     if(stream<=4.5){
      ads.position.set(stream + position.x, position.y, position.z);
+     }
+    else if(stream==4.5){
+      stream=0;
+      ystream=1.5
+     }else{
+      ads.position.set(stream + position.x, ystream+position.y, position.z);
+     }
 scene.add(ads);
 obj.push(ads);
 }
