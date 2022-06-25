@@ -201,7 +201,7 @@ import { GLTFLoader } from './jsm/GLTFLoader.js';
 let height, width;
 let videoDevices = [];
 var userid=null;
-var stream=-2;
+var stream=-4;
 var obj=[];
 
 
@@ -304,7 +304,7 @@ var mat = new THREE.MeshBasicMaterial({ map: tex });
 var ads = new THREE.Mesh(geo, mat);
 var position = new THREE.Vector3();
      position.getPositionFromMatrix( reticle.matrixWorld);
-     ads.position.set(stream + position.x, position.y, position.z);
+     ads.position.set(stream + position.x, position.y+0.8, position.z);
   
 scene.add(ads);
 obj.push(ads);
@@ -328,7 +328,7 @@ obj.push(ads);
                 
                 var position = new THREE.Vector3();
      position.getPositionFromMatrix( reticle.matrixWorld);
-     obj[i].position.set(0.9 + position.x, position.y+0.5, position.z);
+     obj[i].position.set(0.9 + position.x, position.y, position.z);
               }
             }
            /* if(ads!=null){
