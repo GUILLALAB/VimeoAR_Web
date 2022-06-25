@@ -282,8 +282,8 @@ loadObject(e.detail.id);
 document.addEventListener("models", function(e) {
  // alert(e.detail);
 Ads.link=e.detail;
-if (Ads.link!=null){
-const geo = new THREE.PlaneBufferGeometry(0.5,0.5); // width, height, no depth for plane
+if (Ads.link!=null && Ads.link.includes("png")){
+const geo = new THREE.PlaneBufferGeometry(0.7,0.7); // width, height, no depth for plane
 //load the texture
 var tex = new THREE.TextureLoader().load(Ads.link);
 
@@ -292,6 +292,8 @@ var mat = new THREE.MeshBasicMaterial({ map: tex });
  ads = new THREE.Mesh(geo, mat);
 
 scene.add(ads);
+}else if (Ads.link!=null && Ads.link.includes("glb")){
+  setAds3DModel(Ads.link);
 }
 });
 
