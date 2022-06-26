@@ -176,7 +176,8 @@ import { GLTFLoader } from './jsm/GLTFLoader.js';
     let controller;
 
     let reticle;
-    var cube,video, texture,material;
+    var cube,video, texture,material, controls;
+
     var isset=0;
     let videoTexture;
     let videoImageContext ;
@@ -265,7 +266,13 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         renderer.setSize( window.innerWidth, window.innerHeight );
         renderer.xr.enabled = true;
         container.appendChild( renderer.domElement );
-       
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableZoom = true;
+    controls.enableKeys = false;
+    controls.enablePan = true;
+    controls.enableDamping = true;
+    controls.target.set(0, 0, -20);
+    controls.update();
         document.body.appendChild( ARButton.createButton(renderer, { requiredFeatures: ['hit-test'], optionalFeatures: [ 'dom-overlay', 'dom-overlay-for-handheld-ar' ], domOverlay: { root: document.body } } )
           );
         loadAds();
@@ -681,7 +688,8 @@ if(rtmClient!=null){
           }
 
         }
-       
+        controls.update();
+
         if(mesh!=null){
           mesh.lookAt(camera.position);
 
