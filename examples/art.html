@@ -201,7 +201,7 @@ import { GLTFLoader } from './jsm/GLTFLoader.js';
 let height, width;
 let videoDevices = [];
 var userid=null;
-var stream=-4;
+var stream=-3;
 var obj=[];
 
 
@@ -295,8 +295,8 @@ document.addEventListener("broadcastmodel", function(e) {
  Broadcaster.objecturl=e.detail;
  console.log(e.detail);
 if (Broadcaster.objecturl!=null && reticle!= null){
-  stream=stream+2;
-  const geo = new THREE.PlaneBufferGeometry(1.5,1.5); // width, height, no depth for plane
+  stream=stream+1.3;
+  const geo = new THREE.PlaneBufferGeometry(0.8,0.8); // width, height, no depth for plane
 //load the texture
 var tex = new THREE.TextureLoader().load(Broadcaster.objecturl);
 
@@ -304,7 +304,7 @@ var mat = new THREE.MeshBasicMaterial({ map: tex });
 var ads = new THREE.Mesh(geo, mat);
 var position = new THREE.Vector3();
      position.getPositionFromMatrix( reticle.matrixWorld);
-     ads.position.set(stream + position.x, position.y+0.8, position.z);
+     ads.position.set(stream + position.x, position.y+1, position.z);
   
 scene.add(ads);
 obj.push(ads);
