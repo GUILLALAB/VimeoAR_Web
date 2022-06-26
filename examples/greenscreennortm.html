@@ -170,8 +170,7 @@ import { GLTFLoader } from './jsm/GLTFLoader.js';
     import { LoadingBar } from './jsm/LoadingBar.js';
     import { ARButton } from './jsm/webxr/ARButton.js';
     import {Ads, loadAds,loadObject,Object,Broadcaster} from './js/index_greenscreen.js';
-    import { OrbitControls } from '/js/OrbitControls'
-import { DragControls } from '/js/DragControls'
+
     let container;
     let camera, scene, renderer,source;
     let controller;
@@ -267,13 +266,7 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         renderer.setSize( window.innerWidth, window.innerHeight );
         renderer.xr.enabled = true;
         container.appendChild( renderer.domElement );
-        controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableZoom = true;
-    controls.enableKeys = false;
-    controls.enablePan = true;
-    controls.enableDamping = true;
-    controls.target.set(0, 0, -20);
-    controls.update();
+       
         document.body.appendChild( ARButton.createButton(renderer, { requiredFeatures: ['hit-test'], optionalFeatures: [ 'dom-overlay', 'dom-overlay-for-handheld-ar' ], domOverlay: { root: document.body } } )
           );
         loadAds();
@@ -689,8 +682,7 @@ if(rtmClient!=null){
           }
 
         }
-        controls.update();
-
+       
         if(mesh!=null){
           mesh.lookAt(camera.position);
 
