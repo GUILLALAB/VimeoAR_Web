@@ -724,9 +724,8 @@ if(rtmClient!=null){
 
         }
         var delta = clock.getDelta();
-  mixer.update( delta );
        if(mixer!= null){
-        mixer.update( delta );    
+        mixer.update( delta );
          }
         if(mesh!=null){
           mesh.lookAt(camera.position);
