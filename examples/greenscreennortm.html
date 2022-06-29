@@ -228,7 +228,7 @@ import { GLTFLoader } from './jsm/GLTFLoader.js';
 let height, width;
 let videoDevices = [];
 var object_badge=0;
-
+var object_badges;
 
 var init=0;
 // canvas green screen controls
@@ -297,6 +297,9 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         document.body.appendChild( ARButton.createButton(renderer, { requiredFeatures: ['hit-test'], optionalFeatures: [ 'dom-overlay', 'dom-overlay-for-handheld-ar' ], domOverlay: { root: document.body } } )
           );
         loadAds();
+        
+        object_badges = document.getElementById('object_badge');
+
         var badgeButton = document.getElementById('badgeButton');
 
         badgeButton.addEventListener("click", function(e) {
@@ -336,6 +339,7 @@ document.addEventListener("broadcastmodel", function(e) {
  Broadcaster.objecturl=e.detail;
 if (Broadcaster.objecturl!=null){
   object_badge=object_badge+1;
+  object_badges.textContent=object_badge;
 }
 });
 
