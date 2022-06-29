@@ -238,6 +238,7 @@ let videoWidth = 320;
 let videoHeight = 240;
 var assetsPath;
 // Safari & Firefox don't support OffscreenCanvas
+var mixer; 
 
 var loadingBar;
 let segmentedCanvas;
@@ -518,7 +519,6 @@ function connectStreamToVideo(agoraStream, video) {
 function setAds3DModel(link){
   loadingBar.visible = true;
 
-
   const loader = new GLTFLoader( );
         const self = this;
         // Load a glTF resource
@@ -537,6 +537,12 @@ function setAds3DModel(link){
                 position.getPositionFromMatrix( reticle.matrixWorld);
                 chair.scale
                 chair.position.set(0.3 + position.x, position.y,0.2 + position.z);
+
+              mixer= new THREE.AnimationMixer(chair);
+              const clips= gltf.animations;
+              const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
+              const action=mixer.clipAction(clip);
+              action.play();
                 }
                 chair.visible = true;
                 renderer.setAnimationLoop(render.bind(this) );
@@ -717,7 +723,9 @@ if(rtmClient!=null){
           }
 
         }
-       
+       if(mixer!= null){
+         mixer.update(timestamp);
+       }
         if(mesh!=null){
           mesh.lookAt(camera.position);
 
