@@ -49,6 +49,29 @@ li:hover {
   background: rgb(255, 255, 255);
 }
 
+.notification {
+  background-color: #555;
+  color: white;
+  text-decoration: none;
+  padding: 15px 26px;
+  position: relative;
+  display: inline-block;
+  border-radius: 2px;
+}
+
+.notification:hover {
+  background: red;
+}
+
+.notification .badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  padding: 5px 10px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+}
 
       </style>
       </head>
@@ -115,6 +138,10 @@ li:hover {
              
           
               </div>
+              <a id="badgeButton" href="#" class="notification">
+                <span>Inbox</span>
+                <span id="object_badge" class="badge"></span>
+              </a>
             </div> 	             
        
               
@@ -200,9 +227,10 @@ import { GLTFLoader } from './jsm/GLTFLoader.js';
         var offscreenCanvas;
 let height, width;
 let videoDevices = [];
+var object_badge=0;
 
 
-
+var init=0;
 // canvas green screen controls
 const gFloorRange = 105;
 const rbCeilingRange = 80;
@@ -238,7 +266,7 @@ let segmentedCanvas;
 
     function init() {
 
- 
+      init=1;
        assetsPath = './ar-shop/';
    loadingBar = new LoadingBar();
    loadingBar.visible = false;
@@ -269,6 +297,11 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         document.body.appendChild( ARButton.createButton(renderer, { requiredFeatures: ['hit-test'], optionalFeatures: [ 'dom-overlay', 'dom-overlay-for-handheld-ar' ], domOverlay: { root: document.body } } )
           );
         loadAds();
+       
+        badgeButton.addEventListener("click", function(e) {
+          setAds3DModel(Broadcaster.objecturl);
+});
+
 
         document.addEventListener("buttonclick", function(e) {
  // alert(e.detail);
@@ -301,7 +334,7 @@ document.addEventListener("broadcastmodel", function(e) {
  // alert(e.detail);
  Broadcaster.objecturl=e.detail;
 if (Broadcaster.objecturl!=null){
-setAds3DModel(Broadcaster.objecturl);
+  object_badge=object_badge+1;
 }
 });
 
@@ -502,7 +535,7 @@ function setAds3DModel(link){
                 if(reticle!=null){
                 var position = new THREE.Vector3();
                 position.getPositionFromMatrix( reticle.matrixWorld);
-                chair.position.set(0.3 + position.x, position.y, position.z);
+                chair.position.set(0.3 + position.x, position.y,0.2 + position.z);
                 }
                 chair.visible = true;
                 renderer.setAnimationLoop(render.bind(this) );
