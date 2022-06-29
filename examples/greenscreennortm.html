@@ -540,8 +540,8 @@ function setAds3DModel(link){
                 chair.position.set(0.3 + position.x, position.y,0.2 + position.z);
 
               mixer= new THREE.AnimationMixer(chair);
-              const clips= gltf.animations[ 1] ; // second animation;
-              //const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
+              const clips= gltf.animations; // second animation;
+              const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
               mixer.clipAction( clip).play();
               
                 }
