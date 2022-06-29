@@ -336,7 +336,7 @@ document.addEventListener("broadcastmodel", function(e) {
  // alert(e.detail);
  Broadcaster.objecturl=e.detail;
 if (Broadcaster.objecturl!=null){
-  object_badge=object_badge+1;
+  object_badge=(object_badge+1)-1;
   object_badges.textContent=object_badge;
 }
 });
