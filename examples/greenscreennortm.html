@@ -229,7 +229,7 @@ let height, width;
 let videoDevices = [];
 var object_badge=0;
 var object_badges;
-
+var badgeButton;
 // canvas green screen controls
 const gFloorRange = 105;
 const rbCeilingRange = 80;
@@ -298,7 +298,8 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         
         object_badges = document.getElementById('object_badge');
 
-        var badgeButton = document.getElementById('badgeButton');
+         badgeButton = document.getElementById('badgeButton');
+        badgeButton.setAttribute('hidden', 'false');
 
         badgeButton.addEventListener("click", function(e) {
           setAds3DModel(Broadcaster.objecturl);
@@ -338,8 +339,7 @@ document.addEventListener("broadcastmodel", function(e) {
 if (Broadcaster.objecturl!=null){
   object_badge=(object_badge+1)-1;
   object_badges.textContent=object_badge;
-  badgeButton.setAttribute('hidden', 'false');
-
+  badgeButton.setAttribute('hidden', 'true');
 }
 });
 
