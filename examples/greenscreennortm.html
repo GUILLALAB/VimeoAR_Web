@@ -242,7 +242,7 @@ var mixer=null;
 
 var loadingBar;
 let segmentedCanvas;
-
+var clock;
    
     init(); 
     InitClient();
@@ -296,7 +296,9 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         document.body.appendChild( ARButton.createButton(renderer, { requiredFeatures: ['hit-test'], optionalFeatures: [ 'dom-overlay', 'dom-overlay-for-handheld-ar' ], domOverlay: { root: document.body } } )
           );
         loadAds();
-        
+         clock = new THREE.Clock();
+
+
         object_badges = document.getElementById('object_badge');
 
          badgeButton = document.getElementById('badgeButton');
@@ -722,8 +724,8 @@ if(rtmClient!=null){
           }
 
         }
-        var delta = clock.getDelta();
        if(mixer!= null){
+        var delta = clock.getDelta();
         mixer.update( delta );
          }
         if(mesh!=null){
