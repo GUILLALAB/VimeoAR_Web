@@ -679,6 +679,8 @@ if(rtmClient!=null){
 
             session.addEventListener( 'end', function () {
              renderer.domElement.style.display = '';
+
+             leaveChannel();
              if(mesh!=null){
                 mesh.remove();
              }
