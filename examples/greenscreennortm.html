@@ -311,8 +311,6 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
  channelName=e.detail.channel;
 Timer();
 loadObject(e.detail.id);   
-badgeButton.setAttribute('hidden', 'false');
-
 });
 
 document.addEventListener("models", function(e) {
@@ -339,6 +337,7 @@ document.addEventListener("broadcastmodel", function(e) {
 if (Broadcaster.objecturl!=null){
   object_badge=(object_badge+1)-1;
   object_badges.textContent=object_badge;
+  badgeButton.removeAttribute('hidden');
 
 }
 });
