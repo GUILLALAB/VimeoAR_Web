@@ -53,7 +53,7 @@ li:hover {
   background-color: #555;
   color: white;
   text-decoration: none;
-  padding: 15px 26px;
+  padding: 15px 15px;
   position: relative;
   display: inline-block;
   border-radius: 2px;
@@ -473,7 +473,7 @@ function createBroadcaster(streamId) {
     texture.format = THREE.RGBFormat;
     texture.flipY = true;
 
-    var geometry = new THREE.PlaneBufferGeometry( 1.5, 1.5);
+    var geometry = new THREE.PlaneBufferGeometry( 2, 1.5);
 
     const vertexShader = document.getElementById("vertexShader").textContent;
     const fragmentShader = document.getElementById("fragmentShader").textContent;
