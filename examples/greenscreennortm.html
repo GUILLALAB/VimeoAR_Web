@@ -535,7 +535,6 @@ function setAds3DModel(link){
                 if(reticle!=null){
                 var position = new THREE.Vector3();
                 position.getPositionFromMatrix( reticle.matrixWorld);
-                chair.scale
                 chair.position.set(0.3 + position.x, position.y,0.2 + position.z);
 
               mixer= new THREE.AnimationMixer(chair);
