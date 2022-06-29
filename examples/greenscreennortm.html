@@ -361,22 +361,23 @@ if (Broadcaster.objecturl!=null){
   // video.id = 'video';
   // video.type = ' video/ogg; codecs="theora, vorbis" ';
 
-  if(isset==0){
-  
-    }else{
-  
+
+     if(mesh!=null){
        mesh.position.setFromMatrixPosition( reticle.matrix );
+      
+      }
     if(ads!=null){
     var position = new THREE.Vector3();
-     position.getPositionFromMatrix( mesh.matrixWorld);
+     position.getPositionFromMatrix( reticle.matrixWorld);
      ads.position.set(-0.05 + position.x, position.y, position.z);
     }
-    if(mesh!=null && chair!=null){
+
+    if(chair!=null){
                 var position = new THREE.Vector3();
-                position.getPositionFromMatrix( mesh.matrixWorld);
+                position.getPositionFromMatrix( reticle.matrixWorld);
                 chair.position.set(0.3 + position.x, position.y, position.z);
                 }
-    }
+    
 
   }
 
@@ -500,7 +501,6 @@ function createBroadcaster(streamId) {
 if(Broadcaster.objecturl!=null){
 //setAds3DModel();
 }
- isset=1;  
 }
 
 function connectStreamToVideo(agoraStream, video) {
