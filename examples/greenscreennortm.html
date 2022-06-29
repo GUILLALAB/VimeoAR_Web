@@ -138,8 +138,8 @@ li:hover {
              
           
               </div>
-              <a id="badgeButton" href="#" class="notification">
-                <span>Inbox</span>
+              <a hidden id="badgeButton" href="#" class="notification">
+                <span>3D objects</span>
                 <span id="object_badge" class="badge"></span>
               </a>
             </div> 	             
@@ -338,6 +338,8 @@ document.addEventListener("broadcastmodel", function(e) {
 if (Broadcaster.objecturl!=null){
   object_badge=(object_badge+1)-1;
   object_badges.textContent=object_badge;
+  badgeButton.setAttribute('hidden', 'false');
+
 }
 });
 
