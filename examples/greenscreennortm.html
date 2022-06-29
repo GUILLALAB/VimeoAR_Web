@@ -299,7 +299,6 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         object_badges = document.getElementById('object_badge');
 
          badgeButton = document.getElementById('badgeButton');
-        badgeButton.setAttribute('hidden', 'false');
 
         badgeButton.addEventListener("click", function(e) {
           setAds3DModel(Broadcaster.objecturl);
@@ -339,7 +338,6 @@ document.addEventListener("broadcastmodel", function(e) {
 if (Broadcaster.objecturl!=null){
   object_badge=(object_badge+1)-1;
   object_badges.textContent=object_badge;
-  badgeButton.setAttribute('hidden', 'true');
 }
 });
 
