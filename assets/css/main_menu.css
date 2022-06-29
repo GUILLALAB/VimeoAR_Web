@@ -2688,6 +2688,12 @@ input, select, textarea {
 		color: white;
 	}
 
+	header p .secondtitle{
+		position: relative;
+		margin: 0 0 1.5em 0;
+		color: rgb(0, 0, 0);
+	}
+
 		@media screen and (max-width: 736px) {
 
 			header p br {
