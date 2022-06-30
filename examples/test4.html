@@ -87,6 +87,11 @@ function Inventory(options) {
         options.items.forEach(function (item, index, array) {
             items.push(item);
             let itemEl = document.createElement("item");
+            const el = document.createElement('div');
+el.textContent = 'Hello world';
+el.setAttribute('title', 'my-title');
+itemEl.appendChild(el);
+
             itemEl.setAttribute("draggable", true);
             itemEl.style.background = item.color;
             //itemEl.style.width = 100 * item.w + "%";
