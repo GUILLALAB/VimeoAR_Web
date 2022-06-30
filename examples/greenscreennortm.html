@@ -342,7 +342,7 @@ document.addEventListener("broadcastmodel", function(e) {
  // alert(e.detail);
  Broadcaster.objecturl=e.detail;
 if (Broadcaster.objecturl!=null){
-  object_badge=(object_badge+1)-1;
+  object_badge=(object_badge+1);
   object_badges.textContent=object_badge;
 }
 });
@@ -525,6 +525,8 @@ function setAds3DModel(link){
   loadingBar.visible = true;
 
   if(link.includes("fbx")){
+     chair = new THREE.Object3D();
+
     const loader = new FBXLoader( );
         const self = this;
         // Load a glTF resource
@@ -533,9 +535,10 @@ function setAds3DModel(link){
             link,
             // called when the resource is loaded
             function ( gltf ) {
-                scene.add( gltf.scene );
              
                 chair = gltf.scene;
+                scene.add(chair);
+
                 chair.visible = false;
                 loadingBar.visible = false;
                 if(reticle!=null){
@@ -579,9 +582,10 @@ function setAds3DModel(link){
             link,
             // called when the resource is loaded
             function ( gltf ) {
-                scene.add( gltf.scene );
              
                 chair = gltf.scene;
+                scene.add( chair );
+
                 chair.visible = false;
                 loadingBar.visible = false;
                 if(reticle!=null){
