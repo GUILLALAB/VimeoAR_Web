@@ -85,7 +85,7 @@ window.onload = function(){
     var starSpace = new THREE.Geometry();
     for(var i=0; i<1000; i++){
       starSpace.vertices.push( new THREE.Vector3( 0.5 - Math.random(), 0.5 - Math.random(), 0.5 - Math.random() ).normalize().multiplyScalar(4000 + (2000 * Math.random())));
-      starSpace.colors.push(new THREE.Color( Math.random(), Math.random(), Math.random()));
+      starSpace.colors.push(new THREE.Color(0xFFFFFF));
       starPaths.push( { 'axis': new THREE.Vector3(0.5 - Math.random(), 0.5 - Math.random(), 0.5 - Math.random() ), 'speed' : 0.0015 * Math.random() } );
     }
     starCloud = new THREE.Points(
