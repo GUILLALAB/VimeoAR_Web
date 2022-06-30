@@ -40,7 +40,7 @@ window.onload = function(){
     
     function loadImage(ind){
       loader.load(
-        'https://www.flickr.com/photos/franck-guill/50844480083/' + ind + Date.now(),
+        'https://live.staticflickr.com/65535/50844480083_42fd2b39cd_b.jpg',
         function ( texture ) {
           var image = new THREE.Mesh(
             new THREE.PlaneGeometry(1024, 512), 
