@@ -300,6 +300,7 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
           );
          clock = new THREE.Clock();
 
+         loadAds();
 
         object_badges = document.getElementById('object_badge');
 
@@ -316,7 +317,6 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
  channelName=e.detail.channel;
 Timer();
 loadObject(e.detail.id);   
-loadAds();
 
 });
 
