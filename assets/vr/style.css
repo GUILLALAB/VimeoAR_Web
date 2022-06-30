@@ -59,8 +59,8 @@ html, body {
     right: 2rem;
     padding: 0.5rem;
     border-radius: 0.5rem;
-    color: magenta;
-    background: rgba(255, 0, 0, 0.5);
+    color: rgb(255, 255, 255);
+    background: rgba(13, 13, 13, 0.5);
     border: 1px solid white; }
     #instructions #close {
       text-align: right;
@@ -68,7 +68,7 @@ html, body {
       cursor: pointer; }
       #instructions #close .fa {
         border-radius: 0.25rem;
-        border: 1px solid blue;
+        border: 1px solid rgb(164, 164, 164);
         padding: 0; }
     #instructions .text {
       margin: 0.5rem 0;
@@ -80,7 +80,7 @@ html, body {
     right: 2rem;
     text-align: center;
     background: rgba(0, 255, 0, 0.5);
-    color: pink;
+    color: rgb(255, 255, 255);
     padding: 2rem 0.5rem 1rem;
     border-radius: 0.5rem;
     border: 1px solid white;
@@ -91,9 +91,9 @@ html, body {
       top: 0.5rem;
       right: 0.5rem;
       font-size: 1.5rem;
-      background: pink;
+      background: rgb(255, 255, 255);
       color: purple;
-      border: 1px solid magenta;
+      border: 1px solid rgb(255, 255, 255);
       border-radius: 0.5rem;
       padding: 0 0.5rem;
       cursor: pointer;
@@ -133,8 +133,8 @@ html, body {
       text-transform: uppercase;
       color: purple;
       font-weight: bold;
-      background: pink;
-      border: 1px solid purple;
+      background: rgb(255, 255, 255);
+      border: 1px solid rgb(255, 255, 255);
       border-radius: 0.5rem;
       box-shadow: none;
       cursor: pointer;
