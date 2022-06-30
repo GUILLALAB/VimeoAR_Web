@@ -37,9 +37,10 @@ window.onload = function(){
 
     //Load
     for(var i=0; i < numImages; i++){ loadImage(i); }
+    
     function loadImage(ind){
       loader.load(
-        'https://unsplash.it/1024/512/?random&nocache' + ind + Date.now(),
+        'https://www.flickr.com/photos/franck-guill/50844480083/',
         function ( texture ) {
           var image = new THREE.Mesh(
             new THREE.PlaneGeometry(1024, 512), 
