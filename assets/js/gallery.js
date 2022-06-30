@@ -29,8 +29,9 @@ window.onload = function(){
     loadingBar.style.width = 0 + '%';
     document.body.classList.remove('imagesLoaded');
 
-    var arrLiteral = ["https://live.staticflickr.com/65535/49665275726_1c30ecbfa7_b.jpg",
-     "https://live.staticflickr.com/65535/49665275726_1c30ecbfa7_b.jpg",
+    var arrLiteral = [
+      "https://live.staticflickr.com/65535/49665275726_1c30ecbfa7_b.jpg",
+     "https://live.staticflickr.com/4532/38192669192_c34a2736de_b.jpg",
       "https://live.staticflickr.com/65535/49662749712_973f24e77a_b.jpg",
       "https://live.staticflickr.com/4811/45990144472_390638b8f9_b.jpg",
       "https://live.staticflickr.com/1870/30809868338_91e5c2ef02_b.jpg",
