@@ -553,9 +553,11 @@ function displayObject(imageUrl) {
 
 function displayAds(imageUrl) {
   //var image = document.getElementById('ads');
+  if(imageUrl.includes(LOADING_IMAGE_URL)){
+  }else{
   var event = new CustomEvent("models", { "detail": imageUrl + '&' + new Date().getTime() });
   document.dispatchEvent(event);
-
+  }
   //Ads.link = imageUrl + '&' + new Date().getTime();
 }
 // Enables or disables the submit button depending on the values of the input
