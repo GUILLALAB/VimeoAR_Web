@@ -472,19 +472,32 @@ import { getAuth,
   function Inventory(options) {
       // Setup Rows and Items
       this.init = function (options) {
-          let slotSizeW = options.size.w / options.slots.w;
-          let slotSizeH = options.size.h / options.slots.h;
+
+    var selector= document.querySelector("inventory");
+     var sizew= 600; var sizeh= 150;
+      var slotsw= 8; var slotsh= 2 ;
+     var items= [
+          { x: 0, y: 0, w: 1, h: 1, content: "1x1", color: "#ffd54f" },
+      { x: 0, y: 1, w: 1, h: 1, content: "1x1", color: "#ffd54f" },
   
-          this.html = { inventory: options.selector };
+          { x: 0, y: 2, w: 1, h: 1, content: "1x1", color: "#66bb6a" },
+          { x: 0, y: 3, w: 1, h: 1, content: "1x1", color: "#e53835" }
+      ]
+
+
+          let slotSizeW = sizew / slotsw;
+          let slotSizeH = sizeh / slotsh;
+  
+          this.html = { inventory: selector };
   
           // Build grid
           let grid = document.createElement("grid");
-          grid.style.width = options.size.w + "px";
-          grid.style.height = options.size.h + "px";
-          grid.style.gridTemplateColumns = "1fr ".repeat(options.slots.w);
-          grid.style.gridTemplateRows = "1fr".repeat(options.slots.h);
+          grid.style.width = sizew + "px";
+          grid.style.height = sizeh + "px";
+          grid.style.gridTemplateColumns = "1fr ".repeat(slotsw);
+          grid.style.gridTemplateRows = "1fr".repeat(slotsh);
           grid.cells = [];
-          for (var i = 0; i < options.slots.w * options.slots.h; i++) {
+          for (var i = 0; i < slots.w * slotsh; i++) {
               var cell = document.createElement("cell");
               cell.style.width = slotSizeW + "px";
               cell.style.height = slotSizeH + "px";
@@ -496,7 +509,7 @@ import { getAuth,
   
           // Add all items
           let items = [];
-          options.items.forEach(function (item, index, array) {
+          items.forEach(function (item, index, array) {
               items.push(item);
               let itemEl = document.createElement("item");
               const el = document.createElement('div');
@@ -512,7 +525,7 @@ import { getAuth,
               itemEl.style.width = "calc((100% + 6px) * " + item.w + " - 4.9px)";
               itemEl.style.height =  "calc((100% + 6px) * " + item.h + " - 4.9px)";
   
-              grid.cells[options.slots.w * item.x + item.y].appendChild(itemEl);
+              grid.cells[slotsw * item.x + item.y].appendChild(itemEl);
           });
           this.html.items = items;
   
@@ -563,16 +576,7 @@ import { getAuth,
   }
   
   var inventory = new Inventory({
-      selector: document.querySelector("inventory"),
-      size: { w: 600, h: 150 },
-      slots: { w: 8, h: 2 },
-      items: [
-          { x: 0, y: 0, w: 1, h: 1, content: "1x1", color: "#ffd54f" },
-      { x: 0, y: 1, w: 1, h: 1, content: "1x1", color: "#ffd54f" },
-  
-          { x: 0, y: 2, w: 1, h: 1, content: "1x1", color: "#66bb6a" },
-          { x: 0, y: 3, w: 1, h: 1, content: "1x1", color: "#e53835" }
-      ]
+ 
   });
 
 
