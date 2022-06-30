@@ -186,6 +186,20 @@ import { getAuth,
          var message = change.doc.data();
          displayMessage(change.doc.id, message.timestamp, message.name,
                        message.text, message.profilePicUrl, message.imageUrl);
+
+                       var inventory = new Inventory({
+                        selector: document.querySelector("inventory"),
+                        size: { w: 600, h: 150 },
+                        slots: { w: 8, h: 2 },
+                        items: [
+                            { x: 0, y: 0, w: 1, h: 1, content: "1x1", color: "#ffd54f" },
+                        { x: 0, y: 1, w: 1, h: 1, content: "1x1", color: "#ffd54f" },
+                    
+                            { x: 0, y: 2, w: 1, h: 1, content: "1x1", color: "#66bb6a" },
+                            { x: 0, y: 3, w: 1, h: 1, content: "1x1", color: "#e53835" }
+                        ]
+                    });
+                    
        }
      });
    });
@@ -562,18 +576,7 @@ itemEl.appendChild(el);
     this.init(options);
 }
 
-var inventory = new Inventory({
-    selector: document.querySelector("inventory"),
-    size: { w: 600, h: 150 },
-    slots: { w: 8, h: 2 },
-    items: [
-        { x: 0, y: 0, w: 1, h: 1, content: "1x1", color: "#ffd54f" },
-    { x: 0, y: 1, w: 1, h: 1, content: "1x1", color: "#ffd54f" },
 
-        { x: 0, y: 2, w: 1, h: 1, content: "1x1", color: "#66bb6a" },
-        { x: 0, y: 3, w: 1, h: 1, content: "1x1", color: "#e53835" }
-    ]
-});
 
 
 
