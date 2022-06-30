@@ -1,0 +1,208 @@
+html,body{
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    font-family: Droid, arial, sans-serif;
+  }
+  
+  canvas{
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #bullseye{
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    color: #fff;
+    font-size: 6rem;
+    margin-top: -3rem;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+  
+    .mouseDown &,
+    .keyDown &{
+      opacity: 0.5;  
+    }
+  }
+  
+  #spinner{
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    color: #fff;
+    text-align: center;
+    pointer-events: none;
+    transition: opacity 0.4s;
+  
+    .imagesLoaded &{
+      opacity: 0;
+    }
+  
+    .fa{
+      font-size: 10rem;
+      margin-top: -5rem;
+      opacity: 0.4;
+    }
+  
+    #loading{
+      display: inline-block;
+      width: 20rem;
+      background: rgba(255,555,255,0.4);
+      padding: 0.25rem;
+      margin-top: 4rem;
+      border-radius:  0.5rem;
+      border: 1px solid white;
+    }
+  
+    #loadingBar{
+      background: MidnightBlue;
+      height: 1rem;
+      width: 0%;
+      border-radius:  0.5rem;
+    }
+  }
+  
+  #instructions{
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    color: magenta;
+    background: rgba(255,0,0,0.5);
+    border: 1px solid white;
+  
+    #close{
+      text-align: right;
+      font-size: 1.75rem;
+      cursor: pointer;
+  
+      .fa{
+          border-radius: 0.25rem;
+          border: 1px solid blue;
+          padding: 0;
+      }
+    }
+  
+    .text{
+      margin: 0.5rem 0;
+      font-size: 1.2rem;
+    }
+  }
+  
+  #controls{
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    text-align: center;
+    background: rgba(0,255,0,0.5);
+    color: pink;
+    padding: 2rem 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid white;
+    font-size: 1.25rem;
+    transition: all 0.4s;
+  
+    #minMax{
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      font-size: 1.5rem;
+      background: pink;
+      color: purple;
+      border: 1px solid magenta;
+      border-radius: 0.5rem;
+      padding: 0 0.5rem;
+      cursor: pointer;
+      transition: all 0.4s;
+    }
+  
+    input[type="range"]{
+      display: inline-block;;
+      cursor: pointer;
+      width: 100%;
+      margin: 0.25rem 0 0;
+      padding: 0;
+    }
+  
+    .rangeDiv{
+      position: relative;
+      width: 100%;
+      width: 100%;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.5);
+      transition: all 0.4s;
+  
+      &:first-child{
+        margin-top: 1rem;
+      }
+  
+      .left{
+        float: left;
+        font-size: 1rem;
+      }
+  
+      .right{
+        float: right;
+        font-size: 1rem;
+      }
+  
+      .label{
+        position: absolute;
+        top: -0.25rem;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+      }
+    }
+  
+    #loadImages{
+      display: block;
+      padding: 0.5rem;
+      text-transform: uppercase;
+      color: purple;
+      font-weight: bold;
+      background: pink;
+      border: 1px solid purple;
+      border-radius: 0.5rem;
+      box-shadow: none;
+      cursor: pointer;
+      margin-top: 1rem;
+      width: 100%;
+      font-size: 1.25rem;
+      transition: all 0.4s;
+    }
+  
+    &.hidden{
+      background: transparent;
+      border-color: transparent;
+      
+      #minMax{
+        background: rgba(255, 192, 203, 0.5);
+        color: pink;
+  
+        .fa{
+          -ms-transform: rotate(180deg); /* IE 9 */
+          -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+          transform: rotate(180deg);
+        }
+      }
+      
+      .rangeDiv,
+      #loadImages{
+        height: 0;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        opacity: 0;
+      }
+    }
+  }
