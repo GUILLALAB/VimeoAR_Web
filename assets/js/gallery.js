@@ -58,7 +58,7 @@ window.onload = function(){
         arrLiteral[i],
         function ( texture ) {
           var image = new THREE.Mesh(
-            new THREE.PlaneGeometry(1024, 512), 
+            new THREE.PlaneGeometry(1020, 512), 
             new THREE.MeshBasicMaterial({ map: texture })
           );
           image.minFilter = THREE.LinearFilter;
