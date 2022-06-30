@@ -544,8 +544,11 @@ function displayObject(imageUrl) {
   // Object.link=imageUrl + '&' + new Date().getTime();
   // Broadcaster.objecturl = imageUrl + '&' + new Date().getTime();
   console.log(imageUrl + '&' + new Date().getTime());
-  var event = new CustomEvent("broadcastmodel", { "detail": imageUrl + '&' + new Date().getTime() });
-  document.dispatchEvent(event);
+  if(imageUrl.includes(LOADING_IMAGE_URL)){
+  }else{
+    var event = new CustomEvent("broadcastmodel", { "detail": imageUrl + '&' + new Date().getTime() });
+    document.dispatchEvent(event);
+  }
 }
 
 function displayAds(imageUrl) {
