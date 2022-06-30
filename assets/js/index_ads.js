@@ -508,7 +508,6 @@ import { getAuth,
           this.html.inventory.appendChild(this.html.grid);
   
           // Add all items
-          let items = [];
           items.forEach(function (item, index, array) {
               items.push(item);
               let itemEl = document.createElement("item");
