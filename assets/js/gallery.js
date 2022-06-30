@@ -50,7 +50,7 @@ window.onload = function(){
     if( camera.position.length() > galleryRadius ){ camera.position.set(0,0,0); }
 
     //Load
-    for(var i=0; i < numImages; i++){ loadImage(i); }
+    for(var i=0; i < arrLiteral.length; i++){ loadImage(i); }
     
     function loadImage(ind){
       loader.load(
