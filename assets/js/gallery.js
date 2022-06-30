@@ -29,8 +29,22 @@ window.onload = function(){
     loadingBar.style.width = 0 + '%';
     document.body.classList.remove('imagesLoaded');
 
+    var arrLiteral = ["https://live.staticflickr.com/65535/49665275726_1c30ecbfa7_b.jpg",
+     "https://live.staticflickr.com/65535/49665275726_1c30ecbfa7_b.jpg",
+      "https://live.staticflickr.com/65535/49662749712_973f24e77a_b.jpg",
+      "https://live.staticflickr.com/4811/45990144472_390638b8f9_b.jpg",
+      "https://live.staticflickr.com/1870/30809868338_91e5c2ef02_b.jpg",
+      "https://live.staticflickr.com/4470/38194638566_5ce6bc0e9c_b.jpg",
+      "https://live.staticflickr.com/4135/34900727553_fb4f523294_b.jpg",
+      "https://live.staticflickr.com/1472/24151374099_d8fdcbc68c_b.jpg",
+      "https://live.staticflickr.com/4572/37641706604_dd62e87104_b.jpg",
+      "https://live.staticflickr.com/5587/14878002560_f9e0d079ab_b.jpg",
+      "https://live.staticflickr.com/2900/14310248658_8c87d807c4_b.jpg",
+    "https://live.staticflickr.com/2818/13757207994_bca81d83a2_b.jpg"]; // array literal
+
     //Preload
     numImages = 1 * ( document.getElementById('numImages').value || 12 );
+    numImages=arrLiteral.length;
     galleryRadius = 1024 * numImages / Math.PI / 1.8;
     var galleryPhi = 2 * Math.PI / numImages;
     if( camera.position.length() > galleryRadius ){ camera.position.set(0,0,0); }
