@@ -88,7 +88,7 @@ function Inventory(options) {
             items.push(item);
             let itemEl = document.createElement("item");
             const el = document.createElement('div');
-el.textContent = index;
+el.textContent = 'Hello world';
 el.setAttribute('title', 'my-title');
 itemEl.appendChild(el);
 
@@ -156,10 +156,10 @@ var inventory = new Inventory({
     slots: { w: 8, h: 2 },
     items: [
         { x: 0, y: 0, w: 1, h: 1, content: "1x1", color: "#ffd54f" },
-		{ x: 0, y: 3, w: 1, h: 1, content: "1x1", color: "#ffd54f" },
+		{ x: 0, y: 1, w: 1, h: 1, content: "1x1", color: "#ffd54f" },
 
-        { x: 1, y: 4, w: 1, h: 1, content: "1x1", color: "#66bb6a" },
-        { x: 1, y: 2, w: 1, h: 1, content: "1x1", color: "#e53935" }
+        { x: 0, y: 2, w: 1, h: 1, content: "1x1", color: "#66bb6a" },
+        { x: 0, y: 3, w: 1, h: 1, content: "1x1", color: "#e53835" }
     ]
 });
 
