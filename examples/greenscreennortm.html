@@ -194,6 +194,9 @@ li:hover {
     <script type="module">
 import * as THREE from './jsm/three.module.js';
 import { GLTFLoader } from './jsm/GLTFLoader.js';
+
+import { FBXLoader } from './jsm/FBXLoader.js';
+
     import { LoadingBar } from './jsm/LoadingBar.js';
     import { ARButton } from './jsm/webxr/ARButton.js';
     import {Ads, loadAds,loadObject,Object,Broadcaster} from './js/index_greenscreen.js';
@@ -521,7 +524,8 @@ function connectStreamToVideo(agoraStream, video) {
 function setAds3DModel(link){
   loadingBar.visible = true;
 
-  const loader = new GLTFLoader( );
+  if(link.includes("fbx")){
+    const loader = new FBXLoader( );
         const self = this;
         // Load a glTF resource
         loader.load(
@@ -546,10 +550,7 @@ function setAds3DModel(link){
               clips.forEach( function ( clip ) {
 	mixer.clipAction( clip ).play();
 } );
-              
 
-         
-              
                 }
                 chair.visible = true;
                 renderer.setAnimationLoop(render.bind(this) );
@@ -569,6 +570,55 @@ function setAds3DModel(link){
 
             }
         );
+  }else if(link.includes("glb")){
+    const loader = new GLTFLoader( );
+        const self = this;
+        // Load a glTF resource
+        loader.load(
+            // resource URL
+            link,
+            // called when the resource is loaded
+            function ( gltf ) {
+                scene.add( gltf.scene );
+             
+                chair = gltf.scene;
+                chair.visible = false;
+                loadingBar.visible = false;
+                if(reticle!=null){
+                var position = new THREE.Vector3();
+                position.getPositionFromMatrix( reticle.matrixWorld);
+                chair.position.set(0.3 + position.x, position.y,0.2 + position.z);
+
+                mixer= new THREE.AnimationMixer(chair);
+                const clips= gltf.animations; // second animation;
+              const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
+            //  mixer.clipAction( clip).play();
+              clips.forEach( function ( clip ) {
+	mixer.clipAction( clip ).play();
+} );
+
+                }
+                chair.visible = true;
+                renderer.setAnimationLoop(render.bind(this) );
+            },
+            // called while loading is progressing
+            function ( xhr ) {
+
+                loadingBar.progress = (xhr.loaded / xhr.total);
+                
+            },
+            // called when loading has errors
+            function ( error ) {
+
+                console.log( 'An error happened' );
+                loadingBar.visible = false;
+
+
+            }
+        );
+
+  }
+
 
 }
 function InitClient(){

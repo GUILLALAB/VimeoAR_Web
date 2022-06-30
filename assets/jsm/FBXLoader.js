@@ -41,7 +41,7 @@ import {
 	Vector4,
 	VectorKeyframeTrack,
 	sRGBEncoding
-} from '../three.module.js';
+} from './three.module.js';
 import * as fflate from './fflate.module.min.js';
 import { NURBSCurve } from './NURBSCurve.js';
 
