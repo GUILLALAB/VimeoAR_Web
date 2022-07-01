@@ -56,57 +56,6 @@
 		</style>
 	</head>
 	<body>
-		<header hidden class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
-			<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
-			  <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-				<h3><i class="material-icons"></i>Ads Manager</h3>
-			  </div>
-			  <div id="user-container">
-				<div hidden id="user-pic"></div>
-				<div hidden id="user-name"></div>
-				<button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-				  Sign-out
-				</button>
-				<button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-				  <i class="material-icons"></i>Sign-in
-				</button>
-			  </div>
-			</div>
-		  </header>
-
-		  <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
-			<h2>Diffuse Image or 3D Models Ads</h2>
-		
-			<!-- Messages container -->
-			<div id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
-			  <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-				<div id="messages">
-				</div>
-				<form id="message-form" action="#">
-				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<input class="mdl-textfield__input" type="text" id="message" autocomplete="off">
-					<label class="mdl-textfield__label" for="message">Message...</label>
-				  </div>
-				  <button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-					Send
-				  </button>
-				</form>
-				<form id="image-form" action="#">
-				  <input id="mediaCapture" type="file" accept="image/*, .glb">
-				<!--   <input id="mediaCapture" type="file" accept="image/*" capture="camera">-->
-				  <button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
-					<i class="material-icons">image</i>
-				  </button>
-				</form>
-			  </div>
-			</div>
-		
-			<div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
-			  <div class="mdl-snackbar__text"></div>
-			  <button class="mdl-snackbar__action" type="button"></button>
-			</div>
-		
-		  </div>
 
 		<canvas id="c"></canvas>
 
@@ -130,8 +79,6 @@
 
 import * as THREE from './jsm/three.module.js';
 			import { OrbitControls } from './jsm/OrbitControls.js';
-    import {Ads, loadAds} from './js/index_ads.js';
-	import { GLTFLoader } from './jsm/GLTFLoader.js';
 
 
 			let canvas, renderer;
@@ -141,16 +88,8 @@ import * as THREE from './jsm/three.module.js';
 			init();
 			animate();
 
-			document.addEventListener("models", function(e) {
- // alert(e.detail);
-Ads.link=e.detail;
-if (Ads.link!=null && Ads.link.includes("glb")){
-  setAds3DModel(Ads.link);
-}
-});
-
 			function init() {
-                loadAds();
+
 				canvas = document.getElementById( "c" );
 
 				const geometries = [
@@ -160,86 +99,68 @@ if (Ads.link!=null && Ads.link.includes("glb")){
 					new THREE.CylinderGeometry( 0.5, 0.5, 1, 12 )
 				];
 
+				const content = document.getElementById( 'content' );
+
+				for ( let i = 0; i < 40; i ++ ) {
+
+					const scene = new THREE.Scene();
+
+					// make a list item
+					const element = document.createElement( 'div' );
+					element.className = 'list-item';
+
+					const sceneElement = document.createElement( 'div' );
+					element.appendChild( sceneElement );
+
+					const descriptionElement = document.createElement( 'div' );
+					descriptionElement.innerText = 'Scene ' + ( i + 1 );
+					element.appendChild( descriptionElement );
+
+					// the element that represents the area we want to render the scene
+					scene.userData.element = sceneElement;
+					content.appendChild( element );
+
+					const camera = new THREE.PerspectiveCamera( 50, 1, 1, 10 );
+					camera.position.z = 2;
+					scene.userData.camera = camera;
+
+					const controls = new OrbitControls( scene.userData.camera, scene.userData.element );
+					controls.minDistance = 2;
+					controls.maxDistance = 5;
+					controls.enablePan = false;
+					controls.enableZoom = false;
+					scene.userData.controls = controls;
+
+					// add one random mesh to each scene
+					const geometry = geometries[ geometries.length * Math.random() | 0 ];
+
+					const material = new THREE.MeshStandardMaterial( {
+
+						color: new THREE.Color().setHSL( Math.random(), 1, 0.75 ),
+						roughness: 0.5,
+						metalness: 0,
+						flatShading: true
+
+					} );
+
+					scene.add( new THREE.Mesh( geometry, material ) );
+
+					scene.add( new THREE.HemisphereLight( 0xaaaaaa, 0x444444 ) );
+
+					const light = new THREE.DirectionalLight( 0xffffff, 0.5 );
+					light.position.set( 1, 1, 1 );
+					scene.add( light );
+
+					scenes.push( scene );
+
+				}
+
 
 				renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true } );
 				renderer.setClearColor( 0xffffff, 1 );
 				renderer.setPixelRatio( window.devicePixelRatio );
 
 			}
-
-			function setAds3DModel(link){
-    const loader = new GLTFLoader( );
-        const self = this;
-        // Load a glTF resource
-        loader.load(
-            // resource URL
-            link,
-            // called when the resource is loaded
-            function ( gltf ) {
-
-				const content = document.getElementById( 'content' );
-
-
-				const scene = new THREE.Scene();
-
-// make a list item
-const element = document.createElement( 'div' );
-element.className = 'list-item';
-
-const sceneElement = document.createElement( 'div' );
-element.appendChild( sceneElement );
-
-const descriptionElement = document.createElement( 'div' );
-descriptionElement.innerText = 'Scene ' + ( 1 + 1 );
-element.appendChild( descriptionElement );
-
-// the element that represents the area we want to render the scene
-scene.userData.element = sceneElement;
-content.appendChild( element );
-
-const camera = new THREE.PerspectiveCamera( 50, 1, 1, 10 );
-camera.position.z = 2;
-scene.userData.camera = camera;
-
-const controls = new OrbitControls( scene.userData.camera, scene.userData.element );
-controls.minDistance = 2;
-controls.maxDistance = 5;
-controls.enablePan = false;
-controls.enableZoom = false;
-scene.userData.controls = controls;
-
-
-
-scene.add( new THREE.HemisphereLight( 0xaaaaaa, 0x444444 ) );
-
-const light = new THREE.DirectionalLight( 0xffffff, 0.5 );
-light.position.set( 1, 1, 1 );
-scene.add( light );
-scene.add( gltf.scene );
-
-scenes.push( scene );
-
-
-            },
-            // called while loading is progressing
-            function ( xhr ) {
-
-                
-            },
-            // called when loading has errors
-            function ( error ) {
-
-                console.log( error );
-
-
-            }
-        );
-
-  
-
-
-}
-
 
 			function updateSize() {
 
@@ -317,7 +238,6 @@ scenes.push( scene );
 			}
 
 		</script>
-<script type="module" src="/js/index_ads.js"></script>
 
 	</body>
 </html>
