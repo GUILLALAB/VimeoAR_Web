@@ -577,8 +577,36 @@ import { getAuth,
   });
   }
 
-
- 
+  export function loadAds() {
+    // Create the query to load the last 12 messages and listen for new ones.
+    Ads.link = null;
+    const recentMessagesQuery = query(collection(getFirestore(), 'ads'), orderBy('timestamp', 'desc'), limit(12));
+  
+    // Start listening to the query.
+    onSnapshot(recentMessagesQuery, function (snapshot) {
+      snapshot.docChanges().forEach(function (change) {
+  
+        var message = change.doc.data();
+        displayAds(message.imageUrl);
+  
+  
+      });
+    });
+  }
+  
+  export var Ads =
+  {
+    link: null
+  };
+  function displayAds(imageUrl) {
+    //var image = document.getElementById('ads');
+    if(imageUrl.includes(LOADING_IMAGE_URL)){
+    }else{
+    var event = new CustomEvent("models", { "detail": imageUrl + '&' + new Date().getTime() });
+    document.dispatchEvent(event);
+    }
+    //Ads.link = imageUrl + '&' + new Date().getTime();
+  }
  // Shortcuts to DOM Elements.
  var messageListElement = document.getElementById('messages');
  var messageFormElement = document.getElementById('message-form');

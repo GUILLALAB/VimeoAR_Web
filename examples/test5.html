@@ -56,6 +56,23 @@
 		</style>
 	</head>
 	<body>
+		<header hidden class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
+			<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
+			  <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
+				<h3><i class="material-icons"></i>Ads Manager</h3>
+			  </div>
+			  <div id="user-container">
+				<div hidden id="user-pic"></div>
+				<div hidden id="user-name"></div>
+				<button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+				  Sign-out
+				</button>
+				<button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+				  <i class="material-icons"></i>Sign-in
+				</button>
+			  </div>
+			</div>
+		  </header>
 
 		<canvas id="c"></canvas>
 
@@ -79,7 +96,7 @@
 
 import * as THREE from './jsm/three.module.js';
 			import { OrbitControls } from './jsm/OrbitControls.js';
-    import {Ads, loadAds,loadObject,Object,Broadcaster} from './js/index_greenscreen.js';
+    import {Ads, loadAds} from './js/index_ads.js';
 
 
 			let canvas, renderer;
@@ -239,6 +256,7 @@ import * as THREE from './jsm/three.module.js';
 			}
 
 		</script>
+<script type="module" src="/js/index_ads.js"></script>
 
 	</body>
 </html>
