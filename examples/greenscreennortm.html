@@ -532,9 +532,26 @@ function setAds3DModel(link){
             link,
             // called when the resource is loaded
             function ( gltf ) {
+
+              
                 scene.add( gltf.scene );
              
                 chair = gltf.scene;
+
+                chair.traverse((node) => {
+      // search the mesh's children for the face-geo
+      if (node.isMesh && node.name == 'face-geo') {
+        // create video texture from video element
+        var texture = new THREE.TextureLoader().load("112097.jpg");
+        texture.minFilter = THREE.LinearFilter; 
+        texture.magFilter = THREE.LinearFilter; 
+        texture.flipY = false;
+        node.material.map = texture;
+        node.material.color = new THREE.Color();
+        node.material.metalness = 0;
+      }
+    });
+    
                 chair.visible = false;
                 loadingBar.visible = false;
                 if(reticle!=null){
