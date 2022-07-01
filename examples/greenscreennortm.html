@@ -299,6 +299,7 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
         document.body.appendChild( ARButton.createButton(renderer, { requiredFeatures: ['hit-test'], optionalFeatures: [ 'dom-overlay', 'dom-overlay-for-handheld-ar' ], domOverlay: { root: document.body } } )
           );
          clock = new THREE.Clock();
+         loadAds();
 
 
         object_badges = document.getElementById('object_badge');
@@ -316,7 +317,6 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
  channelName=e.detail.channel;
 Timer();
 loadObject(e.detail.id);   
-loadAds();
 
 });
 
