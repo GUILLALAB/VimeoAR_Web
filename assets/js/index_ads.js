@@ -640,4 +640,4 @@ import { getAuth,
 const firebaseApp = initializeApp(getFirebaseConfig());
 getPerformance();
 initFirebaseAuth();
-loadMessages();
+//loadMessages();
