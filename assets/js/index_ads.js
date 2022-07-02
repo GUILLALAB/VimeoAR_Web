@@ -580,7 +580,7 @@ import { getAuth,
   export function loadAds() {
     // Create the query to load the last 12 messages and listen for new ones.
     Ads.link = null;
-    const recentMessagesQuery = query(collection(getFirestore(), 'ads'), orderBy('timestamp', 'desc'), limit(1));
+    const recentMessagesQuery = query(collection(getFirestore(), 'ads'), orderBy('timestamp', 'desc'), limit(12));
   
     // Start listening to the query.
     onSnapshot(recentMessagesQuery, function (snapshot) {
