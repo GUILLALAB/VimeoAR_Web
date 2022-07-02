@@ -346,7 +346,7 @@ import { getAuth,
      message: 'You must sign-in first',
      timeout: 2000
    };
-   signInSnackbarElement.MaterialSnackbar.showSnackbar(data);
+   // signInSnackbarElement.MaterialSnackbar.showSnackbar(data);
    return false;
  }
  
