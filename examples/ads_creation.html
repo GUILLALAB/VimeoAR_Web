@@ -74,15 +74,7 @@
 			</div>
 		  </header>
 
-		 
-
-		<canvas id="c"></canvas>
-
-		<div id="content">
-			<div id="info"><a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - multiple elements - webgl</div>
-		</div>
-
-		<div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
+		  <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
 			<h2>Diffuse Image or 3D Models Ads</h2>
 		
 			<!-- Messages container -->
@@ -115,6 +107,13 @@
 			</div>
 		
 		  </div>
+
+		<canvas id="c"></canvas>
+
+		<div id="content">
+			<div id="info"><a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - multiple elements - webgl</div>
+		</div>
+
 		<!-- Import maps polyfill -->
 		<!-- Remove this when import maps will be widely supported -->
 		<script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
@@ -174,7 +173,7 @@ if (Ads.link.imageUrl!=null && Ads.link.imageUrl.includes("glb")){
         // Load a glTF resource
         loader.load(
             // resource URL
-            link.imageUrl,
+            link.imageUrl + '&' + new Date().getTime(),
             // called when the resource is loaded
             function ( gltf ) {
 

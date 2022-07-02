@@ -598,13 +598,12 @@ import { getAuth,
   {
     link: null
   };
-  function displayAds(imageUrl) {
+  function displayAds(Url) {
     //var image = document.getElementById('ads');
-    if(imageUrl.includes(LOADING_IMAGE_URL)){
+    if(Url.imageUrl.includes(LOADING_IMAGE_URL)){
     }else{
-    var event = new CustomEvent("models", { "detail": imageUrl});
+    var event = new CustomEvent("models", { "detail": Url });
     document.dispatchEvent(event);
-    
     }
     //Ads.link = imageUrl + '&' + new Date().getTime();
   }
