@@ -145,7 +145,7 @@ import * as THREE from './jsm/three.module.js';
 			document.addEventListener("models", function(e) {
  // alert(e.detail);
 Ads.link=e.detail;
-if (Ads.link!=null && Ads.link.includes("glb")){
+if (Ads.link.imageUrl!=null && Ads.link.imageUrl.includes("glb")){
   setAds3DModel(Ads.link);
 }
 });
@@ -174,7 +174,7 @@ if (Ads.link!=null && Ads.link.includes("glb")){
         // Load a glTF resource
         loader.load(
             // resource URL
-            link,
+            link.imageUrl,
             // called when the resource is loaded
             function ( gltf ) {
 

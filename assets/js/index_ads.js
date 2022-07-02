@@ -587,7 +587,7 @@ import { getAuth,
       snapshot.docChanges().forEach(function (change) {
   
         var message = change.doc.data();
-        displayAds(message.imageUrl);
+        displayAds(message);
   
   
       });
@@ -602,8 +602,9 @@ import { getAuth,
     //var image = document.getElementById('ads');
     if(imageUrl.includes(LOADING_IMAGE_URL)){
     }else{
-    var event = new CustomEvent("models", { "detail": imageUrl + '&' + new Date().getTime() });
+    var event = new CustomEvent("models", { "detail": imageUrl});
     document.dispatchEvent(event);
+    
     }
     //Ads.link = imageUrl + '&' + new Date().getTime();
   }
