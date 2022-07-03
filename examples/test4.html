@@ -21,7 +21,7 @@
 			document.body.appendChild( renderer.domElement );
 
 
-			const planeGeometry = new THREE.PlaneBufferGeometry(2000, 2000, 8, 8);
+			const planeGeometry = new THREE.PlaneBufferGeometry(500, 500, 8, 8);
 			const planeMaterial = new THREE.MeshPhongMaterial( { color: 0xcccccc } );
 			const plane = new THREE.Mesh( planeGeometry, planeMaterial );
 			plane.rotateX( -Math.PI / 2);
