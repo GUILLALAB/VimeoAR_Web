@@ -19,11 +19,21 @@
     <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
 		<script type="module">
         
+        import * as THREE from './jsm/three.module.js';
+			import { OrbitControls } from './jsm/OrbitControls.js';
+    import {Ads, loadAds} from './js/index_ads.js';
+	import { GLTFLoader } from './jsm/GLTFLoader.js';
+
         let controls, clickMouse,
   moveMouse,
   raycaster,
   draggableObject;
     var descriptionElement;
+
+    init();
+    animate();
+
+    function init(){
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.z = 5;
@@ -78,8 +88,7 @@ content.appendChild( descriptionElement );
 
         const ambientLight = new THREE.AmbientLight(0x444444);
         scene.add(ambientLight);
-
-
+    }
      
         const animate = function () {
             controls.update();
@@ -94,7 +103,6 @@ content.appendChild( descriptionElement );
             renderer.render(scene, camera);
         };
 
-        animate();
 
         function dragObject() {
   // If 'holding' an object, move the object
