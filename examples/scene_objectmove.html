@@ -67,14 +67,14 @@
   <div id="content">
   </div>
 
-    <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
     
 		<script type="module">
         
-        import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.121.1/build/three.module.js";
 import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/loaders/GLTFLoader.js";		
     import {Ads, loadAds} from './js/index_ads.js';
-  
+    import * as THREE from './jsm/three.module.js';
+			import { OrbitControls } from './jsm/OrbitControls.js';
+
         let controls, clickMouse,
   moveMouse,
   raycaster,
