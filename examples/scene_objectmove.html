@@ -78,7 +78,7 @@
   raycaster,
   draggableObject;
     var descriptionElement;
-
+    var importedObject=null;
     document.addEventListener("models", function(e) {
  // alert(e.detail);
 Ads.link=e.detail;
@@ -170,16 +170,14 @@ content.appendChild( descriptionElement );
             link.imageUrl + '&' + new Date().getTime(),
             // called when the resource is loaded
             function ( gltf ) {
+              importedObject=gltf.scene;
+              importedObject.scale.set(1.0,1.0,1.0);
+              importedObject.position.set( 0, 0, 0 );
+              importedObject.name = 'model';
 
-	
-
-              gltf.scene.scale.set(1.0,1.0,1.0);
-gltf.scene.position.set( 0, 0, 0 );
-
-gltf.scene.castShadow = true; //default is false
-gltf.scene.isDraggable = true;
-scene.add( gltf.scene );
-
+              importedObject.castShadow = true; //default is false
+              importedObject.isDraggable = true;
+scene.add( importedObject );
 
 
 
