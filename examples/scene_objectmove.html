@@ -156,8 +156,10 @@ content.appendChild( descriptionElement );
         descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
             renderer.render(scene, camera);
         };
-        animate();
+
         loadLastAds();
+
+        animate();
 
         function setAds3DModel(link){
     const loader = new GLTFLoader( );
