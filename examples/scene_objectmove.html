@@ -55,6 +55,12 @@ content.appendChild( descriptionElement );
         cube.isDraggable = true;
         scene.add(cube);
 
+        const geo =  new THREE.SphereGeometry( 0.5, 12, 8 );
+        const mat = new THREE.MeshPhongMaterial({ color: 0xff00ff });
+        const sphere = new THREE.Mesh(geo, mat);
+        sphere.castShadow = true; //default is false
+        sphere.isDraggable = true;
+        scene.add(sphere);
         // CAMERA MOVEMENT CONTROLS
   controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
