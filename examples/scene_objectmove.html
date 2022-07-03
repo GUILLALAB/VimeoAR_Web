@@ -82,7 +82,9 @@ content.appendChild( descriptionElement );
             cube.rotation.x += 0.01;
             cube.rotation.y += 0.007;
 
-      
+        var position = new THREE.Vector3();
+        position.setFromMatrixPosition(cube.matrixWorld);
+        descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
             renderer.render(scene, camera);
         };
 
@@ -99,10 +101,6 @@ content.appendChild( descriptionElement );
         if (!obj3d.object.isDraggablee) {
           draggableObject.position.x = obj3d.point.x;
           draggableObject.position.z = obj3d.point.z;
-          var position = new THREE.Vector3();
-        position.setFromMatrixPosition(cube.matrixWorld);
-        descriptionElement= position.x + ',' + position.y + ',' + position.z;
-        
           break;
         }
       }
