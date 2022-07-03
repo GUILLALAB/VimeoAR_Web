@@ -49,7 +49,7 @@
         scene.add(cube);
 
         // CAMERA MOVEMENT CONTROLS
-  controls = new OrbitControls(camera, renderer.domElement);
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.target.set(0, 55, 0);
   controls.enableDamping = true;
   controls.update();
