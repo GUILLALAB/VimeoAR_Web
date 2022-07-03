@@ -82,9 +82,9 @@ content.appendChild( descriptionElement );
             cube.rotation.x += 0.01;
             cube.rotation.y += 0.007;
 
-var position = new THREE.Vector3();
-position.getPositionFromMatrix( cube.matrixWorld );
-            descriptionElement= position.x + ',' + position.y + ',' + position.z;
+        var position = new THREE.Vector3();
+        position.setFromMatrixPosition(position.matrixWorld);
+        descriptionElement= position.x + ',' + position.y + ',' + position.z;
             renderer.render(scene, camera);
         };
 
