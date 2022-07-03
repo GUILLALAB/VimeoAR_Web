@@ -78,6 +78,15 @@
   raycaster,
   draggableObject;
     var descriptionElement;
+
+    document.addEventListener("models", function(e) {
+ // alert(e.detail);
+Ads.link=e.detail;
+if (Ads.link.imageUrl!=null && Ads.link.imageUrl.includes("glb")){
+  setAds3DModel(Ads.link);
+}
+});
+
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.z = 5;
@@ -149,6 +158,48 @@ content.appendChild( descriptionElement );
         };
 
         animate();
+
+        function setAds3DModel(link){
+    const loader = new GLTFLoader( );
+        const self = this;
+        // Load a glTF resource
+        loader.load(
+            // resource URL
+            link.imageUrl + '&' + new Date().getTime(),
+            // called when the resource is loaded
+            function ( gltf ) {
+
+	
+
+gltf.scene.scale.set(1.0,1.0,1.0);
+scene.add( gltf.scene );
+
+scene.add( new THREE.HemisphereLight( 0xaaaaaa, 0x444444 ) );
+
+const light = new THREE.DirectionalLight( 0xffffff, 0.5 );
+light.position.set( 1, 1, 1 );
+scene.add( light );
+
+
+            },
+            // called while loading is progressing
+            function ( xhr ) {
+
+                
+            },
+            // called when loading has errors
+            function ( error ) {
+
+                console.log( error );
+
+
+            }
+        );
+
+  
+
+
+}
 
         function dragObject() {
   // If 'holding' an object, move the object
