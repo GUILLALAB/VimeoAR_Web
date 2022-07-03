@@ -183,7 +183,9 @@ content.appendChild( descriptionElement );
               importedObject.isDraggable = true;
 scene.add( importedObject );
 
-
+controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.update();
 
             },
             // called while loading is progressing
