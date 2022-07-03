@@ -174,18 +174,18 @@ content.appendChild( descriptionElement );
             link.imageUrl + '&' + new Date().getTime(),
             // called when the resource is loaded
             function ( gltf ) {
+
+              gltf.castShadow = true; //default is false
+              gltf.isDraggable = true;
               importedObject=gltf.scene;
               importedObject.scale.set(1.0,1.0,1.0);
               importedObject.position.set( 0, 0, 0 );
               importedObject.name = 'model';
 
-              importedObject.castShadow = true; //default is false
-              importedObject.isDraggable = true;
+          
 scene.add( importedObject );
 
-controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-  controls.update();
+
 
             },
             // called while loading is progressing
