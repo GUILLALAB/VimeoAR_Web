@@ -585,11 +585,13 @@ import { getAuth,
     // Start listening to the query.
     onSnapshot(recentMessagesQuery, function (snapshot) {
       snapshot.docChanges().forEach(function (change) {
-  
+        if (change.type === 'removed') {
+          deleteMessage(change.doc.id);
+        }else{
         var message = change.doc.data();
         displayAds(message);
-  
-  
+        }
+
       });
     });
   }
