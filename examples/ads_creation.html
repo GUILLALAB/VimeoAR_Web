@@ -106,11 +106,12 @@
 			  <button class="mdl-snackbar__action" type="button"></button>
 			</div>
 		
-
 		  </div>
-<div id="content">
-  </div>
-	
+
+		<canvas id="c"></canvas>
+
+		<div id="content">
+		</div>
 
 		<!-- Import maps polyfill -->
 		<!-- Remove this when import maps will be widely supported -->
@@ -131,15 +132,10 @@ import * as THREE from './jsm/three.module.js';
     import {Ads, loadAds} from './js/index_ads.js';
 	import { GLTFLoader } from './jsm/GLTFLoader.js';
 
-	let controls, clickMouse,
-  moveMouse,
-  raycaster,
-  draggableObject;
-    var descriptionElement;
+
 			let canvas, renderer;
 
-			var scene;
-			var camera;
+			const scenes = [];
 
 			init();
 			animate();
@@ -154,64 +150,19 @@ if (Ads.link.imageUrl!=null && Ads.link.imageUrl.includes("glb")){
 
 			function init() {
                 loadAds();
+				canvas = document.getElementById( "c" );
 
-         scene = new THREE.Scene();
-         camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 5;
-
-        const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.shadowMap.enabled = true;
-        document.body.appendChild(renderer.domElement);
-
+				const geometries = [
+					new THREE.BoxGeometry( 1, 1, 1 ),
+					new THREE.SphereGeometry( 0.5, 12, 8 ),
+					new THREE.DodecahedronGeometry( 0.5 ),
+					new THREE.CylinderGeometry( 0.5, 0.5, 1, 12 )
+				];
 
 
-				const planeGeometry = new THREE.PlaneBufferGeometry(50, 50, 8, 8);
-        const planeMaterial = new THREE.MeshPhongMaterial({ color: 0xcccccc });
-        const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-        plane.rotateX(-Math.PI / 2);
-        plane.position.y = -3;
-        plane.receiveShadow = true;
-        plane.isDraggable = false;
-        scene.add(plane);
-
-        const content = document.getElementById( 'content' );
-         descriptionElement = document.createElement( 'div' );
-descriptionElement.innerText = "test";
-content.appendChild( descriptionElement );
-
-        const geometry = new THREE.BoxGeometry(2, 2, 2);
-        const material = new THREE.MeshPhongMaterial({ color: 0xff00ff });
-        const cube = new THREE.Mesh(geometry, material);
-        cube.castShadow = true; //default is false
-        cube.isDraggable = true;
-        scene.add(cube);
-
-        const geo =  new THREE.SphereGeometry( 0.5, 12, 8 );
-        const mat = new THREE.MeshPhongMaterial({ color: 0xff00ff });
-        const sphere = new THREE.Mesh(geo, mat);
-        sphere.castShadow = true; //default is false
-        sphere.isDraggable = true;
-        scene.add(sphere);
-        // CAMERA MOVEMENT CONTROLS
-  controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-  controls.update();
-
-  raycaster = new THREE.Raycaster();
-  clickMouse = new THREE.Vector2();
-  moveMouse = new THREE.Vector2();
-
-        const dirLight1 = new THREE.DirectionalLight(0xffffff);
-        dirLight1.position.set(0, 2, 0);
-        dirLight1.castShadow = true;
-        scene.add(dirLight1);
-
-
-        const ambientLight = new THREE.AmbientLight(0x444444);
-        scene.add(ambientLight);
-
-
+				renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true } );
+				renderer.setClearColor( 0xffffff, 1 );
+				renderer.setPixelRatio( window.devicePixelRatio );
 
 			}
 
@@ -225,7 +176,36 @@ content.appendChild( descriptionElement );
             // called when the resource is loaded
             function ( gltf ) {
 
+				const content = document.getElementById( 'content' );
+
+
+				const scene = new THREE.Scene();
+
 // make a list item
+const element = document.createElement( 'div' );
+element.className = 'list-item';
+
+const sceneElement = document.createElement( 'div' );
+element.appendChild( sceneElement );
+
+const descriptionElement = document.createElement( 'div' );
+descriptionElement.innerText = 'Scene ' + ( link.name + 1 );
+element.appendChild( descriptionElement );
+
+// the element that represents the area we want to render the scene
+scene.userData.element = sceneElement;
+content.appendChild( element );
+
+const camera = new THREE.PerspectiveCamera( 50, 1, 1, 10 );
+camera.position.z = 2;
+scene.userData.camera = camera;
+
+const controls = new OrbitControls( scene.userData.camera, scene.userData.element );
+controls.minDistance = 2;
+controls.maxDistance = 7;
+controls.enablePan = false;
+controls.enableZoom = true;
+scene.userData.controls = controls;
 
 gltf.scene.scale.set(1.0,1.0,1.0);
 scene.add( gltf.scene );
@@ -235,6 +215,10 @@ scene.add( new THREE.HemisphereLight( 0xaaaaaa, 0x444444 ) );
 const light = new THREE.DirectionalLight( 0xffffff, 0.5 );
 light.position.set( 1, 1, 1 );
 scene.add( light );
+
+
+scenes.push( scene );
+
 
             },
             // called while loading is progressing
@@ -256,62 +240,81 @@ scene.add( light );
 
 }
 
-const animate = function () {
-            controls.update();
-            requestAnimationFrame(animate);
 
-            cube.rotation.x += 0.01;
-            cube.rotation.y += 0.007;
+			function updateSize() {
 
-        var position = new THREE.Vector3();
-        position.setFromMatrixPosition(cube.matrixWorld);
-        descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
-            renderer.render(scene, camera);
-        };
+				const width = canvas.clientWidth;
+				const height = canvas.clientHeight;
 
-        animate();
+				if ( canvas.width !== width || canvas.height !== height ) {
 
-        function dragObject() {
-  // If 'holding' an object, move the object
-  if (draggableObject) {
-    raycaster.setFromCamera(moveMouse, camera);
-    // `found` is the metadata of the objects, not the objetcs themsevles
-    const found = raycaster.intersectObjects(scene.children);
-    if (found.length) {
-      for (let obj3d of found) {
-        if (!obj3d.object.isDraggablee) {
-          draggableObject.position.x = obj3d.point.x;
-          draggableObject.position.z = obj3d.point.z;
-          break;
-        }
-      }
-    }
-  }
-}
+					renderer.setSize( width, height, false );
 
-window.addEventListener("click", (event) => {
-  // If 'holding' object on-click, set container to <undefined> to 'drop' the object.
-  if (draggableObject) {
-    draggableObject = undefined;
-    return;
-  }
+				}
 
-  // If NOT 'holding' object on-click, set container to <object> to 'pickup' the object.
-  clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-  raycaster.setFromCamera(clickMouse, camera);
-  const found = raycaster.intersectObjects(scene.children, true);
-  if (found.length && found[0].object.isDraggable) {
-    draggableObject = found[0].object;
-  }
-});
+			}
 
-// Constantly updates the mouse location for use in `dragObject()`
-window.addEventListener("mousemove", (event) => {
-  dragObject(); // Updates the object's postion every time the mouse moves
-  moveMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  moveMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-});
+			function animate() {
+
+				render();
+				requestAnimationFrame( animate );
+
+			}
+
+			function render() {
+
+				updateSize();
+
+				canvas.style.transform = `translateY(${window.scrollY}px)`;
+
+				renderer.setClearColor( 0xffffff );
+				renderer.setScissorTest( false );
+				renderer.clear();
+
+				renderer.setClearColor( 0xe0e0e0 );
+				renderer.setScissorTest( true );
+
+				scenes.forEach( function ( scene ) {
+
+					// so something moves
+					scene.children[ 0 ].rotation.y = Date.now() * 0.001;
+
+					// get the element that is a place holder for where we want to
+					// draw the scene
+					const element = scene.userData.element;
+
+					// get its position relative to the page's viewport
+					const rect = element.getBoundingClientRect();
+
+					// check if it's offscreen. If so skip it
+					if ( rect.bottom < 0 || rect.top > renderer.domElement.clientHeight ||
+						 rect.right < 0 || rect.left > renderer.domElement.clientWidth ) {
+
+						return; // it's off screen
+
+					}
+
+					// set the viewport
+					const width = rect.right - rect.left;
+					const height = rect.bottom - rect.top;
+					const left = rect.left;
+					const bottom = renderer.domElement.clientHeight - rect.bottom;
+
+					renderer.setViewport( left, bottom, width, height );
+					renderer.setScissor( left, bottom, width, height );
+
+					const camera = scene.userData.camera;
+
+					//camera.aspect = width / height; // not changing in this example
+					//camera.updateProjectionMatrix();
+
+					//scene.userData.controls.update();
+
+					renderer.render( scene, camera );
+
+				} );
+
+			}
 
 		</script>
 <script type="module" src="/js/index_ads.js"></script>
