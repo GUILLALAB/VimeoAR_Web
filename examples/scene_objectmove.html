@@ -125,7 +125,7 @@ content.appendChild( descriptionElement );
         sphere.isDraggable = true;
         scene.add(sphere);
         // CAMERA MOVEMENT CONTROLS
-  controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.update();
 
