@@ -49,7 +49,11 @@
 
 
 			const controls = new THREE.OrbitControls( camera, renderer.domElement );
-
+controls.minDistance = 2;
+controls.maxDistance = 7;
+controls.enablePan = false;
+controls.enableZoom = true;
+scene.userData.controls = controls;
 			const animate = function () {
 				requestAnimationFrame( animate );
 
