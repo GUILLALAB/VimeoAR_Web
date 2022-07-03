@@ -25,7 +25,7 @@
         document.body.appendChild(renderer.domElement);
 
 
-        const planeGeometry = new THREE.PlaneBufferGeometry(500, 500, 8, 8);
+        const planeGeometry = new THREE.PlaneBufferGeometry(200, 200, 8, 8);
         const planeMaterial = new THREE.MeshPhongMaterial({ color: 0xcccccc });
         const plane = new THREE.Mesh(planeGeometry, planeMaterial);
         plane.rotateX(-Math.PI / 2);
@@ -54,8 +54,8 @@
 
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.minDistance = 2;
-        controls.maxDistance = 20;
-        controls.enablePan = false;
+        controls.maxDistance = 30;
+        controls.enablePan = true;
         controls.enableZoom = true;
         scene.userData.controls = controls;
         const animate = function () {
