@@ -39,7 +39,13 @@
         const cube = new THREE.Mesh(geometry, material);
         cube.castShadow = true; //default is false
         scene.add(cube);
-
+       
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.minDistance = 2;
+        controls.maxDistance = 30;
+        controls.enablePan = true;
+        controls.enableZoom = true;
+        scene.userData.controls = controls;
 
 
         const dirLight1 = new THREE.DirectionalLight(0xffffff);
@@ -52,12 +58,7 @@
         scene.add(ambientLight);
 
 
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.minDistance = 2;
-        controls.maxDistance = 30;
-        controls.enablePan = true;
-        controls.enableZoom = true;
-        scene.userData.controls = controls;
+     
         const animate = function () {
             requestAnimationFrame(animate);
 
