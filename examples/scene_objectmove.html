@@ -125,9 +125,7 @@ content.appendChild( descriptionElement );
         sphere.isDraggable = true;
         scene.add(sphere);
         // CAMERA MOVEMENT CONTROLS
-  controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-  controls.update();
+
 
   raycaster = new THREE.Raycaster();
   clickMouse = new THREE.Vector2();
@@ -180,8 +178,9 @@ gltf.scene.castShadow = true; //default is false
 gltf.scene.isDraggable = true;
 scene.add( gltf.scene );
 
-controls.update();
-
+controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.update();
 
 
             },
