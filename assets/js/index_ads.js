@@ -609,6 +609,7 @@ import { getAuth,
           deleteMessage(change.doc.id);
         }else{
         var message = change.doc.data();
+        Ads.IdRef=change.doc.id;
         displayAds(message);
         }
 
@@ -616,9 +617,20 @@ import { getAuth,
     });
   }
 
+  export function UpdateAdsObject(Idref,x,y,z) {
+try{
+  await updateDoc(Idref,{
+    position: [{x:x, y:y, z:z}]
+  });
+} catch (error) {
+  console.error('There was an error uploading a file to Cloud Storage:', error);
+}
+}
+
   export var Ads =
   {
-    link: null
+    link: null,
+    IdRef:null
   };
   function displayAds(Url) {
     //var image = document.getElementById('ads');

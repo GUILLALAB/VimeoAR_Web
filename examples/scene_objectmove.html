@@ -70,7 +70,7 @@
 		<script type="module">
         import * as THREE from './jsm/three.module.js';
         import {OrbitControls} from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/examples/jsm/controls/OrbitControls.js';
-        import {Ads, loadLastAds} from './js/index_ads.js';
+        import {Ads, loadLastAds,UpdateAdsObject} from './js/index_ads.js';
         import { GLTFLoader } from './jsm/GLTFLoader.js';
 
         let controls, clickMouse,
@@ -152,7 +152,10 @@ content.appendChild( descriptionElement );
             cube.rotation.y += 0.007;
 
             if(importedObject!=null){
+              var position = new THREE.Vector3();
+        position.setFromMatrixPosition(importedObject.matrixWorld);
            //   importedObject.rotation.y += 0.01;
+           UpdateAdsObject(Ads.IdRef,position.x,position.y,position.z);
             }
 
         var position = new THREE.Vector3();
@@ -179,7 +182,7 @@ content.appendChild( descriptionElement );
               importedObject=gltf.scene;
               importedObject.scale.set(1.0,1.0,1.0);
               importedObject.position.set( 0, 0, 0 );
-              importedObject.name = 'model';
+              importedObject.name = Ads.IdRef;
               gltf.scene.traverse( function( node ) {
 
 if ( node.isMesh ) {
