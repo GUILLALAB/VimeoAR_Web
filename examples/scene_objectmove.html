@@ -251,7 +251,7 @@ scene.add( importedObject );
   }
 }
 
-canvas.addEventListener("click", (event) => {
+window.addEventListener("click", (event) => {
   // If 'holding' object on-click, set container to <undefined> to 'drop' the object.
   if (draggableObject) {
     draggableObject = undefined;
@@ -259,8 +259,8 @@ canvas.addEventListener("click", (event) => {
   }
 
   // If NOT 'holding' object on-click, set container to <object> to 'pickup' the object.
-  clickMouse.x = (event.clientX / canvas.innerWidth) * 2 - 1;
-  clickMouse.y = -(event.clientY / canvas.innerHeight) * 2 + 1;
+  clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(clickMouse, camera);
   const found = raycaster.intersectObjects(scene.children, true);
   if (found.length && found[0].object.isDraggable) {
@@ -269,10 +269,10 @@ canvas.addEventListener("click", (event) => {
 });
 
 // Constantly updates the mouse location for use in `dragObject()`
-canvas.addEventListener("mousemove", (event) => {
+window.addEventListener("mousemove", (event) => {
   dragObject(); // Updates the object's postion every time the mouse moves
-  moveMouse.x = (event.clientX / canvas.innerWidth) * 2 - 1;
-  moveMouse.y = -(event.clientY / canvas.innerHeight) * 2 + 1;
+  moveMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  moveMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 });
     </script>
 </body>
