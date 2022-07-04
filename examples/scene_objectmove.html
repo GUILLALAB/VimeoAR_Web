@@ -80,7 +80,7 @@
         import {Ads, loadLastAds,UpdateAdsObject} from './js/index_ads.js';
         import { GLTFLoader } from './jsm/GLTFLoader.js';
 
-        let controls, clickMouse,
+        let controls, clickMouse,renderer,
   moveMouse,canvas,
   raycaster,
   draggableObject;
@@ -103,7 +103,7 @@ canvas = document.getElementById( "c" );
 
         camera.position.z = 5;
 
-        const renderer = new THREE.WebGLRenderer();
+     //   const renderer = new THREE.WebGLRenderer();
       //  renderer.setSize(window.innerWidth, window.innerHeight);
         renderer = new THREE.WebGLRenderer( { canvas: canvas } );
 renderer.setSize(1000, 900);
