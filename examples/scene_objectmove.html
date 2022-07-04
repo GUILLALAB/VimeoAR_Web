@@ -178,7 +178,7 @@ content.appendChild( descriptionElement );
           var position = new THREE.Vector3();
         position.setFromMatrixPosition(importedObject.matrixWorld);
         descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
-                //  descriptionElement.innerText= importedObject.position.x + ',' + importedObject.position.y + ',' + importedObject.position.z;
+          alert(position.x);      //  descriptionElement.innerText= importedObject.position.x + ',' + importedObject.position.y + ',' + importedObject.position.z;
         }
 
         var position = new THREE.Vector3();
