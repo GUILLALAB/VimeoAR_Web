@@ -115,7 +115,7 @@ canvas = document.getElementById( "c" );
 update.addEventListener("click", function(e) {
   alert("update");
   if(importedObject!=null){
-    absPos(importedObject);
+    alert("importedObject");
 
            //   importedObject.rotation.y += 0.01;
            UpdateAdsObject(Ads.link.IdRef,importedObjectposition.x,importedObjectposition.y,importedObjectposition.z);
@@ -176,6 +176,8 @@ content.appendChild( descriptionElement );
             cube.rotation.y += 0.007;
 
         if(importedObject!=null){
+      
+                  descriptionElement.innerText= importedObject.position.x + ',' + importedObject.position.y + ',' + importedObject.position.z;
         }
 
         var position = new THREE.Vector3();
