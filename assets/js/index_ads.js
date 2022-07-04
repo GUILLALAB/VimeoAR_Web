@@ -621,10 +621,10 @@ import { getAuth,
 
   export async function UpdateAdsObject(Idref,x,y,z) {
 
-const doc = doc(getFirestore(), "ads", Idref);
+const doc = doc(getFirestore(), "ads", "bCquJrrJA4JlRQ5iEt1T");
 
 var data = {
-  "position.X": x,
+  "position.x": x,
   "position.y": y,
   "position.z": z
 };
