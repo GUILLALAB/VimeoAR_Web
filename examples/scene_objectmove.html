@@ -177,12 +177,12 @@ content.appendChild( descriptionElement );
 
         if(importedObject!=null){
       
-                  descriptionElement.innerText= importedObject.position.x + ',' + importedObject.position.y + ',' + importedObject.position.z;
+                //  descriptionElement.innerText= importedObject.position.x + ',' + importedObject.position.y + ',' + importedObject.position.z;
         }
 
         var position = new THREE.Vector3();
         position.setFromMatrixPosition(cube.matrixWorld);
-      //  descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
+        descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
             renderer.render(scene, camera);
             requestAnimationFrame(animate);
 
