@@ -68,7 +68,8 @@
   
     </div>
 
-    
+    <canvas id="c"></canvas>
+
   <div id="content">
   </div>
 
@@ -80,7 +81,7 @@
         import { GLTFLoader } from './jsm/GLTFLoader.js';
 
         let controls, clickMouse,
-  moveMouse,
+  moveMouse,canvas,
   raycaster,
   draggableObject;
     var descriptionElement;
@@ -92,15 +93,21 @@ if (Ads.link.imageUrl!=null && Ads.link.imageUrl.includes("glb")){
   setAds3DModel(Ads.link);
 }
 });
+canvas = document.getElementById( "c" );
 
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+       // const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+       var camera = new THREE.PerspectiveCamera(50, 1000 / 900, 0.1, 1000);
+
+
         camera.position.z = 5;
 
-        const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+       // const renderer = new THREE.WebGLRenderer();
+       // renderer.setSize(window.innerWidth, window.innerHeight);
+       var renderer = new THREE.WebGLRenderer( { canvas: artifactCanvas } );
+renderer.setSize(1000, 900);
         renderer.shadowMap.enabled = true;
-        document.body.appendChild(renderer.domElement);
+       // document.body.appendChild(renderer.domElement);
 
        var update = document.getElementById('update');
 
