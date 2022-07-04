@@ -105,7 +105,10 @@ if (Ads.link.imageUrl!=null && Ads.link.imageUrl.includes("glb")){
        var update = document.getElementById('update');
 
 update.addEventListener("click", function(e) {
+  alert("update");
   if(importedObject!=null){
+    alert("importedObject");
+
               var position = new THREE.Vector3();
         position.setFromMatrixPosition(importedObject.matrixWorld);
            //   importedObject.rotation.y += 0.01;
