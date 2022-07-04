@@ -176,14 +176,7 @@ content.appendChild( descriptionElement );
             cube.rotation.y += 0.007;
 
         if(importedObject!=null){
-          var bbox=new THREE.Box3().setFromOBject(importedObject);
-var cent=new bbox.getCenter(new THREE.Vector3());
-var size=new bbox.getSize(new THREE.Vector3());
-importedObject.position.x -= cent.x;
-importedObject.position.y -= cent.y;
-importedObject.position.z -= cent.z;
-                  descriptionElement.innerText= importedObject.position.x + ',' + importedObject.position.y + ',' + importedObject.position.z;
-            console.log(importedObject.position.x);
+          absPos(importedObject);
         }
 
         var position = new THREE.Vector3();
@@ -197,6 +190,22 @@ importedObject.position.z -= cent.z;
         loadLastAds();
 
         animate();
+
+
+        function absPos( myMesh ){
+    myMesh.geometry.computeBoundingBox();
+
+    var boundingBox = myMesh.geometry.boundingBox;
+
+    var position = new THREE.Vector3();
+    position.subVectors( boundingBox.max, boundingBox.min );
+    position.multiplyScalar( 0.5 );
+    position.add( boundingBox.min );
+
+    position.applyMatrix4( myMesh.matrixWorld );
+
+    console.log(position.x + ',' + position.y + ',' + position.z);
+}
 
         function setAds3DModel(link){
     const loader = new GLTFLoader( );
