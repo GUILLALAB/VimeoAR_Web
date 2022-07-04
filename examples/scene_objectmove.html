@@ -138,7 +138,7 @@ content.appendChild( descriptionElement );
         const cube = new THREE.Mesh(geometry, material);
         cube.castShadow = true; //default is false
         cube.isDraggable = true;
-        sphere.name = "cube";
+        cube.name = "cube";
         scene.add(cube);
 
         const geo =  new THREE.SphereGeometry( 0.5, 12, 8 );
