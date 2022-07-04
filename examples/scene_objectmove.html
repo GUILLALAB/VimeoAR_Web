@@ -218,7 +218,8 @@ if ( node.isMesh ) {
 } );
           
 scene.add( importedObject );
-
+scene.updateMatrix();
+scene.updateMatrixWorld(true);
 
 
             },
