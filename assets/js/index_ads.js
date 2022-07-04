@@ -632,7 +632,6 @@ try{
     "position.z": z
   });
 } catch (error) {
-  console.log(error);
 }
 }
 
