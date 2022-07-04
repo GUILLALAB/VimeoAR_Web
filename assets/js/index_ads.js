@@ -621,21 +621,20 @@ import { getAuth,
 
   export async function UpdateAdsObject(Idref,x,y,z) {
 
-const doc = doc(getFirestore(), "ads", "bCquJrrJA4JlRQ5iEt1T");
+try {
+  
+  await setDoc(doc(getFirestore(), "ads", Idref), {
+    "position.x": x,
+    "position.y": y,
+    "position.z": z
+  },{merge: true});
+  }
+  
+  catch(error) {
+    console.error('Error writing new message to Firebase Database', error);
+  }
 
-var data = {
-  "position.x": x,
-  "position.y": y,
-  "position.z": z
-};
 
-setDoc(doc, data, { merge:true })
-.then(doc => {
-    console.log("Document Field has been updated successfully");
-})
-.catch(error => {
-    console.log(error);
-})
 }
 
   export var Ads =
