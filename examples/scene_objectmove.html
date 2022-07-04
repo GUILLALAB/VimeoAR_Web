@@ -178,13 +178,13 @@ content.appendChild( descriptionElement );
         if(importedObject!=null){
            importedObjectposition = new THREE.Vector3();
           importedObjectposition.setFromMatrixPosition(importedObject.matrixWorld);
-                  descriptionElement.innerText= importedObjectposition.x + ',' + importedObjectposition.y + ',' + importedObjectposition.z;
+             //     descriptionElement.innerText= importedObjectposition.x + ',' + importedObjectposition.y + ',' + importedObjectposition.z;
 
         }
 
         var position = new THREE.Vector3();
         position.setFromMatrixPosition(cube.matrixWorld);
-      //  descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
+        descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
             renderer.render(scene, camera);
             requestAnimationFrame(animate);
 
