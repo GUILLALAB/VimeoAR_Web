@@ -208,7 +208,7 @@ content.appendChild( descriptionElement );
               importedObject.scale.set(1.0,1.0,1.0);
               importedObject.position.set( 0, 0, 0 );
               importedObject.name = Ads.IdRef;
-              gltf.scene.traverse( function( node ) {
+              importedObject.traverse( function( node ) {
 
 if ( node.isMesh ) {
    node.castShadow = true;
