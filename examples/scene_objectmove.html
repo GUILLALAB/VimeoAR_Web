@@ -43,6 +43,10 @@
         <input class="mdl-textfield__input" type="text" id="message" autocomplete="off">
         <label class="mdl-textfield__label" for="message">Message...</label>
         </div>
+        <button id="update"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+          Update
+          </button>
+
         <button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
         Send
         </button>
@@ -96,6 +100,16 @@ if (Ads.link.imageUrl!=null && Ads.link.imageUrl.includes("glb")){
         renderer.shadowMap.enabled = true;
         document.body.appendChild(renderer.domElement);
 
+       var update = document.getElementById('update');
+
+update.addEventListener("click", function(e) {
+  if(importedObject!=null){
+              var position = new THREE.Vector3();
+        position.setFromMatrixPosition(importedObject.matrixWorld);
+           //   importedObject.rotation.y += 0.01;
+           UpdateAdsObject(Ads.link.IdRef,position.x,position.y,position.z);
+            }
+});
 
         const planeGeometry = new THREE.PlaneBufferGeometry(50, 50, 8, 8);
         const planeMaterial = new THREE.MeshPhongMaterial({ color: 0xcccccc });
@@ -151,12 +165,7 @@ content.appendChild( descriptionElement );
             cube.rotation.x += 0.01;
             cube.rotation.y += 0.007;
 
-            if(importedObject!=null){
-              var position = new THREE.Vector3();
-        position.setFromMatrixPosition(importedObject.matrixWorld);
-           //   importedObject.rotation.y += 0.01;
-           UpdateAdsObject(Ads.link.IdRef,position.x,position.y,position.z);
-            }
+        
 
         var position = new THREE.Vector3();
         position.setFromMatrixPosition(cube.matrixWorld);
