@@ -620,9 +620,8 @@ import { getAuth,
   }
 
   export async function UpdateAdsObject(Idref,x,y,z) {
-try{
 
-
+    try{
 const doc = doc(getFirestore(), "ads", Idref);
 
 setDoc(doc, {
