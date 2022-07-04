@@ -200,6 +200,7 @@ import { getAuth,
        name: getUserName(),
        imageUrl: LOADING_IMAGE_URL,
        userid: getUserUid(),
+       position:[{x:"0.0",y:"0.0",z:"0.0"}],
        profilePicUrl: getProfilePicUrl(),
        timestamp: serverTimestamp()
      });

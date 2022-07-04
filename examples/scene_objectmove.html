@@ -182,7 +182,8 @@ content.appendChild( descriptionElement );
               importedObject.name = 'model';
               gltf.scene.traverse( function( node ) {
 
-if ( node.isMesh ) { node.castShadow = true;
+if ( node.isMesh ) {
+   node.castShadow = true;
   node.isDraggable = true; }
 
 } );
