@@ -119,7 +119,8 @@ update.addEventListener("click", function(e) {
               var position = new THREE.Vector3();
         position.setFromMatrixPosition(importedObject.matrixWorld);
            //   importedObject.rotation.y += 0.01;
-           UpdateAdsObject(Ads.link.IdRef,"0.2","0.2","0.2");
+           alert(position.x);
+           UpdateAdsObject(Ads.link.IdRef,position.x,position.y,position.z);
             }
 });
 
