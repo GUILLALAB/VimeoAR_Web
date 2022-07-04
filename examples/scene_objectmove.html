@@ -269,6 +269,7 @@ scene.updateMatrixWorld(true);
           draggableObject.position.x = obj3d.point.x;
           draggableObject.position.z = obj3d.point.z;
           
+          console.log(obj3d.object.name);
           if (obj3d.object.name==Ads.IdRef) {
           descriptionElement.innerText= draggableObject.position.x + ',' + draggableObject.position.y + ',' + draggableObject.position.z;
           }
@@ -293,8 +294,6 @@ window.addEventListener("click", (event) => {
   const found = raycaster.intersectObjects(scene.children, true);
   if (found.length && found[0].object.isDraggable) {
     draggableObject = found[0].object;
-    console.log(draggableObject.object);
-
   }
 });
 
