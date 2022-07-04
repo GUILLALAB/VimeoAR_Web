@@ -179,7 +179,7 @@ content.appendChild( descriptionElement );
            importedObjectposition = new THREE.Vector3();
           importedObjectposition.setFromMatrixPosition(importedObject.matrixWorld);
                   descriptionElement.innerText= importedObjectposition.x + ',' + importedObjectposition.y + ',' + importedObjectposition.z;
-
+            console.log(importedObjectposition.x);
         }
 
         var position = new THREE.Vector3();
