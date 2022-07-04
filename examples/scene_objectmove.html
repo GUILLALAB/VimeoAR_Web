@@ -218,8 +218,8 @@ content.appendChild( descriptionElement );
             // called when the resource is loaded
             function ( gltf ) {
               
-            
-              importedObject=gltf.scene;
+              importedObject= new THREE.Object3D();
+              importedObject.add(gltf.scene);
               importedObject.scale.set(1.0,1.0,1.0);
               importedObject.position.set( 0.5, 0.5, 0.5 );
               importedObject.name = Ads.IdRef;
