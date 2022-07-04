@@ -171,7 +171,6 @@ content.appendChild( descriptionElement );
      
         const animate = function () {
             controls.update();
-            requestAnimationFrame(animate);
 
             cube.rotation.x += 0.01;
             cube.rotation.y += 0.007;
@@ -187,6 +186,8 @@ content.appendChild( descriptionElement );
         position.setFromMatrixPosition(cube.matrixWorld);
       //  descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
             renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+
         };
 
         loadLastAds();
