@@ -623,15 +623,14 @@ import { getAuth,
 
     try{
       
-const doc = doc(getFirestore(), "ads", Idref);
+const doc = doc(getFirestore(), "ads", "bCquJrrJA4JlRQ5iEt1T");
 alert("test");
 
 await setDoc(doc, {
   imageUrl: "test"
 
 }, {
-  merge: true
-}).then(() => console.log("Document updated"));
+  merge: true}).then(() => console.log("Document updated"));
 }catch (e) {
   alert(e);
 
