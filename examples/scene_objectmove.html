@@ -176,10 +176,14 @@ content.appendChild( descriptionElement );
             cube.rotation.y += 0.007;
 
         if(importedObject!=null){
-           importedObjectposition = new THREE.Vector3();
-           importedObjectposition.setFromMatrixPosition(importedObject.matrixWorld);
-                  descriptionElement.innerText= importedObjectposition.x + ',' + importedObjectposition.y + ',' + importedObjectposition.z;
-            console.log(importedObjectposition.x);
+          var bbox=new THREE.Box3().setFromOBject(importedObject);
+var cent=new bbox.getCenter(new THREE.Vector3());
+var size=new bbox.getSize(new THREE.Vector3());
+importedObject.position.x -= cent.x;
+importedObject.position.y -= cent.y;
+importedObject.position.z -= cent.z;
+                  descriptionElement.innerText= importedObject.position.x + ',' + importedObject.position.y + ',' + importedObject.position.z;
+            console.log(importedObject.position.x);
         }
 
         var position = new THREE.Vector3();
