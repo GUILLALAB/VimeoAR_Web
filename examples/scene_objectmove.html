@@ -86,6 +86,7 @@
   draggableObject;
     var descriptionElement;
     var importedObject=null;
+    var importedObjectposition;
     document.addEventListener("models", function(e) {
  // alert(e.detail);
 Ads.link=e.detail;
@@ -116,11 +117,8 @@ update.addEventListener("click", function(e) {
   if(importedObject!=null){
     alert("importedObject");
 
-              var position = new THREE.Vector3();
-        position.setFromMatrixPosition(importedObject.matrixWorld);
            //   importedObject.rotation.y += 0.01;
-           alert(position.x);
-           UpdateAdsObject(Ads.link.IdRef,position.x,position.y,position.z);
+           UpdateAdsObject(Ads.link.IdRef,importedObjectposition.x,importedObjectposition.y,importedObjectposition.z);
             }
 });
 
@@ -178,7 +176,10 @@ content.appendChild( descriptionElement );
             cube.rotation.x += 0.01;
             cube.rotation.y += 0.007;
 
-        
+        if(importedObject!=null){
+           importedObjectposition = new THREE.Vector3();
+          importedObjectposition.setFromMatrixPosition(importedObject.matrixWorld);
+        }
 
         var position = new THREE.Vector3();
         position.setFromMatrixPosition(cube.matrixWorld);
