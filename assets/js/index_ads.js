@@ -627,9 +627,7 @@ try{
 // Set the "capital" field of the city 'DC'
 
   await updateDoc(doc,{
-    "position.x": x,
-    "position.y": y,
-    "position.z": z
+    imageUrl: "test"
   });
 } catch (error) {
 }
