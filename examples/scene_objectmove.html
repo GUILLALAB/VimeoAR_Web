@@ -115,7 +115,6 @@ renderer.setSize(1000, 900);
 update.addEventListener("click", function(e) {
   alert("update");
   if(importedObject!=null){
-    absPos(importedObject);
            //   importedObject.rotation.y += 0.01;
            UpdateAdsObject(Ads.link.IdRef,importedObjectposition.x,importedObjectposition.y,importedObjectposition.z);
             }
@@ -267,11 +266,9 @@ scene.updateMatrixWorld(true);
         if (!obj3d.object.isDraggablee) {
           draggableObject.position.x = obj3d.point.x;
           draggableObject.position.z = obj3d.point.z;
-         
-          if(scene.getObjectByName(Ads.IdRef,true)){
-         
+                  
           descriptionElement.innerText= draggableObject.position.x + ',' + draggableObject.position.y + ',' + draggableObject.position.z;
-          }
+          
           break;
         }
       }
