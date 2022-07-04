@@ -617,9 +617,13 @@ import { getAuth,
     });
   }
 
-  export function UpdateAdsObject(Idref,x,y,z) {
+  export async function UpdateAdsObject(Idref,x,y,z) {
 try{
-  await updateDoc(Idref,{
+  const doc = doc(getFirestore(), "Ads", Idref);
+
+// Set the "capital" field of the city 'DC'
+
+  await updateDoc(doc,{
     position: [{x:x, y:y, z:z}]
   });
 } catch (error) {
