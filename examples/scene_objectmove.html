@@ -107,11 +107,12 @@ if (Ads.link.imageUrl!=null && Ads.link.imageUrl.includes("glb")){
 update.addEventListener("click", function(e) {
   alert("update");
   if(importedObject!=null){
+    alert("importedObject");
 
               var position = new THREE.Vector3();
         position.setFromMatrixPosition(importedObject.matrixWorld);
            //   importedObject.rotation.y += 0.01;
-           UpdateAdsObject(Ads.link.IdRef,"0.1","0.2","0.4");
+           UpdateAdsObject(Ads.link.IdRef,position.x,position.y,position.z);
             }
 });
 

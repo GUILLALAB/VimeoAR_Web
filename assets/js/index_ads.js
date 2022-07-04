@@ -621,20 +621,21 @@ import { getAuth,
 
   export async function UpdateAdsObject(Idref,x,y,z) {
 
-    try{
-      
-const doc = doc(getFirestore(), "ads", "bCquJrrJA4JlRQ5iEt1T");
-alert("test");
+const doc = doc(getFirestore(), "ads", Idref);
 
-await setDoc(doc, {
-  imageUrl: "test"
+var data = {
+  "position.X": x,
+  "position.y": y,
+  "position.z": z
+};
 
-}, {
-  merge: true}).then(() => console.log("Document updated"));
-}catch (e) {
-  alert(e);
-
-}
+setDoc(doc, data, { merge:true })
+.then(doc => {
+    console.log("Document Field has been updated successfully");
+})
+.catch(error => {
+    console.log(error);
+})
 }
 
   export var Ads =
