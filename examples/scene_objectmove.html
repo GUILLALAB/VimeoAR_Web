@@ -218,7 +218,6 @@ content.appendChild( descriptionElement );
             link.imageUrl + '&' + new Date().getTime(),
             // called when the resource is loaded
             function ( gltf ) {
-              alert(link.IdRef);
               importedObject= gltf.scene;
               importedObject.scale.set(1.0,1.0,1.0);
               importedObject.position.set( 0.5, 0.5, 0.5 );
