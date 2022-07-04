@@ -629,7 +629,7 @@ try{
     position: [{x:x, y:y, z:z}]
   });
 } catch (error) {
-  console.error('There was an error uploading a file to Cloud Storage:', error);
+  console.error(error);
 }
 }
 
