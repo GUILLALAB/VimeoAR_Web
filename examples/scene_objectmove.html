@@ -177,7 +177,7 @@ content.appendChild( descriptionElement );
         if(importedObject!=null){
           var position = new THREE.Vector3();
         position.setFromMatrixPosition(importedObject.matrixWorld);
-        descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
+       // descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
                 //  descriptionElement.innerText= importedObject.position.x + ',' + importedObject.position.y + ',' + importedObject.position.z;
         }
 
@@ -219,8 +219,7 @@ content.appendChild( descriptionElement );
             // called when the resource is loaded
             function ( gltf ) {
               
-              importedObject= new THREE.Object3D();
-              importedObject.add(gltf.scene);
+              importedObject= gltf.scene;
               importedObject.scale.set(1.0,1.0,1.0);
               importedObject.position.set( 0.5, 0.5, 0.5 );
               importedObject.name = Ads.IdRef;
@@ -268,6 +267,8 @@ scene.updateMatrixWorld(true);
         if (!obj3d.object.isDraggablee) {
           draggableObject.position.x = obj3d.point.x;
           draggableObject.position.z = obj3d.point.z;
+          descriptionElement.innerText= draggableObject.position.x + ',' + draggableObject.position.y + ',' + draggableObject.position.z;
+
           break;
         }
       }
