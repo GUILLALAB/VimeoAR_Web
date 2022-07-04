@@ -118,7 +118,7 @@ update.addEventListener("click", function(e) {
     alert("importedObject");
 
            //   importedObject.rotation.y += 0.01;
-           UpdateAdsObject(Ads.link.IdRef,importedObjectposition.x.toString(),importedObjectposition.y.toString(),importedObjectposition.z.toString());
+           UpdateAdsObject(Ads.link.IdRef,importedObjectposition.x,importedObjectposition.y,importedObjectposition.z);
             }
 });
 
@@ -179,11 +179,13 @@ content.appendChild( descriptionElement );
         if(importedObject!=null){
            importedObjectposition = new THREE.Vector3();
           importedObjectposition.setFromMatrixPosition(importedObject.matrixWorld);
+                  descriptionElement.innerText= importedObjectposition.x + ',' + importedObjectposition.y + ',' + importedObjectposition.z;
+
         }
 
         var position = new THREE.Vector3();
         position.setFromMatrixPosition(cube.matrixWorld);
-        descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
+      //  descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
             renderer.render(scene, camera);
         };
 
