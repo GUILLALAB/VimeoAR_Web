@@ -138,6 +138,7 @@ content.appendChild( descriptionElement );
         const cube = new THREE.Mesh(geometry, material);
         cube.castShadow = true; //default is false
         cube.isDraggable = true;
+        sphere.name = "cube";
         scene.add(cube);
 
         const geo =  new THREE.SphereGeometry( 0.5, 12, 8 );
@@ -145,6 +146,7 @@ content.appendChild( descriptionElement );
         const sphere = new THREE.Mesh(geo, mat);
         sphere.castShadow = true; //default is false
         sphere.isDraggable = true;
+        sphere.name = "sphere";
         scene.add(sphere);
         // CAMERA MOVEMENT CONTROLS
   controls = new OrbitControls(camera, renderer.domElement);
@@ -158,6 +160,8 @@ content.appendChild( descriptionElement );
         const dirLight1 = new THREE.DirectionalLight(0xffffff);
         dirLight1.position.set(0, 2, 0);
         dirLight1.castShadow = true;
+                      importedObject.name = link.IdRef;
+
         scene.add(dirLight1);
 
 
@@ -266,7 +270,7 @@ scene.updateMatrixWorld(true);
           draggableObject.position.x = obj3d.point.x;
           draggableObject.position.z = obj3d.point.z;
           
-          console.log(obj3d.object.parent);
+          console.log(obj3d.object);
           if (obj3d.object.name==Ads.IdRef) {
           descriptionElement.innerText= draggableObject.position.x + ',' + draggableObject.position.y + ',' + draggableObject.position.z;
           }
