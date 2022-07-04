@@ -218,7 +218,7 @@ content.appendChild( descriptionElement );
             link.imageUrl + '&' + new Date().getTime(),
             // called when the resource is loaded
             function ( gltf ) {
-              
+              alert(link.IdRef);
               importedObject= gltf.scene;
               importedObject.scale.set(1.0,1.0,1.0);
               importedObject.position.set( 0.5, 0.5, 0.5 );
@@ -269,7 +269,7 @@ scene.updateMatrixWorld(true);
           draggableObject.position.x = obj3d.point.x;
           draggableObject.position.z = obj3d.point.z;
           
-          console.log(obj3d.object.parent.name);
+          console.log(obj3d.object.name);
           if (obj3d.object.name==Ads.IdRef) {
           descriptionElement.innerText= draggableObject.position.x + ',' + draggableObject.position.y + ',' + draggableObject.position.z;
           }
