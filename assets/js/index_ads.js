@@ -624,6 +624,7 @@ import { getAuth,
     try{
       
 const doc = doc(getFirestore(), "ads", Idref);
+alert("test");
 
 await setDoc(doc, {
   imageUrl: "test"
@@ -632,6 +633,8 @@ await setDoc(doc, {
   merge: true
 }).then(() => console.log("Document updated"));
 }catch (e) {
+  alert(e);
+
 }
 }
 
