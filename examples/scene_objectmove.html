@@ -104,19 +104,18 @@ canvas = document.getElementById( "c" );
         camera.position.z = 5;
 
         const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-      // var renderer = new THREE.WebGLRenderer( { canvas: canvas } );
-//renderer.setSize(1000, 900);
+      //  renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer = new THREE.WebGLRenderer( { canvas: canvas } );
+renderer.setSize(1000, 900);
         renderer.shadowMap.enabled = true;
-        document.body.appendChild(renderer.domElement);
+       // document.body.appendChild(renderer.domElement);
 
        var update = document.getElementById('update');
 
 update.addEventListener("click", function(e) {
   alert("update");
   if(importedObject!=null){
-    alert("importedObject");
-
+    absPos(importedObject);
            //   importedObject.rotation.y += 0.01;
            UpdateAdsObject(Ads.link.IdRef,importedObjectposition.x,importedObjectposition.y,importedObjectposition.z);
             }
