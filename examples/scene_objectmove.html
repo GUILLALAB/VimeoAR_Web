@@ -177,7 +177,7 @@ content.appendChild( descriptionElement );
 
         if(importedObject!=null){
            importedObjectposition = new THREE.Vector3();
-           importedObjectposition.getPositionFromMatrix(importedObject.matrixWorld);
+           importedObjectposition.setFromMatrixPosition(importedObject.matrixWorld);
                   descriptionElement.innerText= importedObjectposition.x + ',' + importedObjectposition.y + ',' + importedObjectposition.z;
             console.log(importedObjectposition.x);
         }
