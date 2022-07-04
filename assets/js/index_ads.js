@@ -202,7 +202,9 @@ import { getAuth,
        userid: getUserUid(),
        position:[{x:"0.0",y:"0.0",z:"0.0"}],
        profilePicUrl: getProfilePicUrl(),
-       timestamp: serverTimestamp()
+       timestamp: serverTimestamp(),
+       IdRef: null
+
      });
      
 
@@ -218,6 +220,7 @@ import { getAuth,
      // 4 - Update the chat message placeholder with the image’s URL.
      await updateDoc(messageRef,{
        imageUrl: publicImageUrl,
+       IdRef:messageRef.id,
        storageUri: fileSnapshot.metadata.fullPath
      });
    } catch (error) {
@@ -609,7 +612,6 @@ import { getAuth,
           deleteMessage(change.doc.id);
         }else{
         var message = change.doc.data();
-        Ads.IdRef=change.doc.id;
         displayAds(message);
         }
 
@@ -634,7 +636,6 @@ try{
   export var Ads =
   {
     link: null,
-    IdRef:null
   };
   function displayAds(Url) {
     //var image = document.getElementById('ads');
