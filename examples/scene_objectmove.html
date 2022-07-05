@@ -86,7 +86,7 @@
   draggableObject;
     var descriptionElement;
     var importedObject=null;
-    var importedObjectposition=null;
+    var importedObjectposition;
     document.addEventListener("models", function(e) {
  // alert(e.detail);
 Ads.link=e.detail;
@@ -296,6 +296,7 @@ window.addEventListener("click", (event) => {
   const found = raycaster.intersectObjects(scene.children, true);
   if (found.length && found[0].object.isDraggable) {
     draggableObject = found[0].object;
+    importedObjectposition = found[0].object;
   }
 });
 
