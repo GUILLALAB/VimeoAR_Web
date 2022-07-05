@@ -272,21 +272,21 @@ if(importedObject!=null){
 descriptionElement.innerText = "test";
 content.appendChild( descriptionElement );
 
-	  const geometry = new THREE.BoxGeometry(2, 2, 2);
+	/*  const geometry = new THREE.BoxGeometry(2, 2, 2);
 	  const material = new THREE.MeshPhongMaterial({ color: 0xff00ff });
 	  const cube = new THREE.Mesh(geometry, material);
 	  cube.castShadow = true; //default is false
 	  cube.isDraggable = true;
 	  cube.name = "cube";
-	  scene.add(cube);
+	  scene.add(cube);*/
 
-	  const geo =  new THREE.SphereGeometry( 0.5, 12, 8 );
+	 /* const geo =  new THREE.SphereGeometry( 0.5, 12, 8 );
 	  const mat = new THREE.MeshPhongMaterial({ color: 0xff00ff });
 	  const sphere = new THREE.Mesh(geo, mat);
 	  sphere.castShadow = true; //default is false
 	  sphere.isDraggable = true;
 	  sphere.name = "sphere";
-	  scene.add(sphere);
+	  scene.add(sphere);*/
 
 	  // CAMERA MOVEMENT CONTROLS
 controls = new OrbitControls(camera, renderer.domElement);
@@ -311,8 +311,8 @@ moveMouse = new THREE.Vector2();
 	  const animate = function () {
 		  controls.update();
 
-		  cube.rotation.x += 0.01;
-		  cube.rotation.y += 0.007;
+		 // cube.rotation.x += 0.01;
+		 // cube.rotation.y += 0.007;
 
 	  if(importedObject!=null){
 		var position = new THREE.Vector3();
@@ -321,8 +321,8 @@ moveMouse = new THREE.Vector2();
 			  //  descriptionElement.innerText= importedObject.position.x + ',' + importedObject.position.y + ',' + importedObject.position.z;
 	  }
 
-	  var position = new THREE.Vector3();
-	  position.setFromMatrixPosition(cube.matrixWorld);
+	 // var position = new THREE.Vector3();
+	 // position.setFromMatrixPosition(cube.matrixWorld);
 	//  descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
 		  renderer.render(scene, camera);
 		  requestAnimationFrame(animate);
