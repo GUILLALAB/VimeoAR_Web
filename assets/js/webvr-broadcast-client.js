@@ -256,32 +256,6 @@ function createCameraStream(uid) {
 function createBroadcaster(streamId) {
   // create video element
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
   video = document.getElementById("video");
 
@@ -297,7 +271,7 @@ function update() {
   var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
   var height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
 
-  ctx.drawImage(video, 0, 0, width, height);
+  //ctx.drawImage(video, 0, 0, width, height);
   requestAnimationFrame(update);
 }
 function connectStreamToVideo(agoraStream, video) {
@@ -309,7 +283,7 @@ function connectStreamToVideo(agoraStream, video) {
  // ctx.canvas.hidden = false;
   UserStartBroadcast(channelName);
 
-  var event = new CustomEvent("stream", { "detail": agoraStream.stream });
+  var event = new CustomEvent("stream", { "detail": agoraStream.stream, "video": video });
     document.dispatchEvent(event);
 
 

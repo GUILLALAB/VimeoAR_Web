@@ -220,7 +220,7 @@ draggableObject;
 
   document.addEventListener("stream", function(e) {
  // alert(e.detail);
-var link=e.detail;
+var link=e.video;
 if (link!=null){
 	addVideo(link);
 }
@@ -334,12 +334,8 @@ moveMouse = new THREE.Vector2();
 	  animate();
 
 
-function addVideo(stream){
-	var video = document.getElementById( 'video' );
-  video.setAttribute('webkit-playsinline', 'webkit-playsinline');
-  video.setAttribute('playsinline', 'playsinline');
-  video.setAttribute('poster', '/imgs/no-video.jpg');
-  video.src=stream;
+function addVideo(video){
+
    var texture = new THREE.VideoTexture( video );
     texture.minFilter = THREE.LinearFilter;
     texture.magFilter = THREE.LinearFilter;
@@ -366,7 +362,7 @@ function addVideo(stream){
 	  mater.metalness = 0;
      var mesh = new THREE.Mesh( geom, mater);
       scene.add( mesh );
-	  mesh.position.set( 0.0, 0.0, 0.0);
+	  mesh.position.set( 0.0, 0.5, 0.0);
 }
 
 	  function setAds3DModel(link){
