@@ -226,7 +226,7 @@ draggableObject;
 var descriptionElement;
 var importedObject=null;
 var importedObjectposition;
-
+var video=null;
 document.addEventListener("stream", function(e) {
 // alert(e.detail);
 var link=e.detail;
@@ -351,8 +351,8 @@ moveMouse = new THREE.Vector2();
 	animate();
 
 
-function addVideo(video){
-var video=	document.getElementById(video);
+function addVideo(id){
+ video=	document.getElementById(id);
  var texture = new THREE.VideoTexture( video );
   texture.minFilter = THREE.LinearFilter;
   texture.magFilter = THREE.LinearFilter;
