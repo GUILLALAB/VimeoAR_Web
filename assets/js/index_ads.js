@@ -625,10 +625,6 @@ try {
   
   await setDoc(doc(getFirestore(), "ads", Idref), {
     position: { x: x, y: y, z: z },
-
-    "position.x": x,
-    "position.y": y,
-    "position.z": z
   },{merge: true});
   }
   
