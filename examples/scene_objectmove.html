@@ -220,7 +220,7 @@ content.appendChild( descriptionElement );
             function ( gltf ) {
               importedObject= gltf.scene;
               importedObject.scale.set(1.0,1.0,1.0);
-              importedObject.position.set( 0.5, 0.5, 0.5 );
+              importedObject.position.set( link.position.x, link.position.y, link.position.z);
               importedObject.name =link.IdRef;
               importedObject.traverse( function( node ) {
 
