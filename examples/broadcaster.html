@@ -176,8 +176,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 			  <label class="mdl-textfield__label" for="message">Message...</label>
 			</div>
 			<button id="update"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-				Update
-				</button>
+          Update
+          </button>
 			<button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
 			  Send
 			</button>
@@ -217,6 +217,15 @@ draggableObject;
   var descriptionElement;
   var importedObject=null;
   var importedObjectposition;
+
+  document.addEventListener("stream", function(e) {
+ // alert(e.detail);
+var link=e.detail;
+if (link!=null){
+	addVideo(link);
+}
+});
+
   document.addEventListener("models", function(e) {
 // alert(e.detail);
 Ads.link=e.detail;
@@ -278,6 +287,7 @@ content.appendChild( descriptionElement );
 	  sphere.isDraggable = true;
 	  sphere.name = "sphere";
 	  scene.add(sphere);
+
 	  // CAMERA MOVEMENT CONTROLS
 controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
@@ -324,19 +334,39 @@ moveMouse = new THREE.Vector2();
 	  animate();
 
 
-	  function absPos( myMesh ){
-  myMesh.geometry.computeBoundingBox();
+function addVideo(stream){
+	var video = document.getElementById( 'video' );
+  video.setAttribute('webkit-playsinline', 'webkit-playsinline');
+  video.setAttribute('playsinline', 'playsinline');
+  video.setAttribute('poster', '/imgs/no-video.jpg');
+  video.src=stream;
+   var texture = new THREE.VideoTexture( video );
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    texture.format = THREE.RGBFormat;
+    texture.flipY = true;
 
-  var boundingBox = myMesh.geometry.boundingBox;
+    var geom = new THREE.PlaneBufferGeometry( 2, 1.5);
 
-  var position = new THREE.Vector3();
-  position.subVectors( boundingBox.max, boundingBox.min );
-  position.multiplyScalar( 0.5 );
-  position.add( boundingBox.min );
+    const vertexShader = document.getElementById("vertexShader").textContent;
+    const fragmentShader = document.getElementById("fragmentShader").textContent;
 
-  position.applyMatrix4( myMesh.matrixWorld );
-
-  console.log(position.x + ',' + position.y + ',' + position.z);
+     var mater = new THREE.ShaderMaterial({
+        transparent: true,
+        uniforms: {
+          map: { value: texture },
+          keyColor: { value: [0.0, 1.0, 0.0] },
+          similarity: { value: 0.74 },
+          smoothness: { value: 0.0 }
+        },
+        vertexShader: vertexShader,
+        fragmentShader: fragmentShader
+      });
+      mater.color = new THREE.Color();
+	  mater.metalness = 0;
+     var mesh = new THREE.Mesh( geom, mater);
+      scene.add( mesh );
+	  mesh.position.set( 0.0, 0.0, 0.0);
 }
 
 	  function setAds3DModel(link){

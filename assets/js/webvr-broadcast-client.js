@@ -256,6 +256,33 @@ function createCameraStream(uid) {
 function createBroadcaster(streamId) {
   // create video element
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   video = document.getElementById("video");
 
   video.id = 'faceVideo-' + streamId;
@@ -282,11 +309,17 @@ function connectStreamToVideo(agoraStream, video) {
   ctx.canvas.hidden = false;
   UserStartBroadcast(channelName);
 
+  var event = new CustomEvent("stream", { "detail": agoraStream.stream });
+    document.dispatchEvent(event);
+
+
   video.onloadedmetadata = () => {
     video.play();
     update();
   }
 }
+  
+
 
 function changeStreamSource(deviceIndex, deviceType) {
   console.log('Switching stream sources for: ' + deviceType);
