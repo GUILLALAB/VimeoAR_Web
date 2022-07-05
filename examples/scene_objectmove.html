@@ -86,7 +86,7 @@
   draggableObject;
     var descriptionElement;
     var importedObject=null;
-    var importedObjectposition;
+    var importedObjectposition=null;
     document.addEventListener("models", function(e) {
  // alert(e.detail);
 Ads.link=e.detail;
@@ -267,8 +267,11 @@ scene.updateMatrixWorld(true);
         if (!obj3d.object.isDraggablee) {
           draggableObject.position.x = obj3d.point.x;
           draggableObject.position.z = obj3d.point.z;
-          
-          console.log(obj3d);
+          importedObjectposition.position.x=obj3d.point.x;
+          importedObjectposition.position.y=obj3d.point.y;
+          importedObjectposition.position.z=obj3d.point.z;
+
+         // console.log(obj3d);
           if (obj3d.object.name==Ads.IdRef) {
           descriptionElement.innerText= draggableObject.position.x + ',' + draggableObject.position.y + ',' + draggableObject.position.z;
           }
