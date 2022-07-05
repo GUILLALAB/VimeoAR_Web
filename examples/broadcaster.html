@@ -231,6 +231,7 @@ document.addEventListener("stream", function(e) {
 // alert(e.detail);
 var link=e.video;
 if (link!=null){
+	alert("test");
   addVideo(link);
 }
 });
@@ -344,7 +345,6 @@ moveMouse = new THREE.Vector2();
 
 
 function addVideo(video){
-alert(video);
  var texture = new THREE.VideoTexture( video );
   texture.minFilter = THREE.LinearFilter;
   texture.magFilter = THREE.LinearFilter;
