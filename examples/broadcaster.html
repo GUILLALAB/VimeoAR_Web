@@ -330,7 +330,14 @@ moveMouse = new THREE.Vector2();
    // descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
 			//  descriptionElement.innerText= importedObject.position.x + ',' + importedObject.position.y + ',' + importedObject.position.z;
 	}
-
+	if(video!=null)
+        {
+          if ( video.readyState === video.HAVE_ENOUGH_DATA ) 
+          {
+            if ( texture ) 
+              texture.needsUpdate = true;
+          }
+        }
    // var position = new THREE.Vector3();
    // position.setFromMatrixPosition(cube.matrixWorld);
   //  descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
@@ -345,7 +352,7 @@ moveMouse = new THREE.Vector2();
 
 
 function addVideo(video){
-var video=	document.getElementById("video");
+var video=	document.getElementById(video);
  var texture = new THREE.VideoTexture( video );
   texture.minFilter = THREE.LinearFilter;
   texture.magFilter = THREE.LinearFilter;
@@ -373,6 +380,11 @@ var video=	document.getElementById("video");
    var mesh = new THREE.Mesh( geom, mater);
 	scene.add( mesh );
 	mesh.position.set( 0.0, 0.0, 0.0);
+
+	video.onloadedmetadata = () => {
+    video.play();
+    
+  }
 }
 
 	function setAds3DModel(link){
