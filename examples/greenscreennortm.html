@@ -750,6 +750,11 @@ if(rtmClient!=null){
           }
 
         }
+        if(reticle!= null){
+        var position = new THREE.Vector3();
+     position.getPositionFromMatrix( reticle.matrixWorld);
+     console.log(position.x+"| "+ position.y+"| " +"| "+position.z);
+        }
        if(mixer!= null){
         var delta = clock.getDelta();
         mixer.update( delta );
