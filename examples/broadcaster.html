@@ -269,7 +269,6 @@ document.addEventListener("stream", function(e) {
 // alert(e.detail);
 var link=e.detail;
 if (link!=null){
-	alert("test");
   addVideo(link);
 }
 });
@@ -417,7 +416,7 @@ function addVideo(id){
 	mater.metalness = 0;
    var mesh = new THREE.Mesh( geom, mater);
 	scene.add( mesh );
-	mesh.position.set( 0.0, 0.8, 0.0);
+	mesh.position.set( 0.0, 1.2, 0.0);
 
 	video.onloadedmetadata = () => {
     video.play();
