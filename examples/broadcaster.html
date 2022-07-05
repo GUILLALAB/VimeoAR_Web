@@ -227,6 +227,7 @@ var descriptionElement;
 var importedObject=null;
 var importedObjectposition;
 var video=null;
+var texture;
 document.addEventListener("stream", function(e) {
 // alert(e.detail);
 var link=e.detail;
@@ -353,7 +354,7 @@ moveMouse = new THREE.Vector2();
 
 function addVideo(id){
  video=	document.getElementById(id);
- var texture = new THREE.VideoTexture( video );
+  texture = new THREE.VideoTexture( video );
   texture.minFilter = THREE.LinearFilter;
   texture.magFilter = THREE.LinearFilter;
   texture.format = THREE.RGBFormat;
