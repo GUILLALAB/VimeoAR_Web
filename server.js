@@ -115,7 +115,7 @@ app.get('/green', (request, response) => {
 
 
 app.get('/broadcaster', (request, response) => {
-  response.render('broadcaster.html',{ name: 'Tobi' });
+  response.render('broadcaster3D.html',{ name: 'Tobi' });
 });
 app.get('/menu', (request, response) => {
   response.render('menu.html',{ name: 'Tobi' });

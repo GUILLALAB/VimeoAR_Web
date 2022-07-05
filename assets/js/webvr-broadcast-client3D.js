@@ -256,16 +256,6 @@ function createCameraStream(uid) {
 function createBroadcaster(streamId) {
   // create video element
 
-
-
-
-
-
-
-
-
-
-
   
   video = document.getElementById("video");
 
@@ -281,23 +271,26 @@ function update() {
   var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
   var height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
 
-  ctx.drawImage(video, 0, 0, width, height);
+  //ctx.drawImage(video, 0, 0, width, height);
   requestAnimationFrame(update);
 }
 function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
-  canvas = document.getElementById("canvas");
-  ctx = canvas.getContext("2d");
-  ctx.canvas.width = window.innerWidth;
-  ctx.canvas.height = window.innerHeight;
-  ctx.canvas.hidden = false;
+  //canvas = document.getElementById("canvas");
+ // ctx = canvas.getContext("2d");
+ // ctx.canvas.width = window.innerWidth;
+ // ctx.canvas.height = window.innerHeight;
+ // ctx.canvas.hidden = false;
   UserStartBroadcast(channelName);
 
-  video.onloadedmetadata = () => {
-    video.play();
-    update();
-  }
+  var event = new CustomEvent("stream", { "detail": video.id});
+    document.dispatchEvent(event);
+
+
+ 
 }
+  
+
 
 function changeStreamSource(deviceIndex, deviceType) {
   console.log('Switching stream sources for: ' + deviceType);
