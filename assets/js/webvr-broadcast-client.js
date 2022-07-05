@@ -302,11 +302,11 @@ function update() {
 }
 function connectStreamToVideo(agoraStream, video) {
   video.srcObject = agoraStream.stream;// add video stream to video element as source
-  canvas = document.getElementById("canvas");
-  ctx = canvas.getContext("2d");
-  ctx.canvas.width = window.innerWidth;
-  ctx.canvas.height = window.innerHeight;
-  ctx.canvas.hidden = false;
+  //canvas = document.getElementById("canvas");
+ // ctx = canvas.getContext("2d");
+ // ctx.canvas.width = window.innerWidth;
+ // ctx.canvas.height = window.innerHeight;
+ // ctx.canvas.hidden = false;
   UserStartBroadcast(channelName);
 
   var event = new CustomEvent("stream", { "detail": agoraStream.stream });
