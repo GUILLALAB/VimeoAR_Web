@@ -283,7 +283,7 @@ function connectStreamToVideo(agoraStream, video) {
  // ctx.canvas.hidden = false;
   UserStartBroadcast(channelName);
 
-  var event = new CustomEvent("stream", { "detail": agoraStream.stream, "video": video });
+  var event = new CustomEvent("stream", { "detail": "test"});
     document.dispatchEvent(event);
 
 
