@@ -172,7 +172,9 @@ import { getAuth,
   console.log("Document written with ID: ", docRef.id);
   docRefId=docRef.id;
   loadMessages(docRefId);
-
+  Broadcaster.id=docRefId;
+  Broadcaster.channel=channelName;
+  Broadcaster.username=name;
   }
 
 
@@ -188,7 +190,66 @@ import { getAuth,
     console.error('Error writing new message to Firebase Database', error);
   }
 }
+
+export var Broadcaster =
+{
+  id: null,
+  channel: null,
+  username: null,
+  objecturl: null,
+  time: null,
+  all: null
+};
  
+export async function loadObject(docRefId) {
+  // Create the query to load the last 12 messages and listen for new ones.
+  /* const recentMessagesQuery = query(collection(getFirestore(), 'object'), orderBy('timestamp', 'desc'), limit(12));
+   
+   onSnapshot(recentMessagesQuery, function(snapshot) {
+     snapshot.docChanges().forEach(function(change) {
+     
+         var message = change.doc.data();
+         displayObject(message.imageUrl);
+       
+     });
+   });
+ */
+
+  Broadcaster.objecturl = null;
+
+  const docRef = doc(getFirestore(), "Broadcast", docRefId);
+  const q = query(collection(docRef, "objects"));
+
+  onSnapshot(q, function (snapshot) {
+    snapshot.docChanges().forEach(function (change) {
+
+      var message = change.doc.data();
+      Broadcaster.all=message;
+      displayObject(message.imageUrl);
+
+    });
+  });
+
+  /*const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    console.log(doc.id, " => ", doc.data());
+    var message = doc.data();
+    displayObject(message.imageUrl);
+  });*/
+
+}
+
+function displayObject(imageUrl) {
+  // Object.link=imageUrl + '&' + new Date().getTime();
+  // Broadcaster.objecturl = imageUrl + '&' + new Date().getTime();
+  console.log(imageUrl + '&' + new Date().getTime());
+  if(imageUrl.includes(LOADING_IMAGE_URL)){
+  }else{
+    var event = new CustomEvent("broadcastmodel", { "detail": imageUrl + '&' + new Date().getTime() });
+    document.dispatchEvent(event);
+  }
+}
 
     function uploadFiles(files) {
     /*    if(files.length==0){
