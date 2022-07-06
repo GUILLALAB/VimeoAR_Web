@@ -335,6 +335,7 @@ void main() {
 			var link = e.detail;
 			if (link != null) {
 				addVideo(link);
+				loadObject(Broadcaster.id);
 			}
 		});
 		document.addEventListener("broadcastmodel", function(e) {
@@ -419,8 +420,6 @@ if (Broadcaster.objecturl!=null){
 
 		const ambientLight = new THREE.AmbientLight(0x444444);
 		scene.add(ambientLight);
-
-		loadObject(Broadcaster.id);
 
 		const animate = function () {
 			controls.update();
