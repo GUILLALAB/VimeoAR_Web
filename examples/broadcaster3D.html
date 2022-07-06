@@ -370,7 +370,7 @@ void main() {
 		var geomet = new THREE.SphereGeometry( 0.4, 100, 100 );
 var textu = new THREE.TextureLoader().load('112097.jpg');
 var materi = new THREE.MeshBasicMaterial({map : textu, overdraw: 0.1});
-varpesh = new THREE.Mesh( geomet, materi );
+var pesh = new THREE.Mesh( geomet, materi );
 scene.add( pesh );
 		/* const geo =  new THREE.SphereGeometry( 0.5, 12, 8 );
 		 const mat = new THREE.MeshPhongMaterial({ color: 0xff00ff });
