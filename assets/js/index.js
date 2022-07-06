@@ -159,7 +159,7 @@ import { getAuth,
  // await deleteDoc(doc(getFirestore(), "Broadcast", docRefId));
 }
  }
- export async function UserStartBroadcast(channelName) {
+ export async function UserStartBroadcast(channelName,video) {
   // Add a new message entry to the Firebase database.
   try {
   const docRef = await addDoc(collection(getFirestore(), "Broadcast"), {
