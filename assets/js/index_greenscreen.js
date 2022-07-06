@@ -479,8 +479,7 @@ export var Broadcaster =
   channel: null,
   username: null,
   objecturl: null,
-  time: null,
-  all: null
+  time: null
 };
 
 
@@ -526,7 +525,6 @@ export async function loadObject(docRefId) {
     snapshot.docChanges().forEach(function (change) {
 
       var message = change.doc.data();
-      Broadcaster.all=message;
       displayObject(message.imageUrl);
 
     });
