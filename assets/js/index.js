@@ -172,7 +172,7 @@ import { getAuth,
   console.log("Document written with ID: ", docRef.id);
   docRefId=docRef.id;
   loadMessages(docRefId);
-  Broadcaster.id=docRefId;
+  Broadcaster.id="test";
   Broadcaster.channel=channelName;
   Broadcaster.username=name;
 
