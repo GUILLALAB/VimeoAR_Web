@@ -319,7 +319,7 @@ void main() {
 		import * as THREE from './jsm/three.module.js';
 		import { OrbitControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/examples/jsm/controls/OrbitControls.js';
 		import { GLTFLoader } from './jsm/GLTFLoader.js';
-		import {loadObject,Broadcaster} from './js/index_greenscreen.js';
+		import {loadObject,Object,Broadcaster} from './js/index_greenscreen.js';
 
 		let controls, clickMouse, renderer,
 			moveMouse, canvas,
@@ -340,7 +340,6 @@ void main() {
 		document.addEventListener("broadcastmodel", function(e) {
  // alert(e.detail);
  Broadcaster.objecturl=e.detail;
- alert(Broadcaster.all);
 if (Broadcaster.objecturl!=null){
 	setAds3DModel(Broadcaster.all);
 }
@@ -421,7 +420,7 @@ if (Broadcaster.objecturl!=null){
 		const ambientLight = new THREE.AmbientLight(0x444444);
 		scene.add(ambientLight);
 
-		loadObject();
+		loadObject(Broadcaster.id);
 
 		const animate = function () {
 			controls.update();
