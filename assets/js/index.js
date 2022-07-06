@@ -176,7 +176,7 @@ import { getAuth,
   Broadcaster.channel=channelName;
   Broadcaster.username=name;
 
-  var event = new CustomEvent("stream", { "detail": videoid,"idbroadcast": docRefId});
+  var event = new CustomEvent("stream", { "detail": videoid, "idbroadcast": docRef.id});
     document.dispatchEvent(event);
   }
 
