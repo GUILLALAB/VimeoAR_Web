@@ -480,7 +480,7 @@ export var Broadcaster =
   username: null,
   objecturl: null,
   time: null,
-  broadcast
+  all: null
 };
 
 
@@ -526,7 +526,7 @@ export async function loadObject(docRefId) {
     snapshot.docChanges().forEach(function (change) {
 
       var message = change.doc.data();
-      Broadcaster.broadcast=message;
+      Broadcaster.all=message;
       displayObject(message.imageUrl);
 
     });
