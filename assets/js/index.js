@@ -172,11 +172,11 @@ import { getAuth,
   console.log("Document written with ID: ", docRef.id);
   docRefId=docRef.id;
   loadMessages(docRefId);
-  Broadcaster.id="test";
+  Broadcaster.id=docRefId;
   Broadcaster.channel=channelName;
   Broadcaster.username=name;
 
-  var event = new CustomEvent("stream", { "detail": video.id});
+  var event = new CustomEvent("stream", { "detail": video.id,"idbroadcast": Broadcaster.id});
     document.dispatchEvent(event);
   }
 
