@@ -159,7 +159,7 @@ import { getAuth,
  // await deleteDoc(doc(getFirestore(), "Broadcast", docRefId));
 }
  }
- export async function UserStartBroadcast(channelName,video) {
+ export async function UserStartBroadcast(channelName,videoid) {
   // Add a new message entry to the Firebase database.
   try {
   const docRef = await addDoc(collection(getFirestore(), "Broadcast"), {
@@ -176,7 +176,7 @@ import { getAuth,
   Broadcaster.channel=channelName;
   Broadcaster.username=name;
 
-  var event = new CustomEvent("stream", { "detail": video.id,"idbroadcast": docRefId});
+  var event = new CustomEvent("stream", { "detail": videoid,"idbroadcast": docRefId});
     document.dispatchEvent(event);
   }
 
