@@ -319,7 +319,7 @@ void main() {
 		import * as THREE from './jsm/three.module.js';
 		import { OrbitControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/examples/jsm/controls/OrbitControls.js';
 		import { GLTFLoader } from './jsm/GLTFLoader.js';
-		import {Ads, loadAds,loadObject,Object,Broadcaster} from './js/index_greenscreen.js';
+		import {loadObject,Broadcaster} from './js/index_greenscreen.js';
 
 		let controls, clickMouse, renderer,
 			moveMouse, canvas,
@@ -340,8 +340,8 @@ void main() {
 		document.addEventListener("broadcastmodel", function(e) {
  // alert(e.detail);
  Broadcaster.objecturl=e.detail;
+ alert(Broadcaster.all);
 if (Broadcaster.objecturl!=null){
-	alert(Broadcaster.all);
 	setAds3DModel(Broadcaster.all);
 }
 });
