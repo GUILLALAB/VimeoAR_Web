@@ -175,6 +175,9 @@ import { getAuth,
   Broadcaster.id=docRefId;
   Broadcaster.channel=channelName;
   Broadcaster.username=name;
+
+  var event = new CustomEvent("stream", { "detail": video.id});
+    document.dispatchEvent(event);
   }
 
 
