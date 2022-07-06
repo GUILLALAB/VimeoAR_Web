@@ -367,11 +367,23 @@ void main() {
 		cube.name = "cube";
 		scene.add(cube);
 
-		var geomet = new THREE.SphereGeometry( 0.4, 100, 100 );
-var textu = new THREE.TextureLoader().load('112097.jpg');
-var materi = new THREE.MeshBasicMaterial({map : textu, overdraw: 0.1});
-var pesh = new THREE.Mesh( geomet, materi );
-scene.add( pesh );
+var geomet = new THREE.SphereGeometry(3000, 60, 40);  
+var uniforms = {  
+  texture: { type: 't', value: THREE.ImageUtils.loadTexture('/path/to/my_image.jpg') }
+};
+
+var materi = new THREE.ShaderMaterial( {  
+  uniforms:       uniforms,
+  vertexShader:   document.getElementById('sky-vertex').textContent,
+  fragmentShader: document.getElementById('sky-fragment').textContent
+});
+
+var pesh = new THREE.Mesh(geomet, materi);  
+pesh.scale.set(-1, 1, 1);  
+pesh.eulerOrder = 'XZY';  
+pesh.renderDepth = 1000.0;  
+scene.add(pesh);  
+
 		/* const geo =  new THREE.SphereGeometry( 0.5, 12, 8 );
 		 const mat = new THREE.MeshPhongMaterial({ color: 0xff00ff });
 		 const sphere = new THREE.Mesh(geo, mat);
