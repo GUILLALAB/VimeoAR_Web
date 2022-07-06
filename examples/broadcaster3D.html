@@ -335,7 +335,7 @@ void main() {
 			var link = e.detail;
 			if (link != null) {
 				addVideo(link);
-				loadObject(e.idbroadcast);
+				loadObject(link.idbroadcast);
 			}
 		});
 		document.addEventListener("broadcastmodel", function(e) {
@@ -453,7 +453,7 @@ if (Broadcaster.objecturl!=null){
 
 
 		function addVideo(id) {
-			video = document.getElementById(id);
+			video = document.getElementById(id.videoid);
 			texture = new THREE.VideoTexture(video);
 			texture.minFilter = THREE.LinearFilter;
 			texture.magFilter = THREE.LinearFilter;

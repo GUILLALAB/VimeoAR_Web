@@ -176,10 +176,14 @@ import { getAuth,
   Broadcaster.channel=channelName;
   Broadcaster.username=name;
 
-  var event = new CustomEvent("stream", { "detail": videoid, "idbroadcast": docRef.id});
-    document.dispatchEvent(event);
+  var event = new CustomEvent("stream", { 
+    detail: {
+    videoid: videoid, 
+    idbroadcast: docRef.id
+}
+  });
+  document.dispatchEvent(event);
   }
-
 
   /*  await addDoc(collection(getFirestore(), 'Broadcast'), {
       name: getUserName(),
