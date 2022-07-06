@@ -302,8 +302,10 @@ export function loadMessages() {
         name: getUserName(),
         imageUrl: LOADING_IMAGE_URL,
         userid: getUserUid(),
+        position: { x: "0.0", y: "0.0", z: "0.0" },
         profilePicUrl: getProfilePicUrl(),
-        timestamp: serverTimestamp()
+        timestamp: serverTimestamp(),
+        IdRef: null
       }
     );
 
@@ -326,6 +328,7 @@ export function loadMessages() {
      // 4 - Update the chat message placeholder with the image’s URL.
      await updateDoc(messageRef,{
        imageUrl: publicImageUrl,
+       IdRef:messageRef.id,
        storageUri: fileSnapshot.metadata.fullPath
      });
    } catch (error) {
