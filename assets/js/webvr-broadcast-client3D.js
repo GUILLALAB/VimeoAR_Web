@@ -1,6 +1,6 @@
 // Agora settings
 //import {sayHello} from './server.js';
-import { UserStartBroadcast, UserStopBroadcast, LoadBroadcast, getUserUid } from './index.js';
+import { UserStartBroadcast, UserStopBroadcast, Broadcaster, LoadBroadcast, getUserUid } from './index.js';
 
 const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
 var channelName = '';
@@ -281,13 +281,8 @@ function connectStreamToVideo(agoraStream, video) {
  // ctx.canvas.width = window.innerWidth;
  // ctx.canvas.height = window.innerHeight;
  // ctx.canvas.hidden = false;
-  UserStartBroadcast(channelName);
+  UserStartBroadcast(channelName, video.id);
 
-  var event = new CustomEvent("stream", { "detail": video.id});
-    document.dispatchEvent(event);
-
-
- 
 }
   
 
