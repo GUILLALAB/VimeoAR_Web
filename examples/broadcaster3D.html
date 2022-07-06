@@ -229,7 +229,7 @@
 						</button>
 					</form>
 					<form id="image-form" action="#">
-						<input id="mediaCapture" type="file" accept="image/*, .glb, .fbx">
+						<input id="mediaCapture" type="file" accept="image/*, .glb">
 						<button id="submitImage" title="Add an image"
 							class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
 							<i class="material-icons">image</i>
@@ -367,6 +367,11 @@ void main() {
 		cube.name = "cube";
 		scene.add(cube);
 
+		this.geomet = new THREE.SphereGeometry( 0.4, 100, 100 );
+var texture = new THREE.TextureLoader().load('112097.jpg');
+this.materi = new THREE.MeshBasicMaterial({map : texture, overdraw: 0.1});
+this.pesh = new THREE.Mesh( this.geomet, this.materi );
+this.scene.add( this.pesh );
 		/* const geo =  new THREE.SphereGeometry( 0.5, 12, 8 );
 		 const mat = new THREE.MeshPhongMaterial({ color: 0xff00ff });
 		 const sphere = new THREE.Mesh(geo, mat);
