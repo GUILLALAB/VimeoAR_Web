@@ -367,11 +367,11 @@ void main() {
 		cube.name = "cube";
 		scene.add(cube);
 
-		this.geomet = new THREE.SphereGeometry( 0.4, 100, 100 );
-var texture = new THREE.TextureLoader().load('112097.jpg');
-this.materi = new THREE.MeshBasicMaterial({map : texture, overdraw: 0.1});
-this.pesh = new THREE.Mesh( this.geomet, this.materi );
-this.scene.add( this.pesh );
+		var geomet = new THREE.SphereGeometry( 0.4, 100, 100 );
+var textu = new THREE.TextureLoader().load('112097.jpg');
+var materi = new THREE.MeshBasicMaterial({map : textu, overdraw: 0.1});
+varpesh = new THREE.Mesh( geomet, materi );
+scene.add( pesh );
 		/* const geo =  new THREE.SphereGeometry( 0.5, 12, 8 );
 		 const mat = new THREE.MeshPhongMaterial({ color: 0xff00ff });
 		 const sphere = new THREE.Mesh(geo, mat);
