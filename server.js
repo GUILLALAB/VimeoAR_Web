@@ -127,8 +127,8 @@ app.get('/basic', (request, response) => {
 });
 
 
-app.get('/test5', (request, response) => {
-  response.render('test5.html');
+app.get('/test6', (request, response) => {
+  response.render('test6.html');
 });
 
 // The route for getting videos from the vimeo API
