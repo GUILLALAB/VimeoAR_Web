@@ -84,7 +84,10 @@ window.onload = function(){
   function loadStars(){
     var starSpace = new THREE.Geometry();
     const planeGeometry = new THREE.PlaneBufferGeometry(10000, 10000, 8, 8);
-    const planeMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
+    var tex = new THREE.TextureLoader().load("112097.jpg");
+
+//set the texture as map parameter of the material
+var planeMaterial = new THREE.MeshBasicMaterial({ map: tex });
     const plane = new THREE.Mesh(planeGeometry, planeMaterial);
     plane.rotateX(-Math.PI / 2);
     plane.position.y = -1000;
