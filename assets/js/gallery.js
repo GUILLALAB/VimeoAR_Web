@@ -105,8 +105,8 @@ var planeMaterial = new THREE.MeshBasicMaterial({ map: tex });
       'https://r105.threejsfundamentals.org/threejs/resources/images/cubemaps/computer-history-museum/neg-z.jpg',
     ]);
     scene.background = texture;
-    
-    for(var i=0; i<1000; i++){
+
+  /*  for(var i=0; i<1000; i++){
       starSpace.vertices.push( new THREE.Vector3( 0.5 - Math.random(), 0.5 - Math.random(), 0.5 - Math.random() ).normalize().multiplyScalar(4000 + (2000 * Math.random())));
       starSpace.colors.push(new THREE.Color(0xFFFFFF));
       starPaths.push( { 'axis': new THREE.Vector3(0.5 - Math.random(), 0.5 - Math.random(), 0.5 - Math.random() ), 'speed' : 0.0015 * Math.random() } );
@@ -115,7 +115,7 @@ var planeMaterial = new THREE.MeshBasicMaterial({ map: tex });
       starSpace,
       new THREE.PointsMaterial({ size: 12,vertexColors: THREE.VertexColors})
     );
-    scene.add(starCloud);
+    scene.add(starCloud);*/
   }
   function moveStars(){
     starCloud.geometry.vertices.forEach(function(vertex,i){
@@ -136,8 +136,8 @@ var planeMaterial = new THREE.MeshBasicMaterial({ map: tex });
 
     keyNav();
 
-    moveStars();
-    starCloud.geometry.verticesNeedUpdate = true;
+  //  moveStars();
+  //  starCloud.geometry.verticesNeedUpdate = true;
     
     renderer.render(scene, camera);
     requestAnimationFrame( render );
