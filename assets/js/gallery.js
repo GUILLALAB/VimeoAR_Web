@@ -83,11 +83,11 @@ window.onload = function(){
   loadStars();
   function loadStars(){
     var starSpace = new THREE.Geometry();
-    const planeGeometry = new THREE.PlaneBufferGeometry(1000, 1000, 8, 8);
+    const planeGeometry = new THREE.PlaneBufferGeometry(10000, 10000, 8, 8);
     const planeMaterial = new THREE.MeshPhongMaterial({ color: 0xcccccc });
     const plane = new THREE.Mesh(planeGeometry, planeMaterial);
     plane.rotateX(-Math.PI / 2);
-    plane.position.y = -3;
+    plane.position.y = -10;
     plane.receiveShadow = true;
     plane.isDraggable = false;
     scene.add(plane);
