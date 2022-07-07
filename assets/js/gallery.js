@@ -83,6 +83,15 @@ window.onload = function(){
   loadStars();
   function loadStars(){
     var starSpace = new THREE.Geometry();
+    const planeGeometry = new THREE.PlaneBufferGeometry(50, 50, 8, 8);
+    const planeMaterial = new THREE.MeshPhongMaterial({ color: 0xcccccc });
+    const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+    plane.rotateX(-Math.PI / 2);
+    plane.position.y = -3;
+    plane.receiveShadow = true;
+    plane.isDraggable = false;
+    scene.add(plane);
+    
     for(var i=0; i<1000; i++){
       starSpace.vertices.push( new THREE.Vector3( 0.5 - Math.random(), 0.5 - Math.random(), 0.5 - Math.random() ).normalize().multiplyScalar(4000 + (2000 * Math.random())));
       starSpace.colors.push(new THREE.Color(0xFFFFFF));
