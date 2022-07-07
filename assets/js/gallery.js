@@ -95,6 +95,17 @@ var planeMaterial = new THREE.MeshBasicMaterial({ map: tex });
     plane.isDraggable = false;
     scene.add(plane);
 
+    const loader = new THREE.CubeTextureLoader();
+    const texture = loader.load([
+      'https://r105.threejsfundamentals.org/threejs/resources/images/cubemaps/computer-history-museum/pos-x.jpg',
+      'https://r105.threejsfundamentals.org/threejs/resources/images/cubemaps/computer-history-museum/neg-x.jpg',
+      'https://r105.threejsfundamentals.org/threejs/resources/images/cubemaps/computer-history-museum/pos-y.jpg',
+      'https://r105.threejsfundamentals.org/threejs/resources/images/cubemaps/computer-history-museum/neg-y.jpg',
+      'https://r105.threejsfundamentals.org/threejs/resources/images/cubemaps/computer-history-museum/pos-z.jpg',
+      'https://r105.threejsfundamentals.org/threejs/resources/images/cubemaps/computer-history-museum/neg-z.jpg',
+    ]);
+    scene.background = texture;
+    
     for(var i=0; i<1000; i++){
       starSpace.vertices.push( new THREE.Vector3( 0.5 - Math.random(), 0.5 - Math.random(), 0.5 - Math.random() ).normalize().multiplyScalar(4000 + (2000 * Math.random())));
       starSpace.colors.push(new THREE.Color(0xFFFFFF));
