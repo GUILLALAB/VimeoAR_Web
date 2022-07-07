@@ -87,7 +87,7 @@ window.onload = function(){
     const planeMaterial = new THREE.MeshPhongMaterial({ color: 0xcccccc });
     const plane = new THREE.Mesh(planeGeometry, planeMaterial);
     plane.rotateX(-Math.PI / 2);
-    plane.position.y = -10;
+    plane.position.y = -100;
     plane.receiveShadow = true;
     plane.isDraggable = false;
     scene.add(plane);
