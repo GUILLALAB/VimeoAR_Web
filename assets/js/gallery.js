@@ -47,8 +47,8 @@ window.onload = function(){
     numImages = 1 * ( document.getElementById('numImages').value || 12 );
     numImages=arrLiteral.length;
     galleryRadius = 1024 * numImages / Math.PI / 1.8;
-    var galleryPhi = 4 * Math.PI / numImages;
-    if( camera.position.length() > galleryRadius ){ camera.position.set(0,0,0); }
+    var galleryPhi = 2 * Math.PI / numImages;
+    if( camera.position.length() > galleryRadius ){ camera.position.set(0,-10,0); }
 
     //Load
     for(var i=0; i < arrLiteral.length; i++){ loadImage(i); }
