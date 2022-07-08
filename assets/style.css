@@ -317,7 +317,7 @@ main, #messages-card {
 } 
 
 main, #messages-card {
-  height: 50%;
+  height: 20%;
   padding-bottom: 0;
 }
 #messages-card-container {
