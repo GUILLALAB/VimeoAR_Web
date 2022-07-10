@@ -552,7 +552,7 @@ if (Broadcaster.objecturl!=null){
 					importedObject = gltf.scene;
 					importedObject.scale.set(1.0, 1.0, 1.0);
 					numobject=numobject+1;
-					importedObject.position.set(link.position.x, link.position.y, link.position.z+numobject);
+					importedObject.position.set(link.position.x+numobject, link.position.y, link.position.z);
 					importedObject.name = link.IdRef;
 					importedObject.traverse(function (node) {
 
