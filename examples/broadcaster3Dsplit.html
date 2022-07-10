@@ -381,6 +381,7 @@ void main() {
 		var video = null;
 		var texture;
 		var numobject=0;
+		var objects3D = [];
 		document.addEventListener("stream", function (e) {
 			// alert(e.detail);
 			var link = e.detail;
@@ -563,7 +564,7 @@ if (Broadcaster.objecturl!=null){
 
 					});
 					numobject++;
-
+					objects3D.push(importedObject);
 					scene.add(importedObject);
 					scene.updateMatrix();
 					scene.updateMatrixWorld(true);
