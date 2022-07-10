@@ -380,6 +380,7 @@ void main() {
 		var importedObjectposition;
 		var video = null;
 		var texture;
+		var numobject=0;
 		document.addEventListener("stream", function (e) {
 			// alert(e.detail);
 			var link = e.detail;
@@ -550,7 +551,8 @@ if (Broadcaster.objecturl!=null){
 				function (gltf) {
 					importedObject = gltf.scene;
 					importedObject.scale.set(1.0, 1.0, 1.0);
-					importedObject.position.set(link.position.x, link.position.y, link.position.z);
+					numobject=numobject+1;
+					importedObject.position.set(link.position.x, link.position.y, link.position.z+numobject);
 					importedObject.name = link.IdRef;
 					importedObject.traverse(function (node) {
 
@@ -565,7 +567,7 @@ if (Broadcaster.objecturl!=null){
 					scene.add(importedObject);
 					scene.updateMatrix();
 					scene.updateMatrixWorld(true);
-
+					numobject++;
 
 				},
 				// clled while loading is progressing
