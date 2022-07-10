@@ -403,7 +403,7 @@ if (Broadcaster.objecturl!=null){
 		var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 
-		camera.position.z = 80;
+		camera.position.z = 100;
 
 		//   const renderer = new THREE.WebGLRenderer();
 		//  renderer.setSize(window.innerWidth, window.innerHeight);
@@ -550,7 +550,7 @@ if (Broadcaster.objecturl!=null){
 				function (gltf) {
 					importedObject = gltf.scene;
 					importedObject.scale.set(1.0, 1.0, 1.0);
-					importedObject.position.set(link.position.x, link.position.y, link.position.z);
+					importedObject.position.set(link.position.x, link.position.y, link.position.z-2);
 					importedObject.name = link.IdRef;
 					importedObject.traverse(function (node) {
 
