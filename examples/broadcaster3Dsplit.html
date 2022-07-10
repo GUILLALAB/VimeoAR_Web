@@ -552,7 +552,7 @@ if (Broadcaster.objecturl!=null){
 				function (gltf) {
 					importedObject = gltf.scene;
 					importedObject.scale.set(1.0, 1.0, 1.0);
-					importedObject.position.set(link.position.x+numobject, link.position.y, link.position.z-4);
+					importedObject.position.set(link.position.x, link.position.y, link.position.z-numobject);
 					importedObject.name = link.IdRef;
 					importedObject.traverse(function (node) {
 
@@ -563,7 +563,7 @@ if (Broadcaster.objecturl!=null){
 						}
 
 					});
-					numobject++;
+					numobject=numobject+1;
 					objects3D.push(importedObject);
 					scene.add(importedObject);
 					scene.updateMatrix();
