@@ -380,7 +380,7 @@ void main() {
 		var importedObjectposition;
 		var video = null;
 		var texture;
-		var numobject=1;
+		var numobject=0;
 		var objects3D = [];
 		document.addEventListener("stream", function (e) {
 			// alert(e.detail);
@@ -564,7 +564,7 @@ if (Broadcaster.objecturl!=null){
 					});
 					objects3D.push(importedObject);
 					scene.add(importedObject);
-					importedObject.position.set(link.position.x, link.position.y, link.position.z+numobject);
+					importedObject.position.set(link.position.x, link.position.y, link.position.z-numobject);
 					numobject=numobject+1;
 
 					scene.updateMatrix();
