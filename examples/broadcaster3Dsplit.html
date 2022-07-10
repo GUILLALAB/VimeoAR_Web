@@ -380,7 +380,7 @@ void main() {
 		var importedObjectposition;
 		var video = null;
 		var texture;
-		var numobject=0;
+		var numobject=1;
 		var objects3D = [];
 		document.addEventListener("stream", function (e) {
 			// alert(e.detail);
@@ -552,7 +552,7 @@ if (Broadcaster.objecturl!=null){
 				function (gltf) {
 					importedObject = gltf.scene;
 					importedObject.scale.set(1.0, 1.0, 1.0);
-					importedObject.position.set(link.position.x, link.position.y, link.position.z-numobject);
+					importedObject.position.set(link.position.x, link.position.y, link.position.z+numobject);
 					importedObject.name = link.IdRef;
 					importedObject.traverse(function (node) {
 
