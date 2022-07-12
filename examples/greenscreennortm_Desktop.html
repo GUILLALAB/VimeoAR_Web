@@ -131,20 +131,10 @@
   </div>
 
 
-  <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-
-    <section class="hero text-center text-light">
-      <h1 class="hero-title mt-0">Live AR</h1>
-      <p class="hero-paragraph">Visualize Live video in Augmented Reality.
-      </p>
-
-
 
       <input type="text" placeholder="broadcaster channel name" id="myInput">
 
-    </section>
-
-  </div>
+   
   <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
 
     <!-- Messages container -->
@@ -710,18 +700,8 @@
    
       if (frame) {
 
-        const collection = document.getElementsByClassName("bgimg w3-display-container w3-animate-opacity w3-text-white");
-        [...collection].forEach(el => {
-          el.style.display = 'none';
-        });
-
-        const collection2 = document.getElementsByClassName(" hero text-center text-light");
-        [...collection2].forEach(el => {
-          el.style.display = 'none';
-        });
-
-      
-
+     
+  
       }
       
       if (mixer != null) {
