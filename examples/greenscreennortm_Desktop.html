@@ -580,13 +580,13 @@ animate();
 
                 mixer= new THREE.AnimationMixer(chair);
                 const clips= gltf.animations; // second animation;
-              const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
+            //  const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
               console.log(clip);
               mixer.clipAction( clip).play();
-            /*  clips.forEach( function ( clip ) {
+              clips.forEach( function ( clip ) {
   mixer.clipAction( clip ).play();
-} );*/
-          renderer.setAnimationLoop(render.bind(this));
+} );
+         // renderer.setAnimationLoop(render.bind(this));
 
           
           chair.visible = true;
