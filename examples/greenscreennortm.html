@@ -558,13 +558,14 @@ function setAds3DModel(link){
                 loadingBar.visible = false;
                 if(reticle!=null){
                 var position = new THREE.Vector3();
-                position.getPositionFromMatrix( reticle.matrixWorld);
+                position.setFromMatrixPosition( reticle.matrixWorld);
                 chair.position.set(0.3 + position.x, position.y,0.2 + position.z);
 
                 mixer= new THREE.AnimationMixer(chair);
                 const clips= gltf.animations; // second animation;
               const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
             //  mixer.clipAction( clip).play();
+            console.log(clip);
               clips.forEach( function ( clip ) {
 	mixer.clipAction( clip ).play();
 } );
