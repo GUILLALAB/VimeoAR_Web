@@ -565,7 +565,6 @@ function setAds3DModel(link){
                 const clips= gltf.animations; // second animation;
               const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
             //  mixer.clipAction( clip).play();
-            console.log(clip);
               clips.forEach( function ( clip ) {
 	mixer.clipAction( clip ).play();
 } );
@@ -756,7 +755,7 @@ if(rtmClient!=null){
         if(reticle!= null){
         var position = new THREE.Vector3();
      position.getPositionFromMatrix( reticle.matrixWorld);
-     console.log(position.x+"| "+ position.y+"| " +"| "+position.z);
+   //  console.log(position.x+"| "+ position.y+"| " +"| "+position.z);
         }
        if(mixer!= null){
         var delta = clock.getDelta();
