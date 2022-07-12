@@ -581,7 +581,6 @@ animate();
                 mixer= new THREE.AnimationMixer(chair);
                 const clips= gltf.animations; // second animation;
             //  const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
-              console.log(clip);
               mixer.clipAction( clip).play();
               clips.forEach( function ( clip ) {
   mixer.clipAction( clip ).play();
