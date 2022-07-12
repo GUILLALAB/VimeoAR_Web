@@ -156,6 +156,7 @@
     <source id="source" src="video.mp4" type="video/mp4">
   </video>
 
+	<canvas id="c"></canvas>
 
 
   <script src="utils.js"></script>
@@ -287,6 +288,9 @@
       client = AgoraRTC.createClient({ mode: 'live', codec: 'vp8' }); // vp8 to work across mobile devices
       rtmClient = AgoraRTM.createInstance(agoraAppId);
       AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
+
+
+      canvas = document.getElementById("c");
 
       scene = new THREE.Scene();
       camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000);
