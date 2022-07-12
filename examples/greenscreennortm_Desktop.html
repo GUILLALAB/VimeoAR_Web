@@ -264,6 +264,7 @@
     var loadingBar;
     let segmentedCanvas;
     var clock;
+    var objects=0;
 
     init();
     InitClient();
@@ -575,10 +576,10 @@ animate();
 
           chair.visible = false;
           loadingBar.visible = false;
-            chair.position.set(0.0, 2.0, 0.0);
+            chair.position.set(0.0, 2.0, objects+0.0);
             chair.scale.set(4.0, 4.0, 4.0);
             console.log(gltf.animations);
-
+            objects=objects+1;
            if(gltf.animations!= null){
            if (THREE.AnimationClip.findByName(gltf.animations,'ArmatureAction')!=null){
                 mixer= new THREE.AnimationMixer(chair);
