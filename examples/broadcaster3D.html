@@ -352,6 +352,17 @@ if (Broadcaster.objecturl!=null){
 		// const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 		var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000);
 
+		var skyGeo = new THREE.SphereGeometry(100000, 25, 25);
+		
+		var loader  = new THREE.TextureLoader();
+       var texs = loader.load( "112097.jpg" );
+	   var material = new THREE.MeshPhongMaterial({ 
+        map: texs,
+});
+
+var sky = new THREE.Mesh(skyGeo, material);
+    sky.material.side = THREE.BackSide;
+    scene.add(sky);
 
 		camera.position.z = 100;
 
