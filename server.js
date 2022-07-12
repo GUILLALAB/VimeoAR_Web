@@ -113,6 +113,9 @@ app.get('/green', (request, response) => {
   response.render('greenscreennortm.html');
 });
 
+app.get('/greenDesktop', (request, response) => {
+  response.render('greenscreennortm_Desktop.html');
+});
 
 app.get('/broadcaster', (request, response) => {
   response.render('broadcaster3Dsplit.html',{ name: 'Tobi' });
