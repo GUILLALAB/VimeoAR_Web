@@ -303,7 +303,7 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
 
 
         object_badges = document.getElementById('object_badge');
-
+        object_badges.textContent=object_badge;
          badgeButton = document.getElementById('badgeButton');
 
         badgeButton.addEventListener("click", function(e) {
@@ -316,6 +316,8 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.DEBUG);
  document.getElementById("myInput").value=e.detail.channel;
  channelName=e.detail.channel;
 Timer();
+object_badge=0;
+object_badges.textContent=object_badge;
 loadObject(e.detail.id);   
 
 });
