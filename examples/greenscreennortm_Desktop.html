@@ -263,7 +263,6 @@
 
     init();
     InitClient();
-    animate();
 
     function myFunction() {
       video.play();
@@ -391,8 +390,39 @@
 
 
       //
+      const animate = function () {
+			controls.update();
 
+			// cube.rotation.x += 0.01;
+			// cube.rotation.y += 0.007;
 
+			if (importedObject != null) {
+				var position = new THREE.Vector3();
+				position.setFromMatrixPosition(importedObject.matrixWorld);
+				// descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
+				//  descriptionElement.innerText= importedObject.position.x + ',' + importedObject.position.y + ',' + importedObject.position.z;
+			}
+			if (video != null) {
+				if (video.readyState === video.HAVE_ENOUGH_DATA) {
+					if (texture)
+						texture.needsUpdate = true;
+				}
+			}
+
+      if (mixer != null) {
+        var delta = clock.getDelta();
+        mixer.update(delta);
+      }
+      
+
+			// var position = new THREE.Vector3();
+			// position.setFromMatrixPosition(cube.matrixWorld);
+			//  descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
+			renderer.render(scene, camera);
+			requestAnimationFrame(animate);
+
+		};
+animate();
     }
 
     function onWindowResize() {
@@ -710,38 +740,7 @@
 
   
 
-    const animate = function () {
-			controls.update();
-
-			// cube.rotation.x += 0.01;
-			// cube.rotation.y += 0.007;
-
-			if (importedObject != null) {
-				var position = new THREE.Vector3();
-				position.setFromMatrixPosition(importedObject.matrixWorld);
-				// descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
-				//  descriptionElement.innerText= importedObject.position.x + ',' + importedObject.position.y + ',' + importedObject.position.z;
-			}
-			if (video != null) {
-				if (video.readyState === video.HAVE_ENOUGH_DATA) {
-					if (texture)
-						texture.needsUpdate = true;
-				}
-			}
-
-      if (mixer != null) {
-        var delta = clock.getDelta();
-        mixer.update(delta);
-      }
-      
-
-			// var position = new THREE.Vector3();
-			// position.setFromMatrixPosition(cube.matrixWorld);
-			//  descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
-			renderer.render(scene, camera);
-			requestAnimationFrame(animate);
-
-		};
+   
 
     
 
