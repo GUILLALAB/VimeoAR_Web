@@ -134,9 +134,9 @@
 
 
 
-      <input type="text" placeholder="broadcaster channel name" id="myInput">
+  <input type="text" placeholder="broadcaster channel name" id="myInput">
 
-   
+
   <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
 
     <!-- Messages container -->
@@ -158,7 +158,7 @@
     <source id="source" src="video.mp4" type="video/mp4">
   </video>
 
-	<canvas id="c"></canvas>
+  <canvas id="c"></canvas>
 
 
   <script src="utils.js"></script>
@@ -202,9 +202,9 @@
 
 
   <script type="module">
-   		import * as THREE from './jsm/three.module.js';
-		import { OrbitControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/examples/jsm/controls/OrbitControls.js';
-		import { GLTFLoader } from './jsm/GLTFLoader.js';
+    import * as THREE from './jsm/three.module.js';
+    import { OrbitControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/examples/jsm/controls/OrbitControls.js';
+    import { GLTFLoader } from './jsm/GLTFLoader.js';
 
     import { FBXLoader } from './jsm/FBXLoader.js';
 
@@ -217,13 +217,13 @@
     let controller;
 
     let clickMouse,
-			moveMouse,
-			raycaster,
-			draggableObject;
-      var importedObject = null;
-		var importedObjectposition;
-		var video = null;
-    let reticle,controls, canvas;
+      moveMouse,
+      raycaster,
+      draggableObject;
+    var importedObject = null;
+    var importedObjectposition;
+    var video = null;
+    let reticle, controls, canvas;
     var cube, texture, material;
     var isset = 0;
     let videoTexture;
@@ -260,11 +260,11 @@
     var assetsPath;
     // Safari & Firefox don't support OffscreenCanvas
     var mixer = null;
-    
+
     var loadingBar;
     let segmentedCanvas;
     var clock;
-    var objects=0;
+    var objects = 0;
 
     init();
     InitClient();
@@ -306,39 +306,39 @@
       camera.position.z = 100;
 
       renderer = new THREE.WebGLRenderer({ canvas: canvas });
-		renderer.setSize(window.innerWidth, window.innerHeight);
-		renderer.shadowMap.enabled = true;
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.shadowMap.enabled = true;
 
       const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
       light.position.set(0.5, 1, 0.25);
       scene.add(light);
 
 
-		const planeGeometry = new THREE.PlaneBufferGeometry(50, 40, 8, 8);
-		const planeMaterial = new THREE.MeshPhongMaterial({ color: 0x222222 });
-		const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-		plane.rotateX(-Math.PI / 2);
-		plane.position.y = -3;
-		plane.receiveShadow = true;
-		plane.isDraggable = false;
-		scene.add(plane);
+      const planeGeometry = new THREE.PlaneBufferGeometry(50, 40, 8, 8);
+      const planeMaterial = new THREE.MeshPhongMaterial({ color: 0x222222 });
+      const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+      plane.rotateX(-Math.PI / 2);
+      plane.position.y = -3;
+      plane.receiveShadow = true;
+      plane.isDraggable = false;
+      scene.add(plane);
 
-    controls = new OrbitControls(camera, renderer.domElement);
-		controls.enableDamping = true;
-		controls.update();
+      controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.update();
 
-		raycaster = new THREE.Raycaster();
-		clickMouse = new THREE.Vector2();
-		moveMouse = new THREE.Vector2();
+      raycaster = new THREE.Raycaster();
+      clickMouse = new THREE.Vector2();
+      moveMouse = new THREE.Vector2();
 
-    const dirLight1 = new THREE.DirectionalLight(0xffffff);
-		dirLight1.position.set(0, 2, 0);
-		dirLight1.castShadow = true;
-		scene.add(dirLight1);
+      const dirLight1 = new THREE.DirectionalLight(0xffffff);
+      dirLight1.position.set(0, 2, 0);
+      dirLight1.castShadow = true;
+      scene.add(dirLight1);
 
 
-		const ambientLight = new THREE.AmbientLight(0x444444);
-		scene.add(ambientLight);
+      const ambientLight = new THREE.AmbientLight(0x444444);
+      scene.add(ambientLight);
 
       clock = new THREE.Clock();
       loadAds();
@@ -396,33 +396,33 @@
 
       //
       const animate = function () {
-			controls.update();
+        controls.update();
 
-			// cube.rotation.x += 0.01;
-			// cube.rotation.y += 0.007;
+        // cube.rotation.x += 0.01;
+        // cube.rotation.y += 0.007;
 
-	
-			if (video != null) {
-				if (video.readyState === video.HAVE_ENOUGH_DATA) {
-					if (texture)
-						texture.needsUpdate = true;
-				}
-			}
 
-      if (mixer != null) {
-        var delta = clock.getDelta();
-        mixer.update(delta);
-      }
-      
+        if (video != null) {
+          if (video.readyState === video.HAVE_ENOUGH_DATA) {
+            if (texture)
+              texture.needsUpdate = true;
+          }
+        }
 
-			// var position = new THREE.Vector3();
-			// position.setFromMatrixPosition(cube.matrixWorld);
-			//  descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
-			renderer.render(scene, camera);
-			requestAnimationFrame(animate);
+        if (mixer != null) {
+          var delta = clock.getDelta();
+          mixer.update(delta);
+        }
 
-		};
-animate();
+
+        // var position = new THREE.Vector3();
+        // position.setFromMatrixPosition(cube.matrixWorld);
+        //  descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+
+      };
+      animate();
     }
 
     function onWindowResize() {
@@ -499,7 +499,7 @@ animate();
       texture.format = THREE.RGBFormat;
       texture.flipY = true;
 
-			var geometry = new THREE.PlaneBufferGeometry(20, 10);
+      var geometry = new THREE.PlaneBufferGeometry(20, 10);
 
       const vertexShader = document.getElementById("vertexShader").textContent;
       const fragmentShader = document.getElementById("fragmentShader").textContent;
@@ -559,8 +559,15 @@ animate();
           scene.add(gltf.scene);
 
           chair = gltf.scene;
+          chair.name = link.IdRef;
 
           chair.traverse((node) => {
+
+            if (node.isMesh) {
+              node.castShadow = true;
+              node.name = link.IdRef;
+              node.isDraggable = true;
+            }
             // search the mesh's children for the face-geo
             if (node.isMesh && node.name == 'face-geo') {
               // create video texture from video element
@@ -574,26 +581,31 @@ animate();
             }
           });
 
+
           chair.visible = false;
           loadingBar.visible = false;
-            chair.position.set(0.0, 2.0, objects+0.0);
-            chair.scale.set(4.0, 4.0, 4.0);
-            console.log(gltf.animations);
-            objects=objects+4;
-           if(gltf.animations!= null){
-                mixer= new THREE.AnimationMixer(chair);
-                const clips= gltf.animations; // second animation;
+          chair.position.set(0.0, 2.0, objects + 0.0);
+          chair.scale.set(4.0, 4.0, 4.0);
+
+          scene.updateMatrix();
+          scene.updateMatrixWorld(true);
+
+          console.log(gltf.animations);
+          objects = objects + 4;
+          if (gltf.animations != null) {
+            mixer = new THREE.AnimationMixer(chair);
+            const clips = gltf.animations; // second animation;
             //  const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
             //  console.log(clip);
             //  mixer.clipAction( clip).play();
-              clips.forEach( function ( clip ) {
-  mixer.clipAction( clip ).play();
-} );
+            clips.forEach(function (clip) {
+              mixer.clipAction(clip).play();
+            });
 
 
-}
+          }
 
-          
+
           chair.visible = true;
         },
         // called while loading is progressing
@@ -698,57 +710,57 @@ animate();
     }
 
     function dragObject() {
-			// If 'holding' an object, move the object
-			if (draggableObject) {
-				raycaster.setFromCamera(moveMouse, camera);
-				// `found` is the metadata of the objects, not the objetcs themsevles
-				const found = raycaster.intersectObjects(scene.children);
-				if (found.length) {
-					for (let obj3d of found) {
-						if (!obj3d.object.isDraggablee) {
-							draggableObject.position.x = obj3d.point.x;
-							draggableObject.position.z = obj3d.point.z;
-							importedObjectposition.position.x = obj3d.point.x;
-							importedObjectposition.position.y = 0.0;
-							importedObjectposition.position.z = obj3d.point.z;
+      // If 'holding' an object, move the object
+      if (draggableObject) {
+        raycaster.setFromCamera(moveMouse, camera);
+        // `found` is the metadata of the objects, not the objetcs themsevles
+        const found = raycaster.intersectObjects(scene.children);
+        if (found.length) {
+          for (let obj3d of found) {
+            if (!obj3d.object.isDraggablee) {
+              draggableObject.position.x = obj3d.point.x;
+              draggableObject.position.z = obj3d.point.z;
+              importedObjectposition.position.x = obj3d.point.x;
+              importedObjectposition.position.y = 0.0;
+              importedObjectposition.position.z = obj3d.point.z;
 
-							break;
-						}
-					}
-				}
-			}
-		}
+              break;
+            }
+          }
+        }
+      }
+    }
 
-		window.addEventListener("click", (event) => {
-			// If 'holding' object on-click, set container to <undefined> to 'drop' the object.
-			if (draggableObject) {
-				draggableObject = undefined;
-				return;
-			}
+    window.addEventListener("click", (event) => {
+      // If 'holding' object on-click, set container to <undefined> to 'drop' the object.
+      if (draggableObject) {
+        draggableObject = undefined;
+        return;
+      }
 
-			// If NOT 'holding' object on-click, set container to <object> to 'pickup' the object.
-			clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-			clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-			raycaster.setFromCamera(clickMouse, camera);
-			const found = raycaster.intersectObjects(scene.children, true);
-			if (found.length && found[0].object.isDraggable) {
-				draggableObject = found[0].object;
-				importedObjectposition = found[0].object;
-			}
-		});
+      // If NOT 'holding' object on-click, set container to <object> to 'pickup' the object.
+      clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(clickMouse, camera);
+      const found = raycaster.intersectObjects(scene.children, true);
+      if (found.length && found[0].object.isDraggable) {
+        draggableObject = found[0].object;
+        importedObjectposition = found[0].object;
+      }
+    });
 
-		// Constantly updates the mouse location for use in `dragObject()`
-		window.addEventListener("mousemove", (event) => {
-			dragObject(); // Updates the object's postion every time the mouse moves
-			moveMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-			moveMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-		});
+    // Constantly updates the mouse location for use in `dragObject()`
+    window.addEventListener("mousemove", (event) => {
+      dragObject(); // Updates the object's postion every time the mouse moves
+      moveMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      moveMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    });
 
-  
 
-   
 
-    
+
+
+
 
   </script>
   <script type="module" src="/js/index_greenscreen.js"></script>
