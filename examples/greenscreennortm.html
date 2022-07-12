@@ -561,13 +561,13 @@ function setAds3DModel(link){
                 position.setFromMatrixPosition( reticle.matrixWorld);
                 chair.position.set(0.3 + position.x, position.y,0.2 + position.z);
 
-                mixer= new THREE.AnimationMixer(chair);
+            /*    mixer= new THREE.AnimationMixer(chair);
                 const clips= gltf.animations; // second animation;
               const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
             //  mixer.clipAction( clip).play();
               clips.forEach( function ( clip ) {
 	mixer.clipAction( clip ).play();
-} );
+} );*/
 
                 }
                 chair.visible = true;
