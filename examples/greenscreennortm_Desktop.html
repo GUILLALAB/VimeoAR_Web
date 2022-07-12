@@ -577,7 +577,8 @@ animate();
           loadingBar.visible = false;
             chair.position.set(0.0, 2.0, 0.0);
             chair.scale.set(4.0, 4.0, 4.0);
-           
+            console.log(gltf.animations);
+
            if(gltf.animations!= null){
                 mixer= new THREE.AnimationMixer(chair);
                 const clips= gltf.animations; // second animation;
