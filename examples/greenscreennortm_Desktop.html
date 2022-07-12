@@ -530,7 +530,7 @@ animate();
       video.onloadedmetadata = () => {
         // ready to play video
         video.play();
-        mesh.position.set(0.0, 0.0, 0.0);
+        mesh.position.set(0.0, 0.3, 0.0);
         isset = 1;
         if (ads != null) {
           var position = new THREE.Vector3();
@@ -575,6 +575,7 @@ animate();
           chair.visible = false;
           loadingBar.visible = false;
             chair.position.set(0.0, 2.0, 0.0);
+            chair.scale.set(1.0, 1.0, 1.0);
 
             /*    mixer= new THREE.AnimationMixer(chair);
                 const clips= gltf.animations; // second animation;
