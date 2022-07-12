@@ -374,51 +374,11 @@
         }
       });
 
-      renderer.domElement.style.display = 'none';
-
       //
 
 
-      function onSelect() {
-
-        if (reticle.visible) {
-
-          initAgora(channelName);
-
-
-
-          // video.id = 'video';
-          // video.type = ' video/ogg; codecs="theora, vorbis" ';
-
-
-          if (mesh != null) {
-            mesh.position.setFromMatrixPosition(reticle.matrix);
-
-          }
-          if (ads != null) {
-            var position = new THREE.Vector3();
-            position.getPositionFromMatrix(reticle.matrixWorld);
-            ads.position.set(-0.05 + position.x, position.y, position.z);
-          }
-
-          if (chair != null) {
-            var position = new THREE.Vector3();
-            position.getPositionFromMatrix(reticle.matrixWorld);
-            chair.position.set(0.3 + position.x, position.y, position.z);
-          }
-
-
-        }
-
-      }
-
-      
-
-    
-
       //
 
-      window.addEventListener('resize', onWindowResize);
 
     }
 
