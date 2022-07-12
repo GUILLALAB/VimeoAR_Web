@@ -579,11 +579,11 @@ animate();
             chair.scale.set(4.0, 4.0, 4.0);
 
                 mixer= new THREE.AnimationMixer(chair);
+                if(gltf.animations!= null){
                 const clips= gltf.animations; // second animation;
             //  const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
             //  console.log(clip);
             //  mixer.clipAction( clip).play();
-            if(clips!=null){
               clips.forEach( function ( clip ) {
   mixer.clipAction( clip ).play();
 } );
