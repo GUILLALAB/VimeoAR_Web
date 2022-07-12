@@ -469,7 +469,7 @@
       texture.format = THREE.RGBFormat;
       texture.flipY = true;
 
-      var geometry = new THREE.PlaneBufferGeometry(2, 1.5);
+			var geom = new THREE.PlaneBufferGeometry(20, 10);
 
       const vertexShader = document.getElementById("vertexShader").textContent;
       const fragmentShader = document.getElementById("fragmentShader").textContent;
@@ -502,7 +502,7 @@
       video.onloadedmetadata = () => {
         // ready to play video
         video.play();
-        mesh.position.set(0.0, 2, 0.0);
+        mesh.position.set(0.0, 0.0, 0.0);
         isset = 1;
         if (ads != null) {
           var position = new THREE.Vector3();
