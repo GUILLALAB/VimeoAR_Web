@@ -590,9 +590,10 @@ animate();
               clips.forEach( function ( clip ) {
   mixer.clipAction( clip ).play();
 } );
+         renderer.setAnimationLoop(render.bind(this));
+
 }
 }
-         // renderer.setAnimationLoop(render.bind(this));
 
           
           chair.visible = true;
