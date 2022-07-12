@@ -583,12 +583,9 @@ animate();
             //  const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
             //  console.log(clip);
             //  mixer.clipAction( clip).play();
-            if (typeof clips !== 'undefined' && clips.length > 0) {
-    // the array is defined and has at least one element
-
               clips.forEach( function ( clip ) {
   mixer.clipAction( clip ).play();
-} );}
+} );
          // renderer.setAnimationLoop(render.bind(this));
 
           
