@@ -394,10 +394,7 @@
 
 
       //
-     
-animate();
-    }
-    function animate() {
+      const animate = function () {
 			controls.update();
 
 			// cube.rotation.x += 0.01;
@@ -423,7 +420,10 @@ animate();
 			renderer.render(scene, camera);
 			requestAnimationFrame(animate);
 
-		}
+		};
+animate();
+    }
+
     function onWindowResize() {
 
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -578,23 +578,17 @@ animate();
             chair.position.set(0.0, 2.0, 0.0);
             chair.scale.set(4.0, 4.0, 4.0);
 
-         /*       mixer= new THREE.AnimationMixer(chair);
+            /*    mixer= new THREE.AnimationMixer(chair);
                 const clips= gltf.animations; // second animation;
-                console.log(clips);
-                if (typeof clips !== 'undefined' && clips.length > 0) {
-                  const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
-                  clips.forEach( function ( clip ) {
-  mixer.clipAction( clip ).play();
-} );
-}*/
-              
-              
+              const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
             //  mixer.clipAction( clip).play();
-
+              clips.forEach( function ( clip ) {
+  mixer.clipAction( clip ).play();
+} );*/
 
           
           chair.visible = true;
-          renderer.setAnimationLoop(renderer.bind(this));
+          renderer.setAnimationLoop(render.bind(this));
         },
         // called while loading is progressing
         function (xhr) {
@@ -605,7 +599,7 @@ animate();
         // called when loading has errors
         function (error) {
 
-          console.log(error);
+          console.log('An error happened');
           loadingBar.visible = false;
 
 
