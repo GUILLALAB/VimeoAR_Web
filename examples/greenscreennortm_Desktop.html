@@ -214,6 +214,11 @@
     let camera, scene, renderer, source;
     let controller;
 
+    let clickMouse,
+			moveMouse,
+			raycaster,
+			draggableObject;
+
     let reticle,controls, canvas;
     var cube, video, texture, material;
     var isset = 0;
@@ -317,6 +322,10 @@
     controls = new OrbitControls(camera, renderer.domElement);
 		controls.enableDamping = true;
 		controls.update();
+
+		raycaster = new THREE.Raycaster();
+		clickMouse = new THREE.Vector2();
+		moveMouse = new THREE.Vector2();
 
     const dirLight1 = new THREE.DirectionalLight(0xffffff);
 		dirLight1.position.set(0, 2, 0);
@@ -652,7 +661,52 @@
       // joinChannel(channelName);
     }
 
+    function dragObject() {
+			// If 'holding' an object, move the object
+			if (draggableObject) {
+				raycaster.setFromCamera(moveMouse, camera);
+				// `found` is the metadata of the objects, not the objetcs themsevles
+				const found = raycaster.intersectObjects(scene.children);
+				if (found.length) {
+					for (let obj3d of found) {
+						if (!obj3d.object.isDraggablee) {
+							draggableObject.position.x = obj3d.point.x;
+							draggableObject.position.z = obj3d.point.z;
+							importedObjectposition.position.x = obj3d.point.x;
+							importedObjectposition.position.y = 0.0;
+							importedObjectposition.position.z = obj3d.point.z;
 
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		window.addEventListener("click", (event) => {
+			// If 'holding' object on-click, set container to <undefined> to 'drop' the object.
+			if (draggableObject) {
+				draggableObject = undefined;
+				return;
+			}
+
+			// If NOT 'holding' object on-click, set container to <object> to 'pickup' the object.
+			clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+			clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+			raycaster.setFromCamera(clickMouse, camera);
+			const found = raycaster.intersectObjects(scene.children, true);
+			if (found.length && found[0].object.isDraggable) {
+				draggableObject = found[0].object;
+				importedObjectposition = found[0].object;
+			}
+		});
+
+		// Constantly updates the mouse location for use in `dragObject()`
+		window.addEventListener("mousemove", (event) => {
+			dragObject(); // Updates the object's postion every time the mouse moves
+			moveMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+			moveMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+		});
 
     function animate() {
       controls.update();
