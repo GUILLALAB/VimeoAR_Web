@@ -580,6 +580,8 @@ animate();
             console.log(gltf.animations);
 
            if(gltf.animations!= null){
+             if(THREE.AnimationClip.findByName(clips,'ArmatureAction')!=null){
+)
                 mixer= new THREE.AnimationMixer(chair);
                 const clips= gltf.animations; // second animation;
             //  const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
@@ -587,6 +589,7 @@ animate();
             //  mixer.clipAction( clip).play();
               clips.forEach( function ( clip ) {
   mixer.clipAction( clip ).play();
+}
 } );
 }
          // renderer.setAnimationLoop(render.bind(this));
