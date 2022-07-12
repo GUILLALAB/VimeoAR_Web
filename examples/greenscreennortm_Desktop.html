@@ -394,7 +394,10 @@
 
 
       //
-      const animate = function () {
+     
+animate();
+    }
+    function animate() {
 			controls.update();
 
 			// cube.rotation.x += 0.01;
@@ -420,10 +423,7 @@
 			renderer.render(scene, camera);
 			requestAnimationFrame(animate);
 
-		};
-animate();
-    }
-
+		}
     function onWindowResize() {
 
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -594,7 +594,7 @@ animate();
 
           
           chair.visible = true;
-          renderer.setAnimationLoop(render.bind(this));
+          renderer.setAnimationLoop(renderer.bind(this));
         },
         // called while loading is progressing
         function (xhr) {
