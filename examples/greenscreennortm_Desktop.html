@@ -260,7 +260,7 @@
     var assetsPath;
     // Safari & Firefox don't support OffscreenCanvas
     var mixer = null;
-
+    
     var loadingBar;
     let segmentedCanvas;
     var clock;
@@ -579,7 +579,7 @@ animate();
             chair.position.set(0.0, 2.0, objects+0.0);
             chair.scale.set(4.0, 4.0, 4.0);
             console.log(gltf.animations);
-            objects=objects+1;
+            objects=objects+4;
            if(gltf.animations!= null){
                 mixer= new THREE.AnimationMixer(chair);
                 const clips= gltf.animations; // second animation;
