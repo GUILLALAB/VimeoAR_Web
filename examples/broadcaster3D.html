@@ -351,7 +351,7 @@ if (Broadcaster.objecturl!=null){
 		const scene = new THREE.Scene();
 		// const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 		var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000);
-		{
+		
     const loader = new THREE.CubeTextureLoader();
     const texture = loader.load([
       'https://r105.threejsfundamentals.org/threejs/resources/images/cubemaps/computer-history-museum/pos-x.jpg',
@@ -362,7 +362,7 @@ if (Broadcaster.objecturl!=null){
       'https://r105.threejsfundamentals.org/threejs/resources/images/cubemaps/computer-history-museum/neg-z.jpg',
     ]);
     scene.background = texture;
-  }
+  
 
 		camera.position.z = 100;
 
