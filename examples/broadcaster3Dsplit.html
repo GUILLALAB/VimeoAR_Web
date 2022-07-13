@@ -370,6 +370,7 @@ void main() {
 		import { OrbitControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/examples/jsm/controls/OrbitControls.js';
 		import { GLTFLoader } from './jsm/GLTFLoader.js';
 		import {loadObject,Broadcaster} from './js/index.js';
+		import { LoadingBar } from './jsm/LoadingBar.js';
 
 		let controls, clickMouse, renderer,
 			moveMouse, canvas,
@@ -384,6 +385,7 @@ void main() {
 		var objects3D = [];
 		var mixer = null;
 		var clock;
+		var loadingBar;
 
 		document.addEventListener("stream", function (e) {
 			// alert(e.detail);
@@ -400,7 +402,8 @@ if (Broadcaster.objecturl!=null){
 	setAds3DModel(Broadcaster.all);
 }
 });
-	
+loadingBar = new LoadingBar();
+      loadingBar.visible = false;
 		canvas = document.getElementById("c");
 
 		const scene = new THREE.Scene();
@@ -550,6 +553,8 @@ if (Broadcaster.objecturl!=null){
 		}
 
 		function setAds3DModel(link) {
+			loadingBar.visible = true;
+
 			const loader = new GLTFLoader();
 			const self = this;
 			// Load a glTF resource
@@ -580,6 +585,7 @@ if (Broadcaster.objecturl!=null){
 					var spriteMaterial=new THREE.SpriteMaterial({map: spriteMap,color:0xffffff});
 					var sprite=new THREE.Sprite(spriteMaterial);
 					sprite.position.set(link.position.x, link.position.y, link.position.z+numobject);
+					loadingBar.visible = false;
 
 					scene.updateMatrix();
 					scene.updateMatrixWorld(true);
@@ -599,6 +605,7 @@ if (Broadcaster.objecturl!=null){
 				},
 				// clled while loading is progressing
 				function (xhr) {
+					loadingBar.progress = (xhr.loaded / xhr.total);
 
 
 				},
@@ -606,6 +613,7 @@ if (Broadcaster.objecturl!=null){
 				function (error) {
 
 					console.log(error);
+					loadingBar.visible = false;
 
 
 				}
