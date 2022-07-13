@@ -581,10 +581,6 @@ loadingBar = new LoadingBar();
 
 					importedObject.position.set(link.position.x+numobject, link.position.y, link.position.z+numobject);
 
-					var spriteMap=new THREE.TextureLoader().load("112097.jpg");
-					var spriteMaterial=new THREE.SpriteMaterial({map: spriteMap,color:0xffffff});
-					var sprite=new THREE.Sprite(spriteMaterial);
-					sprite.position.set(link.position.x, link.position.y, link.position.z+numobject);
 					loadingBar.visible = false;
 
 					scene.updateMatrix();
