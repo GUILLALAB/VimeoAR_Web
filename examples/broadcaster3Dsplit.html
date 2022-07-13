@@ -382,6 +382,8 @@ void main() {
 		var texture;
 		var numobject=0;
 		var objects3D = [];
+		var mixer = null;
+
 		document.addEventListener("stream", function (e) {
 			// alert(e.detail);
 			var link = e.detail;
@@ -478,7 +480,10 @@ if (Broadcaster.objecturl!=null){
 
 			// cube.rotation.x += 0.01;
 			// cube.rotation.y += 0.007;
-
+			if (mixer != null) {
+          var delta = clock.getDelta();
+          mixer.update(delta);
+        }
 			if (importedObject != null) {
 				var position = new THREE.Vector3();
 				position.setFromMatrixPosition(importedObject.matrixWorld);
@@ -564,12 +569,24 @@ if (Broadcaster.objecturl!=null){
 					});
 					objects3D.push(importedObject);
 					scene.add(importedObject);
-					importedObject.position.set(link.position.x, link.position.y, link.position.z-numobject);
-					numobject=numobject+1;
+					importedObject.position.set(link.position.x, link.position.y, link.position.z+numobject);
+					numobject=numobject + 2;
 
 					scene.updateMatrix();
 					scene.updateMatrixWorld(true);
 
+					if (gltf.animations != null) {
+            mixer = new THREE.AnimationMixer(chair);
+            const clips = gltf.animations; // second animation;
+            //  const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
+            //  console.log(clip);
+            //  mixer.clipAction( clip).play();
+            clips.forEach(function (clip) {
+              mixer.clipAction(clip).play();
+            });
+
+
+          }
 				},
 				// clled while loading is progressing
 				function (xhr) {
