@@ -576,7 +576,7 @@ if (Broadcaster.objecturl!=null){
 					scene.updateMatrixWorld(true);
 
 					if (gltf.animations != null) {
-            mixer = new THREE.AnimationMixer(chair);
+            mixer = new THREE.AnimationMixer(importedObject);
             const clips = gltf.animations; // second animation;
             //  const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
             //  console.log(clip);
