@@ -383,6 +383,7 @@ void main() {
 		var numobject=0;
 		var objects3D = [];
 		var mixer = null;
+		var clock;
 
 		document.addEventListener("stream", function (e) {
 			// alert(e.detail);
@@ -414,6 +415,8 @@ if (Broadcaster.objecturl!=null){
 		renderer = new THREE.WebGLRenderer({ canvas: canvas });
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		renderer.shadowMap.enabled = true;
+		clock = new THREE.Clock();
+
 		// document.body.appendChild(renderer.domElement);
 		//
 		var update = document.getElementById('update');
