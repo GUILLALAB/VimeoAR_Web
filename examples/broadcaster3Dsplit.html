@@ -435,7 +435,7 @@ loadingBar = new LoadingBar();
 		const planeMaterial = new THREE.MeshPhongMaterial({ color: 0x222222 });
 		const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 		plane.rotateX(-Math.PI / 2);
-		plane.position.y = -3;
+		plane.position.y = 0;
 		plane.receiveShadow = true;
 		plane.isDraggable = false;
 		scene.add(plane);
@@ -546,7 +546,7 @@ loadingBar = new LoadingBar();
 			mesh.isDraggable = true;
 
 			scene.add(mesh);
-			mesh.position.set(0.0, 2, 0.0);
+			mesh.position.set(0.0, 4, 0.0);
 
 			video.onloadedmetadata = () => {
 				video.play();
