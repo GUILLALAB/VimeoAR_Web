@@ -543,6 +543,8 @@ loadingBar = new LoadingBar();
 			mater.metalness = 0;
 			var mesh = new THREE.Mesh(geom, mater);
 			mesh.castShadow = true; //default is false
+			mesh.isDraggable = true;
+
 			scene.add(mesh);
 			mesh.position.set(0.0, 2, 0.0);
 
