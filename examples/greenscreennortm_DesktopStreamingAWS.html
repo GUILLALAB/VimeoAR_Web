@@ -334,7 +334,6 @@
 
       //
       const animate = function () {
-        controls.update();
 
         // cube.rotation.x += 0.01;
         // cube.rotation.y += 0.007;
@@ -416,8 +415,9 @@
       material.metalness = 0;
       mesh = new THREE.Mesh(geometry, material);
       scene.add(mesh);
+      mesh.position.set(0.0, 1.5, 0.0);
+
       video.play();
-        mesh.position.set(0.0, 1.5, 0.0);
         isset = 1;
      
       //ads
