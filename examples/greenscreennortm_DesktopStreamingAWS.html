@@ -395,7 +395,7 @@
       texture.magFilter = THREE.LinearFilter;
       texture.format = THREE.RGBFormat;
 
-      var geometry = new THREE.PlaneBufferGeometry(25, 12);
+      var geometry = new THREE.PlaneBufferGeometry(25, 13);
 
       const vertexShader = document.getElementById("vertexShader").textContent;
       const fragmentShader = document.getElementById("fragmentShader").textContent;
@@ -415,7 +415,7 @@
       material.metalness = 0;
       mesh = new THREE.Mesh(geometry, material);
       scene.add(mesh);
-      mesh.position.set(0.0, 2.5, -7.0);
+      mesh.position.set(0.0, 5, -7.0);
 
       video.play();
         isset = 1;
