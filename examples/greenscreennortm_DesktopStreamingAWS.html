@@ -210,7 +210,6 @@
 
     import { LoadingBar } from './jsm/LoadingBar.js';
     import { ARButton } from './jsm/webxr/ARButton.js';
-    import { Ads, loadAds, loadObject, Object, Broadcaster } from './js/index_greenscreen.js';
 
     let container;
     let camera, scene, renderer, source;
@@ -224,7 +223,7 @@
     var importedObjectposition;
     var video = null;
     let reticle, controls, canvas;
-    var cube, texture, material;
+    var cube, texture, material,source;
     var isset = 0;
     let videoTexture;
     let videoImageContext;
@@ -423,11 +422,7 @@
       video.play();
         mesh.position.set(0.0, 1.5, 0.0);
         isset = 1;
-        if (ads != null) {
-          var position = new THREE.Vector3();
-          position.getPositionFromMatrix(mesh.matrixWorld);
-          ads.position.set(-0.10 + position.x, position.y, position.z);
-        }
+     
       //ads
 
     }
