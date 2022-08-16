@@ -117,6 +117,11 @@ app.get('/greenDesktop', (request, response) => {
   response.render('greenscreennortm_Desktop.html');
 });
 
+app.get('/greenStreaming', (request, response) => {
+  response.render('greenscreennortm_DesktopStreamingAWS.html');
+});
+
+
 app.get('/broadcaster', (request, response) => {
   response.render('broadcaster3Dsplit.html',{ name: 'Tobi' });
 });
