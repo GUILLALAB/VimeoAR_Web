@@ -223,7 +223,7 @@
     var importedObjectposition;
     var video = null;
     let reticle, controls, canvas;
-    var cube, texture, material,source;
+    var cube, texture, material;
     var isset = 0;
     let videoTexture;
     let videoImageContext;
@@ -387,6 +387,8 @@
     function createBroadcaster() {
       // create video element
       video = document.getElementById('video');
+      source = document.getElementById('source');
+
       video.setAttribute('webkit-playsinline', 'webkit-playsinline');
       video.setAttribute('playsinline', 'playsinline');
       video.setAttribute('poster', '/imgs/no-video.jpg');
