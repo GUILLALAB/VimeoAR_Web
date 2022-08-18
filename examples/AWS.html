@@ -93,10 +93,22 @@ li.innerHTML = '<div class="card mt-1">'+
 '</div>'+
 '<div class="button-color p-2 text-center text-white"> <span class="text-uppercase ">Add to cart</span> </div>'+
 '</div>';
-document.getElementById("home_product").appendChild(li);
-}
 
-      
+
+var messageElement = div.querySelector('.button-color p-2 text-center text-white');
+var file = "https://"+value[i].srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+value[i].srcVideo;
+
+    messageElement.myParam = file;
+    messageElement.addEventListener('click', myFunc, false);
+
+
+document.getElementById("home_product").appendChild(li);
+    }
+
+     function myFunc(evt) {
+  var test = evt.currentTarget.myParam;
+console.log(test);
+}
     </script>
   </body>
 </html>
