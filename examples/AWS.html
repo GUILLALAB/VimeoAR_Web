@@ -97,7 +97,7 @@ const div = li.firstChild;
 li.setAttribute('id', data.guid);
 
 
-var messageElement = li.getElementById(data.guid);
+var messageElement = li.querySelector('div.card mt-1');
 var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 console.log(file);
 
