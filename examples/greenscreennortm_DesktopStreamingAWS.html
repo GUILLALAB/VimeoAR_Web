@@ -315,7 +315,7 @@ AWS.config.getCredentials(function(err) {
      // console.log(value[i]);
       loadProducts(value[i]);
 
-      var file = "https://"+value[i].srcBucket+".s3."+AWS.config.region+".amazonaws.com/video/"+value[i].srcVideo;
+      var file = "https://"+value[i].srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+value[i].srcVideo;
 
     }
       }
@@ -363,7 +363,7 @@ var Template = '<div class="card mt-1">'+
 li.innerHTML = Template;
 
 li.setAttribute('id', data.guid);
-var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/video/"+data.srcVideo;
+var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 
 li.querySelector("#btn").myParam = file;
 
