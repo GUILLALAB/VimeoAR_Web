@@ -9,10 +9,6 @@ AWS.config.update({
   })
 });
 
-AWS.config.region =  // Région
-AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-IdentityPoolId: 'eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b',
-});
 
 var s3 = new AWS.S3({
   apiVersion: "2006-03-01",
