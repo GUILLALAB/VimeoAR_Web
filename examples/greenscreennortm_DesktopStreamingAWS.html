@@ -154,7 +154,7 @@
   </div>
 
 
-  <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
+  <video id="video" autoplay loop crossOrigin="anonymous" webkit-playsinline style="display:none">
     <source id="source" src="video.mp4" type="video/mp4">
   </video>
 
@@ -415,7 +415,7 @@
       mesh = new THREE.Mesh(geometry, material);
       scene.add(mesh);
       mesh.position.set(0.0, 1.5, 0.0);
-
+video.play();
      // video.play();
         isset = 1;
      
