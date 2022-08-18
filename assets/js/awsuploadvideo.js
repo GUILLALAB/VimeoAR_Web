@@ -16,7 +16,7 @@ var s3 = new AWS.S3({
 });
 
 function listAlbums() {
-  s3.listObjects({ Delimiter: "" }, function(err, data) {
+  s3.listObjects({ Delimiter: "/" }, function(err, data) {
     if (err) {
       return alert("There was an error listing your albums: " + err.message);
     } else {
@@ -144,7 +144,7 @@ function addPhoto(albumName) {
   var fileName = file.name;
   var albumPhotosKey = encodeURIComponent(albumName) + "/";
 
-  var photoKey = fileName;
+  var photoKey = albumPhotosKey + fileName;
 
   // Use S3 ManagedUpload class as it supports multipart uploads
   var upload = new AWS.S3.ManagedUpload({
