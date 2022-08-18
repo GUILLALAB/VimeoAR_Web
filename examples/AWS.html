@@ -97,7 +97,7 @@ const div = li.firstChild;
 li.setAttribute('id', data.guid);
 
 
-var x = document.getElementById("btn");
+var x = div.getElementById("btn");
 var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 console.log(file);
 
