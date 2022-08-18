@@ -96,7 +96,7 @@ li.innerHTML = '<div class="card mt-1">'+
 li.setAttribute('id', data.guid);
 
 
-var messageElement = li.querySelector('.button-color p-2 text-center text-white');
+var messageElement = li.querySelector('.card mt-1');
 var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 console.log(file);
 
