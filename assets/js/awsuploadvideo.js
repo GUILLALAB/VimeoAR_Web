@@ -123,7 +123,7 @@ function viewAlbum(albumName) {
       "<div>",
       getHtml(photos),
       "</div>",
-      '<input id="photoupload" type="file" accept="image/*">',
+      '<input id="photoupload" type="file" accept="video/*">',
       '<button id="addphoto" onclick="addPhoto(\'' + albumName + "')\">",
       "Add Photo",
       "</button>",
