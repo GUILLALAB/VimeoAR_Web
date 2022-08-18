@@ -99,9 +99,9 @@ li.innerHTML = Template;
 li.setAttribute('id', data.guid);
 var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 
-li.getElementById("#btn").myParam = file;
+li.querySelector(".btn").myParam = file;
 
-li.getElementById("#btn").addEventListener('click', myFunc, false);
+li.querySelector("#btn").addEventListener('click', myFunc, false);
 
 var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 
