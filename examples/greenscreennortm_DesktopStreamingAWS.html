@@ -216,100 +216,7 @@
     </script>
 
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.410.0.min.js"></script>
-    <script type="text/javascript">
-
-        // Initialize the Amazon Cognito credentials provider
-        AWS.config.region = 'eu-west-1'; // Région
-        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-    IdentityPoolId: 'eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b',
-});
-
-AWS.config.getCredentials(function(err) {
-  if (err) console.log(err.stack);
-  
-  // credentials not loaded
-  else {
-    console.log("Access key:", AWS.config.credentials.accessKeyId);
-    const itemsAll = scanAll("VideoAWS");
-    itemsAll.then(function(value) {
-      for(var i =0;i<100000;i++){
-        if(value[i]!== undefined){
-     // console.log(value[i]);
-      loadProducts(value[i]);
-
-      var file = "https://"+value[i].srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+value[i].srcVideo;
-
-    }
-      }
-    // expected output: 123
-});
-
-  }
-});
-
-const documentClient = new AWS.DynamoDB.DocumentClient();
-
-const scanAll = async (tableName) => {
-  let lastEvaluatedKey = 'dummy'; // string must not be empty
-  const itemsAll = [];
-  let table = { TableName: tableName };
-
-
-  while (lastEvaluatedKey) {
-    const data = await documentClient.scan(table).promise();
-    itemsAll.push(...data.Items);
-    lastEvaluatedKey = data.LastEvaluatedKey;
-    if (lastEvaluatedKey) {
-      table.ExclusiveStartKey = lastEvaluatedKey;
-    }
-  }
-  return itemsAll;
-}
-
-
-function loadProducts(data){
-
-var li = document.createElement('li');
-
-var Template = '<div class="card mt-1">'+
-'<div class="product-1 align-items-center p-2 text-center"> <img src="'+data.thumbNailsUrls+'" class="rounded" width="150" height="100">'+
-    '<h6 class="mt-0 font-weight-bold mb-2 info">'+data.srcVideo+'</h6>'+
-    '<div class="message"> <span class="text1 d-block">'+ data.srcBucket+' </span> </div>'+
-    '<div class=" cost mt-1 text-dark"> <span>$'+data.srcBucket+'</span>'+
-    '</div>'+
-'</div>'+
-'<div id="btn" class="button-color p-2 text-center text-white"> <span class="text-uppercase ">Add to cart</span> </div>'+
-'</div>';
-
-li.innerHTML = Template;
-
-li.setAttribute('id', data.guid);
-var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
-
-li.querySelector("#btn").myParam = file;
-
-li.querySelector("#btn").addEventListener('click', myFunc, false);
-
-var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
-
-document.getElementById("home_product").appendChild(li);
-    }
-
-     function myFunc(evt) {
-  var test = evt.currentTarget.myParam;
-var event = new CustomEvent("buttonclick", { "detail": test });
-  document.dispatchEvent(event);
-}
-
-document.addEventListener("buttonclick", function (e) {
-			// alert(e.detail);
-			var link = e.detail;
-			if (link != null) {
-        console.log(link);
-
-			}
-		});
-    </script>
+   
 
   <script type="module">
     import * as THREE from './jsm/three.module.js';
@@ -375,7 +282,103 @@ document.addEventListener("buttonclick", function (e) {
     var clock;
     var objects = 0;
 
+
+document.addEventListener("buttonclick", function (e) {
+			// alert(e.detail);
+			var link = e.detail;
+			if (link != null) {
+        console.log(link);
+        PlayVideo(link);
+			}
+		});
+
+    initAWS();
     init();
+
+
+    function initAWS(){
+      AWS.config.region = 'eu-west-1'; // Région
+        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: 'eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b',
+});
+
+AWS.config.getCredentials(function(err) {
+  if (err) console.log(err.stack);
+  
+  // credentials not loaded
+  else {
+    console.log("Access key:", AWS.config.credentials.accessKeyId);
+    const itemsAll = scanAll("VideoAWS");
+    itemsAll.then(function(value) {
+      for(var i =0;i<100000;i++){
+        if(value[i]!== undefined){
+     // console.log(value[i]);
+      loadProducts(value[i]);
+
+      var file = "https://"+value[i].srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+value[i].srcVideo;
+
+    }
+      }
+    // expected output: 123
+});
+
+  }
+});
+
+const documentClient = new AWS.DynamoDB.DocumentClient();
+
+const scanAll = async (tableName) => {
+  let lastEvaluatedKey = 'dummy'; // string must not be empty
+  const itemsAll = [];
+  let table = { TableName: tableName };
+
+
+  while (lastEvaluatedKey) {
+    const data = await documentClient.scan(table).promise();
+    itemsAll.push(...data.Items);
+    lastEvaluatedKey = data.LastEvaluatedKey;
+    if (lastEvaluatedKey) {
+      table.ExclusiveStartKey = lastEvaluatedKey;
+    }
+  }
+  return itemsAll;
+}
+
+    }
+
+    function loadProducts(data){
+
+var li = document.createElement('li');
+
+var Template = '<div class="card mt-1">'+
+'<div class="product-1 align-items-center p-2 text-center"> <img src="'+data.thumbNailsUrls+'" class="rounded" width="150" height="100">'+
+    '<h6 class="mt-0 font-weight-bold mb-2 info">'+data.srcVideo+'</h6>'+
+    '<div class="message"> <span class="text1 d-block">'+ data.srcBucket+' </span> </div>'+
+    '<div class=" cost mt-1 text-dark"> <span>$'+data.srcBucket+'</span>'+
+    '</div>'+
+'</div>'+
+'<div id="btn" class="button-color p-2 text-center text-white"> <span class="text-uppercase ">Add to cart</span> </div>'+
+'</div>';
+
+li.innerHTML = Template;
+
+li.setAttribute('id', data.guid);
+var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
+
+li.querySelector("#btn").myParam = file;
+
+li.querySelector("#btn").addEventListener('click', myFunc, false);
+
+var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
+
+document.getElementById("home_product").appendChild(li);
+    }
+
+     function myFunc(evt) {
+  var test = evt.currentTarget.myParam;
+var event = new CustomEvent("buttonclick", { "detail": test });
+  document.dispatchEvent(event);
+}
 
     function myFunction() {
       video.play();
@@ -386,7 +389,13 @@ document.addEventListener("buttonclick", function (e) {
       document.getElementById('video').pause();
     }
 
-
+    function PlayVideo(srcVideo){
+      video.pause();
+      video.setAttribute('crossorigin', 'anonymous');
+      source.src = srcVideo;
+      video.load();
+      video.play();
+    }
 
     function init() {
 
