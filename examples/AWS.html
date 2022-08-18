@@ -46,11 +46,10 @@ AWS.config.getCredentials(function(err) {
     itemsAll.then(function(value) {
       for(var i =0;i<100000;i++){
         if(value[i]!== undefined){
-      console.log(value[i]);
+     // console.log(value[i]);
       loadProducts(value[i]);
 
       var file = "https://"+value[i].srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+value[i].srcVideo;
-      console.log(file);
 
     }
       }
