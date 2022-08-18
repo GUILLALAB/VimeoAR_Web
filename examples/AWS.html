@@ -91,7 +91,7 @@ var Template = '<div class="card mt-1">'+
     '<div class=" cost mt-1 text-dark"> <span>$'+data.srcBucket+'</span>'+
     '</div>'+
 '</div>'+
-'<div class="button-color p-2 text-center text-white"> <span class="text-uppercase ">Add to cart</span> </div>'+
+'<div id="btn" class="button-color p-2 text-center text-white"> <span class="text-uppercase ">Add to cart</span> </div>'+
 '</div>';
 
 li.innerHTML = Template;
@@ -99,9 +99,9 @@ li.innerHTML = Template;
 li.setAttribute('id', data.guid);
 var file = "https://"+value[i].srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+value[i].srcVideo;
 
-li.querySelector(".message").myParam = file;
+li.getElementById("#btn").myParam = file;
 
-li.querySelector(".message").addEventListener('click', myFunc, false);
+li.getElementById("#btn").addEventListener('click', myFunc, false);
 
 var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 
