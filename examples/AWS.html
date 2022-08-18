@@ -93,6 +93,7 @@ li.innerHTML = '<div class="card mt-1">'+
 '</div>'+
 '<div class="button-color p-2 text-center text-white"> <span class="text-uppercase ">Add to cart</span> </div>'+
 '</div>';
+const div = container.firstChild;
 li.setAttribute('id', data.guid);
 
 
@@ -100,8 +101,7 @@ var messageElement = li.querySelector('.card mt-1');
 var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 console.log(file);
 
-    messageElement.myParam = "test";
-    messageElement.addEventListener('click', myFunc, false);
+    messageElement.addEventListener('click', false);
 
 
 document.getElementById("home_product").appendChild(li);
