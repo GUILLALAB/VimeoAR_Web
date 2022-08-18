@@ -129,10 +129,10 @@ app.get('/menu', (request, response) => {
   response.render('menu.html',{ name: 'Tobi' });
 });
 
-app.get('/aws', (request, response) => {
-  response.render('AWS.html');
-});
 
+app.get('/aws', (request, response) => {
+  response.render('AWSUpload.html');
+});
 
 app.get('/basic', (request, response) => {
   response.render('basic.html');
