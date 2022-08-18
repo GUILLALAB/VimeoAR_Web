@@ -161,6 +161,7 @@
   <canvas id="c"></canvas>
 
 
+  <script src="utils.js"></script>
 
 
   <script id="vertexShader" type="glsl">
@@ -386,7 +387,7 @@
       video.setAttribute('playsinline', 'playsinline');
       video.pause();
       video.setAttribute('crossorigin', 'anonymous');
-      source.src = "https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/bike3.mp4";
+      source.src = "https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/bike4.mp4";
       video.load();
       texture = new THREE.VideoTexture(video);
       texture.minFilter = THREE.LinearFilter;
@@ -443,6 +444,7 @@ video.play();
 
   </script>
   <script type="module" src="/js/index_greenscreen.js"></script>
+  <script src="/js/main.min.js"></script>
  
 </body>
 
