@@ -87,7 +87,7 @@ var li = document.createElement('li');
 var Template = '<div class="card mt-1">'+
 '<div class="product-1 align-items-center p-2 text-center"> <img src="'+data.thumbNailsUrls+'" class="rounded" width="150" height="100">'+
     '<h6 class="mt-0 font-weight-bold mb-2 info">'+data.srcVideo+'</h6>'+
-    '<div class="mt-3 info"> <span class="text1 d-block">'+ data.srcBucket+' </span> </div>'+
+    '<div class="message"> <span class="text1 d-block">'+ data.srcBucket+' </span> </div>'+
     '<div class=" cost mt-1 text-dark"> <span>$'+data.srcBucket+'</span>'+
     '</div>'+
 '</div>'+
@@ -98,20 +98,29 @@ li.innerHTML = Template;
 
 li.setAttribute('id', data.guid);
 
-li.querySelector(".mt-3 info").myParam = "test";
+li.querySelector(".message").myParam = "test";
 
-li.querySelector(".mt-3 info").addEventListener('click', myFunc, false);
+li.querySelector(".message").addEventListener('click', myFunc, false);
 
 var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
-console.log(file);
 
 document.getElementById("home_product").appendChild(li);
     }
 
      function myFunc(evt) {
   var test = evt.currentTarget.myParam;
-console.log(test);
+var event = new CustomEvent("buttonclick", { "detail": evt.currentTarget.myParam });
+  document.dispatchEvent(event);
 }
+
+document.addEventListener("buttonclick", function (e) {
+			// alert(e.detail);
+			var link = e.detail;
+			if (link != null) {
+        console.log(link);
+
+			}
+		});
     </script>
   </body>
 </html>
