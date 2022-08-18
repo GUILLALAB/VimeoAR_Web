@@ -97,7 +97,7 @@ var Template = '<div class="card mt-1">'+
 li.innerHTML = Template;
 
 li.setAttribute('id', data.guid);
-var file = "https://"+value[i].srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+value[i].srcVideo;
+var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 
 li.getElementById("#btn").myParam = file;
 
