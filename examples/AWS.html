@@ -97,8 +97,9 @@ var Template = '<div class="card mt-1">'+
 li.innerHTML = Template;
 
 li.setAttribute('id', data.guid);
+var file = "https://"+value[i].srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+value[i].srcVideo;
 
-li.querySelector(".message").myParam = "test";
+li.querySelector(".message").myParam = file;
 
 li.querySelector(".message").addEventListener('click', myFunc, false);
 
@@ -109,7 +110,7 @@ document.getElementById("home_product").appendChild(li);
 
      function myFunc(evt) {
   var test = evt.currentTarget.myParam;
-var event = new CustomEvent("buttonclick", { "detail": evt.currentTarget.myParam });
+var event = new CustomEvent("buttonclick", { "detail": test });
   document.dispatchEvent(event);
 }
 
