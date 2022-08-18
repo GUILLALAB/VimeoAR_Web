@@ -97,7 +97,7 @@ li.setAttribute('id', data.guid);
 
 
 var messageElement = li.querySelector('.button-color p-2 text-center text-white');
-var file = "https://"+value[i].srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+value[i].srcVideo;
+var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 
     messageElement.myParam = file;
     messageElement.addEventListener('click', myFunc, false);
