@@ -121,6 +121,9 @@ app.get('/greenStreaming', (request, response) => {
   response.render('greenscreennortm_DesktopStreamingAWS.html');
 });
 
+app.get('/greenarStreaming', (request, response) => {
+  response.render('greenscreennortm_AWSstreaming.html');
+});
 
 app.get('/broadcaster', (request, response) => {
   response.render('broadcaster3Dsplit.html',{ name: 'Tobi' });
