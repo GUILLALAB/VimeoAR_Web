@@ -16,7 +16,7 @@ var s3 = new AWS.S3({
 });
 
 function listAlbums() {
-  s3.listObjects({ Delimiter: "/" }, function(err, data) {
+  s3.listObjects({ Delimiter: "video/" }, function(err, data) {
     if (err) {
       return alert("There was an error listing your albums: " + err.message);
     } else {
