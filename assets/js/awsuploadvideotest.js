@@ -79,8 +79,87 @@ function createAlbum(albumName) {
   });
 }
 
+function createObjectSubAlbum(path) {
+  
+  var albumKey = path + encodeURIComponent("objects")+"/";
+  s3.headObject({ Key: albumKey }, function(err, data) {
+    if (!err) {
+      return alert("Album already exists.");
+    }
+    if (err.code !== "NotFound") {
+      return alert("There was an error creating your album: " + err.message);
+    }
+    s3.putObject({ Key: albumKey }, function(err, data) {
+      if (err) {
+        return alert("There was an error creating your album: " + err.message);
+      }
+      alert("Object Successfully created album.");
+    });
+  });
+}
+
+function createSubAlbum(album) {
+  var files = document.getElementById("photoupload").files;
+  if (!files.length) {
+    return alert("Please choose a file to upload first.");
+  }
+  var file = files[0];
+  var fileName = file.name;
+  var albumPhotosKey = encodeURIComponent("video")+"/"+encodeURIComponent(fileName)+"/";;
+
+  if (!albumPhotosKey) {
+    return alert("Album names must contain at least one non-space character.");
+  }
+ 
+  s3.headObject({ Key: albumPhotosKey }, function(err, data) {
+    if (!err) {
+      return alert("Album already exists.");
+    }
+    if (err.code !== "NotFound") {
+      return alert("There was an error creating your album: " + err.message);
+    }
+    s3.putObject({ Key: albumPhotosKey }, function(err, data) {
+      if (err) {
+        return alert("There was an error creating your album: " + err.message);
+      }
+      alert("Successfully created album.");
+      var files = document.getElementById("photoupload").files;
+  if (!files.length) {
+    return alert("Please choose a file to upload first.");
+  }
+ 
+
+  var photoKey = albumPhotosKey + fileName;
+
+  // Use S3 ManagedUpload class as it supports multipart uploads
+  var upload = new AWS.S3.ManagedUpload({
+    params: {
+      Bucket: albumBucketName,
+      Key: photoKey,
+      Body: file
+    }
+  });
+
+  var promise = upload.promise();
+
+  promise.then(
+    function(data) {
+      alert("Successfully uploaded photo.");
+            createObjectSubAlbum(albumPhotosKey);
+
+      viewAlbum(albumPhotosKey);
+    },
+    function(err) {
+      return alert("There was an error uploading your photo: ", err.message);
+    }
+  );
+
+    });
+  });
+}
+
 function viewAlbum(albumName) {
-  var albumPhotosKey = encodeURIComponent(albumName) + "/";
+  var albumPhotosKey = encodeURIComponent("video") + "/";
   s3.listObjects({ Prefix: albumPhotosKey }, function(err, data) {
     if (err) {
       return alert("There was an error viewing your album: " + err.message);
@@ -124,7 +203,23 @@ function viewAlbum(albumName) {
       getHtml(photos),
       "</div>",
       '<input id="photoupload" type="file" accept="video/*">',
-      '<button id="addphoto" onclick="addPhoto(\'' + albumName + "')\">",
+      '<button id="addphoto" onclick="createSubAlbum(\'' + albumName + "')\">",
+      "Add Photo",
+      "</button>",
+      '<button onclick="listAlbums()">',
+      "Back To Albums",
+      "</button>"
+    ];
+    var htmlTemplate2 = [
+      "<h2>",
+      "Album: " + albumName,
+      "</h2>",
+      message,
+      "<div>",
+      getHtml(photos),
+      "</div>",
+      '<input id="photoupload" type="file" accept=".glb">',
+      '<button id="addphoto" onclick="createSubAlbum(\'' + albumName + "')\">",
       "Add Photo",
       "</button>",
       '<button onclick="listAlbums()">',
@@ -132,41 +227,11 @@ function viewAlbum(albumName) {
       "</button>"
     ];
     document.getElementById("app").innerHTML = getHtml(htmlTemplate);
+    document.getElementById("app").innerHTML = getHtml(htmlTemplate2);
+
   });
 }
 
-function addPhoto(albumName) {
-  var files = document.getElementById("photoupload").files;
-  if (!files.length) {
-    return alert("Please choose a file to upload first.");
-  }
-  var file = files[0];
-  var fileName = file.name;
-  var albumPhotosKey = encodeURIComponent(albumName) + "/";
-
-  var photoKey = albumPhotosKey + fileName;
-
-  // Use S3 ManagedUpload class as it supports multipart uploads
-  var upload = new AWS.S3.ManagedUpload({
-    params: {
-      Bucket: albumBucketName,
-      Key: photoKey,
-      Body: file
-    }
-  });
-
-  var promise = upload.promise();
-
-  promise.then(
-    function(data) {
-      alert("Successfully uploaded photo.");
-      viewAlbum(albumName);
-    },
-    function(err) {
-      return alert("There was an error uploading your photo: ", err.message);
-    }
-  );
-}
 
 function deletePhoto(albumName, photoKey) {
   s3.deleteObject({ Key: photoKey }, function(err, data) {
