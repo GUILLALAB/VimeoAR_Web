@@ -123,7 +123,6 @@ function createSubAlbum(album) {
         return alert("There was an error creating your album: " + err.message);
       }
       alert("Successfully created album.");
-      createObjectSubAlbum(albumPhotosKey);
       var files = document.getElementById("photoupload").files;
   if (!files.length) {
     return alert("Please choose a file to upload first.");
@@ -146,6 +145,8 @@ function createSubAlbum(album) {
   promise.then(
     function(data) {
       alert("Successfully uploaded photo.");
+      createObjectSubAlbum(albumPhotosKey);
+
       viewAlbum(albumPhotosKey);
     },
     function(err) {
