@@ -153,7 +153,6 @@ li:hover {
     <source  id="source" src="video.mp4" type="video/mp4">   
     </video>
 
-  
 
     <script src="utils.js"></script>
 
@@ -311,7 +310,21 @@ document.addEventListener("buttonclick", function (e) {
          clock = new THREE.Clock();
 
         renderer.domElement.style.display = 'none';
+        document.getElementById("messages-card").style.display="none";
 
+        badgeButton = document.getElementById('badgeButton');
+
+badgeButton.addEventListener("click", function (e) {
+ if("none"== document.getElementById("messages-card").style.display){
+  document.getElementById("messages-card").style.display="block";
+
+ }else if("block"== document.getElementById("messages-card").style.display){
+  document.getElementById("messages-card").style.display="none";
+ }
+
+  //show
+
+});
         //
 
 
