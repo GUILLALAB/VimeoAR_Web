@@ -26,47 +26,6 @@ function listAlbums() {
         return getHtml([
           "<li>",
           "<span onclick=\"deleteAlbum('" + albumName + "')\">X</span>",
-          "<span onclick=\"listSubAlbums('" + albumName + "')\">",
-          albumName,
-          "</span>",
-          "</li>"
-        ]);
-      });
-      var message = albums.length
-        ? getHtml([
-            "<p>Click on an album name to view it.</p>",
-            "<p>Click on the X to delete the album.</p>"
-          ])
-        : "<p>You do not have any albums. Please Create album.";
-      var htmlTemplate = [
-        "<h2>Albums</h2>",
-        message,
-        "<ul>",
-        getHtml(albums),
-        "</ul>",
-        "<button onclick=\"createAlbum(prompt('Enter Album Name:'))\">",
-        "Create New Album",
-        "</button>"
-      ];
-      document.getElementById("app").innerHTML = getHtml(htmlTemplate);
-    }
-  });
-}
-
-function listSubAlbums(album) {
-  console.log(album);
-
-  var albumPhotosKey = encodeURIComponent(album) + "/";
-  s3.listObjects({ Prefix: albumPhotosKey }, function(err, data) {
-    if (err) {
-      return alert("There was an error listing your albums: " + err.message);
-    } else {
-      var albums = data.CommonPrefixes.map(function(commonPrefix) {
-        var prefix = commonPrefix.Prefix;
-        var albumName = decodeURIComponent(prefix.replace("/", ""));
-        return getHtml([
-          "<li>",
-          "<span onclick=\"deleteAlbum('" + albumName + "')\">X</span>",
           "<span onclick=\"viewAlbum('" + albumName + "')\">",
           albumName,
           "</span>",
@@ -93,6 +52,7 @@ function listSubAlbums(album) {
     }
   });
 }
+
 
 function createAlbum(albumName) {
   albumName = albumName.trim();
