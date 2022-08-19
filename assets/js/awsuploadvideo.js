@@ -91,9 +91,7 @@ function createSubAlbum(album) {
   if (!albumPhotosKey) {
     return alert("Album names must contain at least one non-space character.");
   }
-  if (albumPhotosKey.indexOf("/") !== -1) {
-    return alert("Album names cannot contain slashes.");
-  }
+ 
   s3.headObject({ Key: albumPhotosKey }, function(err, data) {
     if (!err) {
       return alert("Album already exists.");
