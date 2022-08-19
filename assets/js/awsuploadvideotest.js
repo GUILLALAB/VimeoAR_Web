@@ -16,7 +16,7 @@ var s3 = new AWS.S3({
 });
 
 function listAlbums() {
-  s3.listObjects({ Delimiter: "video/" }, function(err, data) {
+  s3.listObjects({ Delimiter: "/" }, function(err, data) {
     if (err) {
       return alert("There was an error listing your albums: " + err.message);
     } else {
@@ -26,7 +26,7 @@ function listAlbums() {
         return getHtml([
           "<li>",
           "<span onclick=\"deleteAlbum('" + albumName + "')\">X</span>",
-          "<span onclick=\"viewAlbum('" + albumName + "')\">",
+          "<span onclick=\"listAlbums()\">",
           albumName,
           "</span>",
           "</li>"
