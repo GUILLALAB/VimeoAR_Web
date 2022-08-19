@@ -185,7 +185,10 @@ function viewAlbum(albumName) {
           "')\">",
         "X",
         "</span>",
-        "<span onclick=\"viewAlbum('"+albumPhotosKey +
+        "<span onclick=\"viewAlbum('"+albumPhotosKey + "/"+
+        albumName +
+        "','" +
+        photoKey +
         "')\">",
         albumName,
         "</span>",
