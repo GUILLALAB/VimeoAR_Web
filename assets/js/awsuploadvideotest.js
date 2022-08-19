@@ -160,7 +160,7 @@ function createSubAlbum(album) {
 }
 
 function viewAlbum(albumName) {
-  var albumPhotosKey = encodeURIComponent("video") + "/";
+  var albumPhotosKey = encodeURIComponent(albumName) + "/";
   s3.listObjects({ Prefix: albumPhotosKey }, function(err, data) {
     if (err) {
       return alert("There was an error viewing your album: " + err.message);
@@ -184,13 +184,6 @@ function viewAlbum(albumName) {
           photoKey +
           "')\">",
         "X",
-        "</span>",
-        "<span onclick=\"viewAlbum('"+albumPhotosKey+
-        albumName +
-        "','" +
-        photoKey +
-        "')\">",
-        albumName,
         "</span>",
         "<span>",
         photoKey.replace(albumPhotosKey, ""),
