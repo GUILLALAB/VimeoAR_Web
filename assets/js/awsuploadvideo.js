@@ -80,6 +80,10 @@ function createAlbum(albumName) {
 }
 
 function createSubAlbum(album) {
+  var files = document.getElementById("photoupload").files;
+  if (!files.length) {
+    return alert("Please choose a file to upload first.");
+  }
   var file = files[0];
   var fileName = file.name;
   var albumPhotosKey = encodeURIComponent("video")+"/"+encodeURIComponent(fileName)+"/";;
@@ -137,7 +141,7 @@ function createSubAlbum(album) {
 }
 
 function viewAlbum(albumName) {
-  var albumPhotosKey = encodeURIComponent(albumName) + "/";
+  var albumPhotosKey = encodeURIComponent("video") + "/";
   s3.listObjects({ Prefix: albumPhotosKey }, function(err, data) {
     if (err) {
       return alert("There was an error viewing your album: " + err.message);
