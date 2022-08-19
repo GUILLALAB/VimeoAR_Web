@@ -23,7 +23,6 @@ function listAlbums() {
       var albums = data.CommonPrefixes.map(function(commonPrefix) {
         var prefix = commonPrefix.Prefix;
         var albumName = decodeURIComponent(prefix.replace("/", ""));
-        console.log(albumName);
         return getHtml([
           "<li>",
           "<span onclick=\"deleteAlbum('" + albumName + "')\">X</span>",
@@ -55,6 +54,8 @@ function listAlbums() {
 }
 
 function listSubAlbums(album) {
+  console.log(album);
+
   var albumPhotosKey = encodeURIComponent(album) + "/";
   s3.listObjects({ Prefix: albumPhotosKey }, function(err, data) {
     if (err) {
