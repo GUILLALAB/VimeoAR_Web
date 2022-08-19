@@ -208,9 +208,8 @@ function viewAlbum(albumName) {
       "</button>",
       '<button onclick="listAlbums()">',
       "Back To Albums",
-      "</button>"
-    ];
-    var htmlTemplate2 = [
+      "</button>",
+      "<br>",
       "<h2>",
       "Album: " + albumName,
       "</h2>",
@@ -226,8 +225,8 @@ function viewAlbum(albumName) {
       "Back To Albums",
       "</button>"
     ];
+   
     document.getElementById("app").innerHTML = getHtml(htmlTemplate);
-    document.getElementById("app").innerHTML = getHtml(htmlTemplate2);
 
   });
 }
