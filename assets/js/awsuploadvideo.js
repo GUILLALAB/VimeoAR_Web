@@ -79,6 +79,25 @@ function createAlbum(albumName) {
   });
 }
 
+function createObjectSubAlbum(path) {
+  
+  var albumKey = path + encodeURIComponent("objects")+"/";
+  s3.headObject({ Key: albumKey }, function(err, data) {
+    if (!err) {
+      return alert("Album already exists.");
+    }
+    if (err.code !== "NotFound") {
+      return alert("There was an error creating your album: " + err.message);
+    }
+    s3.putObject({ Key: albumKey }, function(err, data) {
+      if (err) {
+        return alert("There was an error creating your album: " + err.message);
+      }
+      alert("Object Successfully created album.");
+    });
+  });
+}
+
 function createSubAlbum(album) {
   var files = document.getElementById("photoupload").files;
   if (!files.length) {
@@ -104,7 +123,7 @@ function createSubAlbum(album) {
         return alert("There was an error creating your album: " + err.message);
       }
       alert("Successfully created album.");
-
+      createObjectSubAlbum(albumPhotosKey);
       var files = document.getElementById("photoupload").files;
   if (!files.length) {
     return alert("Please choose a file to upload first.");
