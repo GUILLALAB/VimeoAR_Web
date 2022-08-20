@@ -62,7 +62,7 @@ function createAlbum(albumName) {
   if (albumName.indexOf("/") !== -1) {
     return alert("Album names cannot contain slashes.");
   }
-  var albumKey = encodeURIComponent(albumName);
+  var albumKey = encodeURIComponent(albumName)+"/";
   s3.headObject({ Key: albumKey }, function(err, data) {
     if (!err) {
       return alert("Album already exists.");
@@ -124,7 +124,7 @@ function createSubAlbum(album) {
         return alert("There was an error creating your album: " + err.message);
       }
       alert("Successfully created album.");
-      var files = document.getElementById("videoupload").files;
+      var files = document.getElementById("photoupload").files;
   if (!files.length) {
     return alert("Please choose a file to upload first.");
   }
