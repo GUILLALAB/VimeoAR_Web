@@ -466,7 +466,10 @@ var event = new CustomEvent("buttonclick", { "detail": test });
           }
         }
 
-
+        if (mixer != null) {
+          var delta = clock.getDelta();
+          mixer.update(delta);
+        }
         // var position = new THREE.Vector3();
         // position.setFromMatrixPosition(cube.matrixWorld);
         //  descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
