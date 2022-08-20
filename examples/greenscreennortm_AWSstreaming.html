@@ -465,12 +465,11 @@ function setAds3DModel(link) {
 
           chair.visible = false;
           loadingBar.visible = false;
-          chair.position.set(0.0, 2.0, objects + 0.0);
-          chair.scale.set(4.0, 4.0, 4.0);
 
+
+          chair.position.setFromMatrixPosition( reticle.matrix );
           scene.updateMatrix();
           scene.updateMatrixWorld(true);
-
           console.log(gltf.animations);
           objects = objects + 4;
           if (gltf.animations != null) {
