@@ -212,7 +212,7 @@ function viewAlbum(albumName) {
       "</button>",
       "<br>",
       '<input id="photoupload" type="file" accept=".glb">',
-      '<button id="addphoto" onclick="createSubAlbum(\'' + albumName + "')\">",
+      '<button id="addphoto" onclick="addPhoto(\'' + albumName + "')\">",
       "Add Photo",
       "</button>",
       '<button onclick="listAlbums()">',
@@ -225,6 +225,38 @@ function viewAlbum(albumName) {
   });
 }
 
+function addPhoto(albumName) {
+  var files = document.getElementById("photoupload").files;
+  if (!files.length) {
+    return alert("Please choose a file to upload first.");
+  }
+  var file = files[0];
+  var fileName = file.name;
+  var albumPhotosKey = encodeURIComponent(albumName) + "/";
+
+  var photoKey = albumPhotosKey + fileName;
+
+  // Use S3 ManagedUpload class as it supports multipart uploads
+  var upload = new AWS.S3.ManagedUpload({
+    params: {
+      Bucket: albumBucketName,
+      Key: photoKey,
+      Body: file
+    }
+  });
+
+  var promise = upload.promise();
+
+  promise.then(
+    function(data) {
+      alert("Successfully uploaded photo.");
+      viewAlbum(albumName);
+    },
+    function(err) {
+      return alert("There was an error uploading your photo: ", err.message);
+    }
+  );
+}
 
 function deletePhoto(albumName, photoKey) {
   s3.deleteObject({ Key: photoKey }, function(err, data) {
