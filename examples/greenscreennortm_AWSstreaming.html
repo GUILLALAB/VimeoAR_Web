@@ -449,7 +449,6 @@ function setAds3DModel(link) {
           loadingBar.visible = false;
 
 
-          chair.position.setFromMatrixPosition( reticle.matrix );
        
           console.log(gltf.animations);
           if (gltf.animations != null) {
@@ -465,6 +464,7 @@ function setAds3DModel(link) {
 
           }
 
+          chair.position.setFromMatrixPosition( reticle.matrix );
 
           chair.visible = true;
         },

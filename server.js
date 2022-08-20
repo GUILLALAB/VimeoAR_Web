@@ -137,6 +137,10 @@ app.get('/aws', (request, response) => {
   response.render('AWSUpload.html');
 });
 
+app.get('/awslogin', (request, response) => {
+  response.render('AWSlogin.html');
+});
+
 app.get('/basic', (request, response) => {
   response.render('basic.html');
 });
