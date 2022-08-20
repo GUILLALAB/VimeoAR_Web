@@ -100,7 +100,7 @@ function createObjectSubAlbum(path) {
 }
 
 function createSubAlbum(album) {
-  var files = document.getElementById("photoupload").files;
+  var files = document.getElementById("videoupload").files;
   if (!files.length) {
     return alert("Please choose a file to upload first.");
   }
@@ -124,7 +124,7 @@ function createSubAlbum(album) {
         return alert("There was an error creating your album: " + err.message);
       }
       alert("Successfully created album.");
-      var files = document.getElementById("photoupload").files;
+      var files = document.getElementById("videoupload").files;
   if (!files.length) {
     return alert("Please choose a file to upload first.");
   }
@@ -203,7 +203,7 @@ function viewAlbum(albumName) {
       "<div>",
       getHtml(photos),
       "</div>",
-      '<input id="photoupload" type="file" accept="video/*">',
+      '<input id="videoupload" type="file" accept="video/*">',
       '<button id="addphoto" onclick="createSubAlbum(\'' + albumName + "')\">",
       "Add Photo",
       "</button>",
