@@ -245,6 +245,8 @@ function viewAlbum(albumName) {
   });
 }
 
+
+
 function addPhoto(path) {
   var files = document.getElementById("photoupload").files;
   if (!files.length) {

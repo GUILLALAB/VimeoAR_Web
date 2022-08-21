@@ -285,11 +285,20 @@
 
 document.addEventListener("buttonclick", function (e) {
 			// alert(e.detail);
-			var link = e.detail;
-			if (link != null) {
-        console.log(link);
-        PlayVideo(link);
+			var data = e.detail;
+			if (data != null) {
+        console.log(data);
+        var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
+
+        PlayVideo(file);
 			}
+
+      const index = data.srcVideo.lastIndexOf('/');
+const before = data.srcVideo.slice(0, index);
+
+      var objects = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/video/"+before+"/"+"objects"+"/";
+      console.log(objects);
+
 		});
 
     initAWS();
@@ -363,9 +372,8 @@ var Template = '<div class="card mt-1">'+
 li.innerHTML = Template;
 
 li.setAttribute('id', data.guid);
-var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 
-li.querySelector("#btn").myParam = file;
+li.querySelector("#btn").myParam = data;
 
 li.querySelector("#btn").addEventListener('click', myFunc, false);
 
