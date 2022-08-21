@@ -248,8 +248,8 @@ function viewAlbum(albumName) {
 function viewObjectsFolder(albumName) {
  // /video/id/videosrc/objects/
 
- const [userid, videoname] = albumName.split('/');
-  var albumPhotosKey = encodeURIComponent("video")+"/"+encodeURIComponent(userid)+"/"+encodeURIComponent(videoname)+"/"+encodeURIComponent("objects")+"/";
+ const [video,userid, videoname] = albumName.split('/');
+  var albumPhotosKey = encodeURIComponent(video)+"/"+encodeURIComponent(userid)+"/"+encodeURIComponent(videoname)+"/"+encodeURIComponent("objects")+"/";
  
   s3.listObjects({ Prefix: albumPhotosKey }, function(err, data) {
     if (err) {
@@ -258,7 +258,7 @@ function viewObjectsFolder(albumName) {
       data.Contents.forEach(function(obj,index) {
       if(obj.Key.includes("glb")){
         console.log(obj.Key,"<<<file path");
-        loadProducts(obj.Key);
+      //  loadProducts(obj.Key);
       }  
       })
     }
