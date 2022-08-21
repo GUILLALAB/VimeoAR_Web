@@ -247,14 +247,22 @@ function viewAlbum(albumName) {
 
 function viewObjectsFolder(albumName) {
  // /video/id/videosrc/objects/
-  var albumPhotosKey = encodeURIComponent("video")+"/";
+
+ const index = albumName.lastIndexOf('/');
+ const video = albumName.slice(0, index);
+ const userid = albumName.slice(1, index);
+ const videoname = albumName.slice(2, index);
+ console.log(video);
+ console.log(userid);
+ console.log(videoname);
+
+
+  var albumPhotosKey = encodeURIComponent(video)+"/"+encodeURIComponent(userid)+"/"+encodeURIComponent(videoname)+"/"+encodeURIComponent("objects")+"/";
  
   s3.listObjects({ Prefix: albumPhotosKey }, function(err, data) {
     if (err) {
       return 'There was an error viewing your album: ' + err.message
-    } else {
-      console.log(data.Contents,"<<<all content");
-                  
+    } else {                  
       data.Contents.forEach(function(obj,index) {
         console.log(obj.Key,"<<<file path")
       })
