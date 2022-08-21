@@ -258,7 +258,7 @@ function viewObjectsFolder(albumName) {
       data.Contents.forEach(function(obj,index) {
       if(obj.Key.split('.').pop()=="glb"){
         console.log(obj.Key,"<<<file path");
-        loadProducts(obj.Key);
+      //  loadProducts(obj.Key);
       }  
       })
     }
