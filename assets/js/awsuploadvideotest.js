@@ -143,7 +143,7 @@ function createSubAlbum(album) {
         return alert("There was an error creating your album: " + err.message);
       }
       alert("Successfully created album.");
-      var files = document.getElementById("photoupload").files;
+      var files = document.getElementById("videoupload").files;
   if (!files.length) {
     return alert("Please choose a file to upload first.");
   }
