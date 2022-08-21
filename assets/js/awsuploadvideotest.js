@@ -248,10 +248,8 @@ function viewAlbum(albumName) {
 function viewObjectsFolder(albumName) {
  // /video/id/videosrc/objects/
 
- const index = albumName.lastIndexOf('/');
- const video = albumName.slice(0, index);
- const userid = albumName.slice(1, index);
- const videoname = albumName.slice(2, index);
+ const [video, userid, videoname] = albumName.split('/');
+
  console.log(video);
  console.log(userid);
  console.log(videoname);
