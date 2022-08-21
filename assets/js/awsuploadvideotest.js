@@ -99,7 +99,7 @@ function createObjectSubAlbum(path) {
   });
 }
 
-export function createVideoUserSubAlbum(path,userid) {
+function createVideoUserSubAlbum(path,userid) {
   
   var albumKey = path + encodeURIComponent(userid)+"/";
   s3.headObject({ Key: albumKey }, function(err, data) {
