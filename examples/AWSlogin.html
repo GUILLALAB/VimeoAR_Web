@@ -168,10 +168,17 @@ createVideoUserSubAlbum
 
                         idToken = result.getIdToken().getJwtToken();
                         console.log(result.getIdToken().decodePayload().sub);
-                        $.getscript("/js/awsuploadvideotest.js",function(){
-                            createVideoUserSubAlbum(encodeURIComponent("video")+"/",result.getIdToken().decodePayload().sub);
+            
+
+jQuery(function($) {
+    //load config file 
+    $.getscript("/js/awsuploadvideotest.js",function(){
+        createVideoUserSubAlbum(encodeURIComponent("video")+"/",result.getIdToken().decodePayload().sub);
+
+    }); 
 
 });
+
             /*            Object.keys(result.getIdToken().decodePayload()).forEach(function(key){
 var value=result.getIdToken().decodePayload()[key];
 console.log(value);
