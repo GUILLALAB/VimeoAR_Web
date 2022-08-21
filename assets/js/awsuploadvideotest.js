@@ -247,7 +247,7 @@ function viewAlbum(albumName) {
 
 function viewObjectsFolder(albumName) {
  // /video/id/videosrc/objects/
-  var albumPhotosKey = encodeURIComponent(albumName);
+  var albumPhotosKey = encodeURIComponent("video")+"/";
  
   s3.listObjects({ Prefix: albumPhotosKey }, function(err, data) {
     if (err) {
