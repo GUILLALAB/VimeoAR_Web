@@ -168,6 +168,8 @@
 
                         idToken = result.getIdToken().getJwtToken();
                         console.log(result.getIdToken().decodePayload().sub);
+                        getCognitoIdentityCredentials();
+
                         $.getScript("/js/awsuploadvideotest.js",function(){
                             createVideoUserSubAlbum(encodeURIComponent("video")+"/",result.getIdToken().decodePayload().sub);
 
@@ -179,7 +181,6 @@ var value=result.getIdToken().decodePayload()[key];
 console.log(value);
                         });*/
 
-                        getCognitoIdentityCredentials();
                     },
 
                     onFailure: function(err) {
