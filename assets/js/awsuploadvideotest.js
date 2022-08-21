@@ -273,13 +273,13 @@ function loadProducts(data){
   
   var Template = '<div id="btn" class="card mt-1">'+
   '<div class="product-1 align-items-center p-2 text-center"> <img src="'+data.thumbNailsUrls+'" class="rounded" width="150" height="100">'+
-      '<h6 class="mt-0 font-black-bold mb-2 info">'+obj.Key+'</h6>'+
+      '<h6 class="mt-0 font-black-bold mb-2 info">'+"file"+'</h6>'+
   '</div>'+
   '</div>';
   
   li.innerHTML = Template;
   
-  var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+obj.Key;
+  var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data;
   
   li.querySelector("#btn").myParam = file;
   
