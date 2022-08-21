@@ -132,9 +132,9 @@ function createSubAlbum(album) {
   }
  
   s3.headObject({ Key: albumPhotosKey }, function(err, data) {
-   /* if (!err) {
+    if (!err) {
       return alert("Album already exists.");
-    }*/
+    }
     if (err.code !== "NotFound") {
       return alert("There was an error creating your album: " + err.message);
     }
