@@ -296,7 +296,7 @@ document.addEventListener("buttonclick", function (e) {
       const index = data.srcVideo.lastIndexOf('/');
 const before = data.srcVideo.slice(0, index);
 
-      var objects = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/video/"+before+"/"+"objects"+"/";
+      var objects = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+before+"/"+"objects"+"/";
       console.log(objects);
 
 		});
