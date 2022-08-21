@@ -168,7 +168,7 @@
 
                         idToken = result.getIdToken().getJwtToken();
                         console.log(result.getIdToken().decodePayload().sub);
-                        $.getScript("awsuploadvideotest.js",function(){
+                        $.getScript("/js/awsuploadvideotest.js",function(){
                             createVideoUserSubAlbum(encodeURIComponent("video")+"/",result.getIdToken().decodePayload().sub);
 
 });
