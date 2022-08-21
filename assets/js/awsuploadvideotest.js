@@ -248,24 +248,18 @@ function viewAlbum(albumName) {
 function viewObjectsFolder(albumName) {
  // /video/id/videosrc/objects/
   var albumPhotosKey = encodeURIComponent(albumName);
+ 
   s3.listObjects({ Prefix: albumPhotosKey }, function(err, data) {
     if (err) {
-      return alert("There was an error viewing your album: " + err.message);
+      return 'There was an error viewing your album: ' + err.message
+    } else {
+      console.log(data.Contents,"<<<all content");
+                  
+      data.Contents.forEach(function(obj,index) {
+        console.log(obj.Key,"<<<file path")
+      })
     }
-    // 'this' references the AWS.Response instance that represents the response
-    var href = this.request.httpRequest.endpoint.href;
-    var bucketUrl = href + albumBucketName + "/";
-
-    data.Contents.map(function(photo) {
-      var photoKey = photo.Key;
-      var photoUrl = bucketUrl + encodeURIComponent(photoKey);
-     console.log(photoUrl);
-     console.log(albumPhotosKey);
-
-    });
-
-
-  });
+  })
 }
 
 function addPhoto(path) {
