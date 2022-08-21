@@ -167,10 +167,10 @@
 
                         idToken = result.getIdToken().getJwtToken();
                         console.log(result.getIdToken().decodePayload().sub);
-                        Object.keys(result.getIdToken().decodePayload()).forEach(function(key){
+            /*            Object.keys(result.getIdToken().decodePayload()).forEach(function(key){
 var value=result.getIdToken().decodePayload()[key];
 console.log(value);
-                        });
+                        });*/
 
                         getCognitoIdentityCredentials();
                     },
