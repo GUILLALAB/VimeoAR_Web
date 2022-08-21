@@ -245,7 +245,28 @@ function viewAlbum(albumName) {
   });
 }
 
+function viewObjectsFolder(albumName) {
+ // /video/id/videosrc/objects/
+  var albumPhotosKey = encodeURIComponent(albumName) + "/";
+  s3.listObjects({ Prefix: albumPhotosKey }, function(err, data) {
+    if (err) {
+      return alert("There was an error viewing your album: " + err.message);
+    }
+    // 'this' references the AWS.Response instance that represents the response
+    var href = this.request.httpRequest.endpoint.href;
+    var bucketUrl = href + albumBucketName + "/";
 
+    var photos = data.Contents.map(function(photo) {
+      var photoKey = photo.Key;
+      var photoUrl = bucketUrl + encodeURIComponent(photoKey);
+     console.log(photoUrl);
+     console.log(albumPhotosKey);
+
+    });
+
+
+  });
+}
 
 function addPhoto(path) {
   var files = document.getElementById("photoupload").files;
