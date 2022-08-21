@@ -126,6 +126,7 @@ function createSubAlbum(album) {
   var fileName = file.name;
   var userid = localStorage.getItem("sub");
   var albumPhotosKey = encodeURIComponent("video")+"/"+encodeURIComponent(userid)+"/"+encodeURIComponent(fileName)+"/";;
+  console.log("albumPhotosKey: ", albumPhotosKey);
 
   if (!albumPhotosKey) {
     return alert("Album names must contain at least one non-space character.");
@@ -171,6 +172,7 @@ function createSubAlbum(album) {
       currentalbum=albumPhotosKey;
     },
     function(err) {
+      console.log("There was an error uploading your photo: ", err.message);
       return alert("There was an error uploading your photo: ", err.message);
     }
   );
