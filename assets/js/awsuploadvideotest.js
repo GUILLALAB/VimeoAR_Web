@@ -256,7 +256,7 @@ function viewObjectsFolder(albumName) {
     var href = this.request.httpRequest.endpoint.href;
     var bucketUrl = href + albumBucketName + "/";
 
-    var photos = data.Contents.map(function(photo) {
+    data.Contents.map(function(photo) {
       var photoKey = photo.Key;
       var photoUrl = bucketUrl + encodeURIComponent(photoKey);
      console.log(photoUrl);
