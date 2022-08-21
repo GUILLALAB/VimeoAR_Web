@@ -248,14 +248,8 @@ function viewAlbum(albumName) {
 function viewObjectsFolder(albumName) {
  // /video/id/videosrc/objects/
 
- const [video, userid, videoname] = albumName.split('/');
-
- console.log(video);
- console.log(userid);
- console.log(videoname);
-
-
-  var albumPhotosKey = encodeURIComponent(video)+"/"+encodeURIComponent(userid)+"/"+encodeURIComponent(videoname)+"/"+encodeURIComponent("objects")+"/";
+ const [userid, videoname] = albumName.split('/');
+  var albumPhotosKey = encodeURIComponent("video")+"/"+encodeURIComponent(userid)+"/"+encodeURIComponent(videoname)+"/"+encodeURIComponent("objects")+"/";
  
   s3.listObjects({ Prefix: albumPhotosKey }, function(err, data) {
     if (err) {
@@ -268,6 +262,8 @@ function viewObjectsFolder(albumName) {
       })
     }
   })
+
+  
 }
 
 function addPhoto(path) {
