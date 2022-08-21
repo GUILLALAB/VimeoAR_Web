@@ -262,7 +262,9 @@ function viewObjectsFolder(albumName) {
       return 'There was an error viewing your album: ' + err.message
     } else {                  
       data.Contents.forEach(function(obj,index) {
-        console.log(obj.Key,"<<<file path")
+      if(obj.Key.includes(".glb")){
+        console.log(obj.Key,"<<<file path");
+      }  
       })
     }
   })
