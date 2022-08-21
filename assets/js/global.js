@@ -1,4 +1,4 @@
-var sub='';
+window.sub='';
 
 function getGlobalSub(){
     return sub;
