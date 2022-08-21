@@ -166,7 +166,7 @@
                         switchToLoggedInView();
 
                         idToken = result.getIdToken().getJwtToken();
-                        console.log(result);
+                        console.log(result.getIdToken());
                         getCognitoIdentityCredentials();
                     },
 
