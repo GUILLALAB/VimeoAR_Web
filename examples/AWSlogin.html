@@ -169,9 +169,8 @@
 
                         idToken = result.getIdToken().getJwtToken();
                         console.log(result.getIdToken().decodePayload().sub);
-                        $.getScript("/js/global.js",function(){
-                            setGlobalSub(result.getIdToken().decodePayload().sub);
-});
+                        localStorage.setItem("sub", result.getIdToken().decodePayload().sub);
+
                         getCognitoIdentityCredentials();
 
                         $.getScript("/js/awsuploadvideotest.js",function(){

@@ -124,7 +124,8 @@ function createSubAlbum(album) {
   }
   var file = files[0];
   var fileName = file.name;
-  var albumPhotosKey = encodeURIComponent("video")+"/"+encodeURIComponent(fileName)+"/";;
+  var userid = localStorage.getItem("sub");
+  var albumPhotosKey = encodeURIComponent("video")+"/"+encodeURIComponent(userid)+"/"+encodeURIComponent(fileName)+"/";;
 
   if (!albumPhotosKey) {
     return alert("Album names must contain at least one non-space character.");
