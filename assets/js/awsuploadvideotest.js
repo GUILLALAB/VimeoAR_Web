@@ -1,7 +1,7 @@
 var albumBucketName = "videoaws-source-8r4bwmp9uami";
 var bucketRegion = "eu-west-1";
 var IdentityPoolId = "eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b";
-
+var currentalbum=null;
 AWS.config.update({
   region: bucketRegion,
   credentials: new AWS.CognitoIdentityCredentials({
@@ -168,6 +168,7 @@ function createSubAlbum(album) {
             createObjectSubAlbum(albumPhotosKey);
 
       viewAlbum(albumPhotosKey);
+      currentalbum=albumPhotosKey;
     },
     function(err) {
       return alert("There was an error uploading your photo: ", err.message);
@@ -231,7 +232,7 @@ function viewAlbum(albumName) {
       "</button>",
       "<br>",
       '<input id="photoupload" type="file" accept=".glb">',
-      '<button id="addphoto" onclick="addPhoto(\'' + albumName + "')\">",
+      '<button id="addphoto" onclick="addPhoto(\'' + currentalbum + "')\">",
       "Add Photo",
       "</button>",
       '<button onclick="listAlbums()">',
@@ -244,14 +245,14 @@ function viewAlbum(albumName) {
   });
 }
 
-function addPhoto(albumName) {
+function addPhoto(path) {
   var files = document.getElementById("photoupload").files;
   if (!files.length) {
     return alert("Please choose a file to upload first.");
   }
   var file = files[0];
   var fileName = file.name;
-  var albumPhotosKey = encodeURIComponent(albumName) + "/";
+  var albumPhotosKey = path + encodeURIComponent("objects") + "/";
 
   var photoKey = albumPhotosKey + fileName;
 
@@ -269,7 +270,7 @@ function addPhoto(albumName) {
   promise.then(
     function(data) {
       alert("Successfully uploaded photo.");
-      viewAlbum(albumName);
+      viewAlbum(albumPhotosKey);
     },
     function(err) {
       return alert("There was an error uploading your photo: ", err.message);
