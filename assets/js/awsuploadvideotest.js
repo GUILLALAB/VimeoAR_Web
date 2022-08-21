@@ -100,7 +100,6 @@ function createObjectSubAlbum(path) {
 }
 
 function createVideoUserSubAlbum(path,userid) {
-  console.log("test");
   var albumKey = path + encodeURIComponent(userid)+"/";
   s3.headObject({ Key: albumKey }, function(err, data) {
     if (!err) {
