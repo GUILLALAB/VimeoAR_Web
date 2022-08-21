@@ -166,6 +166,7 @@
                         switchToLoggedInView();
 
                         idToken = result.getIdToken().getJwtToken();
+                        console.log(result.getIdToken().getClaim("sub"));
                         getCognitoIdentityCredentials();
                     },
 
