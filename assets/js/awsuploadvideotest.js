@@ -321,26 +321,28 @@ function addPhoto(path) {
 
   var photoKey = albumPhotosKey + fileName;
 
-  // Use S3 ManagedUpload class as it supports multipart uploads
-  var upload = new AWS.S3.ManagedUpload({
-    params: {
-      Bucket: albumBucketName,
-      Key: photoKey,
-      Body: file
-    }
-  });
+ 
 
-  var promise = upload.promise();
-
-  promise.then(
-    function(data) {
-      alert("Successfully uploaded photo.");
-      viewAlbum(albumPhotosKey);
+  var params = {
+    Metadata: {
+      'obj': "obj",
     },
-    function(err) {
-      return alert("There was an error uploading your photo: ", err.message);
-    }
-  );
+    
+    Bucket: albumBucketName,
+      Key: photoKey,
+      Body: file,
+};
+  
+var options = {partSize: 10 * 1024 * 1024, queueSize: 1};
+  s3.upload(params, options, function(err, data) {
+    if(err) {
+        alert(err.code);
+    } else{
+    alert('uploaded suceessfully')
+    viewAlbum(albumPhotosKey);
+    };
+});
+
 }
 
 function deletePhoto(albumName, photoKey) {
