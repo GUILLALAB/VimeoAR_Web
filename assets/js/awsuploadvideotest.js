@@ -155,15 +155,17 @@ function createSubAlbum(album) {
   if (!files.length) {
     return alert("Please choose a file to upload first.");
   }
- 
+  var videotitle = document.getElementById("videotitle").value;
 
+  
   var photoKey = albumPhotosKey + fileName;
 
   // Use S3 ManagedUpload class as it supports multipart uploads
   var upload = new AWS.S3.ManagedUpload({
     params: {
+      
       Metadata: {
-        'title': 'videotitle',
+        'title': videotitle,
       },
       
       Bucket: albumBucketName,
@@ -237,15 +239,19 @@ function viewAlbum(albumName) {
       "</div>",
       '<input id="videoupload" type="file" accept="video/*">',
       '<button id="addphoto" onclick="createSubAlbum(\'' + albumName + "')\">",
-      "Add Photo",
+      "Add Video",
       "</button>",
       '<button onclick="listAlbums()">',
       "Back To Albums",
       "</button>",
       "<br>",
+      '<form action="/url" method="GET">',
+      "<p>Please enter your Video Title:</p>",
+      '<input id="videotitle" type="text" placeholder="Video Title">',
+    "</form>",
       '<input id="photoupload" type="file" accept=".glb">',
       '<button id="addphoto" onclick="addPhoto(\'' + currentalbum + "')\">",
-      "Add Photo",
+      "Add Object",
       "</button>",
       '<button onclick="listAlbums()">',
       "Back To Albums",
