@@ -154,6 +154,9 @@ function createSubAlbum(album) {
   // Use S3 ManagedUpload class as it supports multipart uploads
   var upload = new AWS.S3.ManagedUpload({
     params: {
+      Metadata: {
+        'title': 'videotitle',
+      },
       Bucket: albumBucketName,
       Key: photoKey,
       Body: file
