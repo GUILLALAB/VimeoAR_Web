@@ -440,6 +440,7 @@ video.play();
      // video.play();
         isset = 1;
 
+        setAds3DModel("https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/objet/solar.glb");
       //ads
 
 
@@ -517,7 +518,7 @@ function initAWS(){
 AWS.config.getCredentials(function(err) {
   if (err) console.log(err.stack);
   
-  // credentials not loade
+  // credentials not loaded
   else {
     console.log("Access key:", AWS.config.credentials.accessKeyId);
     const itemsAll = scanAll("VideoAWS");
