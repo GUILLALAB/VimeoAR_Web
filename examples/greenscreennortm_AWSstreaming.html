@@ -518,7 +518,7 @@ function initAWS(){
 AWS.config.getCredentials(function(err) {
   if (err) console.log(err.stack);
   
-  // credentials not loaded
+  // credentials not loade
   else {
     console.log("Access key:", AWS.config.credentials.accessKeyId);
     const itemsAll = scanAll("VideoAWS");
