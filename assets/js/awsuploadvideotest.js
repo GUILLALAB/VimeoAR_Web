@@ -53,6 +53,14 @@ function listAlbums() {
   });
 }
 
+function generateUUID() {
+  var d = new Date().getTime();
+  var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = (d + Math.random()*16)%16 | 0;
+      d = Math.floor(d/16);
+     return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+  });
+  return uuid; };
 
 function createAlbum(albumName) {
   albumName = albumName.trim();
@@ -125,7 +133,7 @@ function createSubAlbum(album) {
   var file = files[0];
   var fileName = file.name;
   var userid = localStorage.getItem("sub");
-  var albumPhotosKey = encodeURIComponent("video")+"/"+encodeURIComponent(userid)+"/"+encodeURIComponent(fileName)+"/";;
+  var albumPhotosKey = encodeURIComponent("video")+"/"+encodeURIComponent(userid)+"/"+encodeURIComponent(generateUUID())+"/";;
 
   if (!albumPhotosKey) {
     return alert("Album names must contain at least one non-space character.");
