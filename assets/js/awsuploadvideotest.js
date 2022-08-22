@@ -161,33 +161,29 @@ function createSubAlbum(album) {
   var photoKey = albumPhotosKey + fileName;
 
   // Use S3 ManagedUpload class as it supports multipart uploads
-  var upload = new AWS.S3.ManagedUpload({
-    params: {
-      
-      Metadata: {
-        'title': videotitle,
-      },
-      
-      Bucket: albumBucketName,
-      Key: photoKey,
-      Body: file
-    }
-  });
-
-  var promise = upload.promise();
-
-  promise.then(
-    function(data) {
-      alert("Successfully uploaded photo.");
-            createObjectSubAlbum(albumPhotosKey);
-
-      viewAlbum(albumPhotosKey);
-      currentalbum=albumPhotosKey;
+ 
+  var params = {
+    Metadata: {
+      'title': videotitle,
     },
-    function(err) {
-      return alert("There was an error uploading your photo: ", err.message);
-    }
-  );
+    
+    Bucket: albumBucketName,
+    Key: photoKey,
+    Body: file,
+};
+  var options = {partSize: 5 * 1024 * 1024, queueSize: 1};
+  s3.upload(params, options, function(err, data) {
+    if(err) {
+        alert('error');
+    } else{
+    alert('uploaded suceessfully')
+    createObjectSubAlbum(albumPhotosKey);
+
+    viewAlbum(albumPhotosKey);
+    currentalbum=albumPhotosKey;
+    };
+});
+
 
     });
   });
