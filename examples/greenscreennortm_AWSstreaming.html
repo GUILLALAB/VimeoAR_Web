@@ -564,14 +564,11 @@ const scanAll = async (tableName) => {
 
 var li = document.createElement('li');
 
-var Template = '<div class="card mt-1">'+
+var Template = '<div id="btn" class="card mt-1">'+
 '<div class="product-1 align-items-center p-2 text-center"> <img src="'+data.thumbNailsUrls+'" class="rounded" width="150" height="100">'+
     '<h6 class="mt-0 font-weight-bold mb-2 info">'+data.srcVideo+'</h6>'+
-    '<div class="message"> <span class="text1 d-block">'+ data.srcBucket+' </span> </div>'+
-    '<div class=" cost mt-1 text-dark"> <span>$'+data.srcBucket+'</span>'+
-    '</div>'+
 '</div>'+
-'<div id="btn" class="button-color p-2 text-center text-white"> <span class="text-uppercase ">Add to cart</span> </div>'+
+'<div  class="button-color p-2 text-center text-white"> <span class="text-uppercase ">Add to cart</span> </div>'+
 '</div>';
 
 li.innerHTML = Template;
