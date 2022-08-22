@@ -143,13 +143,13 @@ li:hover {
               </div>
           
               </div>
-              <a  id="badgeButton" href="#" class="notification">
-                <span>Objects</span>
-                <span id="object_badge" class="badge"></span>
-              </a>
+           
             </div> 	             
        
-              
+            <a  id="badgeButton" href="#" class="notification">
+              <span>Objects</span>
+              <span id="object_badge" class="badge"></span>
+            </a>
        <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
     <source  id="source" src="video.mp4" type="video/mp4">   
     </video>
@@ -335,7 +335,6 @@ const before = data.srcVideo.slice(0, index);
         document.getElementById("messages-card").style.display="none";
 
         badgeButton = document.getElementById('badgeButton');
-        document.getElementById("badgeButton").style.display="block";
 
 badgeButton.addEventListener("click", function (e) {
  if("none"== document.getElementById("messages-card").style.display){
