@@ -283,6 +283,8 @@
     let segmentedCanvas;
     var clock;
     var objects = 0;
+    var objectname = 0;
+
     var allobjects = [];
     var allanimationmixer = [];
 
@@ -528,11 +530,11 @@ var event = new CustomEvent("buttonclick", { "detail": test });
         // called when the resource is loaded
         function (gltf) {
 
-
+          objectname=objectname+1;
           scene.add(gltf.scene);
 
          var chair = gltf.scene;
-          chair.name = link;
+          chair.name = objectname;
 
           chair.traverse((node) => {
 
