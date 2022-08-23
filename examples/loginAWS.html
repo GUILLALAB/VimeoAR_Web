@@ -303,6 +303,7 @@ button{
 
                         $.getScript("/js/awsuploadvideotest.js",function(){
                             createVideoUserSubAlbum(encodeURIComponent("video")+"/",result.getIdToken().decodePayload().sub);
+                            window.location = "https://livear.herokuapp.com/";
 
 });
 
@@ -476,9 +477,10 @@ console.log(value);
                         logMessage(err.message);
                     }else{
                         logMessage('Session found! Logged in.');
-                        window.location = "https://livear.herokuapp.com/";
 
                         idToken = session.getIdToken().getJwtToken();
+                        localStorage.setItem("sub", session.getIdToken().decodePayload().sub);
+
                         getCognitoIdentityCredentials();
                     }
                     $("#loader").hide();
