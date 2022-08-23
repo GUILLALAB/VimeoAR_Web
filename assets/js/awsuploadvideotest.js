@@ -268,7 +268,7 @@ var uploadSampleFile = function() {
     displayName: file.name,
     status: 'Uploading..',
   }
-  uploadfile(videotitle,albumBucketName, photoKey, file)
+  uploadfile(videotitle,albumPhotosKey, photoKey, file)
     .on('httpUploadProgress', function(progress) {
       let progressPercentage = Math.round(progress.loaded / progress.total * 100);
       console.log(progressPercentage);
@@ -339,7 +339,7 @@ function viewAlbum(albumName) {
       getHtml(photos),
       "</div>",
       '<input id="videoupload" type="file" accept="video/*">',
-      '<button id="addphoto" onclick="createSubAlbum(\'' + albumName + "')\">",
+      '<button id="addphoto" onclick="createSubAlbumProgress(\'' + albumName + "')\">",
       "Add Video",
       "</button>",
       '<button onclick="listAlbums()">',
