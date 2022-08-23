@@ -449,6 +449,9 @@ var event = new CustomEvent("buttonclick", { "detail": test });
 
       const planeGeometry = new THREE.PlaneBufferGeometry(50, 40, 8, 8);
       const planeMaterial = new THREE.MeshPhongMaterial({ color: 0x222222 });
+      planeMaterial.transparent = true;
+// set opacity to 50%
+planeMaterial.opacity = 0.5; 
       const plane = new THREE.Mesh(planeGeometry, planeMaterial);
       plane.rotateX(-Math.PI / 2);
       plane.position.y = -3;
