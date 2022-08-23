@@ -125,7 +125,7 @@ function createVideoUserSubAlbum(path,userid) {
   });
 }
 
-function createSubAlbum(album) {
+function createSub(album) {
   var files = document.getElementById("videoupload").files;
   if (!files.length) {
     return alert("Please choose a file to upload first.");
