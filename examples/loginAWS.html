@@ -181,8 +181,9 @@ button{
             UserPoolId : userPoolId,
             ClientId : clientId
         };
-        
+        getCurrentLoggedInSession();
         switchToLogInView();        
+
         logInButton.addEventListener("click", function (e) {
             logIn();
 });
