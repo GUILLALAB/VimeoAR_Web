@@ -633,7 +633,8 @@ planeMaterial.opacity = 0.5;
       texture.magFilter = THREE.LinearFilter;
       texture.format = THREE.RGBFormat;
 
-      var geometry = new THREE.PlaneBufferGeometry(70, 30);
+      var geometry = new THREE.PlaneBufferGeometry(70, 
+      );
 
       const vertexShader = document.getElementById("vertexShader").textContent;
       const fragmentShader = document.getElementById("fragmentShader").textContent;
@@ -653,7 +654,7 @@ planeMaterial.opacity = 0.5;
       material.metalness = 0;
       mesh = new THREE.Mesh(geometry, material);
       scene.add(mesh);
-      mesh.position.set(0.0, 4, -30.0);
+      mesh.position.set(0.0, 13, -100.0);
 video.play();
      // video.play();
         isset = 1;
