@@ -284,7 +284,6 @@
     var clock;
     var objects = 0;
     
-    var allobjects = [];
     var allanimationmixer = [];
 
     function removeEntity(object) {
@@ -321,12 +320,7 @@ const before = data.srcVideo.slice(0, index);
       viewObjectsFolder(before);
 
       allanimationmixer = [];
-        if (typeof allobjects !== 'undefined' && allobjects.length > 0) {
-    allobjects.forEach(function (item, index) {
           removeEntity(item);
-});    
-
-}
 		});
 
     initAWS();
@@ -578,7 +572,6 @@ var event = new CustomEvent("buttonclick", { "detail": test });
             allanimationmixer.push(mixer);
           }
 
-          allobjects.push(chair);
           chair.visible = true;
         },
         // called while loading is progressing
