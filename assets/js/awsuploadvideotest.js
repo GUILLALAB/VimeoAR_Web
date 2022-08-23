@@ -350,7 +350,7 @@ function viewAlbum(albumName) {
       "<p>Please enter your Video Title:</p>",
       '<input id="videotitle" type="text" placeholder="Video Title">',
     "</form>",
-    '<div id="myProgress" style="display:block;"> ',    
+    '<div id="myProgress" style="display:none;"> ',    
    '<div id="myBar"></div>',   
    '</div>',  
    "<br>",
