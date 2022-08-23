@@ -319,10 +319,12 @@ const before = data.srcVideo.slice(0, index);
       console.log(objects);
       viewObjectsFolder(before);
 
-      if (typeof allobjects !== 'undefined' && allobjects.length > 0) {
+      allanimationmixer = [];
+        if (typeof allobjects !== 'undefined' && allobjects.length > 0) {
     allobjects.forEach(function (item, index) {
           removeEntity(item);
 });    
+
 }
 		});
 
@@ -496,14 +498,14 @@ var event = new CustomEvent("buttonclick", { "detail": test });
           }
         }
 
-        
+        if (typeof allanimationmixer !== 'undefined' && allanimationmixer.length > 0) {
         allanimationmixer.forEach(function (item, index) {
           if (item != null) {
           var delta = clock.getDelta();
           item.update(delta);
         }
 });
-       
+}
         // var position = new THREE.Vector3();
         // position.setFromMatrixPosition(cube.matrixWorld);
         //  descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
