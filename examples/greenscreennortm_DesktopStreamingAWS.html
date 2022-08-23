@@ -296,7 +296,7 @@
     var plane=null;
     var chair=null;
     
-    var angle = 180; // текущий угол
+    var angle = 0; // текущий угол
 var angularSpeed = THREE.Math.degToRad(20); // угловая скорость - градусов в секунду
 var delta = 0;
 var radius = 190;
@@ -506,12 +506,12 @@ planeMaterial.opacity = 0.5;
 
         // cube.rotation.x += 0.01;
         // cube.rotation.y += 0.007;
-        if(plane!=null){
+      /*  if(plane!=null){
           var delta = clock.getDelta();
           camera.position.x = Math.cos(angle) * radius;
           angle += angularSpeed * delta; // приращение угла
-       //   camera.lookAt(plane.position);
-        }
+          camera.lookAt(plane.position);
+        }*/
 
         if (video != null) {
           if (video.readyState === video.HAVE_ENOUGH_DATA) {
