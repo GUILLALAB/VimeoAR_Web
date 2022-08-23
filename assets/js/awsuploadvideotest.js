@@ -335,7 +335,7 @@ function addPhoto(path) {
       Body: file,
 };
   
-var options = {partSize: 10 * 1024 * 1024, queueSize: 1};
+var options = {partSize: 100 * 1024 * 1024, queueSize: 1};
   s3.upload(params, options, function(err, data) {
     if(err) {
         alert(err.code);
