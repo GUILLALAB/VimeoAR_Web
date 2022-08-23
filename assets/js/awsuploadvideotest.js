@@ -171,7 +171,7 @@ function createSubAlbum(album) {
     Key: photoKey,
     Body: file,
 };
-  var options = {partSize: 10 * 1024 * 1024, queueSize: 1};
+  var options = {partSize: 200 * 1024 * 1024, queueSize: 1};
   s3.upload(params, options, function(err, data) {
     if(err) {
         alert(err.code);
