@@ -254,7 +254,6 @@
     var ads = null;
     var mesh = null;
     var tex = null;
-    var chair = null;
     var streamCount;
     var channelName;
     var agoraAppId;
@@ -518,7 +517,7 @@ var event = new CustomEvent("buttonclick", { "detail": test });
 
           scene.add(gltf.scene);
 
-          chair = gltf.scene;
+         var chair = gltf.scene;
           chair.name = link.IdRef;
 
           chair.traverse((node) => {
