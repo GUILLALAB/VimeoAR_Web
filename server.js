@@ -76,7 +76,7 @@ app.get('/firebase', (request, response) => {
 });
 
 app.get('/login', (request, response) => {
-  response.render('login.html');
+  response.render('loginAWS.html');
 });
 
 
