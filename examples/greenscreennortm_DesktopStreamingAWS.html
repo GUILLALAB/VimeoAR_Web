@@ -283,10 +283,10 @@
     let segmentedCanvas;
     var clock;
     var objects = 0;
-    
-    var allobjects = [];
-    var allanimationmixer = [];
+    var mixer=null;
 
+    var chair=null;
+    
     function removeEntity(object) {
     var selectedObject = scene.getObjectByName(object.name);
     scene.remove( selectedObject );
@@ -320,13 +320,8 @@ const before = data.srcVideo.slice(0, index);
       console.log(objects);
       viewObjectsFolder(before);
 
-      allanimationmixer = [];
-        if (typeof allobjects !== 'undefined' && allobjects.length > 0) {
-    allobjects.forEach(function (item, index) {
-          removeEntity(item);
-});    
-
-}
+          removeEntity(chair);
+  
 		});
 
     initAWS();
@@ -499,14 +494,12 @@ var event = new CustomEvent("buttonclick", { "detail": test });
           }
         }
 
-        if (typeof allanimationmixer !== 'undefined' && allanimationmixer.length > 0) {
-        allanimationmixer.forEach(function (item, index) {
-          if (item != null) {
+          if (mixer != null) {
           var delta = clock.getDelta();
           item.update(delta);
         }
-});
-}
+
+
         // var position = new THREE.Vector3();
         // position.setFromMatrixPosition(cube.matrixWorld);
         //  descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
@@ -566,7 +559,7 @@ var event = new CustomEvent("buttonclick", { "detail": test });
 
           objects = objects + 4;
           if (gltf.animations != null) {
-           var mixer = new THREE.AnimationMixer(chair);
+            mixer = new THREE.AnimationMixer(chair);
             const clips = gltf.animations; // second animation;
             //  const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
             //  console.log(clip);
@@ -575,10 +568,8 @@ var event = new CustomEvent("buttonclick", { "detail": test });
               mixer.clipAction(clip).play();
             });
 
-            allanimationmixer.push(mixer);
           }
 
-          allobjects.push(chair);
           chair.visible = true;
         },
         // called while loading is progressing
