@@ -505,7 +505,10 @@ planeMaterial.opacity = 0.5;
           var delta = clock.getDelta();
           mixer.update(delta);
         }
+        if(mesh!=null){
+          mesh.lookAt(camera.position);
 
+        }
 
         // var position = new THREE.Vector3();
         // position.setFromMatrixPosition(cube.matrixWorld);
