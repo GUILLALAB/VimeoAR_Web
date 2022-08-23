@@ -506,6 +506,7 @@ planeMaterial.opacity = 0.5;
 
         // cube.rotation.x += 0.01;
         // cube.rotation.y += 0.007;
+        rotateObject(camera,180,0,0);
       /*  if(plane!=null){
           var delta = clock.getDelta();
           camera.position.x = Math.cos(angle) * radius;
@@ -538,7 +539,14 @@ planeMaterial.opacity = 0.5;
       };
       animate();
     }
+    function rotateObject(object, degreeX=0, degreeY=0, degreeZ=0) {
+   object.rotateX(THREE.Math.degToRad(degreeX));
+   object.rotateY(THREE.Math.degToRad(degreeY));
+   object.rotateZ(THREE.Math.degToRad(degreeZ));
+}
 
+// usage:
+rotateObject(myPlane, 40, 30, 20);
     function setAds3DModel(link) {
       loadingBar.visible = true;
 
