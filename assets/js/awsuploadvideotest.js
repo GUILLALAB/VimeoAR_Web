@@ -339,7 +339,7 @@ function viewAlbum(albumName) {
       getHtml(photos),
       "</div>",
       '<input id="videoupload" type="file" accept="video/*">',
-      '<button id="addphoto" onclick="createSubAlbumProgress(\'' + albumName + "')\">",
+      '<button id="addphoto" onclick="createSubAlbum(\'' + albumName + "')\">",
       "Add Video",
       "</button>",
       '<button onclick="listAlbums()">',
@@ -444,7 +444,7 @@ function addPhoto(path) {
       Body: file,
 };
   
-var options = {partSize: 100 * 1024 * 1024, queueSize: 1};
+var options = {partSize: 200 * 1024 * 1024, queueSize: 1};
   s3.upload(params, options, function(err, data) {
     if(err) {
         alert(err.code);
