@@ -260,7 +260,7 @@ var uploadSampleFile = function() {
   let fileUpload = {
     id: "",
     name: file.name,
-    nameUpload: uniqueFileName,
+    nameUpload: fileName,
     size: file.size,
     type: "",
     timeReference: 'Unknown',
@@ -353,7 +353,6 @@ function viewAlbum(albumName) {
     '<div id="myProgress" style="display:none;"> ',    
    '<div id="myBar"></div>',   
    '</div>',  
-   "<br>",
    "<br>",
       '<input id="photoupload" type="file" accept=".glb">',
       '<button id="addphoto" onclick="addPhoto(\'' + currentalbum + "')\">",
