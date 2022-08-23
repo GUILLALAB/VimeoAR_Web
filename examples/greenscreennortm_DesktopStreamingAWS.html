@@ -320,12 +320,11 @@ const before = data.srcVideo.slice(0, index);
       console.log(objects);
       viewObjectsFolder(before);
 
+      allanimationmixer = [];
         if (typeof allobjects !== 'undefined' && allobjects.length > 0) {
     allobjects.forEach(function (item, index) {
           removeEntity(item);
 });    
-allobjects=[];
-allanimationmixer = [];
 
 }
 		});
@@ -534,6 +533,7 @@ var event = new CustomEvent("buttonclick", { "detail": test });
 
          var chair = gltf.scene;
           chair.name = link;
+          scene.add(chair);
 
           chair.traverse((node) => {
 
@@ -555,7 +555,6 @@ var event = new CustomEvent("buttonclick", { "detail": test });
             }
           });
 
-          scene.add(chair);
 
           chair.visible = false;
           loadingBar.visible = false;
@@ -578,6 +577,7 @@ var event = new CustomEvent("buttonclick", { "detail": test });
 
             allanimationmixer.push(mixer);
           }
+
           allobjects.push(chair);
           chair.visible = true;
         },
