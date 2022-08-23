@@ -116,8 +116,6 @@
       <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-black"
         href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
       <div id="user-container">
-       
-
         <div hidden id="user-pic"></div>
         <div hidden id="user-name"></div>
         <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
@@ -127,6 +125,10 @@
           <i class="material-icons"></i>Sign-in
         </button>
       </div>
+      <a id="badgeButton" href="#" class="notification">
+        <span>sound</span>
+        <span id="object_badge" class="badge"></span>
+      </a>
       <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"></a>
     </div>
 
@@ -137,10 +139,7 @@
 
   </div>
 
-  <a id="badgeButton" href="#" class="notification">
-    <span>sound</span>
-    <span id="object_badge" class="badge"></span>
-  </a>
+  
 
   <input type="text" placeholder="broadcaster channel name" id="myInput">
 
