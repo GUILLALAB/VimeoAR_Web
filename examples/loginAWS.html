@@ -476,7 +476,8 @@ console.log(value);
                         logMessage(err.message);
                     }else{
                         logMessage('Session found! Logged in.');
-                        switchToLoggedInView();
+                        window.location = "https://livear.herokuapp.com/";
+
                         idToken = session.getIdToken().getJwtToken();
                         getCognitoIdentityCredentials();
                     }
