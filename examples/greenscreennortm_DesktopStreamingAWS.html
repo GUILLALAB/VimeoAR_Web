@@ -279,12 +279,13 @@
     let videoHeight = 240;
     var assetsPath;
     // Safari & Firefox don't support OffscreenCanvas
-    var mixer = null;
 
     var loadingBar;
     let segmentedCanvas;
     var clock;
     var objects = 0;
+    var allobjects = [];
+    var allanimationmixer = [];
 
     
     document.addEventListener("objectclick", function (e) {
@@ -484,10 +485,14 @@ var event = new CustomEvent("buttonclick", { "detail": test });
           }
         }
 
-        if (mixer != null) {
+        
+        allanimationmixer.forEach(function (item, index) {
+          if (item != null) {
           var delta = clock.getDelta();
-          mixer.update(delta);
+          item.update(delta);
         }
+});
+       
         // var position = new THREE.Vector3();
         // position.setFromMatrixPosition(cube.matrixWorld);
         //  descriptionElement.innerText= position.x + ',' + position.y + ',' + position.z;
@@ -548,7 +553,7 @@ var event = new CustomEvent("buttonclick", { "detail": test });
           console.log(gltf.animations);
           objects = objects + 4;
           if (gltf.animations != null) {
-            mixer = new THREE.AnimationMixer(chair);
+           var mixer = new THREE.AnimationMixer(chair);
             const clips = gltf.animations; // second animation;
             //  const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
             //  console.log(clip);
@@ -557,10 +562,10 @@ var event = new CustomEvent("buttonclick", { "detail": test });
               mixer.clipAction(clip).play();
             });
 
-
+            allanimationmixer.push(mixer);
           }
 
-
+          allobjects.push(chair);
           chair.visible = true;
         },
         // called while loading is progressing
