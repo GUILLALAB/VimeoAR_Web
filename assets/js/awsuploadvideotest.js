@@ -189,6 +189,111 @@ function createSubAlbum(album) {
   });
 }
 
+
+
+function createSubAlbum(album) {
+  uploadSampleFile();
+}
+
+var uploadfile = function(videotitle, albumBucketName, photoKey, file) {
+  const params = {
+    Metadata: {
+      'title': videotitle,
+    },
+    
+    Bucket: albumBucketName,
+    Key: photoKey,
+    Body: file,
+  };
+
+  var options = {partSize: 200 * 1024 * 1024, queueSize: 1};
+
+  return s3.upload(params,options, function(err, data) {
+
+    if (err) {
+      console.log('There was an error uploading your file: ', err);
+      return false;
+    }
+    console.log('Successfully uploaded file.', data);
+    
+    return true;
+  });
+}
+
+var uploadSampleFile = function() {
+  var progressDiv = document.getElementById("myProgress");
+  progressDiv.style.display="block";
+  var progressBar = document.getElementById("myBar");
+  var files = document.getElementById("videoupload").files;
+  if (!files.length) {
+    return alert("Please choose a file to upload first.");
+  }
+  var file = files[0];
+  var fileName = file.name;
+  var userid = localStorage.getItem("sub");
+  var albumPhotosKey = encodeURIComponent("video")+"/"+encodeURIComponent(userid)+"/"+encodeURIComponent(generateUUID())+"/";;
+  var videotitle = document.getElementById("videotitle").value;
+
+  if (!albumPhotosKey) {
+    return alert("Album names must contain at least one non-space character.");
+  }
+ 
+  s3.headObject({ Key: albumPhotosKey }, function(err, data) {
+    if (!err) {
+      return alert("Album already exists.");
+    }
+    if (err.code !== "NotFound") {
+      return alert("There was an error creating your album: " + err.message);
+    }
+    s3.putObject({ Key: albumPhotosKey }, function(err, data) {
+      if (err) {
+        return alert("There was an error creating your album: " + err.message);
+      }
+      alert("Successfully created album.");
+      var files = document.getElementById("videoupload").files;
+  if (!files.length) {
+    return alert("Please choose a file to upload first.");
+  }
+
+  var photoKey = albumPhotosKey + fileName;
+  
+  let fileUpload = {
+    id: "",
+    name: file.name,
+    nameUpload: uniqueFileName,
+    size: file.size,
+    type: "",
+    timeReference: 'Unknown',
+    progressStatus: 0,
+    displayName: file.name,
+    status: 'Uploading..',
+  }
+  uploadfile(videotitle,albumBucketName, photoKey, file)
+    .on('httpUploadProgress', function(progress) {
+      let progressPercentage = Math.round(progress.loaded / progress.total * 100);
+      console.log(progressPercentage);
+      progressBar.style.width = progressPercentage + "%";
+      if (progressPercentage < 100) {
+        fileUpload.progressStatus = progressPercentage;
+
+      } else if (progressPercentage == 100) {
+        fileUpload.progressStatus = progressPercentage;
+
+        fileUpload.status = "Uploaded";
+
+        alert('uploaded suceessfully')
+    createObjectSubAlbum(albumPhotosKey);
+
+    viewAlbum(albumPhotosKey);
+    currentalbum=albumPhotosKey;
+      }
+    })
+
+  });
+});
+}
+
+
 function viewAlbum(albumName) {
   var albumPhotosKey = encodeURIComponent(albumName) + "/";
   s3.listObjects({ Prefix: albumPhotosKey }, function(err, data) {
@@ -245,6 +350,11 @@ function viewAlbum(albumName) {
       "<p>Please enter your Video Title:</p>",
       '<input id="videotitle" type="text" placeholder="Video Title">',
     "</form>",
+    '<div id="myProgress" style="display:none;"> ',    
+   '<div id="myBar"></div>',   
+   '</div>',  
+   "<br>",
+   "<br>",
       '<input id="photoupload" type="file" accept=".glb">',
       '<button id="addphoto" onclick="addPhoto(\'' + currentalbum + "')\">",
       "Add Object",
