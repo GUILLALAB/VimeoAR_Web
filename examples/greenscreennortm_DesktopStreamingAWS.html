@@ -630,7 +630,7 @@ var event = new CustomEvent("buttonclick", { "detail": test });
       texture.magFilter = THREE.LinearFilter;
       texture.format = THREE.RGBFormat;
 
-      var geometry = new THREE.PlaneBufferGeometry(30, 12);
+      var geometry = new THREE.PlaneBufferGeometry(50, 20);
 
       const vertexShader = document.getElementById("vertexShader").textContent;
       const fragmentShader = document.getElementById("fragmentShader").textContent;
@@ -650,7 +650,7 @@ var event = new CustomEvent("buttonclick", { "detail": test });
       material.metalness = 0;
       mesh = new THREE.Mesh(geometry, material);
       scene.add(mesh);
-      mesh.position.set(0.0, 5, 0.0);
+      mesh.position.set(0.0, 5, -15.0);
 video.play();
      // video.play();
         isset = 1;
