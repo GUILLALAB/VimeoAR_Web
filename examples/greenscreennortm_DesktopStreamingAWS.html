@@ -287,11 +287,9 @@
     var allobjects = [];
     var allanimationmixer = [];
 
-    function removeEntity(object,index) {
+    function removeEntity(object) {
     var selectedObject = scene.getObjectByName(object.name);
     scene.remove( selectedObject );
-    allobjects = allobjects.filter(item => item !== index);
-
     animate();
 }
     document.addEventListener("objectclick", function (e) {
@@ -325,8 +323,7 @@ const before = data.srcVideo.slice(0, index);
       allanimationmixer = [];
         if (typeof allobjects !== 'undefined' && allobjects.length > 0) {
     allobjects.forEach(function (item, index) {
-          removeEntity(item,index);
-          
+          removeEntity(item);
 });    
 
 }
