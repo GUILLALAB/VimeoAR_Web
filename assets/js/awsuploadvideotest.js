@@ -288,8 +288,8 @@ function loadProducts(data){
   var li = document.createElement('li');
   
   var Template = '<div id="btn" class="card mt-1">'+
-  '<div class="product-1 align-items-center p-2 text-center"> <img src="'+data.thumbNailsUrls+'" class="rounded" width="150" height="100">'+
-      '<h6 class="mt-0 font-black-bold mb-2 info">'+"data"+'</h6>'+
+  '<div class="product-1 align-items-center p-2 text-center"> <img src="3d.png" class="rounded" width="90" height="90">'+
+  '<h6 class="mt-0 font-black-bold mb-2 info">'+"data"+'</h6>'+
   '</div>'+
   '</div>';
   
