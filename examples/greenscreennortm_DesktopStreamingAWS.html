@@ -320,8 +320,9 @@ const before = data.srcVideo.slice(0, index);
       console.log(objects);
       viewObjectsFolder(before);
 
+      if(chair!=null){
           removeEntity(chair);
-  
+    }
 		});
 
     initAWS();
