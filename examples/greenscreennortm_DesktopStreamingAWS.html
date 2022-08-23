@@ -296,6 +296,11 @@
     var plane=null;
     var chair=null;
     
+    var angle = 0; // текущий угол
+var angularSpeed = THREE.Math.degToRad(20); // угловая скорость - градусов в секунду
+var delta = 0;
+var radius = 20;
+
     function removeEntity(object) {
     var selectedObject = scene.getObjectByName(object.name);
     scene.remove( selectedObject );
@@ -501,10 +506,11 @@ planeMaterial.opacity = 0.5;
 
         // cube.rotation.x += 0.01;
         // cube.rotation.y += 0.007;
-        camera.rotation.y  += 0.01;
         if(plane!=null){
+          var delta = clock.getDelta();
+          camera.position.y = Math.cos(angle) * radius;
+          angle += angularSpeed * delta; // приращение угла
           camera.lookAt(plane.position);
-
         }
 
         if (video != null) {
