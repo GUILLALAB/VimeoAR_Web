@@ -286,8 +286,13 @@
     var allobjects = [];
     var allanimationmixer = [];
 
-    
+    function removeEntity(object) {
+    var selectedObject = scene.getObjectByName(object.name);
+    scene.remove( selectedObject );
+    animate();
+}
     document.addEventListener("objectclick", function (e) {
+ 
 			// alert(e.detail);
 			var data = e.detail;
 			if (data != null) {
@@ -297,6 +302,11 @@
 		});
 
 document.addEventListener("buttonclick", function (e) {
+  if (typeof image_array !== 'undefined' && image_array.length > 0) {
+        allanimationmixer.forEach(function (item, index) {
+          removeEntity(item);
+});    
+}
 			// alert(e.detail);
 			var data = e.detail;
 			if (data != null) {
@@ -518,7 +528,7 @@ var event = new CustomEvent("buttonclick", { "detail": test });
           scene.add(gltf.scene);
 
          var chair = gltf.scene;
-          chair.name = link.IdRef;
+          chair.name = link;
 
           chair.traverse((node) => {
 
