@@ -283,8 +283,7 @@
     let segmentedCanvas;
     var clock;
     var objects = 0;
-    var objectname = 0;
-
+    
     var allobjects = [];
     var allanimationmixer = [];
 
@@ -530,11 +529,11 @@ var event = new CustomEvent("buttonclick", { "detail": test });
         // called when the resource is loaded
         function (gltf) {
 
-          objectname=objectname+1;
+
           scene.add(gltf.scene);
 
          var chair = gltf.scene;
-          chair.name = objectname;
+          chair.name = link;
 
           chair.traverse((node) => {
 
@@ -565,7 +564,6 @@ var event = new CustomEvent("buttonclick", { "detail": test });
           scene.updateMatrix();
           scene.updateMatrixWorld(true);
 
-          console.log(gltf.animations);
           objects = objects + 4;
           if (gltf.animations != null) {
            var mixer = new THREE.AnimationMixer(chair);
