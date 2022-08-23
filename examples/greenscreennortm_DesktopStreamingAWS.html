@@ -478,6 +478,10 @@ planeMaterial.opacity = 0.5;
       object_badges = document.getElementById('object_badge');
       object_badges.textContent = object_badge;
       badgeButton = document.getElementById('badgeButton');
+      badgeButton.addEventListener("click", function (e) {
+  document.getElementById("video").muted = !document.getElementById("video").muted;
+});
+
       createBroadcaster();
       //
       setAds3DModel("https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/objet/solar.glb");
