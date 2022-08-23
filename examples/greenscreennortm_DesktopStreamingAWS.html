@@ -523,11 +523,11 @@ var event = new CustomEvent("buttonclick", { "detail": test });
         // called when the resource is loaded
         function (gltf) {
 
-
+          gltf.scene.name=link;
+          scene.add(gltf.scene);
 
          var chair = gltf.scene;
           chair.name = link;
-          scene.add(chair);
 
           chair.traverse((node) => {
 
