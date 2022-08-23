@@ -508,7 +508,7 @@ planeMaterial.opacity = 0.5;
         // cube.rotation.y += 0.007;
         if(plane!=null){
           var delta = clock.getDelta();
-          camera.position.y = Math.cos(angle) * radius;
+          camera.position.x = Math.cos(angle) * radius;
           angle += angularSpeed * delta; // приращение угла
           camera.lookAt(plane.position);
         }
