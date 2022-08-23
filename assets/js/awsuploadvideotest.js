@@ -283,6 +283,8 @@ function viewObjectsFolder(albumName) {
 
 function loadProducts(data){
 
+  document.getElementById("object_product").innerHTML = '';
+
   var li = document.createElement('li');
   
   var Template = '<div id="btn" class="card mt-1">'+
