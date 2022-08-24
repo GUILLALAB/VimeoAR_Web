@@ -365,10 +365,11 @@
               console.log(err.message);
             }
             else {
-              initAWS(region);
               console.log('AWS Access Key: '+ AWS.config.credentials.accessKeyId);
               console.log('AWS Secret Key: '+ AWS.config.credentials.secretAccessKey);
               console.log('AWS Session Token: '+ AWS.config.credentials.sessionToken);
+              initAWS(region);
+
             }
     
           });
@@ -378,10 +379,7 @@
         function initAWS(region){
      
      
-     //=============== AWS IDs ===============
-     
-     
-
+   
    const itemsAll = scanAll("VideoAWS");
    itemsAll.then(function(value) {
      for(var i =0;i<100000;i++){
