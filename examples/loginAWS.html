@@ -174,7 +174,7 @@ button{
         <div id="loader" class="loader" style="display:none"></div>  
         <div class="social">
           <div  id="sign-google" class="go"><i class="fab fa-google"></i>  Google</div>
-          <a href="https://livear.herokuapp.com/signup" class="link">Sign Up?</a>
+          <a href="https://livear.herokuapp.com/signup" class="link">Sign Up</a>
         </div>
     </form>
     <script>
@@ -230,11 +230,13 @@ button{
         }
 
         function switchToLogInView(){
-            $("#userNameInput").val('');
+            $("#emailInput").val('');
             $("#passwordInput").val('');
-            $("#userNameInput").show();
+            $("#emailInput").show();
             $("#passwordInput").show();
             $("#logInButton").show();
+            $("#userNameInput").hide();
+
         }
 
         function switchToLoggedInView(){
@@ -274,17 +276,17 @@ button{
         */
         function logIn(){
 
-            if(!$('#userNameInput').val() || !$('#passwordInput').val()){
+            if(!$('#emailInput').val() || !$('#passwordInput').val()){
                 logMessage('Please enter Username and Password!');
             }else{
                 var authenticationData = {
-                    Username : $('#userNameInput').val(),
+                    Email : $('#emailInput').val(),
                     Password : $("#passwordInput").val(),
                 };
                 var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
 
                 var userData = {
-                    Username : $('#userNameInput').val(),
+                    Email : $('#emailInput').val(),
                     Pool : userPool
                 };
                 cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
