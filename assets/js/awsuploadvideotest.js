@@ -19,6 +19,7 @@ function listAlbums() {
   var userid = localStorage.getItem("sub");
 
     var albumPhotosKey = encodeURIComponent("video") + "/"+encodeURIComponent(userid) + "/";
+   // s3.listObjects({Delimiter: "/" }, function(err, data) {
 
   s3.listObjects({Prefix: albumPhotosKey, Delimiter: "/" }, function(err, data) {
     if (err) {
