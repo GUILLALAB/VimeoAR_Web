@@ -264,6 +264,11 @@
         UserPoolId : userPoolId,
         ClientId : clientId
       };
+
+      function getRegion(){
+        return region;
+      }
+
       getCurrentLoggedInSession();
       
     document.getElementById("logout").addEventListener("click", function (e) {
@@ -396,8 +401,6 @@ const scanAll = async (tableName) => {
 
         function initAWS(region){
      
-     
-   
    const itemsAll = scanAll("VideoAWS");
    itemsAll.then(function(value) {
      for(var i =0;i<100000;i++){
@@ -538,7 +541,7 @@ document.addEventListener("buttonclick", function (e) {
 			var data = e.detail;
 			if (data != null) {
         console.log(data);
-        var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
+        var file = "https://"+data.srcBucket+".s3."+getRegion()+".amazonaws.com/"+data.srcVideo;
 
         PlayVideo(file);
 			}
@@ -546,7 +549,7 @@ document.addEventListener("buttonclick", function (e) {
       const index = data.srcVideo.lastIndexOf('/');
 const before = data.srcVideo.slice(0, index);
 
-      var objects = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+before+"/"+"objects"+"/";
+      var objects = "https://"+data.srcBucket+".s3."+getRegion()+".amazonaws.com/"+before+"/"+"objects"+"/";
       console.log(objects);
       viewObjectsFolder(before);
 
