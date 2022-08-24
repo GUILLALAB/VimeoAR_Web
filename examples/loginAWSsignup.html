@@ -206,13 +206,13 @@ button{
         getCurrentLoggedInSession();
 
         if ( $("#registerButton")!=null){
-            $("#registerButton").addEventListener("click", function (e) {
-            register();
+            $('#registerButton').bind('click', function() {
+                register();
 });
 }
 if ($("#verificationCodeButton")!=null){
-$("#verificationCodeButton").addEventListener("click", function (e) {
-            verifyCode();
+    $('#verificationCodeButton').bind('click', function() {
+        verifyCode();
 });
 }
 
