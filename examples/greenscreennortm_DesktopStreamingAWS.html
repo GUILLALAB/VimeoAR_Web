@@ -761,7 +761,7 @@ video.play();
     getCurrentLoggedInSession();
     
   document.getElementById("logout").addEventListener("click", function (e) {
-   if(document.getElementById("logout").textContent.includes("SIGN IN")){
+   if(document.getElementById("logout").textContent=="SIGN IN"){
     window.location = "https://livear.herokuapp.com/login";
    }else{
     logOut();
