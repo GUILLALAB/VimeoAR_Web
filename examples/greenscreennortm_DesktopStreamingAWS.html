@@ -112,6 +112,16 @@
 <link rel="stylesheet"
   href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
 
+  	  <!-- TODO: AWS Login. -->
+
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+      <script src="/js/jquery.min.js"></script>	
+      <script src="/js/aws-sdk-2.487.0.min.js"></script>
+      <script src="/js/aws-cognito-sdk.min.js"></script>
+      <script src="/js/amazon-cognito-identity.min.js"></script>
+
 <body style="background-color:black;text-align:center">
   <!-- Navbar -->
 
@@ -121,11 +131,13 @@
         href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
       <div id="user-container">
 
-        <div class="product-1 align-items-center p-2 text-center"> <img src="upload.png" class="rounded" width="50" height="35">
+        <div id="upload" class="product-1 align-items-center p-2 text-center"> <img src="upload.png" class="rounded" width="50" height="35">
       </div>
 
         <div hidden id="user-pic"></div>
         <div hidden id="user-name"></div>
+        <button id="logout" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white" >Log Out</button>
+
         <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
           Sign-out
         </button>
@@ -718,6 +730,111 @@ video.play();
   <script type="module" src="/js/index_greenscreen.js"></script>
   <script src="/js/main.min.js"></script>
  
+  <script>
+
+		//=============== AWS IDs ===============
+		var userPoolId = 'eu-west-1_3x9L2hsjh';
+		var clientId = '4gkuhfpqeo9rc279nh727l3sco';
+		var region = 'eu-west-1';
+		var identityPoolId = 'eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b';
+		//=============== AWS IDs ===============
+	
+		var cognitoUser;
+		var idToken;
+		var userPool;
+		
+		var poolData = { 
+			UserPoolId : userPoolId,
+			ClientId : clientId
+		};
+		getCurrentLoggedInSession();
+	  
+	document.getElementById("logout").addEventListener("click", function (e) {
+		logOut();
+	});
+  document.getElementById("upload").addEventListener("click", function (e) {
+    userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+	cognitoUser = userPool.getCurrentUser();
+	
+	if(cognitoUser != null){
+		cognitoUser.getSession(function(err, session) {
+			if (err) {
+				console.log(err.message);
+			}else{
+				idToken = session.getIdToken().getJwtToken();
+				localStorage.setItem("sub", session.getIdToken().decodePayload().sub);
+				$("#logout").show();
+        window.location = "https://livear.herokuapp.com/aws";
+				getCognitoIdentityCredentials();
+			}
+		});
+	}else{
+		console.log('Logout');
+		window.location = "https://livear.herokuapp.com/login";
+	
+	}
+	});
+	
+		function getCurrentLoggedInSession(){
+			$("#logout").hide();
+	
+	userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+	cognitoUser = userPool.getCurrentUser();
+	
+	if(cognitoUser != null){
+		cognitoUser.getSession(function(err, session) {
+			if (err) {
+				console.log(err.message);
+			}else{
+				console.log('Session found! Logged in.');
+				idToken = session.getIdToken().getJwtToken();
+				localStorage.setItem("sub", session.getIdToken().decodePayload().sub);
+				$("#logout").show();
+	
+				getCognitoIdentityCredentials();
+			}
+		});
+	}else{
+		console.log('Logout');
+		window.location = "https://livear.herokuapp.com/login";
+	
+	}
+	
+	}
+	function logOut(){
+				if (cognitoUser != null) {
+					cognitoUser.signOut();
+					console.log('Logged out!');
+					window.location = "https://livear.herokuapp.com/login";
+				}
+			}
+	
+	function getCognitoIdentityCredentials(){
+				AWS.config.region = region;
+	
+				var loginMap = {};
+				loginMap['cognito-idp.' + region + '.amazonaws.com/' + userPoolId] = idToken;
+	
+				AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+					IdentityPoolId: identityPoolId,
+					Logins: loginMap
+				});
+	
+				AWS.config.credentials.clearCachedId();
+	
+				AWS.config.credentials.get(function(err) {
+					if (err){
+						console.log(err.message);
+					}
+					else {
+						console.log('AWS Access Key: '+ AWS.config.credentials.accessKeyId);
+						console.log('AWS Secret Key: '+ AWS.config.credentials.secretAccessKey);
+						console.log('AWS Session Token: '+ AWS.config.credentials.sessionToken);
+					}
+	
+				});
+			}
+	</script>
 </body>
 
 <!-- for broadcast user use: https://digitallysavvy.github.io/group-video-chat -->

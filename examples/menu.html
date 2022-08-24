@@ -389,7 +389,6 @@
 				console.log(err.message);
 			}else{
 				console.log('Session found! Logged in.');
-				alert("Logged");
 				idToken = session.getIdToken().getJwtToken();
 				localStorage.setItem("sub", session.getIdToken().decodePayload().sub);
 				$("#logout").show();
