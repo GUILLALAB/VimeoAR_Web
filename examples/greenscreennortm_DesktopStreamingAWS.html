@@ -362,7 +362,7 @@ const before = data.srcVideo.slice(0, index);
 });
 
 AWS.config.getCredentials(function(err) {
-  if (err) console.log(err.stack);
+  if (err) console.log(err.code);
   
   // credentials not loaded
   else {
