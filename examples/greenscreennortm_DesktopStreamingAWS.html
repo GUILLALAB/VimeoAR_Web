@@ -261,7 +261,7 @@
       getCurrentLoggedInSession();
       
     document.getElementById("logout").addEventListener("click", function (e) {
-     // logOut();
+      logOut();
     });
     document.getElementById("upload").addEventListener("click", function (e) {
       userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
@@ -307,7 +307,7 @@
       });
     }else{
       console.log('Logout');
-      window.location = "https://livear.herokuapp.com/login";
+     // window.location = "https://livear.herokuapp.com/login";
     
     }
     
@@ -316,7 +316,7 @@
           if (cognitoUser != null) {
             cognitoUser.signOut();
             console.log('Logged out!');
-            window.location = "https://livear.herokuapp.com/login";
+          //  window.location = "https://livear.herokuapp.com/login";
           }
         }
     
