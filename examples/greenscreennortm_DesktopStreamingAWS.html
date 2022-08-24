@@ -261,7 +261,11 @@
       getCurrentLoggedInSession();
       
     document.getElementById("logout").addEventListener("click", function (e) {
-      logOut();
+      if( $("#logout").text()=="SIGN IN"){
+        window.location = "https://livear.herokuapp.com/login";
+      }else{
+        logOut();
+      }
     });
     document.getElementById("upload").addEventListener("click", function (e) {
       userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
