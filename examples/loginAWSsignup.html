@@ -179,6 +179,7 @@ button{
 
         <button id="registerButton">Register</button> 
         <button id="verificationCodeButton">Verify Code</button> 
+        <button id="logInButton">Log In</button> 
 
         <div id="loader" class="loader" style="display:none"></div>  
         <div class="social">
@@ -215,6 +216,11 @@ if ($("#verificationCodeButton").length){
         verifyCode();
 });
 }
+if ($("#logInButton").length){
+    $('#logInButton').bind('click', function() {
+        logIn();
+});
+}
 
 
         function switchToVerificationCodeView(){
@@ -222,6 +228,7 @@ if ($("#verificationCodeButton").length){
             $("#userNameInput").hide();
             $("#passwordInput").hide();
             $("#registerButton").hide();
+            $("#logInButton").hide();
             $("#verificationCodeInput").show();
             $("#verificationCodeButton").show();
 
@@ -236,6 +243,7 @@ if ($("#verificationCodeButton").length){
             $("#registerButton").val('Register');
             $("#verificationCodeInput").hide();
             $("#verificationCodeButton").hide();
+            $("#logInButton").hide();
 
         }
 
@@ -245,6 +253,11 @@ if ($("#verificationCodeButton").length){
             $("#userNameInput").show();
             $("#passwordInput").show();
             $("#logInButton").show();
+            $("#verificationCodeInput").hide();
+            $("#verificationCodeButton").hide();
+            $("#registerButton").hide();
+            $("#emailInput").hide();
+
         }
 
         function switchToLoggedInView(){
@@ -365,9 +378,7 @@ console.log(value);
                         logMessage(err.message);
                     }else{
                         logMessage('Successfully verified code!');
-                        window.location = "https://livear.herokuapp.com/";
-
-                      //  switchToLogInView();
+                        switchToLogInView();
                     }
                     
                     $("#loader").hide();
