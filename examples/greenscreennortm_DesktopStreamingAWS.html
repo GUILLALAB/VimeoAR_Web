@@ -317,6 +317,7 @@
     function logOut(){
           if (cognitoUser != null) {
             cognitoUser.signOut();
+            $("#logout").html("SIGN IN");
             console.log('Logged out!');
           //  window.location = "https://livear.herokuapp.com/login";
           }
