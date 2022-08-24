@@ -20,7 +20,7 @@ function listAlbums() {
 
     var albumPhotosKey = encodeURIComponent("video") + "/"+encodeURIComponent(userid) + "/";
 
-  s3.listObjects({prefix:albumPhotosKey, Delimiter: "/" }, function(err, data) {
+  s3.listObjects({Prefix: albumPhotosKey, Delimiter: "/" }, function(err, data) {
     if (err) {
       return alert("There was an error listing your albums: " + err.message);
     } else {
