@@ -597,13 +597,16 @@ var event = new CustomEvent("buttonclick", { "detail": test });
       light.position.set(0.5, 1, 0.25);
       scene.add(light);
 
-      const planeGeometry =  new THREE.SphereGeometry(75, 16, 8, 0, 2, 1, 1.2);;
-    
-   //   const planeGeometry = new THREE.PlaneBufferGeometry(40, 40, 8, 8);
-      const planeMaterial = new THREE.MeshPhongMaterial({ color: 0x222222 });
+
+      const planeGeometry = new THREE.PlaneBufferGeometry(40, 40, 8, 8);
+    //  const planeMaterial = new THREE.MeshPhongMaterial({ color: 0x222222 });
+      const   planeMaterial = new THREE.MeshBasicMaterial({
+        color: 0x222222,
+        wireframe: true
+    });
       planeMaterial.transparent = true;
 // set opacity to 50%
-planeMaterial.opacity = 0.4; 
+planeMaterial.opacity = 0.5; 
        plane = new THREE.Mesh(planeGeometry, planeMaterial);
       plane.rotateX(-Math.PI / 2);
       plane.position.y = -3;
