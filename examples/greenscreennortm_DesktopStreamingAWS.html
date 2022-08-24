@@ -62,12 +62,19 @@
     li:hover {
       background: rgb(255, 255, 255);
     }
-    ul {
-   white-space:nowrap;
+    .row {
+    display: inline-block;
+    overflow: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+    margin: 0 0 1em;
+    white-space: nowrap;
+    background: #AAA;
 }
 
-li {
-   display:inline;
+.row li {
+    display: inline-block;
+    vertical-align: top;
 }
     .notification {
       background-color: #555;
