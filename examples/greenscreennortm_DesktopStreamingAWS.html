@@ -408,7 +408,7 @@ const scanAll = async (tableName) => {
     // console.log(value[i]);
      loadProducts(value[i]);
 
-     var file = "https://"+value[i].srcBucket+".s3."+region+".amazonaws.com/"+value[i].srcVideo;
+     var file = "https://"+value[i].srcBucket+".s3."+getRegion()+".amazonaws.com/"+value[i].srcVideo;
 
    }
      }
