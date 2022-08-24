@@ -164,11 +164,19 @@ button{
     </div>
     <form onsubmit="event.preventDefault();">
         <h3>Sign Up</h3>
-        <label for="username">Email</label>
+
+        <label for="email">Email</label>
+        <input type="text" placeholder="userNameInput" id="emailInput">
+
+        <label for="username">userNameInput</label>
         <input type="text" placeholder="userNameInput" id="userNameInput">
 
         <label for="password">Password</label>
         <input type="password" placeholder="Password" id="passwordInput">
+
+        <label for="password">registerButton</label>
+        <input type="password" placeholder="Register" id="registerButton">
+
 
         <button id="logInButton">Log In</button> 
         <div id="loader" class="loader" style="display:none"></div>  
@@ -196,8 +204,8 @@ button{
         };
         getCurrentLoggedInSession();
 
-        logInButton.addEventListener("click", function (e) {
-            logIn();
+        registerButton.addEventListener("click", function (e) {
+            register();
 });
 
 
@@ -328,12 +336,12 @@ console.log(value);
         Starting point for user registration flow with input validation
         */
         function register(){
-            switchToRegisterView();
+           // switchToRegisterView();
 
-            if( !$('#emailInput').val() || !$('#userNameInput').val()  || !$('#passwordInput').val() || !$('#confirmPasswordInput').val() ) {
+            if( !$('#emailInput').val() || !$('#userNameInput').val()  || !$('#passwordInput').val()) {
                     logMessage('Please fill all the fields!');
             }else{
-                if($('#passwordInput').val() == $('#confirmPasswordInput').val()){
+                if($('#passwordInput').val()){
                     registerUser($('#emailInput').val(), $('#userNameInput').val(), $('#passwordInput').val());
                 }else{
                     logMessage('Confirm password failed!');
