@@ -165,7 +165,7 @@ button{
     <form onsubmit="event.preventDefault();">
         <h3>Sign in</h3>
         <label for="username">Email</label>
-        <input type="text" placeholder="userNameInput" id="userNameInput">
+        <input type="text" placeholder="Email" id="userNameInput">
 
         <label for="password">Password</label>
         <input type="password" placeholder="Password" id="passwordInput">
@@ -275,17 +275,17 @@ button{
         */
         function logIn(){
 
-            if(!$('#emailInput').val() || !$('#passwordInput').val()){
+            if(!$('#userNameInput').val() || !$('#passwordInput').val()){
                 logMessage('Please enter Username and Password!');
             }else{
                 var authenticationData = {
-                    Email : $('#emailInput').val(),
+                    Email : $('#userNameInput').val(),
                     Password : $("#passwordInput").val(),
                 };
                 var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
 
                 var userData = {
-                    Email : $('#emailInput').val(),
+                    Email : $('#userNameInput').val(),
                     Pool : userPool
                 };
                 cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
