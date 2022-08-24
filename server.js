@@ -78,7 +78,12 @@ app.get('/firebase', (request, response) => {
 app.get('/login', (request, response) => {
   response.render('loginAWS.html');
 });
-
+app.get('/signup', (request, response) => {
+  response.render('loginAWSsignup.html');
+});
+/*app.get('/signup', (request, response) => {
+  response.render('login_signup.html');
+});*/
 /*app.get('/login', (request, response) => {
   response.render('login.html');
 });*/
@@ -104,9 +109,7 @@ app.get('/ads', (request, response) => {
   response.render('ads.html',{ name: 'Tobi' });
 });
 
-app.get('/signup', (request, response) => {
-  response.render('login_signup.html');
-});
+
 
 app.get('/playground', (request, response) => {
   response.render('playground.html');
