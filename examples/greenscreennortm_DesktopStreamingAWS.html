@@ -375,6 +375,24 @@
           });
         }
 
+        const documentClient = new AWS.DynamoDB.DocumentClient();
+
+const scanAll = async (tableName) => {
+ let lastEvaluatedKey = 'dummy'; // string must not be empty
+ const itemsAll = [];
+ let table = { TableName: tableName };
+
+
+ while (lastEvaluatedKey) {
+   const data = await documentClient.scan(table).promise();
+   itemsAll.push(...data.Items);
+   lastEvaluatedKey = data.LastEvaluatedKey;
+   if (lastEvaluatedKey) {
+     table.ExclusiveStartKey = lastEvaluatedKey;
+   }
+ }
+ return itemsAll;
+}
 
         function initAWS(region){
      
@@ -394,24 +412,7 @@
    // expected output: 123
 });
 
-const documentClient = new AWS.DynamoDB.DocumentClient();
 
-const scanAll = async (tableName) => {
- let lastEvaluatedKey = 'dummy'; // string must not be empty
- const itemsAll = [];
- let table = { TableName: tableName };
-
-
- while (lastEvaluatedKey) {
-   const data = await documentClient.scan(table).promise();
-   itemsAll.push(...data.Items);
-   lastEvaluatedKey = data.LastEvaluatedKey;
-   if (lastEvaluatedKey) {
-     table.ExclusiveStartKey = lastEvaluatedKey;
-   }
- }
- return itemsAll;
-}
 
    }
 
