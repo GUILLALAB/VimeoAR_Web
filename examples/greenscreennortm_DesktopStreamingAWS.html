@@ -385,7 +385,6 @@
 AWS.config.region = region;
      
 
-   console.log("Access key:", AWS.config.credentials.accessKeyId);
    const itemsAll = scanAll("VideoAWS");
    itemsAll.then(function(value) {
      for(var i =0;i<100000;i++){
