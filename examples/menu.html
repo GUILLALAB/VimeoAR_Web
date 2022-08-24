@@ -66,11 +66,10 @@ if(cognitoUser != null){
 			idToken = session.getIdToken().getJwtToken();
 			localStorage.setItem("sub", session.getIdToken().decodePayload().sub);
 			$("#logout").show();
-			if ($("#logout").length){
     $('#logout').bind('click', function() {
         logOut();
 });
-}
+
 			getCognitoIdentityCredentials();
 		}
 	});
