@@ -49,9 +49,11 @@
 		ClientId : clientId
 	};
 	getCurrentLoggedInSession();
-    $('#logout').bind('click', function() {
-        logOut();
+  
+document.getElementById("logout").addEventListener("click", function (e) {
+	logOut();
 });
+
 	function getCurrentLoggedInSession(){
 		$("#logout").hide();
 
