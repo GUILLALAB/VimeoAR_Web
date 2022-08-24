@@ -166,19 +166,18 @@ button{
         <h3>Sign Up</h3>
 
         <label for="email">Email</label>
-        <input type="text" placeholder="userNameInput" id="emailInput">
+        <input type="text" placeholder="email" id="emailInput">
 
         <label for="username">userNameInput</label>
-        <input type="text" placeholder="userNameInput" id="userNameInput">
+        <input type="text" placeholder="username" id="userNameInput">
 
         <label for="password">Password</label>
         <input type="password" placeholder="Password" id="passwordInput">
 
-        <label for="password">registerButton</label>
-        <input type="password" placeholder="Register" id="registerButton">
+        <label style="display:none" for="password">verification Code</label>
+        <input style="display:none" type="password" placeholder="verification Code" id="verificationCodeInput">
 
-
-        <button id="logInButton">Log In</button> 
+        <button id="logInButton">Register</button> 
         <div id="loader" class="loader" style="display:none"></div>  
         <div class="social">
           <div  id="sign-google" class="go"><i class="fab fa-google"></i>  Google</div>
@@ -213,28 +212,20 @@ button{
             $("#email").hide();
             $("#userNameInput").hide();
             $("#passwordInput").hide();
-            $("#confirmPasswordInput").hide();
-            $("#logInButton").hide();
-            $("#registerButton").hide();
-            $("#bucketNameInput").hide();
+            $("#registerButton").show();
+            $("#registerButton").val('Verify Code');
             $("#verificationCodeInput").show();
-            $("#verifyCodeButton").show();
-            $("#listS3ObjectsButton").hide();
-            $("#logOutButton").hide();
+            //$("#logOutButton").hide();
         }
 
         function switchToRegisterView(){
             $("#emailInput").show();
             $("#userNameInput").show();
             $("#passwordInput").show();
-            $("#confirmPasswordInput").show();
-            $("#logInButton").hide();
             $("#registerButton").show();
+            $("#registerButton").val('Register');
             $("#verificationCodeInput").hide();
-            $("#verifyCodeButton").hide();
-            $("#listS3ObjectsButton").hide();
-            $("#bucketNameInput").hide();
-            $("#logOutButton").hide();
+            
         }
 
         function switchToLogInView(){
@@ -336,7 +327,7 @@ console.log(value);
         Starting point for user registration flow with input validation
         */
         function register(){
-           // switchToRegisterView();
+            switchToRegisterView();
 
             if( !$('#emailInput').val() || !$('#userNameInput').val()  || !$('#passwordInput').val()) {
                     logMessage('Please fill all the fields!');
