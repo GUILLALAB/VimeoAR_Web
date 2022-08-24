@@ -333,6 +333,22 @@
           }
         }
     
+        function getCognitoIdCredentials(){
+          AWS.config.region = region;
+    
+          var loginMap = {};
+          loginMap['cognito-idp.' + region + '.amazonaws.com/' + userPoolId] = idToken;
+    
+          AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: identityPoolId,
+            Logins: loginMap
+          });
+    
+          AWS.config.credentials.clearCachedId();
+    
+        return AWS.config.credentials;
+        }
+        
     function getCognitoIdentityCredentials(){
           AWS.config.region = region;
     
@@ -482,18 +498,8 @@ const before = data.srcVideo.slice(0, index);
       
 
 AWS.config.region = region;
-    
-    var loginMap = {};
-    loginMap['cognito-idp.' + region + '.amazonaws.com/' + userPoolId] = idToken;
-
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: identityPoolId,
-      Logins: loginMap
-    });
-
-    AWS.config.credentials.clearCachedId();
-
-    AWS.config.credentials.get(function(err) {
+      
+    getCognitoIdCredentials().get(function(err) {
   if (err) console.log(err.stack);
   
   // credentials not loaded
