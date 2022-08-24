@@ -384,11 +384,7 @@
      
 AWS.config.region = region;
      
-   getCognitoIdCredentials().get(function(err) {
- if (err) console.log(err.stack);
- 
- // credentials not loaded
- else {
+
    console.log("Access key:", AWS.config.credentials.accessKeyId);
    const itemsAll = scanAll("VideoAWS");
    itemsAll.then(function(value) {
@@ -402,9 +398,6 @@ AWS.config.region = region;
    }
      }
    // expected output: 123
-});
-
- }
 });
 
 const documentClient = new AWS.DynamoDB.DocumentClient();
