@@ -761,11 +761,9 @@ video.play();
     getCurrentLoggedInSession();
     
   document.getElementById("logout").addEventListener("click", function (e) {
-   if(document.getElementById("logout").textContent=="SIGN IN"){
-    window.location = "https://livear.herokuapp.com/login";
-   }else{
+   
     logOut();
-   } 
+   
   });
   document.getElementById("upload").addEventListener("click", function (e) {
     userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
