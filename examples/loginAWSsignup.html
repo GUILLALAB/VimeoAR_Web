@@ -341,12 +341,12 @@ console.log(value);
             switchToRegisterView();
 
             if( !$('#emailInput').val() || !$('#userNameInput').val()  || !$('#passwordInput').val()) {
-                    logMessage('Please fill all the fields!');
+                    alert('Please fill all the fields!');
             }else{
                 if($('#passwordInput').val().length>=8){
                     registerUser($('#emailInput').val(), $('#userNameInput').val(), $('#passwordInput').val());
                 }else{
-                    logMessage('Confirm password failed!');
+                    alert('Confirm password failed!');
                 }
                 
             }
@@ -393,12 +393,12 @@ console.log(value);
             $("#loader").show();
             userPool.signUp(username, password, attributeList, null, function(err, result){
                 if (err) {
-                    logMessage(err.message);
+                    alert(err.message);
                 }else{
                     cognitoUser = result.user;
-                    logMessage('Registration Successful!');
-                    logMessage('Username is: ' + cognitoUser.getUsername());
-                    logMessage('Please enter the verification code sent to your Email.');
+                    console.log('Registration Successful!');
+                    console.log('Username is: ' + cognitoUser.getUsername());
+                    console.log('Please enter the verification code sent to your Email.');
                     switchToVerificationCodeView();
                 }
                 $("#loader").hide();
