@@ -163,7 +163,7 @@ button{
         <div class="shape"></div>
     </div>
     <form onsubmit="event.preventDefault();">
-        <h3>Sign Up</h3>
+        <h3 id="title">Sign Up</h3>
 
         <label id="emaillabel" style="display:none" for="email">Email</label>
         <input type="text" placeholder="email" id="emailInput">
@@ -205,7 +205,7 @@ button{
             ClientId : clientId
         };
         getCurrentLoggedInSession();
-
+        switchToRegisterView();
         if ( $("#registerButton").length){
             $('#registerButton').bind('click', function() {
                 register();
@@ -230,7 +230,7 @@ if ($("#logInButton").length){
             $("#verificationlabel").show();
 
             
-            $("#email").hide();
+            $("#emailInput").show();
             $("#userNameInput").hide();
             $("#passwordInput").hide();
             $("#registerButton").hide();
@@ -257,6 +257,8 @@ if ($("#logInButton").length){
         }
 
         function switchToLogInView(){
+            
+            $("#title").val('Sign In');
             $("#userNameInput").val('');
             $("#passwordInput").val('');
             $("#userNameInput").show();
