@@ -85,6 +85,17 @@ li:hover {
 <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.orange-indigo.min.css">
 <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
 
+	  <!-- TODO: AWS Login. -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <script src="/js/jquery.min.js"></script>	
+    <script src="/js/aws-sdk-2.487.0.min.js"></script>
+    <script src="/js/aws-cognito-sdk.min.js"></script>
+    <script src="/js/amazon-cognito-identity.min.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.410.0.min.js"></script>
+    <script src="/js/awsuploadvideotest.js"></script>
 <!-- App Styling -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <body style="background-color:black;text-align:center">
@@ -94,8 +105,15 @@ li:hover {
   <div class="w3-bar w3-black w3-card w3-left-align w3-large">
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-black" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
 	<div id="user-container">
+    <div id="upload" class="product-1 align-items-center p-2 text-center"> <img src="upload.png" class="rounded" width="50" height="35">
+    </div>
+
 		<div hidden id="user-pic"></div>
 		<div hidden id="user-name"></div>
+
+    <button id="logout" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white" >Log Out</button>
+
+
 		<button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
 		  Sign-out
 		</button>
@@ -193,10 +211,137 @@ li:hover {
     }
 
     </script>
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.410.0.min.js"></script>
-    <script src="/js/awsuploadvideotest.js"></script>
-
     
+
+    <script>
+
+      //=============== AWS IDs ===============
+      var userPoolId = 'eu-west-1_3x9L2hsjh';
+      var clientId = '4gkuhfpqeo9rc279nh727l3sco';
+      var region = 'eu-west-1';
+      var identityPoolId = 'eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b';
+      //=============== AWS IDs ===============
+    
+      var cognitoUser;
+      var idToken;
+      var userPool;
+      
+      var poolData = { 
+        UserPoolId : userPoolId,
+        ClientId : clientId
+      };
+      getCurrentLoggedInSession();
+      
+    document.getElementById("logout").addEventListener("click", function (e) {
+      if( $("#logout").text()==="SIGN IN"){
+        window.location = "https://livear.herokuapp.com/login";
+      }else{
+        logOut();
+      }
+    });
+    document.getElementById("upload").addEventListener("click", function (e) {
+      userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    cognitoUser = userPool.getCurrentUser();
+    
+    if(cognitoUser != null){
+      cognitoUser.getSession(function(err, session) {
+        if (err) {
+          console.log(err.message);
+        }else{
+          idToken = session.getIdToken().getJwtToken();
+          localStorage.setItem("sub", session.getIdToken().decodePayload().sub);
+          $("#logout").show();
+          window.location = "https://livear.herokuapp.com/aws";
+          getCognitoIdentityCredentials();
+        }
+      });
+    }else{
+      console.log('Logout');
+      window.location = "https://livear.herokuapp.com/login";
+    
+    }
+    });
+    
+      function getCurrentLoggedInSession(){
+    
+    userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    cognitoUser = userPool.getCurrentUser();
+    
+    if(cognitoUser != null){
+      cognitoUser.getSession(function(err, session) {
+        if (err) {
+          console.log(err.message);
+        }else{
+          console.log('Session found! Logged in.');
+          idToken = session.getIdToken().getJwtToken();
+          localStorage.setItem("sub", session.getIdToken().decodePayload().sub);
+          $("#logout").show();
+    
+          getCognitoIdentityCredentials();
+        }
+      });
+    }else{
+      $("#logout").show();
+      $("#logout").html("SIGN IN");
+
+      console.log('Logout');
+     // window.location = "https://livear.herokuapp.com/login";
+    
+    }
+    
+    }
+    function logOut(){
+          if (cognitoUser != null) {
+            cognitoUser.signOut();
+            $("#logout").html("SIGN IN");
+            console.log('Logged out!');
+          //  window.location = "https://livear.herokuapp.com/login";
+          }
+        }
+    
+        function getCognitoIdCredentials(){
+          AWS.config.region = region;
+    
+          var loginMap = {};
+          loginMap['cognito-idp.' + region + '.amazonaws.com/' + userPoolId] = idToken;
+    
+          AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: identityPoolId,
+            Logins: loginMap
+          });
+    
+          AWS.config.credentials.clearCachedId();
+    
+        return AWS.config.credentials;
+        }
+        
+    function getCognitoIdentityCredentials(){
+          AWS.config.region = region;
+    
+          var loginMap = {};
+          loginMap['cognito-idp.' + region + '.amazonaws.com/' + userPoolId] = idToken;
+    
+          AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: identityPoolId,
+            Logins: loginMap
+          });
+    
+          AWS.config.credentials.clearCachedId();
+    
+          AWS.config.credentials.get(function(err) {
+            if (err){
+              console.log(err.message);
+            }
+            else {
+              console.log('AWS Access Key: '+ AWS.config.credentials.accessKeyId);
+              console.log('AWS Secret Key: '+ AWS.config.credentials.secretAccessKey);
+              console.log('AWS Session Token: '+ AWS.config.credentials.sessionToken);
+            }
+    
+          });
+        }
+    </script>
+
     <script type="module">
 import * as THREE from './jsm/three.module.js';
 import { GLTFLoader } from './jsm/GLTFLoader.js';
@@ -251,7 +396,14 @@ var loadingBar;
 let segmentedCanvas;
 var clock;
    
-document.addEventListener("objectclick", function (e) {
+
+function removeEntity(object) {
+    var selectedObject = scene.getObjectByName(object.name);
+    scene.remove( selectedObject );
+    animate();
+}
+    document.addEventListener("objectclick", function (e) {
+ 
 			// alert(e.detail);
 			var data = e.detail;
 			if (data != null) {
@@ -261,6 +413,7 @@ document.addEventListener("objectclick", function (e) {
 		});
 
 document.addEventListener("buttonclick", function (e) {
+
 			// alert(e.detail);
 			var data = e.detail;
 			if (data != null) {
@@ -268,18 +421,24 @@ document.addEventListener("buttonclick", function (e) {
         var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 
         PlayVideo(file);
-			}
 
-      const index = data.srcVideo.lastIndexOf('/');
+        const index = data.srcVideo.lastIndexOf('/');
 const before = data.srcVideo.slice(0, index);
 
       var objects = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+before+"/"+"objects"+"/";
       console.log(objects);
       viewObjectsFolder(before);
+
+      if(chair!=null){
+          removeEntity(chair);
+    }
+			}
+
+  
 		});
 
-    init(); 
     initAWS();
+    init(); 
     animate();
 
  
@@ -509,17 +668,20 @@ function setAds3DModel(link) {
     }
 
 function initAWS(){
-      AWS.config.region = 'eu-west-1'; // Région
-        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-    IdentityPoolId: 'eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b',
-});
+  var userPoolId = 'eu-west-1_3x9L2hsjh';
+      var region = 'eu-west-1';
+      var identityPoolId = 'eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b';
+      //=============== AWS IDs ===============
+          var idToken;
+      
 
-AWS.config.getCredentials(function(err) {
+AWS.config.region = region;
+      
+    getCognitoIdCredentials().get(function(err) {
   if (err) console.log(err.stack);
   
   // credentials not loaded
   else {
-    console.log("Access key:", AWS.config.credentials.accessKeyId);
     const itemsAll = scanAll("VideoAWS");
     itemsAll.then(function(value) {
       for(var i =0;i<100000;i++){
