@@ -65,17 +65,29 @@ if(cognitoUser != null){
 			alert("Logged");
 			idToken = session.getIdToken().getJwtToken();
 			localStorage.setItem("sub", session.getIdToken().decodePayload().sub);
-
+			$("#logout").show();
+			if ($("#logout").length){
+    $('#logout').bind('click', function() {
+        logOut();
+});
+}
 			getCognitoIdentityCredentials();
 		}
 	});
 }else{
-	console.log('Session expired. Please log in again.');
+	console.log('Logout');
 	window.location = "https://livear.herokuapp.com/login";
 
 }
 
 }
+function logOut(){
+            if (cognitoUser != null) {
+                cognitoUser.signOut();
+                console.log('Logged out!');
+				window.location = "https://livear.herokuapp.com/login";
+            }
+        }
 
 function getCognitoIdentityCredentials(){
             AWS.config.region = region;
@@ -116,6 +128,9 @@ function getCognitoIdentityCredentials(){
 					  <div id="user-container">
 						<div hidden id="user-pic"></div>
 						<div hidden id="user-name"></div>
+						<button style="display:none" id="logout" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+							Log Out
+						  </button>
 						<button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
 						  Sign-out
 						</button>
