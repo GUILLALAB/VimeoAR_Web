@@ -70,7 +70,7 @@ if(cognitoUser != null){
 		}
 	});
 }else{
-	logMessage('Session expired. Please log in again.');
+	console.log('Session expired. Please log in again.');
 	window.location = "https://livear.herokuapp.com/login";
 
 }
@@ -96,7 +96,7 @@ function getCognitoIdentityCredentials(){
                 }
                 else {
                     console.log('AWS Access Key: '+ AWS.config.credentials.accessKeyId);
-                    console.lo('AWS Secret Key: '+ AWS.config.credentials.secretAccessKey);
+                    console.log('AWS Secret Key: '+ AWS.config.credentials.secretAccessKey);
                     console.log('AWS Session Token: '+ AWS.config.credentials.sessionToken);
                 }
 
