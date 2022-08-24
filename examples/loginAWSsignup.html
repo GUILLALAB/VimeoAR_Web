@@ -177,7 +177,9 @@ button{
         <label style="display:none" for="password">verification Code</label>
         <input style="display:none" type="password" placeholder="verification Code" id="verificationCodeInput">
 
-        <button id="logInButton">Register</button> 
+        <button id="registerButton">Register</button> 
+        <button id="verificationCodeButton">Verify Code</button> 
+
         <div id="loader" class="loader" style="display:none"></div>  
         <div class="social">
           <div  id="sign-google" class="go"><i class="fab fa-google"></i>  Google</div>
@@ -203,18 +205,26 @@ button{
         };
         getCurrentLoggedInSession();
 
-        registerButton.addEventListener("click", function (e) {
+        if ( $("#registerButton")!=null){
+            $("#registerButton").addEventListener("click", function (e) {
             register();
 });
+}
+if ($("#verificationCodeButton")!=null){
+$("#verificationCodeButton").addEventListener("click", function (e) {
+            verifyCode();
+});
+}
 
 
         function switchToVerificationCodeView(){
             $("#email").hide();
             $("#userNameInput").hide();
             $("#passwordInput").hide();
-            $("#registerButton").show();
-            $("#registerButton").val('Verify Code');
+            $("#registerButton").hide();
             $("#verificationCodeInput").show();
+            $("#verificationCodeButton").show();
+
             //$("#logOutButton").hide();
         }
 
@@ -225,7 +235,8 @@ button{
             $("#registerButton").show();
             $("#registerButton").val('Register');
             $("#verificationCodeInput").hide();
-            
+            $("#verificationCodeButton").hide();
+
         }
 
         function switchToLogInView(){
@@ -354,7 +365,9 @@ console.log(value);
                         logMessage(err.message);
                     }else{
                         logMessage('Successfully verified code!');
-                        switchToLogInView();
+                        window.location = "https://livear.herokuapp.com/";
+
+                      //  switchToLogInView();
                     }
                     
                     $("#loader").hide();
