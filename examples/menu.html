@@ -49,7 +49,9 @@
 		ClientId : clientId
 	};
 	getCurrentLoggedInSession();
-
+    $('#logout').bind('click', function() {
+        logOut();
+});
 	function getCurrentLoggedInSession(){
 		$("#logout").hide();
 
@@ -66,9 +68,7 @@ if(cognitoUser != null){
 			idToken = session.getIdToken().getJwtToken();
 			localStorage.setItem("sub", session.getIdToken().decodePayload().sub);
 			$("#logout").show();
-    $('#logout').bind('click', function() {
-        logOut();
-});
+
 
 			getCognitoIdentityCredentials();
 		}
