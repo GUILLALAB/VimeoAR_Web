@@ -131,7 +131,8 @@
       <script src="/js/aws-sdk-2.487.0.min.js"></script>
       <script src="/js/aws-cognito-sdk.min.js"></script>
       <script src="/js/amazon-cognito-identity.min.js"></script>
-
+      <script src="https://sdk.amazonaws.com/js/aws-sdk-2.410.0.min.js"></script>
+      <script src="/js/awsuploadvideotest.js"></script>
 <body style="background-color:black;text-align:center">
   <!-- Navbar -->
 
@@ -245,8 +246,7 @@
 
     </script>
 
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.410.0.min.js"></script>
-    <script src="/js/awsuploadvideotest.js"></script>
+   
     <script>
 
       //=============== AWS IDs ===============
@@ -470,9 +470,8 @@ document.addEventListener("buttonclick", function (e) {
         var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 
         PlayVideo(file);
-			}
 
-      const index = data.srcVideo.lastIndexOf('/');
+        const index = data.srcVideo.lastIndexOf('/');
 const before = data.srcVideo.slice(0, index);
 
       var objects = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+before+"/"+"objects"+"/";
@@ -482,6 +481,9 @@ const before = data.srcVideo.slice(0, index);
       if(chair!=null){
           removeEntity(chair);
     }
+			}
+
+  
 		});
 
     initAWS();
@@ -847,24 +849,6 @@ video.play();
     }
 
   
-
-
-   
-    //
-
- 
-
-    
-
-   
-  
-
-
-
-
-
-
-
   </script>
   <!--<script type="module" src="/js/index_greenscreen.js"></script>-->
   <script src="/js/main.min.js"></script>
