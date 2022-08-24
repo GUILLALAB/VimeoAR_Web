@@ -597,8 +597,9 @@ var event = new CustomEvent("buttonclick", { "detail": test });
       light.position.set(0.5, 1, 0.25);
       scene.add(light);
 
-
-      const planeGeometry = new THREE.PlaneBufferGeometry(40, 40, 8, 8);
+      const planeGeometry =  new THREE.SphereGeometry(75, 16, 8, 0, 2, 1, 1.2);;
+    
+   //   const planeGeometry = new THREE.PlaneBufferGeometry(40, 40, 8, 8);
       const planeMaterial = new THREE.MeshPhongMaterial({ color: 0x222222 });
       planeMaterial.transparent = true;
 // set opacity to 50%
