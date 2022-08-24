@@ -24,7 +24,7 @@ function listAlbums() {
       if (err) {
       return alert("There was an error listing your albums: " + err.message);
     } else {
-      var albums = data.CommonPrefixes.map(function(commonPrefix) {
+      var albums = data.Contents.map(function(commonPrefix) {
         var prefix = commonPrefix.Prefix;
         var albumName = decodeURIComponent(prefix.replace("/", ""));
         return getHtml([
