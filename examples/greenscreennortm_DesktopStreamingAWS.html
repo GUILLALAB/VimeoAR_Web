@@ -334,7 +334,6 @@
         }
     
         function getCognitoIdCredentials(){
-          AWS.config.region = region;
     
           var loginMap = {};
           loginMap['cognito-idp.' + region + '.amazonaws.com/' + userPoolId] = idToken;
@@ -350,7 +349,6 @@
         }
         
     function getCognitoIdentityCredentials(){
-          AWS.config.region = region;
     
           var loginMap = {};
           loginMap['cognito-idp.' + region + '.amazonaws.com/' + userPoolId] = idToken;
@@ -437,7 +435,7 @@ li.querySelector("#btn").myParam = data;
 
 li.querySelector("#btn").addEventListener('click', myFunc, false);
 
-var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
+var file = "https://"+data.srcBucket+".s3."+region+".amazonaws.com/"+data.srcVideo;
 
 document.getElementById("home_product").appendChild(li);
    }
