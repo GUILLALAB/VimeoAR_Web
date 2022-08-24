@@ -367,7 +367,7 @@
               console.log(err.message);
             }
             else {
-              initAWS();
+              initAWS(region);
               console.log('AWS Access Key: '+ AWS.config.credentials.accessKeyId);
               console.log('AWS Secret Key: '+ AWS.config.credentials.secretAccessKey);
               console.log('AWS Session Token: '+ AWS.config.credentials.sessionToken);
@@ -377,12 +377,11 @@
         }
 
 
-        function initAWS(){
+        function initAWS(region){
      
      
      //=============== AWS IDs ===============
      
-AWS.config.region = region;
      
 
    const itemsAll = scanAll("VideoAWS");
@@ -392,7 +391,7 @@ AWS.config.region = region;
     // console.log(value[i]);
      loadProducts(value[i]);
 
-     var file = "https://"+value[i].srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+value[i].srcVideo;
+     var file = "https://"+value[i].srcBucket+".s3."+region+".amazonaws.com/"+value[i].srcVideo;
 
    }
      }
