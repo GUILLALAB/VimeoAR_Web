@@ -165,16 +165,16 @@ button{
     <form onsubmit="event.preventDefault();">
         <h3>Sign Up</h3>
 
-        <label for="email">Email</label>
+        <label id="emaillabel" style="display:none" for="email">Email</label>
         <input type="text" placeholder="email" id="emailInput">
 
-        <label for="username">userNameInput</label>
+        <label id="usernamelabel" style="display:none" for="username">userNameInput</label>
         <input type="text" placeholder="username" id="userNameInput">
 
-        <label for="password">Password</label>
+        <label id="passwordlabel" style="display:none" for="password">Password</label>
         <input type="password" placeholder="Password" id="passwordInput">
 
-        <label style="display:none" for="password">verification Code</label>
+        <label id="verificationlabel" style="display:none" for="password">verification Ccde</label>
         <input style="display:none" type="password" placeholder="verification Code" id="verificationCodeInput">
 
         <button id="registerButton">Register</button> 
@@ -224,6 +224,12 @@ if ($("#logInButton").length){
 
 
         function switchToVerificationCodeView(){
+            $("#emaillabel").hide();
+            $("#usernamelabel").hide();
+            $("#passwordlabel").hide();
+            $("#verificationlabel").show();
+
+            
             $("#email").hide();
             $("#userNameInput").hide();
             $("#passwordInput").hide();
@@ -244,7 +250,10 @@ if ($("#logInButton").length){
             $("#verificationCodeInput").hide();
             $("#verificationCodeButton").hide();
             $("#logInButton").hide();
-
+            $("#emaillabel").show();
+            $("#usernamelabel").show();
+            $("#passwordlabel").show();
+            $("#verificationlabel").hide();
         }
 
         function switchToLogInView(){
@@ -257,7 +266,10 @@ if ($("#logInButton").length){
             $("#verificationCodeButton").hide();
             $("#registerButton").hide();
             $("#emailInput").hide();
-
+            $("#emaillabel").hide();
+            $("#usernamelabel").show();
+            $("#passwordlabel").show();
+            $("#verificationlabel").hide();
         }
 
         function switchToLoggedInView(){
