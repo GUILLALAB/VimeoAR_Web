@@ -419,6 +419,12 @@ const scanAll = async (tableName) => {
 
    }
 
+   function myFunc(evt) {
+ var test = evt.currentTarget.myParam;
+var event = new CustomEvent("buttonclick", { "detail": test });
+ document.dispatchEvent(event);
+}
+
    function loadProducts(data){
 
 var li = document.createElement('li');
@@ -442,11 +448,7 @@ var file = "https://"+data.srcBucket+".s3."+region+".amazonaws.com/"+data.srcVid
 document.getElementById("home_product").appendChild(li);
    }
 
-    function myFunc(evt) {
- var test = evt.currentTarget.myParam;
-var event = new CustomEvent("buttonclick", { "detail": test });
- document.dispatchEvent(event);
-}
+
 
     </script>
 
