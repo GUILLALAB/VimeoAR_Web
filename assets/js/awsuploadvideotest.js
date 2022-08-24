@@ -20,11 +20,11 @@ function listAlbums() {
 
     var albumPhotosKey = encodeURIComponent("video") + "/"+encodeURIComponent(userid) + "/";
 
-    s3.listObjects({ Prefix: albumPhotosKey }, function(err, data) {
-      if (err) {
+  s3.listObjects({prefix:albumPhotosKey, Delimiter: "/" }, function(err, data) {
+    if (err) {
       return alert("There was an error listing your albums: " + err.message);
     } else {
-      var albums = data.Contents.map(function(commonPrefix) {
+      var albums = data.CommonPrefixes.map(function(commonPrefix) {
         var prefix = commonPrefix.Prefix;
         var albumName = decodeURIComponent(prefix.replace("/", ""));
         return getHtml([
