@@ -287,7 +287,6 @@
     });
     
       function getCurrentLoggedInSession(){
-        $("#logout").hide();
     
     userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
     cognitoUser = userPool.getCurrentUser();
@@ -307,6 +306,7 @@
       });
     }else{
       $("#logout").show();
+      $("#logout").html("SIGN IN");
 
       console.log('Logout');
      // window.location = "https://livear.herokuapp.com/login";
