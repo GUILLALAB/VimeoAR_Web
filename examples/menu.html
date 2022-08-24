@@ -31,91 +31,7 @@
 		<script src="/js/amazon-cognito-identity.min.js"></script>
   <!-- TODO: Enable First Input Delay polyfill library. -->
   <script type="text/javascript">!function(n,e){var t,o,i,c=[],f={passive:!0,capture:!0},r=new Date,a="pointerup",u="pointercancel";function p(n,c){t||(t=c,o=n,i=new Date,w(e),s())}function s(){o>=0&&o<i-r&&(c.forEach(function(n){n(o,t)}),c=[])}function l(t){if(t.cancelable){var o=(t.timeStamp>1e12?new Date:performance.now())-t.timeStamp;"pointerdown"==t.type?function(t,o){function i(){p(t,o),r()}function c(){r()}function r(){e(a,i,f),e(u,c,f)}n(a,i,f),n(u,c,f)}(o,t):p(o,t)}}function w(n){["click","mousedown","keydown","touchstart","pointerdown"].forEach(function(e){n(e,l,f)})}w(n),self.perfMetrics=self.perfMetrics||{},self.perfMetrics.onFirstInputDelay=function(n){c.push(n),s()}}(addEventListener,removeEventListener);</script>
-  <script>
 
-	//=============== AWS IDs ===============
-	var userPoolId = 'eu-west-1_3x9L2hsjh';
-	var clientId = '4gkuhfpqeo9rc279nh727l3sco';
-	var region = 'eu-west-1';
-	var identityPoolId = 'eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b';
-	//=============== AWS IDs ===============
-
-	var cognitoUser;
-	var idToken;
-	var userPool;
-	
-	var poolData = { 
-		UserPoolId : userPoolId,
-		ClientId : clientId
-	};
-	getCurrentLoggedInSession();
-  
-document.getElementById("logout").addEventListener("click", function (e) {
-	logOut();
-});
-
-	function getCurrentLoggedInSession(){
-		$("#logout").hide();
-
-userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-cognitoUser = userPool.getCurrentUser();
-
-if(cognitoUser != null){
-	cognitoUser.getSession(function(err, session) {
-		if (err) {
-			console.log(err.message);
-		}else{
-			console.log('Session found! Logged in.');
-			alert("Logged");
-			idToken = session.getIdToken().getJwtToken();
-			localStorage.setItem("sub", session.getIdToken().decodePayload().sub);
-			$("#logout").show();
-
-
-			getCognitoIdentityCredentials();
-		}
-	});
-}else{
-	console.log('Logout');
-	window.location = "https://livear.herokuapp.com/login";
-
-}
-
-}
-function logOut(){
-            if (cognitoUser != null) {
-                cognitoUser.signOut();
-                console.log('Logged out!');
-				window.location = "https://livear.herokuapp.com/login";
-            }
-        }
-
-function getCognitoIdentityCredentials(){
-            AWS.config.region = region;
-
-            var loginMap = {};
-            loginMap['cognito-idp.' + region + '.amazonaws.com/' + userPoolId] = idToken;
-
-            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                IdentityPoolId: identityPoolId,
-                Logins: loginMap
-            });
-
-            AWS.config.credentials.clearCachedId();
-
-            AWS.config.credentials.get(function(err) {
-                if (err){
-                    console.log(err.message);
-                }
-                else {
-                    console.log('AWS Access Key: '+ AWS.config.credentials.accessKeyId);
-                    console.log('AWS Secret Key: '+ AWS.config.credentials.secretAccessKey);
-                    console.log('AWS Session Token: '+ AWS.config.credentials.sessionToken);
-                }
-
-            });
-        }
-</script>
   
 </head>
 <body class="is-boxed has-animations">
@@ -129,9 +45,7 @@ function getCognitoIdentityCredentials(){
 					  <div id="user-container">
 						<div hidden id="user-pic"></div>
 						<div hidden id="user-name"></div>
-						<button id="logout">
-							Log Out
-						  </button>
+						<button id="logout">Log Out</button>
 						<button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
 						  Sign-out
 						</button>
@@ -440,6 +354,90 @@ function getCognitoIdentityCredentials(){
 			<script src="/js/mainfractal.js"></script>
     <script src="/js/main.min.js"></script>
 	<script type="module" src="/js/index.js"></script>
+	<script>
 
+		//=============== AWS IDs ===============
+		var userPoolId = 'eu-west-1_3x9L2hsjh';
+		var clientId = '4gkuhfpqeo9rc279nh727l3sco';
+		var region = 'eu-west-1';
+		var identityPoolId = 'eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b';
+		//=============== AWS IDs ===============
+	
+		var cognitoUser;
+		var idToken;
+		var userPool;
+		
+		var poolData = { 
+			UserPoolId : userPoolId,
+			ClientId : clientId
+		};
+		getCurrentLoggedInSession();
+	  
+	document.getElementById("logout").addEventListener("click", function (e) {
+		logOut();
+	});
+	
+		function getCurrentLoggedInSession(){
+			$("#logout").hide();
+	
+	userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+	cognitoUser = userPool.getCurrentUser();
+	
+	if(cognitoUser != null){
+		cognitoUser.getSession(function(err, session) {
+			if (err) {
+				console.log(err.message);
+			}else{
+				console.log('Session found! Logged in.');
+				alert("Logged");
+				idToken = session.getIdToken().getJwtToken();
+				localStorage.setItem("sub", session.getIdToken().decodePayload().sub);
+				$("#logout").show();
+	
+	
+				getCognitoIdentityCredentials();
+			}
+		});
+	}else{
+		console.log('Logout');
+		window.location = "https://livear.herokuapp.com/login";
+	
+	}
+	
+	}
+	function logOut(){
+				if (cognitoUser != null) {
+					cognitoUser.signOut();
+					console.log('Logged out!');
+					window.location = "https://livear.herokuapp.com/login";
+				}
+			}
+	
+	function getCognitoIdentityCredentials(){
+				AWS.config.region = region;
+	
+				var loginMap = {};
+				loginMap['cognito-idp.' + region + '.amazonaws.com/' + userPoolId] = idToken;
+	
+				AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+					IdentityPoolId: identityPoolId,
+					Logins: loginMap
+				});
+	
+				AWS.config.credentials.clearCachedId();
+	
+				AWS.config.credentials.get(function(err) {
+					if (err){
+						console.log(err.message);
+					}
+					else {
+						console.log('AWS Access Key: '+ AWS.config.credentials.accessKeyId);
+						console.log('AWS Secret Key: '+ AWS.config.credentials.secretAccessKey);
+						console.log('AWS Session Token: '+ AWS.config.credentials.sessionToken);
+					}
+	
+				});
+			}
+	</script>
 </body>
 </html>
