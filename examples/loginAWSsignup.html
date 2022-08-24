@@ -205,12 +205,12 @@ button{
         };
         getCurrentLoggedInSession();
 
-        if ( $("#registerButton")!=null){
+        if ( $("#registerButton").length){
             $('#registerButton').bind('click', function() {
                 register();
 });
 }
-if ($("#verificationCodeButton")!=null){
+if ($("#verificationCodeButton").length){
     $('#verificationCodeButton').bind('click', function() {
         verifyCode();
 });
