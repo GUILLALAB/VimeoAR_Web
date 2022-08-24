@@ -16,8 +16,12 @@ var s3 = new AWS.S3({
 });
 
 function listAlbums() {
-  s3.listObjects({ Delimiter: "/" }, function(err, data) {
-    if (err) {
+  var userid = localStorage.getItem("sub");
+
+    var albumPhotosKey = encodeURIComponent("video") + "/"+encodeURIComponent(userid) + "/";
+
+    s3.listObjects({ Prefix: albumPhotosKey }, function(err, data) {
+      if (err) {
       return alert("There was an error listing your albums: " + err.message);
     } else {
       var albums = data.CommonPrefixes.map(function(commonPrefix) {
