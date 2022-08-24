@@ -546,9 +546,8 @@ document.addEventListener("buttonclick", function (e) {
         var file = "https://"+data.srcBucket+".s3."+getRegion()+".amazonaws.com/"+data.srcVideo;
 
         PlayVideo(file);
-			}
 
-      const index = data.srcVideo.lastIndexOf('/');
+        const index = data.srcVideo.lastIndexOf('/');
 const before = data.srcVideo.slice(0, index);
 
       var objects = "https://"+data.srcBucket+".s3."+getRegion()+".amazonaws.com/"+before+"/"+"objects"+"/";
@@ -558,6 +557,9 @@ const before = data.srcVideo.slice(0, index);
       if(chair!=null){
           removeEntity(chair);
     }
+			}
+
+  
 		});
 
     init();
