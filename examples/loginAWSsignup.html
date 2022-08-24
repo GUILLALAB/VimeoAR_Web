@@ -343,7 +343,7 @@ console.log(value);
             if( !$('#emailInput').val() || !$('#userNameInput').val()  || !$('#passwordInput').val()) {
                     logMessage('Please fill all the fields!');
             }else{
-                if($('#passwordInput').val().length==8){
+                if($('#passwordInput').val().length>=8){
                     registerUser($('#emailInput').val(), $('#userNameInput').val(), $('#passwordInput').val());
                 }else{
                     logMessage('Confirm password failed!');
