@@ -51,7 +51,7 @@
 	getCurrentLoggedInSession();
 
 	function getCurrentLoggedInSession(){
-
+		$("#logout").hide();
 
 userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 cognitoUser = userPool.getCurrentUser();
@@ -128,7 +128,7 @@ function getCognitoIdentityCredentials(){
 					  <div id="user-container">
 						<div hidden id="user-pic"></div>
 						<div hidden id="user-name"></div>
-						<button style="display:none" id="logout" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+						<button id="logout" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
 							Log Out
 						  </button>
 						<button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
