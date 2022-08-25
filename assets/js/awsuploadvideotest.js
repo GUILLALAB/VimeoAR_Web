@@ -15,6 +15,8 @@ var s3 = new AWS.S3({
   params: { Bucket: albumBucketName }
 });
 
+createVideoUserSubAlbum(encodeURIComponent("video")+"/",localStorage.getItem("sub"));
+
 function listAlbums() {
   var userid = localStorage.getItem("sub");
 
