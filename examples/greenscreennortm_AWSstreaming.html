@@ -5,50 +5,62 @@
       <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     
       <style>
-         body,h1 {font-family: "Raleway", sans-serif}
-        body, html {height: 100%}
-        .bgimg {
-          background-image: url('113097.jpg');
-          min-height: 100%;
-          background-position: center;
-          background-size: cover;
-        }
-          p {
-              margin: 2px;
-              color: white;
-          }
-  
-          .row {
-              display: flex;
-          }
-  
-          .mirror {
-              transform: scaleX(-1);
-          }
-          input{margin-top: 20px;}
+      body,
+    h1 {
+      font-family: "Raleway", sans-serif
+    }
 
-          #infinite-list {
-  /* We need to limit the height and show a scrollbar */
-  width: 200px;
-  height: 300px;
-  overflow: auto;
+    body,
+    html {
+      height: 100%
+    }
 
-  /* Optional, only to check that it works with margin/padding */
-  margin: 30px;
-  padding: 20px;
-  border: 5px solid rgb(255, 255, 255);
-}
+    .bgimg {
+      background-image: url('113097.jpg');
+      min-height: 100%;
+      background-position: center;
+      background-size: cover;
+    }
 
-/* Optional eye candy below: */
-li {
-  padding: 5px;
-  list-style-type: none;
-  background: white;
-}
-li:hover {
-  background: rgb(255, 255, 255);
-}
-.row {
+    p {
+      margin: 2px;
+      color: white;
+    }
+
+    .row {
+      display: flex;
+    }
+
+    .mirror {
+      transform: scaleX(-1);
+    }
+
+    input {
+      margin-top: 20px;
+    }
+
+    #infinite-list {
+      /* We need to limit the height and show a scrollbar */
+      width: 200px;
+      height: 300px;
+      overflow: auto;
+
+      /* Optional, only to check that it works with margin/padding */
+      margin: 30px;
+      padding: 20px;
+      border: 5px solid rgb(255, 255, 255);
+    }
+
+    /* Optional eye candy below: */
+    li {
+      padding: 5px;
+      list-style-type: none;
+    }
+
+    li:hover {
+      background: rgb(255, 255, 255);
+    }
+    .row {
     display: inline-block;
     overflow: auto;
     overflow-y: hidden;
@@ -61,29 +73,35 @@ li:hover {
     display: inline-block;
     vertical-align: top;
 }
-.notification {
-  background-color: #555;
-  color: white;
-  text-decoration: none;
-  padding: 15px 15px;
-  position: relative;
-  display: inline-block;
-  border-radius: 2px;
-}
+    .notification {
+      background-color: #555;
+      color: white;
+      text-decoration: none;
+      padding: 15px 15px;
+      position: absolute;
+      bottom: 0;
+      margin-bottom: 150px;
+      display: inline-block;
+      border-radius: 2px;
+    }
 
-.notification:hover {
-  background: red;
-}
+    .notification:hover {
+      background: red;
+    }
 
-.notification .badge {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  padding: 5px 10px;
-  border-radius: 50%;
-  background: red;
-  color: white;
-}
+    .notification .badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      padding: 5px 10px;
+      border-radius: 50%;
+      background: red;
+      color: white;
+    }
+
+    #myProgress {  width: 100%;  background-color: grey;} 
+#myBar {  width: 1%;  height: 30px;  background-color: green;}
+
 
       </style>
       </head>
@@ -171,9 +189,6 @@ li:hover {
     <div class="container py5">
       <ul id="home_product"></ul>          
 
-    
-   
-  
     </div>
               </div>
            
