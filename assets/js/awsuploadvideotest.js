@@ -45,7 +45,7 @@ function listAlbums() {
             "<p>Click on the X to delete the album.</p>"
           ])
         : "<p>You do not have any albums. Please Create album.";
-        viewAlbum(encodeURIComponent(video)+"/",localStorage.getItem("sub"));
+        viewAlbum(encodeURIComponent("video")+"/",localStorage.getItem("sub"));
       var htmlTemplate = [
         "<h2>Albums</h2>",
         message,
