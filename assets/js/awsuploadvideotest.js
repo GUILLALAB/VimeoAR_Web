@@ -118,7 +118,7 @@ function createVideoUserSubAlbum(path,userid) {
   var albumKey = path + encodeURIComponent(userid)+"/";
   s3.headObject({ Key: albumKey }, function(err, data) {
     if (!err) {
-      return alert("Album already exists.");
+       alert("Album already exists.");
     }
     if (err.code !== "NotFound") {
       return alert("There was an error creating your album: " + err.message);
