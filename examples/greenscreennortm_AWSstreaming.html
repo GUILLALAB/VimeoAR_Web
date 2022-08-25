@@ -254,6 +254,7 @@ li:hover {
         logOut();
       }
     });
+    
     document.getElementById("upload").addEventListener("click", function (e) {
       userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
     cognitoUser = userPool.getCurrentUser();
