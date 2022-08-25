@@ -45,7 +45,7 @@ function listAlbums() {
             "<p>Click on the X to delete the album.</p>"
           ])
         : "<p>You do not have any albums. Please Create album.";
-        viewAlbum("video");
+        viewAlbum(encodeURIComponent(video)+"/",localStorage.getItem("sub"));
       var htmlTemplate = [
         "<h2>Albums</h2>",
         message,
@@ -302,8 +302,8 @@ var uploadSampleFile = function() {
 }
 
 
-function viewAlbum(albumName) {
-  var albumPhotosKey = encodeURIComponent(albumName) + "/";
+function viewAlbum(path,albumName) {
+  var albumPhotosKey = path + encodeURIComponent(albumName) + "/";
   s3.listObjects({ Prefix: albumPhotosKey }, function(err, data) {
     if (err) {
       return alert("There was an error viewing your album: " + err.message);
