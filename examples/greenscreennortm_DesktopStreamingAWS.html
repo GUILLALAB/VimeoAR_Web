@@ -471,15 +471,15 @@ const before = data.srcVideo.slice(0, index);
 
       var objects = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+before+"/"+"objects"+"/";
       console.log(objects);
-      viewObjectsFolder(before);
+     
 
-      if(chair!=null){
-          removeEntity(chair);
-    }
-    
         PlayVideo(file);
 
-   
+        viewObjectsFolder(before);
+
+if(chair!=null){
+    removeEntity(chair);
+}
 			}
 
   
