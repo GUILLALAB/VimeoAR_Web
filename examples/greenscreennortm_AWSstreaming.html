@@ -254,7 +254,7 @@ li:hover {
         logOut();
       }
     });
-    
+
     document.getElementById("upload").addEventListener("click", function (e) {
       userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
     cognitoUser = userPool.getCurrentUser();
@@ -436,18 +436,20 @@ document.addEventListener("buttonclick", function (e) {
         console.log(data);
         var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 
-        PlayVideo(file);
-
         const index = data.srcVideo.lastIndexOf('/');
 const before = data.srcVideo.slice(0, index);
 
       var objects = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+before+"/"+"objects"+"/";
       console.log(objects);
-      viewObjectsFolder(before);
+     
 
-      if(chair!=null){
-          removeEntity(chair);
-    }
+        PlayVideo(file);
+
+        viewObjectsFolder(before);
+
+if(chair!=null){
+    removeEntity(chair);
+}
 			}
 
   
