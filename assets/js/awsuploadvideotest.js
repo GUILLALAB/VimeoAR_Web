@@ -45,6 +45,7 @@ function listAlbums() {
             "<p>Click on the X to delete the album.</p>"
           ])
         : "<p>You do not have any albums. Please Create album.";
+        viewAlbum("video");
       var htmlTemplate = [
         "<h2>Albums</h2>",
         message,
