@@ -187,7 +187,7 @@ function createSubAlbum(album) {
     alert('uploaded suceessfully')
     createObjectSubAlbum(albumPhotosKey);
 
-    viewAlbum(""+albumPhotosKey);
+    viewAlbum(albumPhotosKey);
     currentalbum=albumPhotosKey;
     };
 });
@@ -292,7 +292,7 @@ var uploadSampleFile = function() {
         alert('uploaded suceessfully')
     createObjectSubAlbum(albumPhotosKey);
 
-    viewAlbum("",albumPhotosKey);
+    viewAlbum(albumPhotosKey);
     currentalbum=albumPhotosKey;
       }
     })
@@ -458,7 +458,7 @@ var options = {partSize: 100 * 1024 * 1024, queueSize: 1};
         alert(err.code);
     } else{
     alert('uploaded suceessfully')
-    viewAlbum("",albumPhotosKey);
+    viewAlbum(albumPhotosKey);
     };
 });
 
