@@ -328,9 +328,9 @@ function viewAlbum(path,albumName) {
           "')\">",
         "X",
         "</span>",
-        "<span onclick=\"viewAlbum('" + photoKey.replace(albumPhotosKey, "") + "')\">",
-        photoKey,
-          "</span>",
+        "<span>",
+        photoKey.replace(albumPhotosKey, ""),
+        "</span>",
         "</div>",
         "</span>"
       ]);
