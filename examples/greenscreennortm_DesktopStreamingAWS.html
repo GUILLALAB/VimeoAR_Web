@@ -743,7 +743,7 @@ var event = new CustomEvent("buttonclick", { "detail": test });
               node.isDraggable = true;
             }
             // search the mesh's children for the face-geo
-            if (node.isMesh && node.name == 'face-geo') {
+            if (node.isMesh && node.name == 'face-geo'|| node.name == 'body-geo') {
               // create video texture from video element
               var texture = new THREE.TextureLoader().load("112097.jpg");
               texture.minFilter = THREE.LinearFilter;
