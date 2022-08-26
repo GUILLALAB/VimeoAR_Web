@@ -130,6 +130,7 @@
       <script src="/js/amazon-cognito-identity.min.js"></script>
       <script src="https://sdk.amazonaws.com/js/aws-sdk-2.410.0.min.js"></script>
       <script src="/js/awsuploadvideotest.js"></script>
+
 <body style="background-color:black;text-align:center">
   <!-- Navbar -->
 
@@ -375,8 +376,9 @@
 
   <script type="module">
     import * as THREE from './jsm/three.module.js';
-    import { OrbitControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/examples/jsm/controls/OrbitControls.js';
+    import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/hls.js@1';
     import { GLTFLoader } from './jsm/GLTFLoader.js';
+    import Hls from "hls.js";
 
     import { FBXLoader } from './jsm/FBXLoader.js';
 
@@ -464,7 +466,8 @@ document.addEventListener("buttonclick", function (e) {
 			var data = e.detail;
 			if (data != null) {
         console.log(data);
-        var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
+      //  var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
+        var file = data.hlsUrl;
 
         const index = data.srcVideo.lastIndexOf('/');
 const before = data.srcVideo.slice(0, index);
@@ -582,11 +585,23 @@ var event = new CustomEvent("buttonclick", { "detail": test });
     }
 
     function PlayVideo(srcVideo){
-      video.pause();
-      video.setAttribute('crossorigin', 'anonymous');
-      source.src = srcVideo;
-      video.load();
+
+  const hls = new Hls();
+  if (Hls.isSupported()) {
+    hls.loadSource(srcVideo);
+    hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED, function () {
       video.play();
+    });
+  } else {
+    // HLS isnt supported in iOS, so we do it natively
+    video.src = srcVideo;
+    video.addEventListener("loadedmetadata", function () {
+      video.play();
+    });
+  }
+
+      
     }
 
     function init() {
