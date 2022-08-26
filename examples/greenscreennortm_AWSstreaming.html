@@ -126,6 +126,8 @@
     <script src="/js/amazon-cognito-identity.min.js"></script>
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.410.0.min.js"></script>
     <script src="/js/awsuploadvideotest.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+
 <!-- App Styling -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <body style="background-color:black;text-align:center">
@@ -442,32 +444,32 @@ function removeEntity(object) {
 			}
 		});
 
-document.addEventListener("buttonclick", function (e) {
+    document.addEventListener("buttonclick", function (e) {
 
-			// alert(e.detail);
-			var data = e.detail;
-			if (data != null) {
-        console.log(data);
-        var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
+// alert(e.detail);
+var data = e.detail;
+if (data != null) {
+  console.log(data);
+//  var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 
-        const index = data.srcVideo.lastIndexOf('/');
+  const index = data.srcVideo.lastIndexOf('/');
 const before = data.srcVideo.slice(0, index);
 
-      var objects = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+before+"/"+"objects"+"/";
-      console.log(objects);
-     
+var objects = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+before+"/"+"objects"+"/";
+console.log(objects);
 
-        PlayVideo(file);
 
-        viewObjectsFolder(before);
+  PlayVideo(data);
+
+  viewObjectsFolder(before);
 
 if(chair!=null){
-    removeEntity(chair);
+removeEntity(chair);
 }
-			}
+}
 
-  
-		});
+
+});
 
     initAWS();
     init(); 
@@ -482,12 +484,27 @@ if(chair!=null){
 
   
     function PlayVideo(srcVideo){
-      video.pause();
-      video.setAttribute('crossorigin', 'anonymous');
-      source.src = srcVideo;
-      video.load();
-      video.play();
-    }
+
+const hls = new Hls();
+ if (Hls.isSupported()) {
+   hls.loadSource(srcVideo.hlsUrl);
+   hls.attachMedia(video);
+   hls.on(Hls.Events.MANIFEST_PARSED, function () {
+     video.play();
+     console.log("HLS");
+   });
+ } else {
+   // HLS isnt supported in iOS, so we do it natively
+   var file = "https://"+srcVideo.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+srcVideo.srcVideo;
+   video.src = file;
+   console.log("MP4");
+   video.addEventListener("loadedmetadata", function () {
+     video.play();
+   });
+ }
+
+     
+   }
 
     function StopVideo(){
       document.getElementById('video').pause();
