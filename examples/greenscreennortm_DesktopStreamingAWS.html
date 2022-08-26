@@ -626,11 +626,7 @@ var event = new CustomEvent("buttonclick", { "detail": test });
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.shadowMap.enabled = true;
 
-      const light = new THREE.DirectionalLight(0xffffff, 0xbbbbff, 1);
-      
-      light.position.set(0.5, 2, 0.25);
-      scene.add(light);
-
+  
 
       const planeGeometry = new THREE.PlaneBufferGeometry(40, 40, 8, 8);
     //  const planeMaterial = new THREE.MeshPhongMaterial({ color: 0x222222 });
@@ -652,6 +648,11 @@ var event = new CustomEvent("buttonclick", { "detail": test });
       controls.enableDamping = true;
       controls.update();
 
+
+      const dirLight1 = new THREE.DirectionalLight(0xffffff);
+      dirLight1.position.set(0, 2, 0);
+      dirLight1.castShadow = true;
+      scene.add(dirLight1);
 
       clock = new THREE.Clock();
 
