@@ -653,15 +653,6 @@ var event = new CustomEvent("buttonclick", { "detail": test });
       controls.update();
 
 
-      const dirLight1 = new THREE.DirectionalLight(0xffffff);
-      dirLight1.position.set(0, 2, 0);
-      dirLight1.castShadow = true;
-      scene.add(dirLight1);
-
-
-      const ambientLight = new THREE.AmbientLight(0x444444);
-      scene.add(ambientLight);
-
       clock = new THREE.Clock();
 
       object_badges = document.getElementById('object_badge');
