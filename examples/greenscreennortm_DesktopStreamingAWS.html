@@ -588,14 +588,14 @@ var event = new CustomEvent("buttonclick", { "detail": test });
 
  const hls = new Hls();
   if (Hls.isSupported()) {
-    hls.loadSource(data.hlsUrl);
+    hls.loadSource(srcVideo.hlsUrl);
     hls.attachMedia(video);
     hls.on(Hls.Events.MANIFEST_PARSED, function () {
       video.play();
     });
   } else {
     // HLS isnt supported in iOS, so we do it natively
-    var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
+    var file = "https://"+srcVideo.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+srcVideo.srcVideo;
     video.src = file;
     video.addEventListener("loadedmetadata", function () {
       video.play();
