@@ -38,16 +38,7 @@
     input {
       margin-top: 20px;
     }
-    .scroll {
--webkit-overflow-scrolling: touch;
-overflow: auto;
-width: 100%;
-border: 1px solid black;
-height: 100px;
-border-radius: 10px;
-font-family: monospace;
-padding: 1em;
-}
+
     #infinite-list {
       /* We need to limit the height and show a scrollbar */
       width: 200px;
@@ -189,25 +180,18 @@ padding: 1em;
           </div>
             <div  id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
               
-             
+              <div class="row">
+                <ul id="object_product"></ul>
+            </div>
               <!-- Messages container -->
               <div id="messages-card" class="mdl-card mdl-shadow--0dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
               
                 <div class="messages">
 
-    
               </div>
            
             </div> 	             
-            <div class="row">
-              <ul id="object_product"></ul>
-          </div>
-
-            <div class="scroll">
-              <ul id="home_product"></ul>          
-        
-            </div>
-
+       
             <a  id="badgeButton" href="#" class="notification">
               <span>Objects</span>
               <span id="object_badge" class="badge"></span>
@@ -786,11 +770,11 @@ const scanAll = async (tableName) => {
     }
 
     function loadProducts(data){
-      document.getElementById("home_product").innerHTML = '';
+      document.getElementById("messages").innerHTML = '';
 
-var li = document.createElement('li');
+var li = document.createElement('div');
 
-var Template = '<div class="card mt-1">'+
+var Template = '<div class="message-container">'+
 '<div class="product-1 align-items-center p-2 text-center"> <img src="'+data.thumbNailsUrls+'" class="rounded" width="150" height="100">'+
     '<div class="message"> <span class="text1 d-block">'+ data.title+' </span> </div>'+
 '</div>'+
@@ -807,7 +791,7 @@ li.querySelector("#btn").addEventListener('click', myFunc, false);
 
 var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 
-document.getElementById("home_product").appendChild(li);
+document.getElementById("messages").appendChild(li);
     }
 
      function myFunc(evt) {
