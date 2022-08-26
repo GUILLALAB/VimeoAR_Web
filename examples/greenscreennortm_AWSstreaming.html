@@ -38,7 +38,16 @@
     input {
       margin-top: 20px;
     }
-
+    .scroll {
+-webkit-overflow-scrolling: touch;
+overflow: auto;
+width: 100%;
+border: 1px solid black;
+height: 100px;
+border-radius: 10px;
+font-family: monospace;
+padding: 1em;
+}
     #infinite-list {
       /* We need to limit the height and show a scrollbar */
       width: 200px;
@@ -193,8 +202,8 @@
             <div class="row">
               <ul id="object_product"></ul>
           </div>
-          
-            <div class="container py5">
+
+            <div class="scroll">
               <ul id="home_product"></ul>          
         
             </div>
