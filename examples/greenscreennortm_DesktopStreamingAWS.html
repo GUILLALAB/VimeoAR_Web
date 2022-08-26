@@ -539,6 +539,7 @@ const scanAll = async (tableName) => {
     lastEvaluatedKey = data.LastEvaluatedKey;
     if (lastEvaluatedKey) {
       table.ExclusiveStartKey = lastEvaluatedKey;
+      console.log(table.ExclusiveStartKey);
     }
   }
   return itemsAll;
