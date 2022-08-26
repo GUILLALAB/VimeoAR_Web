@@ -654,6 +654,12 @@ var event = new CustomEvent("buttonclick", { "detail": test });
       dirLight1.castShadow = true;
       scene.add(dirLight1);
 
+      const dirLight2 = new THREE.DirectionalLight(0xffffff);
+
+      dirLight2.position.set(0, -2, 0);
+      dirLight2.castShadow = true;
+      scene.add(dirLight2);
+
       clock = new THREE.Clock();
 
       object_badges = document.getElementById('object_badge');
