@@ -126,7 +126,9 @@ app.get('/greenDesktop', (request, response) => {
 app.get('/greenStreaming', (request, response) => {
   response.render('greenscreennortm_DesktopStreamingAWS.html');
 });
-
+app.get('/picker', (request, response) => {
+  response.render('picker.html');
+});
 app.get('/greenarStreaming', (request, response) => {
   response.render('greenscreennortm_AWSstreaming.html');
 });
