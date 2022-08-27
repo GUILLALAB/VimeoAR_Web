@@ -109,8 +109,6 @@
 <link href="https://fonts.googleapis.com/css?family=Heebo:400,700|Oxygen:700" rel="stylesheet">
 <script src="https://unpkg.com/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
 <link rel="stylesheet" type="text/css" href="style_listBroadcast.css" />
-<link rel="stylesheet" type="text/css" href="/js/color-picker.css" media="all">
-<script type="text/javascript" src="/js/color-picker.js"></script>
 <!-- Material Design Lite -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.orange-indigo.min.css">
@@ -210,40 +208,7 @@
 </div>
 
 
-<div id="background-container">
-  <ul>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-  </ul>
-</div>
 
-<div id="caption-container">
-  <div id="butterfly"><div class="wings"></div></div>
-  <ul>
-    <li>
-      <span class="cover"></span>
-      <h1>Color Picker<span></span></h1>
-    </li>
-    <li>
-      <div class="cover"></div>
-      <p>Javascript Library</p>
-    </li>
-  </ul>
-</div>
-<div class="flip-container">
-  <div class="flipper">
-    <div class="front color-picker-dark-theme"></div>
-    <div class="back color-picker-light-theme"></div>
-  </div>
-</div>
   <script src="utils.js"></script>
 
 
@@ -650,33 +615,6 @@ var event = new CustomEvent("buttonclick", { "detail": test });
       assetsPath = './ar-shop/';
       loadingBar = new LoadingBar();
       loadingBar.visible = false;
-      let light_color_picker = 
-    new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-    light_color_picker.on('change', (colorvalue) => {
-   // document.getElementById("butterfly").style.setProperty('--butterfly-color', color.toHEX());
-   // document.getElementById("butterfly").style.setProperty('--butterfly-opacity', color.a / 255);
-
-    if (chair!=null) {
-    chair.traverse((node) => {
-
-if (node.isMesh) {
-  node.castShadow = true;
-//  node.name = link.IdRef;
-  node.isDraggable = true;
-}
-// search the mesh's children for the face-geo
-if (node.isMesh && node.name == 'face-geo'|| node.name == 'logo') {
-  // create video texture from video element
-  console.log(colorvalue.toHEX());
-  node.material.color.set(colorvalue.toHEX());
-  node.material.metalness = 0;
-}
-});
-}
-    //dark_color_picker.color.fromHSVa(color.h, color.s, color.v, color.a);
-});
- 
-
 
       canvas = document.getElementById("c");
 
