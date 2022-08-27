@@ -511,7 +511,7 @@ if (node.isMesh) {
   node.isDraggable = true;
 }
 // search the mesh's children for the face-geo
-if (node.isMesh && node.name == data.parts) {
+if (node.isMesh && node.name.incudes(data.parts)) {
   // create video texture from video element
   console.log(colorvalue.toHEX());
   node.material.color.set(colorvalue.toHEX());
