@@ -687,26 +687,26 @@ var event = new CustomEvent("buttonclick", { "detail": test });
 
 
       const dirLight1 = new THREE.DirectionalLight(0xffffff);
-      dirLight1.position.set(0, 2, 0);
+      dirLight1.position.set(0, 3, 0);
       dirLight1.castShadow = true;
       scene.add(dirLight1);
 
       const dirLight2 = new THREE.DirectionalLight(0xffffff);
 
-      dirLight2.position.set(0, -2, 0);
+      dirLight2.position.set(0, -3, 0);
       dirLight2.castShadow = true;
       scene.add(dirLight2);
 
 
       const dirLight3 = new THREE.DirectionalLight(0xffffff);
 
-dirLight3.position.set(0, 0, -1.0);
+dirLight3.position.set(0, 0, -2.0);
 dirLight3.castShadow = true;
 scene.add(dirLight3);
 
 const dirLight4 = new THREE.DirectionalLight(0xffffff);
 
-dirLight4.position.set(0, 0, +1.0);
+dirLight4.position.set(0, 0, +2.0);
 dirLight4.castShadow = true;
 scene.add(dirLight4);
 
