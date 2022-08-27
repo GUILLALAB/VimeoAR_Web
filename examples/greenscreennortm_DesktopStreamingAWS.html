@@ -667,8 +667,8 @@ if (node.isMesh) {
 // search the mesh's children for the face-geo
 if (node.isMesh && node.name == 'face-geo'|| node.name == 'logo') {
   // create video texture from video element
-  console.log(colorvalue);
-  node.material.color.set(colorvalue);
+  console.log(colorvalue.toHEX());
+  node.material.color.set(colorvalue.toHEX());
   node.material.metalness = 0;
 }
 });
