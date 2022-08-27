@@ -650,8 +650,33 @@ var event = new CustomEvent("buttonclick", { "detail": test });
       assetsPath = './ar-shop/';
       loadingBar = new LoadingBar();
       loadingBar.visible = false;
+      let light_color_picker = 
+    new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
+    light_color_picker.on('change', (colorvalue) => {
+   // document.getElementById("butterfly").style.setProperty('--butterfly-color', color.toHEX());
+   // document.getElementById("butterfly").style.setProperty('--butterfly-opacity', color.a / 255);
 
-    
+    if (chair!=null) {
+    chair.traverse((node) => {
+
+if (node.isMesh) {
+  node.castShadow = true;
+//  node.name = link.IdRef;
+  node.isDraggable = true;
+}
+// search the mesh's children for the face-geo
+if (node.isMesh && node.name == 'face-geo'|| node.name == 'body-geo') {
+  // create video texture from video element
+  node.material.color.set(colorvalue);
+  node.material.metalness = 0;
+}
+});
+}
+    //dark_color_picker.color.fromHSVa(color.h, color.s, color.v, color.a);
+});
+ 
+
+
       canvas = document.getElementById("c");
 
       scene = new THREE.Scene();
@@ -906,7 +931,6 @@ video.play();
   </script>
   <!--<script type="module" src="/js/index_greenscreen.js"></script>-->
   <script src="/js/main.min.js"></script>
-  <script type="text/javascript" src="/js/scriptpicker.js"></script>
 
   
 </body>
