@@ -710,13 +710,13 @@ var event = new CustomEvent("buttonclick", { "detail": test });
 
       const dirLight3 = new THREE.DirectionalLight(0xffffff);
 
-dirLight3.position.set(0, 0, -0.5);
+dirLight3.position.set(0, 0, -1.0);
 dirLight3.castShadow = true;
 scene.add(dirLight3);
 
 const dirLight4 = new THREE.DirectionalLight(0xffffff);
 
-dirLight4.position.set(0, 0, +0.5);
+dirLight4.position.set(0, 0, +1.0);
 dirLight4.castShadow = true;
 scene.add(dirLight4);
 
