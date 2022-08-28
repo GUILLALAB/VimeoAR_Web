@@ -416,7 +416,7 @@
     let container;
     let camera, scene, renderer, source;
     let controller;
-
+    let light_color_picker; 
     let clickMouse,
       moveMouse,
       raycaster,
@@ -496,8 +496,7 @@ document.addEventListener("buttonclick", function (e) {
         console.log(data);
       //  var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
      
-      let light_color_picker = 
-    new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
+
     light_color_picker.on('change', (colorvalue) => {
    // document.getElementById("butterfly").style.setProperty('--butterfly-color', color.toHEX());
    // document.getElementById("butterfly").style.setProperty('--butterfly-opacity', color.a / 255);
@@ -514,7 +513,6 @@ if (node.isMesh) {
 if (node.isMesh && node.name == data.parts) {
   // create video texture from video element
   node.material.color.set(colorvalue.toHEX());
-  node.material.metalness = 0;
 }
 });
 }
@@ -644,7 +642,8 @@ var event = new CustomEvent("buttonclick", { "detail": test });
     }
 
     function init() {
-
+    light_color_picker = 
+    new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
       assetsPath = './ar-shop/';
       loadingBar = new LoadingBar();
       loadingBar.visible = false;
