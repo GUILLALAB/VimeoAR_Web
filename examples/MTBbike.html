@@ -488,10 +488,10 @@ node.isDraggable = true;
 }
 // search the mesh's children for the face-geo
 if (node.isMesh && node.name == data.parts) {
-  var instance = GetInstance(data);
+  var instances = GetInstance(data);
 
 // create video texture from video element
-instance.on('change', (colorvalue) => {
+instances.on('change', (colorvalue) => {
 
 node.material.color.set(colorvalue.toHEX());
 });
