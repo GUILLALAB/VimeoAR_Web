@@ -562,6 +562,7 @@ const scanAll = async (tableName) => {
       var instance=null;
       if(data.parts=="seatstays"){
         seatstays = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
+        seatstays
         instance=seatstays;
       }
       else if(data.parts=="headtube"){
@@ -646,8 +647,8 @@ return image;
 
 var li = document.createElement('li');
 
-var Template = '<div id="btn" class="card mt-1">'+
-'<div class="product-1 align-items-center p-2 text-center"> <img src="'+addImage(data)+'" class="rounded" width="150" height="100">'+
+var Template = '<div  class="card mt-1">'+
+'<div id="btn" class="product-1 align-items-center p-2 text-center"> <img src="'+addImage(data)+'" class="rounded" width="150" height="100">'+
     '<div class="message"> <span class="text1 d-block">'+ data.parts+' </span> </div>'+
 '</div>'+
 '</div>';
