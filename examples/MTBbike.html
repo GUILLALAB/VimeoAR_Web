@@ -433,7 +433,8 @@
     var mixer=null;
     var plane=null;
     var chair=null;
-    
+    var colorinstance=[];
+
     var angle = 0; // текущий угол
 var angularSpeed = THREE.Math.degToRad(20); // угловая скорость - градусов в секунду
 var delta = 0;
@@ -455,13 +456,11 @@ var radius = 190;
 		});
 
     document.addEventListener("buttonclick", function (e) {
-
+      var data
 // alert(e.detail);
 var data = e.detail;
 if (data != null) {
   console.log(data);
- var light_color_picker = 
-    new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
 //  var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 
 
@@ -478,8 +477,15 @@ node.isDraggable = true;
 }
 // search the mesh's children for the face-geo
 if (node.isMesh && node.name == data.parts) {
+  var instance=null;
+  for(i=0;i<colorinstance.length;i++){
+    if(data.parts==colorinstance[i]){
+    colorinstance[i] = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
+    instance=colorinstance[i];
+  }
+  }
 // create video texture from video element
-light_color_picker.on('change', (colorvalue) => {
+instance.on('change', (colorvalue) => {
 
 node.material.color.set(colorvalue.toHEX());
 });
@@ -519,7 +525,7 @@ AWS.config.region = region;
         if(value[i]!== undefined){
      // console.log(value[i]);
       loadProducts(value[i]);
-
+      colorinstance[i]=value[i].parts;
 
     }
       }
