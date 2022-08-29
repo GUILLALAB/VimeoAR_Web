@@ -478,12 +478,8 @@ node.isDraggable = true;
 // search the mesh's children for the face-geo
 if (node.isMesh && node.name == data.parts) {
   var instance=null;
-  for(var i=0;i<=colorinstance.length;i++){
-    if(data.parts==colorinstance[i]){
-    colorinstance[i] = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-    instance=colorinstance[i];
-  }
-  }
+  instance = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
+
 // create video texture from video element
 instance.on('change', (colorvalue) => {
 
