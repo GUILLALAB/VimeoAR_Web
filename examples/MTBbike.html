@@ -425,7 +425,7 @@
     let videoHeight = 240;
     var assetsPath;
     // Safari & Firefox don't support OffscreenCanvas
-
+    var instance=null;
     var loadingBar;
     let segmentedCanvas;
     var clock;
@@ -434,7 +434,7 @@
     var plane=null;
     var chair=null;
     var colorinstance={};
-    var instance=null;
+
     var angle = 0; // текущий угол
 var angularSpeed = THREE.Math.degToRad(20); // угловая скорость - градусов в секунду
 var delta = 0;
@@ -456,7 +456,6 @@ var radius = 190;
 		});
 
     document.addEventListener("buttonclick", function (e) {
-      var data
 // alert(e.detail);
 var data = e.detail;
 if (data != null) {
@@ -477,7 +476,8 @@ node.isDraggable = true;
 }
 // search the mesh's children for the face-geo
 if (node.isMesh && node.name == data.parts) {
-var instance=setInstance(data);
+  var instance = setInstance(data);
+
 // create video texture from video element
 instance.on('change', (colorvalue) => {
 
@@ -575,6 +575,33 @@ const scanAll = async (tableName) => {
 
       }
 return instance;
+    }
+
+    function addImage(data){
+var image;
+      if(data.parts=="seatstays"){
+        image = "/images/seatstay.png";
+      }
+      else if(data.parts=="headtube"){
+        image = "/images/headtube.png";
+
+      }else if(data.parts=="frame"){
+        image = "/images/frame.png";
+
+      }else if(data.parts=="chainstays"){
+        image = "/images/chainstay.png";
+
+      }else if(data.parts=="airshock"){
+        image = "/images/airshock.png";
+
+      }else if(data.parts=="Pivot"){
+        image = "/images/pivot.png";
+
+      }else if(data.parts=="logo"){
+        image = "/images/logo.png";
+
+      }
+return image;
     }
     function loadProducts(data){
 
