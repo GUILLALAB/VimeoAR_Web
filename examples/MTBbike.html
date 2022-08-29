@@ -434,7 +434,7 @@
     var plane=null;
     var chair=null;
     var colorinstance={};
-
+    var instance=null;
     var angle = 0; // текущий угол
 var angularSpeed = THREE.Math.degToRad(20); // угловая скорость - градусов в секунду
 var delta = 0;
@@ -477,9 +477,7 @@ node.isDraggable = true;
 }
 // search the mesh's children for the face-geo
 if (node.isMesh && node.name == data.parts) {
-  var instance=null;
-  instance = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-
+var instance=setInstance(data);
 // create video texture from video element
 instance.on('change', (colorvalue) => {
 
@@ -553,31 +551,30 @@ const scanAll = async (tableName) => {
 
     }
 
-    function addImage(data){
-var image;
+    function setInstance(data){
       if(data.parts=="seatstays"){
-        image = "/images/seatstay.png";
+        instance = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
       }
       else if(data.parts=="headtube"){
-        image = "/images/headtube.png";
+        instance = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
 
       }else if(data.parts=="frame"){
-        image = "/images/frame.png";
+        instance = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
 
       }else if(data.parts=="chainstays"){
-        image = "/images/chainstay.png";
+        instance = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
 
       }else if(data.parts=="airshock"){
-        image = "/images/airshock.png";
+        instance = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
 
       }else if(data.parts=="Pivot"){
-        image = "/images/pivot.png";
+        instance = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
 
       }else if(data.parts=="logo"){
-        image = "/images/logo.png";
+        instance = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
 
       }
-return image;
+return instance;
     }
     function loadProducts(data){
 
