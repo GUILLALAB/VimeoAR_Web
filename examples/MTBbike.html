@@ -416,7 +416,6 @@
     let container;
     let camera, scene, renderer, source;
     let controller;
-    let light_color_picker; 
     let clickMouse,
       moveMouse,
       raycaster,
@@ -488,40 +487,44 @@ var radius = 190;
 			}
 		});
 
-document.addEventListener("buttonclick", function (e) {
+    document.addEventListener("buttonclick", function (e) {
 
-			// alert(e.detail);
-			var data = e.detail;
-			if (data != null) {
-        console.log(data);
-      //  var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
-     
+// alert(e.detail);
+var data = e.detail;
+if (data != null) {
+  console.log(data);
+ var light_color_picker = 
+    new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
+//  var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 
-    light_color_picker.on('change', (colorvalue) => {
-   // document.getElementById("butterfly").style.setProperty('--butterfly-color', color.toHEX());
-   // document.getElementById("butterfly").style.setProperty('--butterfly-opacity', color.a / 255);
 
-    if (chair!=null) {
-    chair.traverse((node) => {
+// document.getElementById("butterfly").style.setProperty('--butterfly-color', color.toHEX());
+// document.getElementById("butterfly").style.setProperty('--butterfly-opacity', color.a / 255);
+
+if (chair!=null) {
+chair.traverse((node) => {
 
 if (node.isMesh) {
-  node.castShadow = true;
+node.castShadow = true;
 //  node.name = link.IdRef;
-  node.isDraggable = true;
+node.isDraggable = true;
 }
 // search the mesh's children for the face-geo
 if (node.isMesh && node.name == data.parts) {
-  // create video texture from video element
-  node.material.color.set(colorvalue.toHEX());
-}
-});
-}
-    //dark_color_picker.color.fromHSVa(color.h, color.s, color.v, color.a);
-});
-			}
+// create video texture from video element
+light_color_picker.on('change', (colorvalue) => {
 
-  
-		});
+node.material.color.set(colorvalue.toHEX());
+});
+}
+});
+}
+//dark_color_picker.color.fromHSVa(color.h, color.s, color.v, color.a);
+
+}
+
+
+});
 
     initAWS();
     init();
@@ -668,8 +671,7 @@ var event = new CustomEvent("buttonclick", { "detail": test });
     }
 
     function init() {
-    light_color_picker = 
-    new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
+
       assetsPath = './ar-shop/';
       loadingBar = new LoadingBar();
       loadingBar.visible = false;
