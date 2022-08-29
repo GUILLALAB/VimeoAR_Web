@@ -433,7 +433,7 @@
     var mixer=null;
     var plane=null;
     var chair=null;
-    var colorinstance=[];
+    var colorinstance={};
 
     var angle = 0; // текущий угол
 var angularSpeed = THREE.Math.degToRad(20); // угловая скорость - градусов в секунду
@@ -478,7 +478,7 @@ node.isDraggable = true;
 // search the mesh's children for the face-geo
 if (node.isMesh && node.name == data.parts) {
   var instance=null;
-  for(i=0;i<colorinstance.length;i++){
+  for(i=0;i<=colorinstance.length;i++){
     if(data.parts==colorinstance[i]){
     colorinstance[i] = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
     instance=colorinstance[i];
