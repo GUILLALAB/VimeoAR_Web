@@ -143,9 +143,6 @@
         href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
       <div id="user-container">
 
-        <div id="upload" class="product-1 align-items-center p-2 text-center"> <img src="upload.png" class="rounded" width="50" height="35">
-      </div>
-
         <div hidden id="user-pic"></div>
         <div hidden id="user-name"></div>
         <button id="logout" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white" >Log Out</button>
@@ -170,7 +167,6 @@
 
   
 
-  <input type="text" placeholder="broadcaster channel name" id="myInput">
 
 
   <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
@@ -193,19 +189,7 @@
       </div>
       
     
-      <div class="flip-container">
-        <div class="flipper">
-          <div class="front color-picker-dark-theme"></div>
-          <div class="back color-picker-light-theme"></div>
-        </div>
-      </div>
-
-      <a hidden id="badgeButton" href="#" class="notification">
-        <span>sound</span>
-        <span id="object_badge" class="badge"></span>
-      </a>
-      <ul id="object_product"></ul>
-  </div>
+       </div>
 
     <!-- Messages container -->
     <div id="messages-card"
@@ -449,7 +433,6 @@
     let videoDevices = [];
     var object_badge = 0;
     var object_badges;
-    var badgeButton;
     // canvas green screen controls
     const gFloorRange = 105;
     const rbCeilingRange = 80;
@@ -738,12 +721,6 @@ scene.add(dirLight4);
 
       clock = new THREE.Clock();
 
-      object_badges = document.getElementById('object_badge');
-      object_badges.textContent = object_badge;
-      badgeButton = document.getElementById('badgeButton');
-      badgeButton.addEventListener("click", function (e) {
-  document.getElementById("video").muted = !document.getElementById("video").muted;
-});
 setAds3DModel("https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/video/5789c62c-4c34-459c-8f3a-a5b744266fc2/7a6341ab-997e-4dd3-8a0a-1fa7f28a3886/objects/bikeframe3.glb");
       //createBroadcaster();
       //
