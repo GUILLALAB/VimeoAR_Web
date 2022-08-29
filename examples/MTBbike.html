@@ -655,7 +655,8 @@ var event = new CustomEvent("buttonclick", { "detail": test });
       camera.position.z = 70;
 
       renderer = new THREE.WebGLRenderer({ canvas: canvas });
-      renderer.setSize(window.innerWidth, window.innerHeight);
+     // renderer.setSize(window.innerWidth, window.innerHeight);
+     onWindowResize();
       renderer.shadowMap.enabled = true;
 
   
