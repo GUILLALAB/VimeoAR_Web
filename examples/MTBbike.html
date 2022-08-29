@@ -160,31 +160,6 @@
       <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"></a>
     </div>
 
-    <div id="background-container">
-      <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-    </div>
-    <div id="caption-container">
-      <div id="butterfly"><div class="wings"></div></div>
-    
-    </div>
-    <div class="flip-container">
-      <div class="flipper">
-        <div class="front color-picker-dark-theme"></div>
-        <div class="back color-picker-light-theme"></div>
-      </div>
-    </div>
-     </div>
   </div>
 
   
@@ -195,6 +170,31 @@
     <div class="row">
 
 
+      <div id="background-container">
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+      <div id="caption-container">
+        <div id="butterfly"><div class="wings"></div></div>
+      
+      </div>
+    	<div class="flip-container">
+        <div class="flipper">
+          <div class="front color-picker-dark-theme"></div>
+          <div class="back color-picker-light-theme"></div>
+        </div>
+      </div>
+       </div>
 
     <!-- Messages container -->
     <div id="messages-card"
@@ -446,6 +446,10 @@ var radius = 190;
     var airshock;
     var Pivot;
     var logo;
+    var tires;
+    var Suspension;
+    var hubs;
+    var fork;
 
 
     function removeEntity(object) {
@@ -589,6 +593,20 @@ const scanAll = async (tableName) => {
          logo = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
          instance=logo;
       }
+      else if(data.parts=="fork"){
+        fork = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
+         instance=fork;
+      }
+      else if(data.parts=="Suspension"){
+        Suspension = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
+         instance=Suspension;
+      }else if(data.parts=="hubs"){
+        hubs = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
+         instance=hubs;
+      }else if(data.parts=="tires"){
+        tires = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
+         instance=tires;
+      }
       return instance;
     }
 
@@ -614,6 +632,16 @@ const scanAll = async (tableName) => {
       }else if(data.parts=="logo"){
          logo = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
 
+      }
+      else if(data.parts=="fork"){
+        fork = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
+      }
+      else if(data.parts=="Suspension"){
+        Suspension = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
+      }else if(data.parts=="hubs"){
+        hubs = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
+      }else if(data.parts=="tires"){
+        tires = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
       }
     }
 
