@@ -368,7 +368,7 @@
 var angularSpeed = THREE.Math.degToRad(20); // угловая скорость - градусов в секунду
 var delta = 0;
 var radius = 190;
-    var seatstays;
+    let seatstays;
     var headtube;
     var frame;
     var chainstays;
@@ -417,10 +417,9 @@ node.material.color.set(colorvalue.toHEX());
 }
 
 });
-
+    setInstance();
     initAWS();
     init();
-    setInstance();
 
 
     function initAWS(){
@@ -518,7 +517,6 @@ const scanAll = async (tableName) => {
 
     function setInstance(){
       
-        seatstays = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
          headtube = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
         frame = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
          chainstays = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
@@ -530,6 +528,7 @@ const scanAll = async (tableName) => {
         hubs = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
         tires = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
         rims = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
+        seatstays = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
 
     }
 
