@@ -426,13 +426,15 @@ body {
 
 .flip-container {
     position: absolute;
-    top: 52%;
-    left: 50%;
     transform: translate(-50%, -50%);
     width: 300px;
     height: 300px;
+    top: 0;
+    left: 0;
     background-color: transparent;
     perspective: 1000px;
+    z-index: 9;
+    margin: 20px;
 }
 .flip-container .flipper {
       position: relative;
