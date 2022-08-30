@@ -383,6 +383,7 @@ var radius = 190;
     var Suspension;
     var hubs;
     var fork;
+    var pass=0;
 
 
     function removeEntity(object) {
@@ -396,8 +397,7 @@ var radius = 190;
 var data = e.detail;
 if (data != null) {
   console.log(data);
-
-
+pass=pass+1;
 if (chair!=null) {
 chair.traverse((node) => {
 if (node.isMesh) {
@@ -407,7 +407,7 @@ console.log(node.name);
 node.isDraggable = true;
 }
 // search the mesh's children for the face-geo
-if (node.isMesh && node.name == data) {
+if (pass==1 && node.isMesh && node.name == data) {
   var instances = GetInstance(data);
 instances.on('change', (colorvalue) => {
 node.material.color.set(colorvalue.toHEX());
@@ -418,7 +418,6 @@ node.material.color.set(colorvalue.toHEX());
 //dark_color_picker.color.fromHSVa(color.h, color.s, color.v, color.a);
 
 }
-
 
 });
 
@@ -448,7 +447,7 @@ AWS.config.region = region;
         if(value[i]!== undefined){
      // console.log(value[i]);
       loadProducts(value[i]);
-setInstance(value[i]);
+      setInstance(value[i]);
     }
       }
     // expected output: 123
@@ -590,7 +589,7 @@ return image;
     }
     function loadProducts(data){
 
-var li = document.createElement('li');
+var li = document.createElement('div');
 
 var Template = '<div  class="card mt-1">'+
 '<div id="btn" class="product-1 align-items-center p-2 text-center"> <img src="'+addImage(data)+'" class="rounded" width="150" height="100">'+
