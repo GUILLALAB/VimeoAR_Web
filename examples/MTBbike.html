@@ -410,13 +410,12 @@ if (node.isMesh && node.name == data) {
   seatstays.on('change', (colorvalue) => {
 node.material.color.set(colorvalue.toHEX());
 document.getElementById("home_product").querySelector('li[id='+data+']').querySelector("#"+data+"").value = colorvalue.toHEX();
-document.getElementById("home_product").querySelector('li[id='+data+']').querySelector("#"+data+"").style.color = colorvalue.toHEX();
+//document.getElementById("home_product").querySelector('li[id='+data+']').querySelector("#"+data+"").style.color = colorvalue.toHEX();
 
 });
 }
 });
 }
-//dark_color_picker.color.fromHSVa(color.h, color.s, color.v, color.a);
 
 }
 
