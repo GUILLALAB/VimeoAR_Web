@@ -409,6 +409,8 @@ if (node.isMesh && node.name == data) {
 
   seatstays.on('change', (colorvalue) => {
 node.material.color.set(colorvalue.toHEX());
+document.getElementById("home_product").querySelector('li[id="'+data+'"]').querySelector("#'"+data+"'") = colorvalue.toHEX();
+
 });
 }
 });
@@ -591,17 +593,16 @@ var Template = '<div  class="card mt-1">'+
 '<div id="btn" class="product-1 align-items-center p-2 text-center"> <img src="'+addImage(data)+'" class="rounded" width="150" height="100">'+
     '<div class="message"> <span class="text1 d-block">'+ data.parts+' </span> </div>'+
 '</div>'+
+'<input type="text" id='+ data.parts+'  name=""></input>'+
 '</div>';
 
 li.innerHTML = Template;
 
-li.setAttribute('id', data.id);
+li.setAttribute('id', data.parts);
 
 li.querySelector("#btn").myParam = data.parts;
 
 li.querySelector("#btn").addEventListener('click', myFunc, false);
-
-
 document.getElementById("home_product").appendChild(li);
     }
 
