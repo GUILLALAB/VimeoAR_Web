@@ -638,21 +638,20 @@ var event = new CustomEvent("buttonclick", { "detail": test });
 
   
 
-      const planeGeometry = new THREE.PlaneBufferGeometry(40, 40, 8, 8);
-    //  const planeMaterial = new THREE.MeshPhongMaterial({ color: 0x222222 });
+ /*     const planeGeometry = new THREE.PlaneBufferGeometry(40, 40, 8, 8);
       const   planeMaterial = new THREE.MeshBasicMaterial({
         color: 0x222222,
         wireframe: true
-    });
+    });*/
   //    planeMaterial.transparent = true;
 // set opacity to 50%
 //planeMaterial.opacity = 0.8; 
-       plane = new THREE.Mesh(planeGeometry, planeMaterial);
+    /*   plane = new THREE.Mesh(planeGeometry, planeMaterial);
       plane.rotateX(-Math.PI / 2);
       plane.position.y = -3;
       plane.receiveShadow = true;
       plane.isDraggable = false;
-      scene.add(plane);
+      scene.add(plane);*/
 
       controls = new OrbitControls(camera, renderer.domElement);
       controls.enableDamping = true;
