@@ -207,11 +207,7 @@
   </div>
 
 
-  <video id="video" autoplay="true"
-  muted="muted" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
-    <source id="source" src="video.mp4" type="video/mp4">
-  </video>
-
+  
   <canvas id="c"></canvas>
 
   <div class="container py5">
@@ -396,10 +392,10 @@ var radius = 190;
     document.addEventListener("buttonclick", function (e) {
 var data = e.detail;
 if (data != null) {
-  console.log(data);
-pass=pass+1;
 if (chair!=null) {
 chair.traverse((node) => {
+  pass=pass+1;
+
 if (node.isMesh) {
 node.castShadow = true;
 console.log(node.name);
@@ -408,6 +404,8 @@ node.isDraggable = true;
 }
 // search the mesh's children for the face-geo
 if (pass==1 && node.isMesh && node.name == data) {
+  console.log(node.name);
+
   var instances = GetInstance(data);
 instances.on('change', (colorvalue) => {
 node.material.color.set(colorvalue.toHEX());
@@ -589,7 +587,7 @@ return image;
     }
     function loadProducts(data){
 
-var li = document.createElement('div');
+var li = document.createElement('li');
 
 var Template = '<div  class="card mt-1">'+
 '<div id="btn" class="product-1 align-items-center p-2 text-center"> <img src="'+addImage(data)+'" class="rounded" width="150" height="100">'+
