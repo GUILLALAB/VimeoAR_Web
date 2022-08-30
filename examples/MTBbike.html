@@ -406,9 +406,7 @@ node.isDraggable = true;
 if (node.isMesh && node.name == data) {
   console.log(node.name);
 
-  var test = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-
-  test.on('change', (colorvalue) => {
+  seatstays.on('change', (colorvalue) => {
 node.material.color.set(colorvalue.toHEX());
 });
 }
