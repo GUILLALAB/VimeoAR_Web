@@ -169,7 +169,7 @@
   <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
     <div class="row">
 
-
+      <div class="example"></div>
       <div id="background-container">
         <ul>
           <li></li>
@@ -405,6 +405,11 @@ node.isDraggable = true;
 // search the mesh's children for the face-geo
 if (node.isMesh && node.name == data) {
   console.log(node.name);
+
+  seatstays= new ColorPickerControl({ 
+    container: document.querySelector('.example'),
+    theme: 'light'
+});
 
   seatstays.on('change', (colorvalue) => {
 node.material.color.set(colorvalue.toHEX());
