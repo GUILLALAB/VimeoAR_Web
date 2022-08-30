@@ -11,7 +11,7 @@ html, input, select, textarea {
 input[type=text] {
   border: 2px solid white;
   border-radius: 4px;
-  height: 33px;
+  text-align: center;
 }
 
   @media screen and (max-width: 1680px) {
