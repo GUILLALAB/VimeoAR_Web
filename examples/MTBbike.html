@@ -405,7 +405,7 @@ node.isDraggable = true;
 if (node.isMesh && node.name == data) {
   console.log(node.name);
 
-  var instances = GetInstance(data);
+  var instances = GetInstance(node.name);
 instances.on('change', (colorvalue) => {
 node.material.color.set(colorvalue.toHEX());
 });
@@ -420,6 +420,8 @@ node.material.color.set(colorvalue.toHEX());
 
     initAWS();
     init();
+    setInstance();
+
 
     function initAWS(){
      
@@ -444,7 +446,6 @@ AWS.config.region = region;
         if(value[i]!== undefined){
      // console.log(value[i]);
       loadProducts(value[i]);
-      setInstance(value[i]);
     }
       }
     // expected output: 123
@@ -478,83 +479,54 @@ const scanAll = async (tableName) => {
     function GetInstance(data){
       var instance=null;
       if(data=="seatstays"){
-        seatstays = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
         instance=seatstays;
       }
       else if(data=="headtube"){
-        headtube = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
          instance=headtube;
 
       }else if(data=="frame"){
-        frame = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
         instance=frame;
 
       }else if(data=="chainstays"){
-        chainstays = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
          instance=chainstays;
 
       }else if(data=="airshock"){
-        airshock = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
         instance=airshock;
 
       }else if(data=="Pivot"){
-        Pivot = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
          instance=Pivot;
 
       }else if(data=="logo"){
-        logo = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
          instance=logo;
       }
       else if(data=="fork"){
-        fork = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
          instance=fork;
       }
       else if(data=="Suspension"){
-        Suspension = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
          instance=Suspension;
       }else if(data=="hubs"){
-        hubs = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
          instance=hubs;
       }else if(data=="tires"){
-        tires = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
          instance=tires;
       }
       return instance;
     }
 
-    function setInstance(data){
-      if(data.parts=="seatstays"){
+    function setInstance(){
+      
         seatstays = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-      }
-      else if(data.parts=="headtube"){
          headtube = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-
-      }else if(data.parts=="frame"){
         frame = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-
-      }else if(data.parts=="chainstays"){
          chainstays = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-
-      }else if(data.parts=="airshock"){
         airshock  = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-
-      }else if(data.parts=="Pivot"){
          Pivot = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-
-      }else if(data.parts=='logo'){
          logo = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-
-      }
-      else if(data.parts=="fork"){
-        fork = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-      }
-      else if(data.parts=="Suspension"){
+        fork = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' }); 
         Suspension = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-      }else if(data.parts=="hubs"){
         hubs = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-      }else if(data.parts=="tires"){
         tires = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-      }
+        rims = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
+
     }
 
     function addImage(data){
