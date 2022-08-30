@@ -405,9 +405,7 @@ node.isDraggable = true;
 // search the mesh's children for the face-geo
 if (node.isMesh && node.name == data) {
   console.log(node.name);
-
-  var instances = GetInstance(node.name);
-instances.on('change', (colorvalue) => {
+  GetInstance(node.name).on('change', (colorvalue) => {
 node.material.color.set(colorvalue.toHEX());
 });
 }
@@ -509,6 +507,9 @@ const scanAll = async (tableName) => {
          instance=hubs;
       }else if(data=="tires"){
          instance=tires;
+      }
+      else if(data=="rims"){
+         instance=rims;
       }
       console.log(instance);
       return instance;
