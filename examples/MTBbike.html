@@ -402,7 +402,7 @@ node.castShadow = true;
 node.isDraggable = true;
 }
 // search the mesh's children for the face-geo
-if (pass==1 && node.isMesh && node.name == data) {
+if (node.isMesh && node.name == data) {
   console.log(node.name);
 
   var instances = GetInstance(data);
