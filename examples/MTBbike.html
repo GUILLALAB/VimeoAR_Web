@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Live AR - Visualize</title>
+  <title>MTB Bike Design</title>
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
   <style>
@@ -207,11 +207,6 @@
   </div>
 
 
-  <video id="video" autoplay="true"
-  muted="muted" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
-    <source id="source" src="video.mp4" type="video/mp4">
-  </video>
-
   <canvas id="c"></canvas>
 
   <div class="container py5">
@@ -224,44 +219,6 @@
 
 
   <script src="utils.js"></script>
-
-
-  <script id="vertexShader" type="glsl">
-
-    varying vec2 vUv;
-    void main( void ) {
-      vUv = uv;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
-    }
-
-    </script>
-
-
-  <script id="fragmentShader" type="glsl">
-
-    uniform vec3 keyColor;
-    uniform float similarity;
-    uniform float smoothness;
-    varying vec2 vUv;
-    uniform sampler2D map;
-    void main() {
-
-      vec4 videoColor = texture2D(map, vUv);
-
-      float Y1 = 0.299 * keyColor.r + 0.587 * keyColor.g + 0.114 * keyColor.b;
-      float Cr1 = keyColor.r - Y1;
-      float Cb1 = keyColor.b - Y1;
-
-      float Y2 = 0.299 * videoColor.r + 0.587 * videoColor.g + 0.114 * videoColor.b;
-      float Cr2 = videoColor.r - Y2;
-      float Cb2 = videoColor.b - Y2;
-
-      float blend = smoothstep(similarity, similarity + smoothness, distance(vec2(Cr2, Cb2), vec2(Cr1, Cb1)));
-      gl_FragColor = vec4(videoColor.rgb, videoColor.a * blend);
-    }
-
-    </script>
-
    
     <script>
 
@@ -376,58 +333,28 @@
     import { OrbitControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/examples/jsm/controls/OrbitControls.js';
     import { GLTFLoader } from './jsm/GLTFLoader.js';
 
-    import { FBXLoader } from './jsm/FBXLoader.js';
-
     import { LoadingBar } from './jsm/LoadingBar.js';
-    import { ARButton } from './jsm/webxr/ARButton.js';
 
     let container;
     let camera, scene, renderer, source;
     let controller;
-    let clickMouse,
-      moveMouse,
-      raycaster,
-      draggableObject;
     var importedObject = null;
-    var importedObjectposition;
     var video = null;
-    let reticle, controls, canvas;
+    let controls, canvas;
     var cube, texture, material;
-    var isset = 0;
-    let videoTexture;
-    let videoImageContext;
-    let hitTestSource = null;
-    let hitTestSourceRequested = false;
     var client = null;
     var ads = null;
     var mesh = null;
     var tex = null;
-    var streamCount;
-    var channelName;
-    var agoraAppId;
-    var rtmClient = null;
     var offscreenCanvas;
-    var videoElement;
-    var transparentCanvas;
-    var callBtnTransparent;
-    var videoEnabled;
-    var transparencyEnabled;
     var offscreenCanvas;
     let height, width;
-    let videoDevices = [];
     var object_badge = 0;
-    var object_badges;
     // canvas green screen controls
-    const gFloorRange = 105;
-    const rbCeilingRange = 80;
-    const FRAME_RATE = 25;
-    let videoWidth = 320;
-    let videoHeight = 240;
     var assetsPath;
     // Safari & Firefox don't support OffscreenCanvas
     var instance=null;
     var loadingBar;
-    let segmentedCanvas;
     var clock;
     var objects = 0;
     var mixer=null;
@@ -457,32 +384,20 @@ var radius = 190;
     scene.remove( selectedObject );
     animate();
 }
-    document.addEventListener("objectclick", function (e) {
- 
-			// alert(e.detail);
-			var data = e.detail;
-			if (data != null) {
-        console.log(data);
-        setAds3DModel(data);
-			}
-		});
+   
 
     document.addEventListener("buttonclick", function (e) {
-// alert(e.detail);
 var data = e.detail;
 if (data != null) {
   console.log(data);
-//  var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 
-
-// document.getElementById("butterfly").style.setProperty('--butterfly-color', color.toHEX());
-// document.getElementById("butterfly").style.setProperty('--butterfly-opacity', color.a / 255);
 
 if (chair!=null) {
 chair.traverse((node) => {
 
 if (node.isMesh) {
 node.castShadow = true;
+console.log(node.name);
 //  node.name = link.IdRef;
 node.isDraggable = true;
 }
@@ -490,7 +405,6 @@ node.isDraggable = true;
 if (node.isMesh && node.name == data.parts) {
   var instances = GetInstance(data);
 
-// create video texture from video element
 instances.on('change', (colorvalue) => {
 
 node.material.color.set(colorvalue.toHEX());
@@ -699,37 +613,9 @@ var event = new CustomEvent("buttonclick", { "detail": test });
   document.dispatchEvent(event);
 }
 
-    function myFunction() {
-      video.play();
-    }
 
 
-    function StopVideo() {
-      document.getElementById('video').pause();
-    }
 
-    function PlayVideo(srcVideo){
-
- const hls = new Hls();
-  if (Hls.isSupported()) {
-    hls.loadSource(srcVideo.hlsUrl);
-    hls.attachMedia(video);
-    hls.on(Hls.Events.MANIFEST_PARSED, function () {
-      video.play();
-      console.log("HLS");
-    });
-  } else {
-    // HLS isnt supported in iOS, so we do it natively
-    var file = "https://"+srcVideo.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+srcVideo.srcVideo;
-    video.src = file;
-    console.log("MP4");
-    video.addEventListener("loadedmetadata", function () {
-      video.play();
-    });
-  }
-
-      
-    }
 
     function init() {
 
@@ -816,22 +702,7 @@ setAds3DModel("https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/v
           angle += angularSpeed * delta; // приращение угла
           camera.lookAt(plane.position);
         }*/
-
-        if (video != null) {
-          if (video.readyState === video.HAVE_ENOUGH_DATA) {
-            if (texture)
-              texture.needsUpdate = true;
-          }
-        }
-
-          if (mixer != null) {
-          var delta = clock.getDelta();
-          mixer.update(delta);
-        }
-        if(mesh!=null){
-          mesh.lookAt(camera.position);
-
-        }
+       
 
         // var position = new THREE.Vector3();
         // position.setFromMatrixPosition(cube.matrixWorld);
@@ -842,11 +713,7 @@ setAds3DModel("https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/v
       };
       animate();
     }
-    function rotateObject(object, degreeX=0, degreeY=0, degreeZ=0) {
-   object.rotateX(THREE.Math.degToRad(degreeX));
-   object.rotateY(THREE.Math.degToRad(degreeY));
-   object.rotateZ(THREE.Math.degToRad(degreeZ));
-}
+  
 
 // usage:
     function setAds3DModel(link) {
@@ -897,17 +764,6 @@ setAds3DModel("https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/v
           scene.updateMatrixWorld(true);
 
           objects = objects + 4;
-          if (gltf.animations != null) {
-            mixer = new THREE.AnimationMixer(chair);
-            const clips = gltf.animations; // second animation;
-            //  const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
-            //  console.log(clip);
-            //  mixer.clipAction( clip).play();
-            clips.forEach(function (clip) {
-              mixer.clipAction(clip).play();
-            });
-
-          }
 
           chair.visible = true;
         },
@@ -941,71 +797,11 @@ setAds3DModel("https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/v
 
     }
 
-
-   
-
-
- 
-
-   
-
-    // Agora RT
-    // setu the RTM clit and channel
-
-
-    function createBroadcaster() {
-      // create video element
-      video = document.getElementById('video');
-      source = document.getElementById('source');
-
-      video.setAttribute('webkit-playsinline', 'webkit-playsinline');
-      video.setAttribute('playsinline', 'playsinline');
-      video.pause();
-      video.setAttribute('crossorigin', 'anonymous');
-      source.src = "https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/bike4.mp4";
-      video.load();
-      texture = new THREE.VideoTexture(video);
-      texture.minFilter = THREE.LinearFilter;
-      texture.magFilter = THREE.LinearFilter;
-      texture.format = THREE.RGBFormat;
-
-      var geometry = new THREE.PlaneBufferGeometry(300, 140);
-
-      const vertexShader = document.getElementById("vertexShader").textContent;
-      const fragmentShader = document.getElementById("fragmentShader").textContent;
-
-      material = new THREE.ShaderMaterial({
-        transparent: true,
-        uniforms: {
-          map: { value: texture },
-          keyColor: { value: [0.0, 1.0, 0.0] },
-          similarity: { value: 0.74 },
-          smoothness: { value: 0.0 }
-        },
-        vertexShader: vertexShader,
-        fragmentShader: fragmentShader
-      });
-      material.color = new THREE.Color();
-      material.metalness = 0;
-      mesh = new THREE.Mesh(geometry, material);
-      scene.add(mesh);
-      mesh.position.set(0.0, 13, -100.0);
-video.play();
-     // video.play();
-        isset = 1;
-     
-      //ads
-
-    }
-
-  
   </script>
-  <!--<script type="module" src="/js/index_greenscreen.js"></script>-->
   <script src="/js/main.min.js"></script>
 
   
 </body>
 
-<!-- for broadcast user use: https://digitallysavvy.github.io/group-video-chat -->
 
 </html>
