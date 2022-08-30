@@ -400,7 +400,6 @@ if (data != null) {
 
 if (chair!=null) {
 chair.traverse((node) => {
-
 if (node.isMesh) {
 node.castShadow = true;
 console.log(node.name);
@@ -408,11 +407,9 @@ console.log(node.name);
 node.isDraggable = true;
 }
 // search the mesh's children for the face-geo
-if (node.isMesh && node.name == data.parts) {
+if (node.isMesh && node.name == data) {
   var instances = GetInstance(data);
-
 instances.on('change', (colorvalue) => {
-
 node.material.color.set(colorvalue.toHEX());
 });
 }
@@ -484,35 +481,35 @@ const scanAll = async (tableName) => {
     
     function GetInstance(data){
       var instance=null;
-      if(data.parts=="seatstays"){
+      if(data=="seatstays"){
         instance=seatstays;
       }
-      else if(data.parts=="headtube"){
+      else if(data=="headtube"){
          instance=headtube;
 
-      }else if(data.parts=="frame"){
+      }else if(data=="frame"){
         instance=frame;
 
-      }else if(data.parts=="chainstays"){
+      }else if(data=="chainstays"){
          instance=chainstays;
 
-      }else if(data.parts=="airshock"){
+      }else if(data=="airshock"){
         instance=airshock;
 
-      }else if(data.parts=="Pivot"){
+      }else if(data=="Pivot"){
          instance=Pivot;
 
-      }else if(data.parts=="logo"){
+      }else if(data=="logo"){
          instance=logo;
       }
-      else if(data.parts=="fork"){
+      else if(data=="fork"){
          instance=fork;
       }
-      else if(data.parts=="Suspension"){
+      else if(data=="Suspension"){
          instance=Suspension;
-      }else if(data.parts=="hubs"){
+      }else if(data=="hubs"){
          instance=hubs;
-      }else if(data.parts=="tires"){
+      }else if(data=="tires"){
          instance=tires;
       }
       return instance;
@@ -537,7 +534,7 @@ const scanAll = async (tableName) => {
       }else if(data.parts=="Pivot"){
          Pivot = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
 
-      }else if(data.parts=="logo"){
+      }else if(data.parts=='logo'){
          logo = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
 
       }
@@ -605,7 +602,7 @@ li.innerHTML = Template;
 
 li.setAttribute('id', data.id);
 
-li.querySelector("#btn").myParam = data;
+li.querySelector("#btn").myParam = data.parts;
 
 li.querySelector("#btn").addEventListener('click', myFunc, false);
 
