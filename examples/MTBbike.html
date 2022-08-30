@@ -62,7 +62,7 @@
       background: rgb(255, 255, 255);
     }
     .row {
-    display: block;
+    display: inline-block;
     overflow: auto;
     overflow-y: hidden;
     max-width: 100%;
@@ -71,7 +71,7 @@
 }
 
 .row li {
-    display: block;
+    display: inline-block;
     vertical-align: top;
 }
     .notification {
@@ -163,9 +163,7 @@
   </div>
 
   
-  <div class="row">
-    <ul id="home_product"></ul>
-</div>
+
 
 
   <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
@@ -209,16 +207,24 @@
   </div>
 
 
+  <video id="video" autoplay="true"
+  muted="muted" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
+    <source id="source" src="video.mp4" type="video/mp4">
+  </video>
+
   <canvas id="c"></canvas>
 
   <div class="container py5">
   
-
+    <div class="row">
+        <ul id="home_product"></ul>
+    </div>
 
 </div>
 
 
   <script src="utils.js"></script>
+
    
     <script>
 
