@@ -38,7 +38,6 @@
 
 .color-picker{
     position: absolute;
-    top: -70%;
     left: 10%;
     transform: translate(-50%, -50%);
     width: 180px;
