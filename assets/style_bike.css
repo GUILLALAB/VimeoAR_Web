@@ -617,7 +617,7 @@ div {
 }
 
 ul{
-  display: inline-flex;
+  display: block;
   overflow: auto;
 }
 
