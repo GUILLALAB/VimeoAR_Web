@@ -788,10 +788,10 @@ setAds3DModel("https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/v
 
     function onWindowResize() {
 
-      camera.aspect = window.innerWidth-200 / window.innerHeight-200;
+      camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
 
-      renderer.setSize(window.innerWidth-200, window.innerHeight-200);
+      renderer.setSize(window.innerWidth, window.innerHeight-200);
 
     }
 
