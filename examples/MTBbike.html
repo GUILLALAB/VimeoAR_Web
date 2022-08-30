@@ -442,7 +442,7 @@ AWS.config.region = region;
     console.log("Access key:", AWS.config.credentials.accessKeyId);
     const itemsAll = scanAll("MTB");
     itemsAll.then(function(value) {
-      for(var i =0;i<11;i++){
+      for(var i =0;i<13;i++){
         if(value[i]!== undefined){
      // console.log(value[i]);
       loadProducts(value[i]);
