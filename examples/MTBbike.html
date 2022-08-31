@@ -381,21 +381,7 @@ var radius = 190;
     var fork;
     var pass=0;
     var rims;
-    let text = '{{ "id":"1" , "parts":"tires" },' +
-'{ "id":"2" , "parts":"hubs" },' +
-'{ "id":"3" , "parts":"rims" },'+
-'{ "id":"12" , "parts":"fork" },'+
-'{ "id":"11" , "parts":"Suspension" },'+
-'{ "id":"4" , "parts":"seatstays" },'+
-'{ "id":"5" , "parts":"chainstays" },'+
-'{ "id":"13" , "parts":"Pivot" },'+
-'{ "id":"14" , "parts":"airshock" },'+
-'{ "id":"6" , "parts":"frame" },'+
-'{ "id":"7" , "parts":"logo" },'+
-'{ "id":"8" , "parts":"headtube" },'+
-'{ "id":"9" , "parts":"Stem" },'+
-'{ "id":"10" , "parts":"Handlebar"}}';
-
+ 
     function removeEntity(object) {
     var selectedObject = scene.getObjectByName(object.name);
     scene.remove( selectedObject );
@@ -450,11 +436,31 @@ document.getElementById("home_product").querySelector('li[id='+data+']').querySe
 AWS.config.region = region;
 
 
-const obj = JSON.parse(text);
-Object.entries(obj).forEach((entry) => {
-  const [key, value] = entry;
-  console.log(`${key}: ${value}`);
-});
+
+var arr = [ { "id":"1" , "parts":"tires" }, 
+{ "id":"2" , "parts":"hubs" }, 
+{ "id":"3" , "parts":"rims" },+
+{ "id":"12" , "parts":"fork" },+
+{ "id":"11" , "parts":"Suspension" },+
+{ "id":"4" , "parts":"seatstays" },+
+{ "id":"5" , "parts":"chainstays" },+
+{ "id":"13" , "parts":"Pivot" },+
+{ "id":"14" , "parts":"airshock" },+
+{ "id":"6" , "parts":"frame" },+
+{ "id":"7" , "parts":"logo" },+
+{ "id":"8" , "parts":"headtube" },+
+{ "id":"9" , "parts":"Stem" },+
+{ "id":"10" , "parts":"Handlebar"}];
+    
+for (var i = 0; i < arr.length; i++){
+  var obj = arr[i];
+  for (var key in obj){
+    var value = obj[key];
+    console.log( key + ": " + value);
+  }
+}
+
+
 for(var i =0;i<obj.length;i++){
         if(value[i]!== undefined){
      // console.log(value[i]);
