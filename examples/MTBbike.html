@@ -451,6 +451,7 @@ var event = new CustomEvent("buttonclick", { "detail": test });
       camera.position.z = 70;
 
       renderer = new THREE.WebGLRenderer({ canvas: canvas });
+      renderer.physicallyCorrectLights=true;
      // renderer.setClearColor( 0x716B6C );
      // renderer.setSize(window.innerWidth, window.innerHeight);
      onWindowResize();
