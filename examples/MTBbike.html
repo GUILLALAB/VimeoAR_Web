@@ -488,7 +488,17 @@ dirLight4.position.set(0, 0, +50.0);
 dirLight4.castShadow = true;
 scene.add(dirLight4);
 
+const dirLight5= new THREE.DirectionalLight(0xffffff);
 
+dirLight5.position.set(100.0, 0, +50.0);
+dirLight5.castShadow = true;
+scene.add(dirLight5);
+
+const dirLight6= new THREE.DirectionalLight(0xffffff);
+
+dirLight6.position.set(-100.0, 0, +50.0);
+dirLight6.castShadow = true;
+scene.add(dirLight6);
 
       clock = new THREE.Clock();
 
