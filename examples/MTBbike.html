@@ -222,114 +222,6 @@
   <script src="utils.js"></script>
 
    
-    <script>
-
-      //=============== AWS IDs ===============
-      var userPoolId = 'eu-west-1_3x9L2hsjh';
-      var clientId = '4gkuhfpqeo9rc279nh727l3sco';
-      var region = 'eu-west-1';
-      var identityPoolId = 'eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b';
-      //=============== AWS IDs ===============
-    
-      var cognitoUser;
-      var idToken;
-      var userPool;
-      
-      var poolData = { 
-        UserPoolId : userPoolId,
-        ClientId : clientId
-      };
-      getCurrentLoggedInSession();
-      
-    document.getElementById("logout").addEventListener("click", function (e) {
-      if( $("#logout").text()==="SIGN IN"){
-        window.location = "https://livear.herokuapp.com/login";
-      }else{
-        logOut();
-      }
-    });
-   
-    
-      function getCurrentLoggedInSession(){
-    
-    userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-    cognitoUser = userPool.getCurrentUser();
-    
-    if(cognitoUser != null){
-      cognitoUser.getSession(function(err, session) {
-        if (err) {
-          console.log(err.message);
-        }else{
-          console.log('Session found! Logged in.');
-          idToken = session.getIdToken().getJwtToken();
-          localStorage.setItem("sub", session.getIdToken().decodePayload().sub);
-          $("#logout").show();
-    
-          getCognitoIdentityCredentials();
-        }
-      });
-    }else{
-      $("#logout").show();
-      $("#logout").html("SIGN IN");
-
-      console.log('Logout');
-     // window.location = "https://livear.herokuapp.com/login";
-    
-    }
-    
-    }
-    function logOut(){
-          if (cognitoUser != null) {
-            cognitoUser.signOut();
-            $("#logout").html("SIGN IN");
-            console.log('Logged out!');
-          //  window.location = "https://livear.herokuapp.com/login";
-          }
-        }
-    
-        function getCognitoIdCredentials(){
-          AWS.config.region = region;
-    
-          var loginMap = {};
-          loginMap['cognito-idp.' + region + '.amazonaws.com/' + userPoolId] = idToken;
-    
-          AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: identityPoolId,
-            Logins: loginMap
-          });
-    
-          AWS.config.credentials.clearCachedId();
-    
-        return AWS.config.credentials;
-        }
-        
-    function getCognitoIdentityCredentials(){
-          AWS.config.region = region;
-    
-          var loginMap = {};
-          loginMap['cognito-idp.' + region + '.amazonaws.com/' + userPoolId] = idToken;
-    
-          AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: identityPoolId,
-            Logins: loginMap
-          });
-    
-          AWS.config.credentials.clearCachedId();
-    
-          AWS.config.credentials.get(function(err) {
-            if (err){
-              console.log(err.message);
-            }
-            else {
-              console.log('AWS Access Key: '+ AWS.config.credentials.accessKeyId);
-              console.log('AWS Secret Key: '+ AWS.config.credentials.secretAccessKey);
-              console.log('AWS Session Token: '+ AWS.config.credentials.sessionToken);
-            }
-    
-          });
-        }
-    </script>
-
   <script type="module">
     import * as THREE from './jsm/three.module.js';
     import { OrbitControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/examples/jsm/controls/OrbitControls.js';
@@ -428,18 +320,18 @@ document.getElementById("home_product").querySelector('li[id='+data+']').querySe
      
 var arr = [ { "id":"1" , "parts":"tires" }, 
 { "id":"2" , "parts":"hubs" }, 
-{ "id":"3" , "parts":"rims" },+
-{ "id":"12" , "parts":"fork" },+
-{ "id":"11" , "parts":"Suspension" },+
-{ "id":"4" , "parts":"seatstays" },+
-{ "id":"5" , "parts":"chainstays" },+
-{ "id":"13" , "parts":"Pivot" },+
-{ "id":"14" , "parts":"airshock" },+
-{ "id":"6" , "parts":"frame" },+
-{ "id":"7" , "parts":"logo" },+
-{ "id":"8" , "parts":"headtube" },+
-{ "id":"9" , "parts":"Stem" },+
-{ "id":"10" , "parts":"Handlebar"}];
+{ "id":"3" , "parts":"rims" },
+{ "id":"4" , "parts":"fork" },
+{ "id":"5" , "parts":"Suspension" },
+{ "id":"6" , "parts":"seatstays" },
+{ "id":"7" , "parts":"chainstays" },
+{ "id":"8" , "parts":"Pivot" },
+{ "id":"9" , "parts":"airshock" },
+{ "id":"10" , "parts":"frame" },
+{ "id":"11" , "parts":"logo" },
+{ "id":"12" , "parts":"headtube" },
+{ "id":"13" , "parts":"Stem" },
+{ "id":"14" , "parts":"Handlebar"}];
     
 for (var i = 0; i < arr.length; i++){
   var obj = arr[i];
@@ -453,62 +345,6 @@ for (var i = 0; i < arr.length; i++){
 
     }
     
-    function GetInstance(data){
-      var instance=null;
-      if(data=="seatstays"){
-        instance=seatstays;
-      }
-      else if(data=="headtube"){
-         instance=headtube;
-
-      }else if(data=="frame"){
-        instance=frame;
-
-      }else if(data=="chainstays"){
-         instance=chainstays;
-
-      }else if(data=="airshock"){
-        instance=airshock;
-
-      }else if(data=="Pivot"){
-         instance=Pivot;
-
-      }else if(data=="logo"){
-         instance=logo;
-      }
-      else if(data=="fork"){
-         instance=fork;
-      }
-      else if(data=="Suspension"){
-         instance=Suspension;
-      }else if(data=="hubs"){
-         instance=hubs;
-      }else if(data=="tires"){
-         instance=tires;
-      }
-      else if(data=="rims"){
-         instance=rims;
-      }
-      console.log(instance);
-      return instance;
-    }
-
-    function setInstance(){
-      
-        seatstays = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-         headtube = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-        frame = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-         chainstays = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-        airshock  = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-         Pivot = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-         logo = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-        fork = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' }); 
-        Suspension = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-        hubs = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-        tires = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-        rims = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
-
-    }
 
     function addImage(data){
 var image;
@@ -560,6 +396,9 @@ var image;
       }
 return image;
     }
+
+
+
     function loadProducts(data){
 
 var li = document.createElement('li');
