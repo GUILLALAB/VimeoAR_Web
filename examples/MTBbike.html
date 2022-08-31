@@ -381,8 +381,7 @@ var radius = 190;
     var fork;
     var pass=0;
     var rims;
-    let text = '{ "bike" : [' +
-'{ "id":"1" , "parts":"tires" },' +
+    let text = '{{ "id":"1" , "parts":"tires" },' +
 '{ "id":"2" , "parts":"hubs" },' +
 '{ "id":"3" , "parts":"rims" },'+
 '{ "id":"12" , "parts":"fork" },'+
@@ -395,7 +394,7 @@ var radius = 190;
 '{ "id":"7" , "parts":"logo" },'+
 '{ "id":"8" , "parts":"headtube" },'+
 '{ "id":"9" , "parts":"Stem" },'+
-'{ "id":"10" , "parts":"Handlebar"} ]}';
+'{ "id":"10" , "parts":"Handlebar"}}';
 
     function removeEntity(object) {
     var selectedObject = scene.getObjectByName(object.name);
