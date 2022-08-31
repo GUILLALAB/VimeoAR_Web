@@ -296,7 +296,7 @@ node.isDraggable = true;
 // search the mesh's children for the face-geo
 if (node.isMesh && node.name == data) {
   console.log(node.name);
-  seatstays = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
+ var seatstays = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
 
   seatstays.on('change', (colorvalue) => {
 node.material.color.set(colorvalue.toHEX());
@@ -337,7 +337,7 @@ for (var i = 0; i < arr.length; i++){
   var obj = arr[i];
   for (var key in obj){
     var value = obj[key];
-    console.log( key + ": " + value);
+    console.log(value);
     loadProducts(value);
 
   }
