@@ -426,17 +426,6 @@ document.getElementById("home_product").querySelector('li[id='+data+']').querySe
 
     function initAWS(){
      
-      var userPoolId = 'eu-west-1_3x9L2hsjh';
-      var region = 'eu-west-1';
-      var identityPoolId = 'eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b';
-      //=============== AWS IDs ===============
-          var idToken;
-      
-
-AWS.config.region = region;
-
-
-
 var arr = [ { "id":"1" , "parts":"tires" }, 
 { "id":"2" , "parts":"hubs" }, 
 { "id":"3" , "parts":"rims" },+
@@ -457,55 +446,9 @@ for (var i = 0; i < arr.length; i++){
   for (var key in obj){
     var value = obj[key];
     console.log( key + ": " + value);
-  }
-}
-
-
-for(var i =0;i<obj.length;i++){
-        if(value[i]!== undefined){
-     // console.log(value[i]);
-      loadProducts(value[i]);
-    }
-      }
-
-    getCognitoIdCredentials().get(function(err) {
-  if (err) console.log(err.stack);
-  
-  // credentials not loaded
-  else {
-    console.log("Access key:", AWS.config.credentials.accessKeyId);
-    const itemsAll = scanAll("MTB");
-    itemsAll.then(function(value) {
-      for(var i =0;i<14;i++){
-        if(value[i]!== undefined){
-     // console.log(value[i]);
-      loadProducts(value[i]);
-    }
-      }
-    // expected output: 123
-});
+    loadProducts(value);
 
   }
-});
-
-const documentClient = new AWS.DynamoDB.DocumentClient();
-
-const scanAll = async (tableName) => {
-  let lastEvaluatedKey = 'dummy'; // string must not be empty
-  const itemsAll = [];
-  let table = { TableName: tableName };
-
-
-  while (lastEvaluatedKey) {
-    const data = await documentClient.scan(table).promise();
-    itemsAll.push(...data.Items);
-    lastEvaluatedKey = data.LastEvaluatedKey;
-    if (lastEvaluatedKey) {
-      table.ExclusiveStartKey = lastEvaluatedKey;
-      console.log(table.ExclusiveStartKey);
-    }
-  }
-  return itemsAll;
 }
 
     }
@@ -623,16 +566,16 @@ var li = document.createElement('li');
 
 var Template = '<div  class="card mt-1">'+
 '<div id="btn" class="product-1 align-items-center p-2 text-center"> <img src="'+addImage(data)+'" class="rounded" width="150" height="100">'+
-    '<div class="message"> <span class="text1 d-block">'+ data.parts+' </span> </div>'+
+    '<div class="message"> <span class="text1 d-block">'+ data+' </span> </div>'+
 '</div>'+
-'<input type="text" id='+ data.parts+'  name=""></input>'+
+'<input type="text" id='+ data+'  name=""></input>'+
 '</div>';
 
 li.innerHTML = Template;
 
-li.setAttribute('id', data.parts);
+li.setAttribute('id', data);
 
-li.querySelector("#btn").myParam = data.parts;
+li.querySelector("#btn").myParam = data;
 
 li.querySelector("#btn").addEventListener('click', myFunc, false);
 document.getElementById("home_product").appendChild(li);
