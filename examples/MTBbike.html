@@ -327,7 +327,10 @@ var arr = [ { "id":"1", "parts":"tires" },
 { "id":"11" , "parts":"logo" },
 { "id":"12" , "parts":"headtube" },
 { "id":"13" , "parts":"Stem" },
-{ "id":"14" , "parts":"Handlebar"}];
+{ "id":"14" , "parts":"Handlebar"},
+{ "id":"15" , "parts":"Cranks"},
+{ "id":"16" , "parts":"Pedals"}];
+
     
 
 for (var i=0; i<arr.length; i++){
@@ -386,6 +389,14 @@ for (var i=0; i<arr.length; i++){
       }
       else if(data=="rims"){
         image = "/images/rims.png";
+
+      }
+      else if(data=="Cranks"){
+        image = "/images/Cranks.png";
+
+      }
+      else if(data=="Pedals"){
+        image = "/images/Pedals.png";
 
       }
 return image;
