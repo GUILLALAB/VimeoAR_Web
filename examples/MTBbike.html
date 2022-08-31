@@ -464,23 +464,29 @@ var event = new CustomEvent("buttonclick", { "detail": test });
      
 
 
-      const dirLight1 = new THREE.DirectionalLight(0xffffff);
-      dirLight1.position.set(94.429, -9,75, -17.4);
+      const dirLight1 = new THREE.DirectionalLight(0xffffff,-0.12);
+      dirLight1.position.set(94.429, -9,75, -0.12);
       dirLight1.castShadow = true;
       scene.add(dirLight1);
 
-      const dirLight2 = new THREE.DirectionalLight(0xffffff);
+      const dirLight2 = new THREE.DirectionalLight(0xffffff,0.16);
 
       dirLight2.position.set(5, 86, -11.6);
       dirLight2.castShadow = true;
       scene.add(dirLight2);
 
 
-      const dirLight3 = new THREE.DirectionalLight(0xffffff);
+      const dirLight3 = new THREE.DirectionalLight(0xffffff,1);
 
-dirLight3.position.set(-83, 10, 142.9);
+dirLight3.position.set(5, 10, 7.5);
 dirLight3.castShadow = true;
 scene.add(dirLight3);
+
+const dirLight4 = new THREE.DirectionalLight(0xffffff,0.22);
+dirLight4.position.set(-39.3, 10, 69.5);
+dirLight4.castShadow = true;
+scene.add(dirLight4);
+
 
 
 
