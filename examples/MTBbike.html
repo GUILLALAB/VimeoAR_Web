@@ -452,7 +452,7 @@ AWS.config.region = region;
 
 
 const obj = JSON.parse(text);
-Object.entries(res).forEach((entry) => {
+Object.entries(obj).forEach((entry) => {
   const [key, value] = entry;
   console.log(`${key}: ${value}`);
 });
