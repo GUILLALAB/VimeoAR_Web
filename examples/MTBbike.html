@@ -653,9 +653,7 @@ var event = new CustomEvent("buttonclick", { "detail": test });
       plane.isDraggable = false;
       scene.add(plane);*/
 
-      controls = new OrbitControls(camera, renderer.domElement);
-      controls.enableDamping = true;
-      controls.update();
+     
 
 
       const dirLight1 = new THREE.DirectionalLight(0xffffff);
@@ -764,6 +762,10 @@ setAds3DModel("https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/v
           objects = objects + 4;
 
           chair.visible = true;
+
+          controls = new OrbitControls(camera, renderer.domElement,chair);
+      controls.enableDamping = true;
+      controls.update();
         },
         // called while loading is progressing
         function (xhr) {
