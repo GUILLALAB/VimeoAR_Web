@@ -318,7 +318,7 @@ document.getElementById("home_product").querySelector('li[id='+data+']').querySe
 
     function initAWS(){
      
-var arr = [ { "id":"1" , "parts":"tires" }, 
+var arr = [ { "id":"1", "parts":"tires" }, 
 { "id":"2" , "parts":"hubs" }, 
 { "id":"3" , "parts":"rims" },
 { "id":"4" , "parts":"fork" },
@@ -333,15 +333,13 @@ var arr = [ { "id":"1" , "parts":"tires" },
 { "id":"13" , "parts":"Stem" },
 { "id":"14" , "parts":"Handlebar"}];
     
-for (var i = 0; i < arr.length; i++){
-  var obj = arr[i];
-  for (var key in obj){
-    var value = obj[key];
-    console.log(value);
-    loadProducts(value);
 
-  }
+for (i=0; i<arr.length; i++){
+  console.log(arr[i].parts);
+  loadProducts(arr[i].parts);
+
 }
+
 
     }
     
