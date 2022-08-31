@@ -381,21 +381,7 @@ var radius = 190;
     var fork;
     var pass=0;
     var rims;
-    let text = '{ "bike" : [' +
-'{ "id":"1" , "parts":"tires" },' +
-'{ "id":"2" , "parts":"hubs" },' +
-'{ "id":"3" , "parts":"rims" },'+
-'{ "id":"12" , "parts":"fork" },'+
-'{ "id":"11" , "parts":"Suspension" },'+
-'{ "id":"4" , "parts":"seatstays" },'+
-'{ "id":"5" , "parts":"chainstays" },'+
-'{ "id":"13" , "parts":"Pivot" },'+
-'{ "id":"14" , "parts":"airshock" },'+
-'{ "id":"6" , "parts":"frame" },'+
-'{ "id":"7" , "parts":"logo" },'+
-'{ "id":"8" , "parts":"headtube" },'+
-'{ "id":"9" , "parts":"Stem" },'+
-'{ "id":"10" , "parts":"Handlebar"} ]}';
+
 
     function removeEntity(object) {
     var selectedObject = scene.getObjectByName(object.name);
@@ -449,20 +435,7 @@ document.getElementById("home_product").querySelector('li[id='+data+']').querySe
       
 
 AWS.config.region = region;
-
-
-const obj = JSON.parse(text);
-Object.entries(res).forEach((entry) => {
-  const [key, value] = entry;
-  console.log(`${key}: ${value}`);
-});
-for(var i =0;i<obj.length;i++){
-        if(value[i]!== undefined){
-     // console.log(value[i]);
-      loadProducts(value[i]);
-    }
-      }
-
+      
     getCognitoIdCredentials().get(function(err) {
   if (err) console.log(err.stack);
   
