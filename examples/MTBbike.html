@@ -184,10 +184,10 @@
         <div id="butterfly"><div class="wings"></div></div>
       
       </div>
-    	<div class="flip-container">
-        <div class="flipper">
+    	<div id="flip-container" class="flip-container">
+        <div id="flipper" class="flipper">
           <div class="front color-picker-dark-theme"></div>
-          <div class="back color-picker-light-theme"></div>
+          <div id="pickerlight" class="back color-picker-light-theme"></div>
         </div>
       </div>
        </div>
@@ -282,7 +282,7 @@ var data = e.detail;
 if (data != null) {
 if (chair!=null) {
 
-  document.getElementsByClassName("flip-container").getElementsByClassName("flipper").getElementsByClassName("back color-picker-light-theme").innerHTML="";
+  document.getElementById("flip-container").getElementById("flipper").getElementById("pickerlight").innerHTML="";
 
 chair.traverse((node) => {
   pass=pass+1;
