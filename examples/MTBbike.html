@@ -476,27 +476,27 @@ var event = new CustomEvent("buttonclick", { "detail": test });
      
 
       var intensity=1;
-      const dirLight1 = new THREE.DirectionalLight(0xffffff,intensity);
+      const dirLight1 = new THREE.DirectionalLight(0xffffff);
       dirLight1.position.set(0, 50, 0);
       dirLight1.castShadow = true;
       scene.add(dirLight1);
 
       var intensity2=1;
-      const dirLight2 = new THREE.DirectionalLight(0xffffff,intensity2);
+      const dirLight2 = new THREE.DirectionalLight(0xffffff);
 
       dirLight2.position.set(0, -50, 0);
       dirLight2.castShadow = true;
       scene.add(dirLight2);
       
       var intensity3=1;
-      const dirLight3 = new THREE.DirectionalLight(0xffffff,intensity3);
+      const dirLight3 = new THREE.DirectionalLight(0xffffff);
 
 dirLight3.position.set(0, 0, -50.0);
 dirLight3.castShadow = true;
 scene.add(dirLight3);
 
 var intensity4=1;
-const dirLight4 = new THREE.DirectionalLight(0xffffff,intensity4);
+const dirLight4 = new THREE.DirectionalLight(0xffffff);
 
 dirLight4.position.set(0, 0, +50.0);
 dirLight4.castShadow = true;
@@ -510,17 +510,17 @@ cubeFolder.add(dirLight1.position, 'x', -100, 100)
 cubeFolder.add(dirLight1.position, 'y', -100, 100)
 cubeFolder.add(dirLight1.position, 'z',-100, 100)
 
-cubeFolder.add(dirLight2.position, 'intensity2', 0, 10)
+cubeFolder.add(dirLight2, 'intensity2', 0, 10)
 cubeFolder.add(dirLight2.position, 'x', -100, 100)
 cubeFolder.add(dirLight2.position, 'y', -100, 100)
 cubeFolder.add(dirLight2.position, 'z',-100, 100)
 
-cubeFolder.add(dirLight3.position, 'intensity3', 0, 10)
+cubeFolder.add(dirLight3, 'intensity', 0, 10)
 cubeFolder.add(dirLight3.position, 'x', -100, 100)
 cubeFolder.add(dirLight3.position, 'y', -100, 100)
 cubeFolder.add(dirLight3.position, 'z',-100, 100)
 
-cubeFolder.add(dirLight4.position, 'intensity4', 0, 10)
+cubeFolder.add(dirLight4, 'intensity', 0, 10)
 cubeFolder.add(dirLight4.position, 'x', -100, 100)
 cubeFolder.add(dirLight4.position, 'y', -100, 100)
 cubeFolder.add(dirLight4.position, 'z',-100, 100)
