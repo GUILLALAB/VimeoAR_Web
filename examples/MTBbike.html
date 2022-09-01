@@ -475,26 +475,28 @@ var event = new CustomEvent("buttonclick", { "detail": test });
 
      
 
-
-      const dirLight1 = new THREE.DirectionalLight(0xffffff);
+      var intensity=1;
+      const dirLight1 = new THREE.DirectionalLight(0xffffff,intensity);
       dirLight1.position.set(0, 50, 0);
       dirLight1.castShadow = true;
       scene.add(dirLight1);
 
-      const dirLight2 = new THREE.DirectionalLight(0xffffff);
+      var intensity2=1;
+      const dirLight2 = new THREE.DirectionalLight(0xffffff,intensity2);
 
       dirLight2.position.set(0, -50, 0);
       dirLight2.castShadow = true;
       scene.add(dirLight2);
-
-
-      const dirLight3 = new THREE.DirectionalLight(0xffffff);
+      
+      var intensity3=1;
+      const dirLight3 = new THREE.DirectionalLight(0xffffff,intensity3);
 
 dirLight3.position.set(0, 0, -50.0);
 dirLight3.castShadow = true;
 scene.add(dirLight3);
 
-const dirLight4 = new THREE.DirectionalLight(0xffffff);
+var intensity4=1;
+const dirLight4 = new THREE.DirectionalLight(0xffffff,intensity4);
 
 dirLight4.position.set(0, 0, +50.0);
 dirLight4.castShadow = true;
@@ -508,17 +510,17 @@ cubeFolder.add(dirLight1.position, 'x', -100, 100)
 cubeFolder.add(dirLight1.position, 'y', -100, 100)
 cubeFolder.add(dirLight1.position, 'z',-100, 100)
 
-cubeFolder.add(dirLight2.position, 'intensity', 0, 10)
+cubeFolder.add(dirLight2.position, 'intensity2', 0, 10)
 cubeFolder.add(dirLight2.position, 'x', -100, 100)
 cubeFolder.add(dirLight2.position, 'y', -100, 100)
 cubeFolder.add(dirLight2.position, 'z',-100, 100)
 
-cubeFolder.add(dirLight3.position, 'intensity', 0, 10)
+cubeFolder.add(dirLight3.position, 'intensity3', 0, 10)
 cubeFolder.add(dirLight3.position, 'x', -100, 100)
 cubeFolder.add(dirLight3.position, 'y', -100, 100)
 cubeFolder.add(dirLight3.position, 'z',-100, 100)
 
-cubeFolder.add(dirLight4.position, 'intensity', 0, 10)
+cubeFolder.add(dirLight4.position, 'intensity4', 0, 10)
 cubeFolder.add(dirLight4.position, 'x', -100, 100)
 cubeFolder.add(dirLight4.position, 'y', -100, 100)
 cubeFolder.add(dirLight4.position, 'z',-100, 100)
