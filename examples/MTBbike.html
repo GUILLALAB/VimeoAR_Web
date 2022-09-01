@@ -282,7 +282,7 @@ var data = e.detail;
 if (data != null) {
 if (chair!=null) {
 
-  document.getElementById("flip-container").getElementById("flipper").getElementById("pickerlight").innerHTML="";
+  document.getElementById("flip-container").querySelector("#flipper #pickerlight").innerHTML="";
 
 chair.traverse((node) => {
   pass=pass+1;
