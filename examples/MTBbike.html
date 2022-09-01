@@ -281,6 +281,9 @@ var radius = 190;
 var data = e.detail;
 if (data != null) {
 if (chair!=null) {
+
+  document.getElementsByClassName("back color-picker-light-theme").innerHTML="";
+
 chair.traverse((node) => {
   pass=pass+1;
 
