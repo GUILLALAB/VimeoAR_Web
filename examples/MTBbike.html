@@ -504,26 +504,29 @@ scene.add(dirLight4);
 
 
 const gui = new dat.GUI();
-const cubeFolder = gui.addFolder('Lights')
+const cubeFolder = gui.addFolder('Lights1')
 cubeFolder.add(dirLight1, 'intensity', 0, 10)
 cubeFolder.add(dirLight1.position, 'x', -100, 100)
 cubeFolder.add(dirLight1.position, 'y', -100, 100)
 cubeFolder.add(dirLight1.position, 'z',-100, 100)
 
-cubeFolder.add(dirLight2, 'intensity', 0, 10)
-cubeFolder.add(dirLight2.position, 'x', -100, 100)
-cubeFolder.add(dirLight2.position, 'y', -100, 100)
-cubeFolder.add(dirLight2.position, 'z',-100, 100)
+const cubeFolder2 = gui.addFolder('Lights2')
+cubeFolder2.add(dirLight2, 'intensity', 0, 10)
+cubeFolder2.add(dirLight2.position, 'x', -100, 100)
+cubeFolder2.add(dirLight2.position, 'y', -100, 100)
+cubeFolder2.add(dirLight2.position, 'z',-100, 100)
 
-cubeFolder.add(dirLight3, 'intensity', 0, 10)
-cubeFolder.add(dirLight3.position, 'x', -100, 100)
-cubeFolder.add(dirLight3.position, 'y', -100, 100)
-cubeFolder.add(dirLight3.position, 'z',-100, 100)
+const cubeFolder3 = gui.addFolder('Lights3')
+cubeFolder3.add(dirLight3, 'intensity', 0, 10)
+cubeFolder3.add(dirLight3.position, 'x', -100, 100)
+cubeFolder3.add(dirLight3.position, 'y', -100, 100)
+cubeFolder3.add(dirLight3.position, 'z',-100, 100)
 
-cubeFolder.add(dirLight4, 'intensity', 0, 10)
-cubeFolder.add(dirLight4.position, 'x', -100, 100)
-cubeFolder.add(dirLight4.position, 'y', -100, 100)
-cubeFolder.add(dirLight4.position, 'z',-100, 100)
+const cubeFolder4 = gui.addFolder('Lights4')
+cubeFolder4.add(dirLight4, 'intensity', 0, 10)
+cubeFolder4.add(dirLight4.position, 'x', -100, 100)
+cubeFolder4.add(dirLight4.position, 'y', -100, 100)
+cubeFolder4.add(dirLight4.position, 'z',-100, 100)
 
 cubeFolder.add(camera.rotation, 'y', 0, Math.PI * 2)
 cubeFolder.add(camera.rotation, 'z', 0, Math.PI * 2)
