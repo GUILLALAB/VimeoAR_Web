@@ -504,7 +504,7 @@ scene.add(dirLight4);
 
 const gui = new dat.GUI();
 const cubeFolder = gui.addFolder('Lights')
-cubeFolder.add(intensity, 'intensity', 0, 20)
+cubeFolder.add(dirLight4, 'intensity', 0, 20)
 cubeFolder.add(camera.rotation, 'y', 0, Math.PI * 2)
 cubeFolder.add(camera.rotation, 'z', 0, Math.PI * 2)
 cubeFolder.open()
