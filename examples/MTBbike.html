@@ -451,7 +451,7 @@ var event = new CustomEvent("buttonclick", { "detail": test });
       camera.position.z = 70;
 
       renderer = new THREE.WebGLRenderer({ canvas: canvas });
-      renderer.physicallyCorrectLights=true;
+     // renderer.physicallyCorrectLights=true;
      // renderer.setClearColor( 0x716B6C );
      // renderer.setSize(window.innerWidth, window.innerHeight);
      onWindowResize();
@@ -494,8 +494,7 @@ dirLight3.position.set(0, 0, -50.0);
 dirLight3.castShadow = true;
 scene.add(dirLight3);
 
-var intensity=1;
-const dirLight4 = new THREE.DirectionalLight(0xffffff,intensity);
+const dirLight4 = new THREE.DirectionalLight(0xffffff);
 
 dirLight4.position.set(0, 0, +50.0);
 dirLight4.castShadow = true;
@@ -504,7 +503,11 @@ scene.add(dirLight4);
 
 const gui = new dat.GUI();
 const cubeFolder = gui.addFolder('Lights')
-cubeFolder.add(dirLight4, 'intensity', 0, 20)
+cubeFolder.add(dirLight1, 'intensity', 0, 10)
+cubeFolder.add(dirLight2, 'intensity', 0, 10)
+cubeFolder.add(dirLight3, 'intensity', 0, 10)
+
+cubeFolder.add(dirLight4, 'intensity', 0, 10)
 cubeFolder.add(camera.rotation, 'y', 0, Math.PI * 2)
 cubeFolder.add(camera.rotation, 'z', 0, Math.PI * 2)
 cubeFolder.open()
