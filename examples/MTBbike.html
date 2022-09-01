@@ -136,7 +136,7 @@
       <script src="https://sdk.amazonaws.com/js/aws-sdk-2.410.0.min.js"></script>
       <script src="/js/awsuploadvideotest.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
-
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.9/dat.gui.min.js" integrity="sha512-WoO4Ih0CDOSLYafy22wZD/mcJ7k0ESLqtQsFa6zFKnEUrbtuGU+GkLtVhgt93xa2qewG5gKEC6CWlN8OaCTSVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
       
 <body style="background-color:black;text-align:center">
   <!-- Navbar -->
@@ -506,7 +506,15 @@ scene.add(dirLight4);
 
 setAds3DModel("https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/video/5789c62c-4c34-459c-8f3a-a5b744266fc2/7a6341ab-997e-4dd3-8a0a-1fa7f28a3886/objects/bikeframe3.glb");
       
-
+const gui = new GUI()
+const cubeFolder = gui.addFolder('Cube')
+cubeFolder.add(camera.rotation, 'x', 0, Math.PI * 2)
+cubeFolder.add(camera.rotation, 'y', 0, Math.PI * 2)
+cubeFolder.add(camera.rotation, 'z', 0, Math.PI * 2)
+cubeFolder.open()
+const cameraFolder = gui.addFolder('Camera')
+cameraFolder.add(camera.position, 'z', 0, 10)
+cameraFolder.open()
       //
       const animate = function () {
         camera.translate.x+= 0.01;
