@@ -532,7 +532,7 @@ var event = new CustomEvent("buttonclick", { "detail": test });
 				hemiLight.position.set( 0, 50, 0 );
 				scene.add( hemiLight );
 
-				const hemiLightHelper = new THREE.HemisphereLightHelper( hemiLight, 10 );
+				const hemiLightHelper = new THREE.HemisphereLightHelper( hemiLight, 3 );
 				scene.add( hemiLightHelper );
         hemiLight.visible;
 				//
