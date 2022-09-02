@@ -500,7 +500,6 @@ var event = new CustomEvent("buttonclick", { "detail": test });
       scene = new THREE.Scene();
       camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
       scene.background = new THREE.Color().setHSL( 0.6, 0, 1 );
-				scene.fog = new THREE.Fog( scene.background, 1, 5000 );
       camera.position.z = 70;
 
       renderer = new THREE.WebGLRenderer({ canvas: canvas });
@@ -559,7 +558,7 @@ var event = new CustomEvent("buttonclick", { "detail": test });
 				dirLight.shadow.camera.far = 3500;
 				dirLight.shadow.bias = - 0.0001;
 
-				const dirLightHelper = new THREE.DirectionalLightHelper( dirLight, 8 );
+				const dirLightHelper = new THREE.DirectionalLightHelper( dirLight, 10 );
 				scene.add( dirLightHelper );
 
 				// GROUND
@@ -569,7 +568,7 @@ var event = new CustomEvent("buttonclick", { "detail": test });
 				groundMat.color.setHSL( 0.095, 1, 0.75 );
 
 				const ground = new THREE.Mesh( groundGeo, groundMat );
-				ground.position.y = - 20;
+				ground.position.y = - 30;
 				ground.rotation.x = - Math.PI / 2;
 				ground.receiveShadow = true;
 				scene.add( ground );
@@ -586,7 +585,6 @@ var event = new CustomEvent("buttonclick", { "detail": test });
 				};
 				uniforms[ 'topColor' ].value.copy( hemiLight.color );
 
-				scene.fog.color.copy( uniforms[ 'bottomColor' ].value );
 
 				const skyGeo = new THREE.SphereGeometry( 4000, 32, 15 );
 				const skyMat = new THREE.ShaderMaterial( {
@@ -598,12 +596,6 @@ var event = new CustomEvent("buttonclick", { "detail": test });
 
 				const sky = new THREE.Mesh( skyGeo, skyMat );
 				scene.add( sky );
-
-
-        const gui = new dat.GUI();
-const cubeFolder = gui.addFolder('Lights1')
-cubeFolder.add(hemiLight, 'intensity', 0, 10)
-cubeFolder.add(dirLight, 'intensity', 0, 10)
 
 /*      var intensity=1;
       const dirLight1 = new THREE.DirectionalLight(0xffffff);
