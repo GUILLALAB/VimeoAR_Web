@@ -582,7 +582,7 @@ var event = new CustomEvent("buttonclick", { "detail": test });
 
 				scene.fog.color.copy( uniforms[ 'bottomColor' ].value );
 
-				const skyGeo = new THREE.SphereGeometry( 4000, 32, 15 );
+				const skyGeo = new THREE.SphereGeometry( 4000, 100, 15 );
 				const skyMat = new THREE.ShaderMaterial( {
 					uniforms: uniforms,
 					vertexShader: vertexShader,
