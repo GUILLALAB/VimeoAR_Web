@@ -559,7 +559,7 @@ var event = new CustomEvent("buttonclick", { "detail": test });
 				dirLight.shadow.camera.far = 3500;
 				dirLight.shadow.bias = - 0.0001;
 
-				const dirLightHelper = new THREE.DirectionalLightHelper( dirLight, 10 );
+				const dirLightHelper = new THREE.DirectionalLightHelper( dirLight, 8 );
 				scene.add( dirLightHelper );
 
 				// GROUND
@@ -569,7 +569,7 @@ var event = new CustomEvent("buttonclick", { "detail": test });
 				groundMat.color.setHSL( 0.095, 1, 0.75 );
 
 				const ground = new THREE.Mesh( groundGeo, groundMat );
-				ground.position.y = - 33;
+				ground.position.y = - 20;
 				ground.rotation.x = - Math.PI / 2;
 				ground.receiveShadow = true;
 				scene.add( ground );
@@ -598,6 +598,12 @@ var event = new CustomEvent("buttonclick", { "detail": test });
 
 				const sky = new THREE.Mesh( skyGeo, skyMat );
 				scene.add( sky );
+
+
+        const gui = new dat.GUI();
+const cubeFolder = gui.addFolder('Lights1')
+cubeFolder.add(hemiLight, 'intensity', 0, 10)
+cubeFolder.add(dirLight, 'intensity', 0, 10)
 
 /*      var intensity=1;
       const dirLight1 = new THREE.DirectionalLight(0xffffff);
