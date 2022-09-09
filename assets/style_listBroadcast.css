@@ -540,7 +540,7 @@ div {
   background-color:#2e427200;
   display:flex;
   position: fixed;
-  bottom: -15%;
+  bottom: -30%;
   width: 100%;
   z-index: 9;
 }
