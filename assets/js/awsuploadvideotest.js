@@ -165,7 +165,8 @@ function createSubAlbum(album) {
   }
   var videotitle = document.getElementById("videotitle").value;
 
-  
+  var videodescription = document.getElementById("videodescription").value;
+
   var photoKey = albumPhotosKey + fileName;
 
   // Use S3 ManagedUpload class as it supports multipart uploads
@@ -173,6 +174,7 @@ function createSubAlbum(album) {
   var params = {
     Metadata: {
       'title': videotitle,
+      'description': videodescription,
     },
     
     Bucket: albumBucketName,
