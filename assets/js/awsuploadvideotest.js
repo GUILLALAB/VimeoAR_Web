@@ -357,6 +357,8 @@ function viewAlbum(path,albumName) {
       '<form action="/url" method="GET">',
       "<p>Please enter your Video Title:</p>",
       '<input id="videotitle" type="text" placeholder="Video Title">',
+      '<input id="videodescription" type="text" placeholder="Video Description">',
+
     "</form>",
     '<div id="myProgress" style="display:none;"> ',    
    '<div id="myBar"></div>',   
