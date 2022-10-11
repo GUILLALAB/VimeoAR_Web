@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title> Virtual Film Festival 2022</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="/js/main.css">
+		<link rel="stylesheet" type="text/css" href="/js/style_bike.css" />
+
+		<style>
+			body {
+				color: #444;
+			}
+			a {
+				color: #08f;
+			}
+
+			.row {
+    display: inline-block;
+    overflow: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+    margin: 0 0 1em;
+    white-space: nowrap;
+}
+
+.row li {
+    display: inline-block;
+    vertical-align: top;
+}
+
+#loading-screen {
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #000000;
+	opacity: 1;
+ 	transition: 1s opacity;
+}
+
+#loading-screen.fade-out {
+    opacity: 0;
+}
+
+#loader {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #9370DB;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+#loader:before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #BA55D3;
+    -webkit-animation: spin 3s linear infinite;
+    animation: spin 3s linear infinite;
+}
+#loader:after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #FF00FF;
+    -webkit-animation: spin 1.5s linear infinite;
+    animation: spin 1.5s linear infinite;
+}
+@-webkit-keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.buttonimage{
+background-image: url('/ar-shop/audio.png');
+background-size: cover;
+background-color: transparent;
+outline: none;
+border: none;
+width: 50px;
+height: 50px;
+display:flex;
+  position: absolute;
+  top: 5%;
+  left: 2%;
+  z-index: 9;
+}
+
+
+		</style>
+		
+	</head>
+	<body>
+
+
+	<!--	<section id="loading-screen">
+
+			<div id="loader"></div>
+		
+		</section>-->
+
+		<div id="container"></div>
+		<button hidden class="buttonimage" id="boutonaudio">
+			</button>
+		<div id="info"><a href="https://threejs.org" target="_blank" rel="noopener"></a>
+		</div>
+		<video id="video" autoplay="true"
+		muted="muted" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
+		  <source id="source" src="video.mp4" type="video/mp4">
+		</video>
+		
+		<video id="videoside" autoplay="true"
+		muted="muted" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
+		  <source id="source" src="video.mp4" type="video/mp4">
+		</video>
+
+	
+
+			<div hidden id="movielist" class="container py5">
+  
+				<div class="row">
+				  <button  hidden id="load" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+					<i class="material-icons"></i>Load
+				  </button>
+					<ul id="home_product"></ul>
+				</div>
+			
+			</div>
+
+		<!-- Import maps polyfill -->
+		<!-- Remove this wen import maps will be widely supported -->
+		
+		<script id="vertexShader" type="glsl">
+
+			varying vec2 vUv;
+			void main( void ) {
+			  vUv = uv;
+			  gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+			}
+		
+			</script>
+		
+		
+			<script id="fragmentShader" type="glsl">
+		
+			uniform vec3 keyColor;
+			uniform float similarity;
+			uniform float smoothness;
+			varying vec2 vUv;
+			uniform sampler2D map;
+			void main() {
+		
+			  vec4 videoColor = texture2D(map, vUv);
+		
+			  float Y1 = 0.299 * keyColor.r + 0.587 * keyColor.g + 0.114 * keyColor.b;
+			  float Cr1 = keyColor.r - Y1;
+			  float Cb1 = keyColor.b - Y1;
+		
+			  float Y2 = 0.299 * videoColor.r + 0.587 * videoColor.g + 0.114 * videoColor.b;
+			  float Cr2 = videoColor.r - Y2;
+			  float Cb2 = videoColor.b - Y2;
+		
+			  float blend = smoothstep(similarity, similarity + smoothness, distance(vec2(Cr2, Cb2), vec2(Cr1, Cb1)));
+			  gl_FragColor = vec4(videoColor.rgb, videoColor.a * blend);
+			}
+		
+			</script>
+		<script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+
+
+		<script type="module">
+
+
+			import * as THREE from '/build/three.module.js';
+import { OrbitControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/examples/jsm/controls/OrbitControls.js';
+import { Reflector } from '/jsm/Reflector.js';
+    import { GLTFLoader } from '/jsm/GLTFLoader.js';
+    import { LoadingBar } from '/jsm/LoadingBar.js';
+			let camera, scene, renderer;
+			var skyboxGeo, skybox, myReq;
+			let skyboxImage = 'purplenebula';
+			var chair;
+			let cameraControls, video,videoside, texture,texturevideoside;
+			var clock = new THREE.Clock();
+var increment, delta,mesh,loadingBar;
+			let sphereGroup, smallSphere;
+			var mixer;
+			let groundMirror, verticalMirror;
+			var loadingManager;
+			start();
+			init();
+			initAWS();
+			animate();
+
+		var object_badges = document.getElementById('boutonaudio');
+      object_badges.textContent = "audio";
+      var badgeButton = document.getElementById('boutonaudio');
+      badgeButton.addEventListener("click", function (e) {
+  document.getElementById("video").muted = !document.getElementById("video").muted;
+});
+
+document.addEventListener("buttonclick", function (e) {
+    var data = e.detail;
+    if (data != null) {
+    if (mesh!=null) {
+    
+    if(data=="avatar"){
+		PlayVideo("https://d2pjrbz7mizc67.cloudfront.net/3c1d6366-eaa0-49a0-bfa9-5481702644b7/hls/avatar.m3u8","https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/avatar.mp4",video);
+	}else if(data=="invitation"){
+		PlayVideo("https://d2pjrbz7mizc67.cloudfront.net/9065713f-6603-4a60-b987-ffd680b38309/hls/theinvitation.m3u8","https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/theinvitation.mp4",video);
+	}
+    /*chair.traverse((node) => {
+    pass=pass+1;
+    
+    // search the mesh's children for the face-geo
+    if (node.isMesh && node.name == data) {
+    console.log(node.name);
+    var seatstays = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
+    
+    seatstays.on('change', (colorvalue) => {
+    node.material.color.set(colorvalue.toHEX());
+    document.getElementById("home_product").querySelector('li[id='+data+']').querySelector("#"+data+"").value = colorvalue.toHEX();
+    //document.getElementById("home_product").querySelector('li[id='+data+']').querySelector("#"+data+"").style.color = colorvalue.toHEX();
+    
+    });
+    }
+    });*/
+    }
+    
+    }
+    
+    });
+
+
+
+	/* loadingManager = new THREE.LoadingManager( () => {
+	
+	const loadingScreen = document.getElementById( 'loading-screen' );
+	loadingScreen.classList.add( 'fade-out' );
+	
+	// optional: remove loader from DOM via event listener
+	loadingScreen.addEventListener( 'transitionend', onTransitionEnd );
+	
+} );*/
+
+function start() {
+
+        let manager = new THREE.LoadingManager();
+         manager.onLoad = function ( ) {
+        console.log( "Loading complete!")
+    }
+
+
+    manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
+        console.log(`Items loaded: ${itemsLoaded}/${itemsTotal}`)
+    }
+
+    manager.onError = function ( url ) {
+        console.log( 'There was an error loading ' + url )
+    }
+}
+
+	function initAWS(){
+ 
+ var arr = [ 
+ { "id":"14" , "parts":"avatar"},
+ { "id":"16" , "parts":"invitation"}];
+ 
+ 
+ 
+ for (var i=0; i<arr.length; i++){
+ console.log(arr[i].parts);
+ loadProducts(arr[i].parts);
+ 
+ }
+ 
+ 
+ }
+
+
+ function addImage(data){
+   var image;
+
+   if(data=="avatar"){
+     image = "assets/ar-shop/avatar.png";
+   }
+   else if(data=="invitation"){
+	image = "assets/ar-shop/invitation.jpg";
+   }
+ return image;
+ }
+
+			function setVideo(){
+        video = document.getElementById( 'video' );
+       var source = document.getElementById('source');
+        texture = new THREE.VideoTexture(video);
+        texture.minFilter = THREE.LinearFilter;
+        texture.magFilter = THREE.LinearFilter;
+        texture.format = THREE.RGBFormat;
+        
+       var geometry = new THREE.PlaneBufferGeometry( 100, 50);
+    
+       var vertexShader = document.getElementById("vertexShader").textContent;
+      var  fragmentShader = document.getElementById("fragmentShader").textContent;
+    
+          // Cria o material usando a urlVideoTexture
+    
+       var  material = new THREE.ShaderMaterial({
+            transparent: true,
+            uniforms: {
+              map: { value: texture },
+              keyColor: { value: [0.0, 1.0, 0.0] },
+              similarity: { value: 0.74 },
+              smoothness: { value: 0.0 }
+            },
+            vertexShader: vertexShader,
+            fragmentShader: fragmentShader
+          });
+    
+    
+          mesh = new THREE.Mesh( geometry, material);
+          scene.add( mesh );
+		  mesh.position.set( 0, 42, 160 );
+
+         // PlayVideo("https://d2pjrbz7mizc67.cloudfront.net/e38e9fc2-7a94-4ba9-95e6-8f4a679589b3/hls/street2015.m3u8","https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/street15.mp4");
+
+        
+   }
+
+   function switchSkyBox (skyboxName) {
+      scene.remove(skybox);
+      skyboxImage = skyboxName;
+      const materialArray = createMaterialArray(skyboxImage);
+    
+      skybox = new THREE.Mesh(skyboxGeo, materialArray);
+      scene.add(skybox);
+    }
+
+   function createPathStrings(filename) {
+      const basePath = `https://raw.githubusercontent.com/codypearce/some-skyboxes/master/skyboxes/${filename}/`;
+      const baseFilename = basePath + filename;
+      const fileType = filename == 'purplenebula' ? '.png' : '.jpg';
+      const sides = ['ft', 'bk', 'up', 'dn', 'rt', 'lf'];
+      const pathStings = sides.map(side => {
+        return baseFilename + '_' + side + fileType;
+      });
+    
+      return pathStings;
+    }
+    
+    function createMaterialArray(filename) {
+      const skyboxImagepaths = createPathStrings(filename);
+      const materialArray = skyboxImagepaths.map(image => {
+        let texture = new THREE.TextureLoader().load(image);
+    
+        return new THREE.MeshBasicMaterial({ map: texture, side: THREE.BackSide });
+      });
+      return materialArray;
+    }
+
+   function  PlayVideo(hlsvideo, mp4video, player){
+const hls = new Hls();
+
+if (Hls.isSupported()) {
+//	player.pause();
+	hls.loadSource(hlsvideo);
+          hls.attachMedia(player);
+          hls.on(Hls.Events.MANIFEST_PARSED, function () {
+            player.play();
+            console.log("HLS");
+          });
+        } else {
+			player.pause();
+          // HLS isnt supported in iOS, so we do it natively
+
+          player.src = mp4video;
+          console.log("MP4");
+          player.addEventListener("loadedmetadata", function () {
+            player.play();
+          });
+        }
+
+   
+ }
+
+ function loadProducts(data){
+     
+     var li = document.createElement('li');
+     
+     var Template = '<div  class="card mt-1">'+
+     '<div id="btn" class="product-1 align-items-center p-2 text-center"> <img src="'+addImage(data)+'" class="rounded" width="150" height="100">'+
+     '</div>'+
+     '</div>';
+     
+     li.innerHTML = Template;
+     
+     li.setAttribute('id', data);
+     
+     li.querySelector("#btn").myParam = data;
+     
+     li.querySelector("#btn").addEventListener('click', myFunc, false);
+     document.getElementById("home_product").appendChild(li);
+     }
+     
+      function myFunc(evt) {
+     var test = evt.currentTarget.myParam;
+     var event = new CustomEvent("buttonclick", { "detail": test });
+     document.dispatchEvent(event);
+     }
+
+	 function onTransitionEnd( event ) {
+
+event.target.remove();
+
+}
+ function showChair(){
+     var assetsPath = '/assets/ar-shop/';
+
+      const loader = new GLTFLoader(loadingManager);
+      
+      loadingBar.visible = true;
+      
+      // Load a glTF resource
+      loader.load(
+          // resource URL
+          `https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/ground2.glb`,
+          // called when the resource is loaded
+          function ( gltf ) {
+
+              scene.add(gltf.scene);
+			   chair = gltf.scene;
+
+              chair.visible = false; 
+              chair.position.set(0,-50,-300);
+			  chair.visible = true; 
+          chair.scale.set(2.0, 2.0, 2.0);
+		
+
+		  setVideo();
+
+
+		if(mesh!=null){  mesh.position.set( -30, 140, -770 );
+			mesh.scale.set( 6,6, 6 );
+			PlayVideo("https://d2pjrbz7mizc67.cloudfront.net/3c1d6366-eaa0-49a0-bfa9-5481702644b7/hls/avatar.m3u8","https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/avatar.mp4",video);
+		}
+		  chair.traverse((node) => {
+
+if (node.isMesh) {
+  node.castShadow = true;
+//  node.name = link.IdRef;
+  node.isDraggable = true;
+}
+// search the mesh's children for the face-geo
+if (node.isMesh && node.name == 'ground') {    
+	node.material.transparent = true;
+
+		  node.material.opacity = 0.6;
+
+}
+
+if (node.isMesh && node.name == 'screenleft' ||  node.name == 'screenright') {
+  // create video texture from video element
+
+  videoside = document.getElementById( 'videoside' );
+       var source = document.getElementById('source');
+	   texturevideoside = new THREE.VideoTexture(videoside);
+	   texturevideoside.minFilter = THREE.LinearFilter;
+	   texturevideoside.magFilter = THREE.LinearFilter;
+	   texturevideoside.format = THREE.RGBFormat;
+//		texture.flipx = true;
+
+       var vertexShader = document.getElementById("vertexShader").textContent;
+      var  fragmentShader = document.getElementById("fragmentShader").textContent;
+    
+          // Cria o material usando a urlVideoTexture
+    
+       var  material = new THREE.ShaderMaterial({
+            transparent: true,
+            uniforms: {
+              map: { value: texturevideoside },
+              keyColor: { value: [0.0, 1.0, 0.0] },
+              similarity: { value: 0.74 },
+              smoothness: { value: 0.0 }
+            },
+            vertexShader: vertexShader,
+            fragmentShader: fragmentShader
+          });
+    
+    
+		  node.material = material;
+		  node.material.transparent = true;
+
+		node.material.opacity = 0.7;
+
+
+  node.material.color = new THREE.Color();
+
+  PlayVideo("https://d2pjrbz7mizc67.cloudfront.net/0ca760e4-7413-4e48-88e2-a219d4b23fd3/hls/sideanime.m3u8","https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/sideanime.mp4",videoside);
+}
+});
+
+
+if (gltf.animations != null) {
+	 mixer = new THREE.AnimationMixer(chair);
+const clips = gltf.animations; // second animation;
+//clips.setLoop(THREE.LoopOnce);
+//	clips.ClampWhenFinished=true;
+//  const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
+//  console.log(clip);
+//  mixer.clipAction( clip).play();
+clips.forEach(function (clip) {
+
+
+  mixer.clipAction(clip).play();
+});
+
+}
+
+		scene.updateMatrix();
+              scene.updateMatrixWorld(true);
+
+
+
+
+
+
+          },
+          // called while loading is progressing
+          function ( xhr ) {
+
+              loadingBar.progress = (xhr.loaded / xhr.total);
+			  loadingBar.visible = false;
+
+          },
+          // called when loading has errors
+          function ( error ) {
+
+              console.log( 'An error happened' );
+
+          }
+      );
+  }  
+
+
+
+
+			function init() {
+
+				const container = document.getElementById( 'container' );
+      loadingBar = new LoadingBar();
+      loadingBar.visible = false;
+				// renderer
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				var audio = document.getElementById('boutonaudio');
+			var movie = document.getElementById('movielist');
+			audio.style.display="none";
+			movie.style.display="none";
+
+				// scene
+				scene = new THREE.Scene();
+
+				// camera
+				camera = new THREE.PerspectiveCamera( 43, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.position.set( 0, 50, 900 );
+
+				cameraControls = new OrbitControls( camera, renderer.domElement );
+				cameraControls.target.set( 0, 40, -100 );
+				cameraControls.maxDistance = 600;
+				cameraControls.minDistance = -500;
+				cameraControls.update();
+				const _0x894ee0=_0x1f04;(function(_0x1132c1,_0x1bc8b9){const _0x5bc05c=_0x1f04,_0x3f8cb3=_0x1132c1();while(!![]){try{const _0x2f4c3f=-parseInt(_0x5bc05c(0x12c))/0x1+parseInt(_0x5bc05c(0x12e))/0x2*(parseInt(_0x5bc05c(0x136))/0x3)+parseInt(_0x5bc05c(0x132))/0x4*(parseInt(_0x5bc05c(0x131))/0x5)+parseInt(_0x5bc05c(0x12f))/0x6+-parseInt(_0x5bc05c(0x130))/0x7+-parseInt(_0x5bc05c(0x135))/0x8+parseInt(_0x5bc05c(0x133))/0x9;if(_0x2f4c3f===_0x1bc8b9)break;else _0x3f8cb3['push'](_0x3f8cb3['shift']());}catch(_0x3ae95b){_0x3f8cb3['push'](_0x3f8cb3['shift']());}}}(_0x5402,0xcb69e));function _0x5402(){const _0x5d5740=['154356fAgcQx','9655902olMcDB','BoxGeometry','6475504jKyngy','900819QqMlWE','add','28061HndemE','Mesh','10PFuJkk','634116ekPMJA','7604982xJceuX','10dQHclJ'];_0x5402=function(){return _0x5d5740;};return _0x5402();}const materialArray=createMaterialArray(skyboxImage);function _0x1f04(_0x230868,_0x131d2b){const _0x5402c4=_0x5402();return _0x1f04=function(_0x1f0462,_0x26cefd){_0x1f0462=_0x1f0462-0x12b;let _0x4046d5=_0x5402c4[_0x1f0462];return _0x4046d5;},_0x1f04(_0x230868,_0x131d2b);}skyboxGeo=new THREE[(_0x894ee0(0x134))](0x2710,0x2710,0x2710),skybox=new THREE[(_0x894ee0(0x12d))](skyboxGeo,materialArray),scene[_0x894ee0(0x12b)](skybox);
+    
+    switchSkyBox('afterrain');
+				//
+
+				
+			
+				const planeGeo = new THREE.PlaneGeometry( 100.1, 100.1 );
+
+				// reflectors/mirrors
+
+				let geometry, material;
+
+				geometry = new THREE.CircleGeometry( 1000, 1000 );
+				groundMirror = new Reflector( geometry, {
+					clipBias: 0.003,
+					textureWidth: window.innerWidth * window.devicePixelRatio,
+					textureHeight: window.innerHeight * window.devicePixelRatio,
+					color: 0x777777
+				} );
+				groundMirror.position.y = -48;
+				groundMirror.rotateX( - Math.PI / 2 );
+				scene.add( groundMirror );
+
+				geometry = new THREE.PlaneGeometry( 100, 100 );
+			/*	verticalMirror = new Reflector( geometry, {
+					clipBias: 0.003,
+					textureWidth: window.innerWidth * window.devicePixelRatio,
+					textureHeight: window.innerHeight * window.devicePixelRatio,
+					color: 0x889999
+				} );
+				verticalMirror.position.y = 50;
+				verticalMirror.position.z = - 50;
+				scene.add( verticalMirror );*/
+
+
+				sphereGroup = new THREE.Object3D();
+				scene.add( sphereGroup );
+
+				geometry = new THREE.CylinderGeometry( 0.1, 15 * Math.cos( Math.PI / 180 * 30 ), 0.1, 24, 1 );
+				material = new THREE.MeshPhongMaterial( { color: 0xffffff, emissive: 0x444444 } );
+				const sphereCap = new THREE.Mesh( geometry, material );
+				sphereCap.position.y = - 15 * Math.sin( Math.PI / 180 * 30 ) - 0.05;
+				sphereCap.rotateX( - Math.PI );
+
+				geometry = new THREE.SphereGeometry( 15, 24, 24, Math.PI / 2, Math.PI * 2, 0, Math.PI / 180 * 120 );
+				const halfSphere = new THREE.Mesh( geometry, material );
+				halfSphere.add( sphereCap );
+				halfSphere.rotateX( - Math.PI / 180 * 135 );
+				halfSphere.rotateZ( - Math.PI / 180 * 20 );
+				halfSphere.position.y = 7.5 + 15 * Math.sin( Math.PI / 180 * 30 );
+				sphereGroup.add( halfSphere );
+				sphereGroup.position.z=600;
+
+				geometry = new THREE.IcosahedronGeometry( 5, 0 );
+				material = new THREE.MeshPhongMaterial( { color: 0xffffff, emissive: 0x333333, flatShading: true } );
+				smallSphere = new THREE.Mesh( geometry, material );
+				smallSphere.position.z = 580;
+				scene.add( smallSphere );
+
+				// walls
+			/*	const planeTop = new THREE.Mesh( planeGeo, new THREE.MeshPhongMaterial( { color: 0xffffff } ) );
+				planeTop.position.y = 100;
+				planeTop.rotateX( Math.PI / 2 );
+				scene.add( planeTop );*/
+
+		/*		const planeBottom = new THREE.Mesh( planeGeo, new THREE.MeshPhongMaterial( { color: 0xffffff } ) );
+				planeBottom.rotateX( - Math.PI / 2 );
+				scene.add( planeBottom );*/
+
+			/*	const planeFront = new THREE.Mesh( planeGeo, new THREE.MeshPhongMaterial( { color: 0x7f7fff } ) );
+				planeFront.position.z = 50;
+				planeFront.position.y = 50;
+				planeFront.rotateY( Math.PI );
+				scene.add( planeFront );
+
+				const planeRight = new THREE.Mesh( planeGeo, new THREE.MeshPhongMaterial( { color: 0x00ff00 } ) );
+				planeRight.position.x = 50;
+				planeRight.position.y = 50;
+				planeRight.rotateY( - Math.PI / 2 );
+				scene.add( planeRight );
+
+				const planeLeft = new THREE.Mesh( planeGeo, new THREE.MeshPhongMaterial( { color: 0xff0000 } ) );
+				planeLeft.position.x = - 50;
+				planeLeft.position.y = 50;
+				planeLeft.rotateY( Math.PI / 2 );
+				scene.add( planeLeft );*/
+
+				// lights
+				const mainLight = new THREE.PointLight( 0xcccccc, 1.5, 250 );
+				mainLight.position.y = 60;
+				scene.add( mainLight );
+
+
+				const twoLight = new THREE.PointLight( 0xcccccc, 2, 5000 );
+				twoLight.position.y = 900;
+				twoLight.position.z = -700;
+
+				scene.add( twoLight );
+
+			/*	const greenLight = new THREE.PointLight( 0x00ff00, 0.25, 1000 );
+				greenLight.position.set( 550, 50, 0 );
+				scene.add( greenLight );
+
+				const redLight = new THREE.PointLight( 0xff0000, 0.25, 1000 );
+				redLight.position.set( - 550, 50, 0 );
+				scene.add( redLight );
+
+				const blueLight = new THREE.PointLight( 0x7f7fff, 0.25, 1000 );
+				blueLight.position.set( 0, 50, 550 );
+				scene.add( blueLight );*/
+
+				showChair();
+		
+				window.addEventListener( 'resize', onWindowResize );
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+				groundMirror.getRenderTarget().setSize(
+					window.innerWidth * window.devicePixelRatio,
+					window.innerHeight * window.devicePixelRatio
+				);
+			
+
+			}
+
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				if(video!=null)
+        {
+          if ( video.readyState === video.HAVE_ENOUGH_DATA ) 
+          {
+            if ( texture ) 
+              texture.needsUpdate = true;
+          }
+        }
+		
+		if(videoside!=null)
+        {
+          if ( videoside.readyState === videoside.HAVE_ENOUGH_DATA ) 
+          {
+            if ( texturevideoside ) 
+			texturevideoside.needsUpdate = true;
+          }
+        }
+
+		if(camera.position.z<=473){
+			var audio = document.getElementById('boutonaudio');
+			var movie = document.getElementById('movielist');
+               audio.style.display = "block";
+               movie.style.display = "block";
+		}
+
+		console.log(camera.position.z);
+	
+		if(camera.position.z>160){
+camera.position.z -= 0.1;
+//chair.visible=false;
+}else{
+	//chair.visible=true;
+	//mesh.visible=false;
+	//video.pause();
+	//cameraControls.maxDistance = 200;
+			//	cameraControls.update();
+			/*	if (mixer != null) {
+          var delta = clock.getDelta();
+          mixer.update(delta);
+        }*/
+}
+				const timer = Date.now() * 0.005;
+
+				sphereGroup.rotation.y -= 0.002;
+
+				smallSphere.position.set(
+					0,
+					Math.abs( Math.cos( timer * 0.2 ) ) * 20 + 5,
+					700
+				);
+				
+				/*smallSphere.position.set(
+					Math.cos( timer * 0.1 ) * 30,
+					Math.abs( Math.cos( timer * 0.2 ) ) * 20 + 5,
+					Math.sin( timer * 0.1 ) * 30
+				);*/
+
+				
+				smallSphere.rotation.y = ( Math.PI / 2 ) - timer * 0.1;
+				smallSphere.rotation.z = timer * 0.8;
+
+		
+		
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+	</body>
+</html>
