@@ -367,16 +367,28 @@ var increment, delta,mesh,loadingBar;
   document.getElementById("video").muted = !document.getElementById("video").muted;
 });
 
+function removeEntity(object) {
+    var selectedObject = scene.getObjectByName(object.name);
+    scene.remove( selectedObject );
+    animate();
+}
+    document.addEventListener("objectclick", function (e) {
+ 
+			// alert(e.detail);
+			var data = e.detail;
+			if (data != null) {
+        console.log(data);
+        setAds3DModel(data);
+			}
+		});
+
 document.addEventListener("buttonclick", function (e) {
     var data = e.detail;
     if (data != null) {
     if (mesh!=null) {
-    
-    if(data=="avatar"){
-		PlayVideo("https://d2pjrbz7mizc67.cloudfront.net/3c1d6366-eaa0-49a0-bfa9-5481702644b7/hls/avatar.m3u8","https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/avatar.mp4",video);
-	}else if(data=="invitation"){
-		PlayVideo("https://d2pjrbz7mizc67.cloudfront.net/9065713f-6603-4a60-b987-ffd680b38309/hls/theinvitation.m3u8","https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/theinvitation.mp4",video);
-	}
+		var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
+		PlayVideo(data.hlsUrl,file,video);
+	
     /*chair.traverse((node) => {
     pass=pass+1;
     
@@ -428,22 +440,61 @@ function start() {
     }
 }
 
-	function initAWS(){
+function initAWS(){
+     
+	 var userPoolId = 'eu-west-1_3x9L2hsjh';
+	 var region = 'eu-west-1';
+	 var identityPoolId = 'eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b';
+	 //=============== AWS IDs ===============
+		 var idToken;
+	 
+
+AWS.config.region = region;
+	 
+   getCognitoIdCredentials().get(function(err) {
+ if (err) console.log(err.stack);
  
- var arr = [ 
- { "id":"14" , "parts":"avatar"},
- { "id":"16" , "parts":"invitation"}];
- 
- 
- 
- for (var i=0; i<arr.length; i++){
- console.log(arr[i].parts);
- loadProducts(arr[i].parts);
- 
+ // credentials not loaded
+ else {
+   console.log("Access key:", AWS.config.credentials.accessKeyId);
+   const itemsAll = scanAll("VideoAWS");
+   itemsAll.then(function(value) {
+	 for(var i =0;i<100000;i++){
+	   if(value[i]!== undefined){
+	// console.log(value[i]);
+	 loadProducts(value[i]);
+
+	 var file = "https://"+value[i].srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+value[i].srcVideo;
+
+   }
+	 }
+   // expected output: 123
+});
+
  }
- 
- 
+});
+
+const documentClient = new AWS.DynamoDB.DocumentClient();
+
+const scanAll = async (tableName) => {
+ let lastEvaluatedKey = 'dummy'; // string must not be empty
+ const itemsAll = [];
+ let table = { TableName: tableName };
+
+
+ while (lastEvaluatedKey) {
+   const data = await documentClient.scan(table).promise();
+   itemsAll.push(...data.Items);
+   lastEvaluatedKey = data.LastEvaluatedKey;
+   if (lastEvaluatedKey) {
+	 table.ExclusiveStartKey = lastEvaluatedKey;
+	 console.log(table.ExclusiveStartKey);
+   }
  }
+ return itemsAll;
+}
+
+   }
 
 
  function addImage(data){
@@ -552,23 +603,28 @@ if (Hls.isSupported()) {
  }
 
  function loadProducts(data){
-     
-     var li = document.createElement('li');
-     
-     var Template = '<div  class="card mt-1">'+
+
+var li = document.createElement('li');
+
+var Template = '<div  class="card mt-1">'+
      '<div id="btn" class="product-1 align-items-center p-2 text-center"> <img src="'+addImage(data)+'" class="rounded" width="150" height="100">'+
      '</div>'+
      '</div>';
-     
-     li.innerHTML = Template;
-     
-     li.setAttribute('id', data);
-     
-     li.querySelector("#btn").myParam = data;
-     
-     li.querySelector("#btn").addEventListener('click', myFunc, false);
-     document.getElementById("home_product").appendChild(li);
-     }
+
+li.innerHTML = Template;
+
+li.setAttribute('id', data.guid);
+
+li.querySelector("#btn").myParam = data;
+
+li.querySelector("#btn").addEventListener('click', myFunc, false);
+
+var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
+
+document.getElementById("home_product").appendChild(li);
+    }
+
+
      
       function myFunc(evt) {
      var test = evt.currentTarget.myParam;
