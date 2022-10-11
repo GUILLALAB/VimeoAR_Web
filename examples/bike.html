@@ -587,11 +587,12 @@ if (Hls.isSupported()) {
 
 var li = document.createElement('li');
 
-var Template = '<div  class="card mt-1">'+
-     '<div id="btn" class="product-1 align-items-center p-2 text-center"> <img src="'+addImage(data)+'" class="rounded" width="150" height="100">'+
-     '</div>'+
-     '</div>';
-
+	 var Template = '<div id="btn" class="card mt-1">'+
+'<div class="product-1 align-items-center p-2 text-center"> <img src="'+data.thumbNailsUrls+'" class="rounded" width="150" height="100">'+
+    '<div class="message"> <span class="text1 d-block">'+ data.title+' </span> </div>'+
+'</div>'+
+'</div>';
+	 
 li.innerHTML = Template;
 
 li.setAttribute('id', data.guid);
