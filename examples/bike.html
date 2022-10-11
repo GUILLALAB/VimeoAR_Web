@@ -374,8 +374,8 @@ document.addEventListener("buttonclick", function (e) {
     if (mesh!=null) {
 		var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 
-		const index = data.srcVideo.lastIndexOf('/');
-const before = data.srcVideo.slice(0, index);
+	//	const index = data.srcVideo.lastIndexOf('/');
+//const before = data.srcVideo.slice(0, index);
 
       var objects = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+before+"/"+"objects"+"/";
      
