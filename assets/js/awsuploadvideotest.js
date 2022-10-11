@@ -90,7 +90,7 @@ function createAlbum(albumName) {
      /* if (err) {
         return alert("There was an error creating your album: " + err.message);
       }*/
-      alert("Successfully created album.");
+    //  alert("Successfully created album.");
       viewAlbum(albumName);
     });
   });
@@ -110,7 +110,7 @@ function createObjectSubAlbum(path) {
      /* if (err) {
         return alert("There was an error creating your album: " + err.message);
       }*/
-      alert("Object Successfully created album.");
+     // alert("Object Successfully created album.");
     });
   });
 }
@@ -128,7 +128,7 @@ function createVideoUserSubAlbum(path,userid) {
      /* if (err) {
         return alert("There was an error creating your album: " + err.message);
       }*/
-      alert("Object Successfully created album.");
+     // alert("Object Successfully created album.");
     });
   });
 }
@@ -158,7 +158,7 @@ function createSubAlbum(album) {
      /* if (err) {
         return alert("There was an error creating your album: " + err.message);
       }*/
-      alert("Successfully created album.");
+     // alert("Successfully created album.");
       var files = document.getElementById("videoupload").files;
   if (!files.length) {
     return alert("Please choose a file to upload first.");
@@ -259,7 +259,7 @@ var uploadSampleFile = function() {
      /* if (err) {
         return alert("There was an error creating your album: " + err.message);
       }*/
-      alert("Successfully created album.");
+     // alert("Successfully created album.");
       var files = document.getElementById("videoupload").files;
   if (!files.length) {
     return alert("Please choose a file to upload first.");
