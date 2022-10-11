@@ -103,13 +103,13 @@ function createObjectSubAlbum(path) {
     if (!err) {
       return alert("Album already exists.");
     }
-    if (err.code !== "NotFound") {
+   /* if (err.code !== "NotFound") {
       return alert("There was an error creating your album: " + err.message);
-    }
+    }*/
     s3.putObject({ Key: albumKey }, function(err, data) {
-      if (err) {
+     /* if (err) {
         return alert("There was an error creating your album: " + err.message);
-      }
+      }*/
       alert("Object Successfully created album.");
     });
   });
@@ -121,13 +121,13 @@ function createVideoUserSubAlbum(path,userid) {
     if (!err) {
        console.log("Album already exists.");
     }
-    if (err.code !== "NotFound") {
+   /* if (err.code !== "NotFound") {
       return alert("There was an error creating your album: " + err.message);
-    }
+    }*/
     s3.putObject({ Key: albumKey }, function(err, data) {
-      if (err) {
+     /* if (err) {
         return alert("There was an error creating your album: " + err.message);
-      }
+      }*/
       alert("Object Successfully created album.");
     });
   });
@@ -151,13 +151,13 @@ function createSubAlbum(album) {
     if (!err) {
       return alert("Album already exists.");
     }
-    if (err.code !== "NotFound") {
+    /*if (err.code !== "NotFound") {
       return alert("There was an error creating your album: " + err.message);
-    }
+    }*/
     s3.putObject({ Key: albumPhotosKey }, function(err, data) {
-      if (err) {
+     /* if (err) {
         return alert("There was an error creating your album: " + err.message);
-      }
+      }*/
       alert("Successfully created album.");
       var files = document.getElementById("videoupload").files;
   if (!files.length) {
@@ -252,13 +252,13 @@ var uploadSampleFile = function() {
     if (!err) {
       return alert("Album already exists.");
     }
-    if (err.code !== "NotFound") {
+   /* if (err.code !== "NotFound") {
       return alert("There was an error creating your album: " + err.message);
-    }
+    }*/
     s3.putObject({ Key: albumPhotosKey }, function(err, data) {
-      if (err) {
+     /* if (err) {
         return alert("There was an error creating your album: " + err.message);
-      }
+      }*/
       alert("Successfully created album.");
       var files = document.getElementById("videoupload").files;
   if (!files.length) {
