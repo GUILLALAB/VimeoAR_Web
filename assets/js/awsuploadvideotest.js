@@ -83,13 +83,13 @@ function createAlbum(albumName) {
     if (!err) {
       return alert("Album already exists.");
     }
-    if (err.code !== "NotFound") {
+    /*if (err.code !== "NotFound") {
       return alert("There was an error creating your album: " + err.message);
-    }
+    }*/
     s3.putObject({ Key: albumKey }, function(err, data) {
-      if (err) {
+     /* if (err) {
         return alert("There was an error creating your album: " + err.message);
-      }
+      }*/
       alert("Successfully created album.");
       viewAlbum(albumName);
     });
