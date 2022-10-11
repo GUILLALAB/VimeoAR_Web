@@ -336,7 +336,7 @@ display:flex;
 			var clock = new THREE.Clock();
 var increment, delta,mesh,loadingBar;
 			let sphereGroup, smallSphere;
-			var mixer;
+			var mixer,objet_onscene;
 			let groundMirror, verticalMirror;
 			var loadingManager;
 			start();
@@ -385,8 +385,8 @@ document.addEventListener("buttonclick", function (e) {
 	
       //  viewObjectsFolder(before);
 
-if(chair!=null){
-    removeEntity(chair);
+if(objet_onscene!=null){
+    removeEntity(objet_onscene);
 }
     /*chair.traverse((node) => {
     pass=pass+1;
@@ -945,10 +945,10 @@ clips.forEach(function (clip) {
           gltf.scene.name=link;
           scene.add(gltf.scene);
 
-          chair = gltf.scene;
-          chair.name = link;
+          objet_onscene = gltf.scene;
+          objet_onscene.name = link;
 
-          chair.traverse((node) => {
+          objet_onscene.traverse((node) => {
 
             if (node.isMesh) {
               node.castShadow = true;
@@ -969,9 +969,9 @@ clips.forEach(function (clip) {
           });
 
 
-          chair.visible = false;
+          objet_onscene.visible = false;
           loadingBar.visible = false;
-          chair.position.set(0, 50, 250);
+          objet_onscene.position.set(0, 50, 250);
         //  chair.scale.set(4.0, 4.0, 4.0);
 
           scene.updateMatrix();
@@ -980,7 +980,7 @@ clips.forEach(function (clip) {
           objects = objects + 4;
           
 
-          chair.visible = true;
+          objet_onscene.visible = true;
         },
         // called while loading is progressing
         function (xhr) {
