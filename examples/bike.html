@@ -153,6 +153,7 @@ display:flex;
 		</div>
 	
 		  <ul id="object_product"></ul>
+
 		<video id="video" autoplay="true"
 		muted="muted" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
 		  <source id="source" src="video.mp4" type="video/mp4">
@@ -372,13 +373,16 @@ document.addEventListener("buttonclick", function (e) {
     if (data != null) {
     if (mesh!=null) {
 		var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
-		PlayVideo(data.hlsUrl,file,video);
-	
+
 		const index = data.srcVideo.lastIndexOf('/');
 const before = data.srcVideo.slice(0, index);
 
       var objects = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+before+"/"+"objects"+"/";
      
+	  
+		PlayVideo(data.hlsUrl,file,video);
+	
+	
         viewObjectsFolder(before);
 
 if(chair!=null){
