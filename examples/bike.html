@@ -233,35 +233,8 @@ display:flex;
 			};
 			getCurrentLoggedInSession();
 			
-		  document.getElementById("logout").addEventListener("click", function (e) {
-			if( $("#logout").text()==="SIGN IN"){
-			  window.location = "https://livear.herokuapp.com/login";
-			}else{
-			  logOut();
-			}
-		  });
-		  document.getElementById("upload").addEventListener("click", function (e) {
-			userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-		  cognitoUser = userPool.getCurrentUser();
 		  
-		  if(cognitoUser != null){
-			cognitoUser.getSession(function(err, session) {
-			  if (err) {
-				console.log(err.message);
-			  }else{
-				idToken = session.getIdToken().getJwtToken();
-				localStorage.setItem("sub", session.getIdToken().decodePayload().sub);
-				$("#logout").show();
-				window.location = "https://livear.herokuapp.com/aws";
-				getCognitoIdentityCredentials();
-			  }
-			});
-		  }else{
-			console.log('Logout');
-			window.location = "https://livear.herokuapp.com/login";
-		  
-		  }
-		  });
+		
 		  
 			function getCurrentLoggedInSession(){
 		  
