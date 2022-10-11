@@ -353,6 +353,8 @@ function removeEntity(object) {
     scene.remove( selectedObject );
     animate();
 }
+
+
     document.addEventListener("objectclick", function (e) {
  
 			// alert(e.detail);
@@ -370,6 +372,16 @@ document.addEventListener("buttonclick", function (e) {
 		var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 		PlayVideo(data.hlsUrl,file,video);
 	
+		const index = data.srcVideo.lastIndexOf('/');
+const before = data.srcVideo.slice(0, index);
+
+      var objects = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+before+"/"+"objects"+"/";
+     
+        viewObjectsFolder(before);
+
+if(chair!=null){
+    removeEntity(chair);
+}
     /*chair.traverse((node) => {
     pass=pass+1;
     
@@ -910,6 +922,90 @@ clips.forEach(function (clip) {
 			
 
 			}
+
+			// usage:
+			function setAds3DModel(link) {
+      loadingBar.visible = true;
+
+      const loader = new GLTFLoader();
+      const self = this;
+      // Load a glTF resource
+      loader.load(
+        // resource URL
+        link,
+        // called when the resource is loaded
+        function (gltf) {
+
+          gltf.scene.name=link;
+          scene.add(gltf.scene);
+
+          chair = gltf.scene;
+          chair.name = link;
+
+          chair.traverse((node) => {
+
+            if (node.isMesh) {
+              node.castShadow = true;
+            //  node.name = link.IdRef;
+              node.isDraggable = true;
+            }
+            // search the mesh's children for the face-geo
+            if (node.isMesh && node.name == 'face-geo'|| node.name == 'body-geo') {
+              // create video texture from video element
+              var texture = new THREE.TextureLoader().load("112097.jpg");
+              texture.minFilter = THREE.LinearFilter;
+              texture.magFilter = THREE.LinearFilter;
+              texture.flipY = false;
+              node.material.map = texture;
+              node.material.color = new THREE.Color();
+              node.material.metalness = 0;
+            }
+          });
+
+
+          chair.visible = false;
+          loadingBar.visible = false;
+          chair.position.set(0.0, 2.0, objects + 0.0);
+        //  chair.scale.set(4.0, 4.0, 4.0);
+
+          scene.updateMatrix();
+          scene.updateMatrixWorld(true);
+
+          objects = objects + 4;
+          if (gltf.animations != null) {
+            mixer = new THREE.AnimationMixer(chair);
+            const clips = gltf.animations; // second animation;
+            //  const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
+            //  console.log(clip);
+            //  mixer.clipAction( clip).play();
+            clips.forEach(function (clip) {
+              mixer.clipAction(clip).play();
+            });
+
+          }
+
+          chair.visible = true;
+        },
+        // called while loading is progressing
+        function (xhr) {
+
+          loadingBar.progress = (xhr.loaded / xhr.total);
+
+        },
+        // called when loading has errors
+        function (error) {
+
+          console.log(error);
+          loadingBar.visible = false;
+
+
+        }
+      );
+
+
+
+
+    }
 
 
 			function animate() {
