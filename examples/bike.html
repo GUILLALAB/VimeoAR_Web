@@ -965,24 +965,14 @@ clips.forEach(function (clip) {
 
           chair.visible = false;
           loadingBar.visible = false;
-          chair.position.set(0.0, 2.0, objects + 0.0);
+          chair.position.set(0, 50, 250);
         //  chair.scale.set(4.0, 4.0, 4.0);
 
           scene.updateMatrix();
           scene.updateMatrixWorld(true);
 
           objects = objects + 4;
-          if (gltf.animations != null) {
-            mixer = new THREE.AnimationMixer(chair);
-            const clips = gltf.animations; // second animation;
-            //  const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
-            //  console.log(clip);
-            //  mixer.clipAction( clip).play();
-            clips.forEach(function (clip) {
-              mixer.clipAction(clip).play();
-            });
-
-          }
+          
 
           chair.visible = true;
         },
