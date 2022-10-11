@@ -208,13 +208,13 @@ display:flex;
 
 
 		<script type="module">
+ import * as THREE from './jsm/three.module.js';
+    import { OrbitControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/examples/jsm/controls/OrbitControls.js';
+    import { GLTFLoader } from './jsm/GLTFLoader.js';
+    import { Reflector } from './jsm/Reflector.js';
 
+    import { LoadingBar } from './jsm/LoadingBar.js';
 
-			import * as THREE from '/build/three.module.js';
-import { OrbitControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/examples/jsm/controls/OrbitControls.js';
-import { Reflector } from '/jsm/Reflector.js';
-    import { GLTFLoader } from '/jsm/GLTFLoader.js';
-    import { LoadingBar } from '/jsm/LoadingBar.js';
 			let camera, scene, renderer;
 			var skyboxGeo, skybox, myReq;
 			let skyboxImage = 'purplenebula';
