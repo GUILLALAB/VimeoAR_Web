@@ -12,7 +12,7 @@ import {
 	HalfFloatType,
 	NoToneMapping,
 	LinearEncoding
-} from './three.module.js';
+} from './assets/three.module.js';
 
 
 class Reflector extends Mesh {
