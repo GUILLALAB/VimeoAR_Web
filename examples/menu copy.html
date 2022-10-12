@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Live AR - Home</title>
+    <link href="https://fonts.googleapis.com/css?family=Heebo:400,700|Oxygen:700" rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+
+  <!-- Material Design Lite -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.orange-indigo.min.css">
+  <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+  <!-- App Styling -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+  <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/main_menu.css" />
+		<noscript><link rel="stylesheet" href="/css/noscript.css" /></noscript>
+
+		  <!-- TODO: AWS Login. -->
+
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+		<script src="/js/jquery.min.js"></script>	
+		<script src="/js/aws-sdk-2.487.0.min.js"></script>
+		<script src="/js/aws-cognito-sdk.min.js"></script>
+		<script src="/js/amazon-cognito-identity.min.js"></script>
+  <!-- TODO: Enable First Input Delay polyfill library. -->
+  <script type="text/javascript">!function(n,e){var t,o,i,c=[],f={passive:!0,capture:!0},r=new Date,a="pointerup",u="pointercancel";function p(n,c){t||(t=c,o=n,i=new Date,w(e),s())}function s(){o>=0&&o<i-r&&(c.forEach(function(n){n(o,t)}),c=[])}function l(t){if(t.cancelable){var o=(t.timeStamp>1e12?new Date:performance.now())-t.timeStamp;"pointerdown"==t.type?function(t,o){function i(){p(t,o),r()}function c(){r()}function r(){e(a,i,f),e(u,c,f)}n(a,i,f),n(u,c,f)}(o,t):p(o,t)}}function w(n){["click","mousedown","keydown","touchstart","pointerdown"].forEach(function(e){n(e,l,f)})}w(n),self.perfMetrics=self.perfMetrics||{},self.perfMetrics.onFirstInputDelay=function(n){c.push(n),s()}}(addEventListener,removeEventListener);</script>
+
+  
+</head>
+<body class="is-boxed has-animations">
+    <div class="body-wrap boxed-container">
+        <header class="site-header text-light">
+            <div class="container">
+					<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
+					  <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
+						<h3><i class="material-icons"></i></h3>
+					  </div>
+					  <div id="user-container">
+						<div hidden id="user-pic"></div>
+						<div hidden id="user-name"></div>
+						<button id="logout" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white" >Log Out</button>
+						<button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+						  Sign-out
+						</button>
+						<button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+						  <i class="material-icons">account_circle</i>Sign-in with Google
+						</button>
+					  </div>
+					</div>				
+                <div class="site-header-inner">
+                    <div class="brand header-brand">
+                        <h1 class="m-0">
+                            <a href="#">
+								<img class="header-logo-image" src="/images/logo.svg" alt="Logo">
+                            </a>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero text-center text-light">
+				<div class="hero-bg"></div>
+				<div class="hero-particles-container">
+					<canvas id="hero-particles"></canvas>
+				</div>
+                <div class="container-sm">
+                    <div class="hero-inner">
+					<!-- Header -->
+			<header id="header">
+				<div class="image phone"><div class="inner"><img src="/images/iphone-feature-01green.png" alt="" /></div></div>
+
+				<div class="content">
+					<h1><a href="#">Live AR</a></h1>
+					<p>Broadcast and Visualize Live Video in Augmented Reality<br />
+					<a href=""></a></p>
+					<ul class="actions">
+						<li><a href="https://livear.herokuapp.com/broadcaster" class="button primary icon solid fa-download">Broadcast</a></li>
+						<li><a href="https://livear.herokuapp.com/green" class="button icon solid fa-chevron-down scrolly">Visualize</a></li>
+					</ul>
+				</div>
+			</header>
+					
+                    </div>
+                </div>
+            </section>
+
+			<section class="features-extended section">
+                <div class="features-extended-inner section-inner">
+					<div class="features-extended-wrap">
+						<div class="container">
+							<div class="feature-extended">
+								<div class="feature-extended-image">
+									<div class="mockup-bg">
+										<img src="/images/iphone-feature-bg-01.svg" alt="iPhone Feature 01 illustration">
+									</div>
+									<img class="device-mockup is-revealing" src="/images/iphone-feature-01broadcast.png" alt="iPhone Feature 01">
+								</div>
+								<div class="feature-extended-body is-revealing">
+									<h3 class="mt-0 mb-16">Broadcast Live Streaming Video.</h3>
+									<p class="m-0">From your Desktop or Mobile, share live experience from your internal/ external camera and audio source.
+										            
+									</p>
+									<br>
+									<p class="m-0">Drop and Display 3D objects during the Live.
+										            
+									</p>
+								<div class="cta-cta">
+									<br>
+									<a class="button button-secondary button-wide-mobile" href="https://livear.herokuapp.com/broadcaster">Broadcast</a>
+								</div>
+								
+								</div>
+							
+							</div>
+							
+							<br>
+							<div class="feature-extended">
+								<div class="feature-extended-image">
+									<div class="mockup-bg">
+										<img src="/images/iphone-feature-bg-02.svg" alt="iPhone Feature 02 illustration">
+									</div>
+									<img class="device-mockup is-revealing" src="/images/iphone-feature-01green.png" alt="iPhone Feature 02">
+								</div>
+								<div class="feature-extended-body is-revealing">
+									<h2 class="mt-0 mb-16">Visualize Live AR .</h2>
+									<p class="m-0">Watch the world, display Live Video of users in your environment in AR, including real time Greenscreen Removal.</p>
+									<br>
+									<p class="m-0">Visualize 3D objects in your environment Live.
+										      
+									<div class="cta-cta">
+										<br>
+										<a class="button button-primary button-wide-mobile" href="https://livear.herokuapp.com/green">Visualize</a>
+									</div>
+								</div>
+								
+							</div>
+							
+							<br>
+						
+							<div  class="feature-extended">
+								<div class="feature-extended-image">
+									<div class="mockup-bg">
+										<img src="/images/iphone-feature-bg-02.svg" alt="iPhone Feature 02 illustration">
+									</div>
+									<img class="device-mockup is-revealing" src="/images/iphone-feature-01green.png" alt="iPhone Feature 02">
+								</div>
+								<div class="feature-extended-body is-revealing">
+									<h2 class="mt-0 mb-16">Visualize Live AR .</h2>
+									<p class="m-0">In Augmented Reality, Display Live Video in your environment with real time body segmentation ML.</p>
+								
+									<div class="cta-cta">
+										<br>
+										<a class="button button-primary button-wide-mobile" href="https://livear.herokuapp.com/index">Visualize</a>
+									</div>
+								</div>
+							</div>
+							<br>
+							<div  class="feature-extended">
+								<div class="feature-extended-image">
+									<div class="mockup-bg">
+										<img src="/images/iphone-feature-bg-02.svg" alt="iPhone Feature 02 illustration">
+									</div>
+									<img class="device-mockup is-revealing" src="/images/iphone-feature-01green.png" alt="iPhone Feature 02">
+								</div>
+								<div class="feature-extended-body is-revealing">
+									<h2 class="mt-0 mb-16">Visualize Video Streaming AR .</h2>
+									<p class="m-0">In Augmented Reality, Display Streaming Video in your environment.</p>
+								
+									<div class="cta-cta">
+										<br>
+										<a class="button button-primary button-wide-mobile" href="https://livear.herokuapp.com/greenStreaming">Visualize</a>
+									</div>
+								</div>
+							</div>
+
+							<br>
+
+								<div  class="feature-extended">
+									<div class="feature-extended-image">
+										<div class="mockup-bg">
+										</div>
+										<img class="device-mockup is-revealing" src="/images/ads3D.png" alt="iPhone Feature 02">
+									</div>
+									<div class="feature-extended-body is-revealing">
+										<h2 class="mt-0 mb-16">Ads Manager.</h2>
+										<p class="m-0">Promote your brand and products by displaying images and 3D objects during live events in Augmented Reality</p>
+									
+										<div class="cta-cta">
+											<br>
+											<a class="button button-primary button-wide-mobile" href="https://livear.herokuapp.com/ads">Manage Ads</a>
+										</div>
+									</div>
+								</div>
+
+								<section id="three" class="wrapper style2 special">
+									<header class="major">
+										<h2>3D Ads</h2>
+										<p class="secondtitle">Increese visibility and user engagment by promoting your brand and products<br />
+											 Display 3D objects with amazing experience during live events in Augmented Reality</p>
+									</header>
+									<ul class="actions special">
+										<li><a href="#" class="button button-primary button-wide-mobile">Ads Manager</a></li>
+									<!--<li><a href="#" class="button">Learn More</a></li>-->	
+									</ul>
+								</section>
+
+
+							<div class="feature-extended">
+								<div class="feature-extended-body is-revealing">
+									<h3 class="mt-0 mb-16">The Future of immersive communication and entertainment</h3>
+									<p class="m-0"></p>
+								</div>
+								
+							</div>
+						
+						
+						</div>
+					</div>
+                </div>
+            </section>
+        </main>
+
+		<main hidden class="mdl-layout__content mdl-color--grey-100">
+			<div class="flex-container">
+		
+			  <div class="flex-child magenta">
+				<div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
+		  
+				  <!-- Messages container -->
+				  <div id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
+					<div class="mdl-card__supporting-text mdl-color-text--grey-600">
+					  <div id="messages">
+					  </div>
+					  <form id="message-form" action="#">
+						<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						  <input class="mdl-textfield__input" type="text" id="message" autocomplete="off">
+						  <label class="mdl-textfield__label" for="message">Message...</label>
+						</div>
+						<button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+						  Send
+						</button>
+					  </form>
+					  <form id="image-form" action="#">
+						<input id="mediaCapture" type="file" accept="image/*" capture="camera">
+						<button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
+						  <i class="material-icons">image</i>
+						</button>
+					  </form>
+					</div>
+				  </div>
+			
+				  <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
+					<div class="mdl-snackbar__text"></div>
+					<button class="mdl-snackbar__action" type="button"></button>
+				  </div>
+			
+				</div>
+			  </div>
+			  
+			  <div class="flex-child green">
+				Flex Column 2
+			  </div>
+			  
+			</div>
+		  </main>
+
+		<footer class="site-footer">
+			<div class="footer-particles-container">
+				<canvas id="footer-particles"></canvas>
+			</div>
+			<div class="site-footer-top">
+				<section class="cta section text-light">
+					<div class="container-sm">
+						<div class="cta-inner section-inner">
+							<div class="cta-header text-center">
+								<h2 class="section-title mt-0">Stay in the know</h2>
+								<p class="section-paragraph">Stay connected and focus on live events</p>
+								<div class="cta-cta">
+									<a class="button button-primary button-wide-mobile" href="#">Get early access</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div class="site-footer-bottom">
+				<div class="container">
+					<div class="site-footer-inner">
+						<div class="brand footer-brand">
+							<a href="#">
+								<img src="/images/logo.svg" alt="Venus logo">
+							</a>
+						</div>
+						<ul class="footer-links list-reset">
+							<li>
+								<a href="#">Contact</a>
+							</li>
+							<li>
+								<a href="#">About us</a>
+							</li>
+							<li>
+								<a href="#">FAQ's</a>
+							</li>
+							<li>
+								<a href="#">Support</a>
+							</li>
+						</ul>
+						<ul class="footer-social-links list-reset">
+							<li>
+								<a href="#">
+									<span class="screen-reader-text">Facebook</span>
+									<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+										<path d="M6.023 16L6 9H3V6h3V4c0-2.7 1.672-4 4.08-4 1.153 0 2.144.086 2.433.124v2.821h-1.67c-1.31 0-1.563.623-1.563 1.536V6H13l-1 3H9.28v7H6.023z" fill="#FFF"/>
+									</svg>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="screen-reader-text">Twitter</span>
+									<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+										<path d="M16 3c-.6.3-1.2.4-1.9.5.7-.4 1.2-1 1.4-1.8-.6.4-1.3.6-2.1.8-.6-.6-1.5-1-2.4-1-1.7 0-3.2 1.5-3.2 3.3 0 .3 0 .5.1.7-2.7-.1-5.2-1.4-6.8-3.4-.3.5-.4 1-.4 1.7 0 1.1.6 2.1 1.5 2.7-.5 0-1-.2-1.5-.4C.7 7.7 1.8 9 3.3 9.3c-.3.1-.6.1-.9.1-.2 0-.4 0-.6-.1.4 1.3 1.6 2.3 3.1 2.3-1.1.9-2.5 1.4-4.1 1.4H0c1.5.9 3.2 1.5 5 1.5 6 0 9.3-5 9.3-9.3v-.4C15 4.3 15.6 3.7 16 3z" fill="#FFF"/>
+									</svg>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span class="screen-reader-text">Google</span>
+									<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+										<path d="M7.9 7v2.4H12c-.2 1-1.2 3-4 3-2.4 0-4.3-2-4.3-4.4 0-2.4 2-4.4 4.3-4.4 1.4 0 2.3.6 2.8 1.1l1.9-1.8C11.5 1.7 9.9 1 8 1 4.1 1 1 4.1 1 8s3.1 7 7 7c4 0 6.7-2.8 6.7-6.8 0-.5 0-.8-.1-1.2H7.9z" fill="#FFF"/>
+									</svg>
+								</a>
+							</li>
+						</ul>
+						<div class="footer-copyright">&copy; 2022 LiveAR, all rights reserved</div>
+					</div>
+				</div>
+			</div>
+        </footer>
+    </div>
+	<script src="/js/jquery.min.js"></script>
+			<script src="/js/jquery.scrolly.min.js"></script>
+			<script src="/js/browser.min.js"></script>
+			<script src="/js/breakpoints.min.js"></script>
+			<script src="/js/util.js"></script>
+			<script src="/js/mainfractal.js"></script>
+    <script src="/js/main.min.js"></script>
+	<script type="module" src="/js/index.js"></script>
+	<script>
+
+		//=============== AWS IDs ===============
+		var userPoolId = 'eu-west-1_3x9L2hsjh';
+		var clientId = '4gkuhfpqeo9rc279nh727l3sco';
+		var region = 'eu-west-1';
+		var identityPoolId = 'eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b';
+		//=============== AWS IDs ===============
+	
+		var cognitoUser;
+		var idToken;
+		var userPool;
+		
+		var poolData = { 
+			UserPoolId : userPoolId,
+			ClientId : clientId
+		};
+		getCurrentLoggedInSession();
+	  
+	document.getElementById("logout").addEventListener("click", function (e) {
+		logOut();
+	});
+	
+		function getCurrentLoggedInSession(){
+			$("#logout").hide();
+	
+	userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+	cognitoUser = userPool.getCurrentUser();
+	
+	if(cognitoUser != null){
+		cognitoUser.getSession(function(err, session) {
+			if (err) {
+				console.log(err.message);
+			}else{
+				console.log('Session found! Logged in.');
+				idToken = session.getIdToken().getJwtToken();
+				localStorage.setItem("sub", session.getIdToken().decodePayload().sub);
+				$("#logout").show();
+	
+	
+				getCognitoIdentityCredentials();
+			}
+		});
+	}else{
+		console.log('Logout');
+		window.location = "https://livear.herokuapp.com/login";
+	
+	}
+	
+	}
+	function logOut(){
+				if (cognitoUser != null) {
+					cognitoUser.signOut();
+					console.log('Logged out!');
+					window.location = "https://livear.herokuapp.com/login";
+				}
+			}
+	
+	function getCognitoIdentityCredentials(){
+				AWS.config.region = region;
+	
+				var loginMap = {};
+				loginMap['cognito-idp.' + region + '.amazonaws.com/' + userPoolId] = idToken;
+	
+				AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+					IdentityPoolId: identityPoolId,
+					Logins: loginMap
+				});
+	
+				AWS.config.credentials.clearCachedId();
+	
+				AWS.config.credentials.get(function(err) {
+					if (err){
+						console.log(err.message);
+					}
+					else {
+						console.log('AWS Access Key: '+ AWS.config.credentials.accessKeyId);
+						console.log('AWS Secret Key: '+ AWS.config.credentials.secretAccessKey);
+						console.log('AWS Session Token: '+ AWS.config.credentials.sessionToken);
+					}
+	
+				});
+			}
+	</script>
+</body>
+</html>
