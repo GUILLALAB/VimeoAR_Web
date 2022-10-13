@@ -50,7 +50,7 @@ app.use(hostValidation({ hosts: [`127.0.0.1:${process.env.PORT}`,
                                  process.env.DOMAIN] }))
 
                                 
-app.get('/', (request, response) => {
+app.get('/menu', (request, response) => {
   response.render('menu.html',{ name: 'Tobi' });
 });
 
