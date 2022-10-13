@@ -91,7 +91,7 @@ app.get('/signup', (request, response) => {
 app.get('/adsmanager', (request, response) => {
   response.render('ads_interface.html',{ name: 'Tobi' });
 });
-app.get('/experience', (request, response) => {
+app.get('/exp', (request, response) => {
   response.render('experience.html',{ name: 'Tobi' });
 });
 
