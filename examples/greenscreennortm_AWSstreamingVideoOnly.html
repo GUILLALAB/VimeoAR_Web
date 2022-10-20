@@ -201,9 +201,9 @@
     <source  id="source" src="video.mp4" type="video/mp4">   
     </video>
 
-    <div class="container py5">
+    <div id="row" class="container py5">
   
-      <div id="row" class="row">
+      <div  class="row">
           <ul id="home_product"></ul>
       </div>
   
@@ -543,7 +543,7 @@ const hls = new Hls();
          clock = new THREE.Clock();
 
         renderer.domElement.style.display = 'none';
-        document.getElementById("messages-card").style.display="none";
+        document.getElementById("row").style.display="none";
 
         badgeButton = document.getElementById('badgeButton');
 
