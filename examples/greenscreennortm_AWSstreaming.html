@@ -203,7 +203,7 @@
 
     <div class="container py5">
   
-      <div class="row">
+      <div id="row" class="row">
           <ul id="home_product"></ul>
       </div>
   
@@ -552,11 +552,11 @@ const hls = new Hls();
         badgeButton = document.getElementById('badgeButton');
 
 badgeButton.addEventListener("click", function (e) {
- if("none"== document.getElementById("messages-card").style.display){
-  document.getElementById("messages-card").style.display="block";
+ if("none"== document.getElementById("row").style.display){
+  document.getElementById("row").style.display="block";
 
- }else if("block"== document.getElementById("messages-card").style.display){
-  document.getElementById("messages-card").style.display="none";
+ }else if("block"== document.getElementById("row").style.display){
+  document.getElementById("row").style.display="none";
  }
 
   //show
