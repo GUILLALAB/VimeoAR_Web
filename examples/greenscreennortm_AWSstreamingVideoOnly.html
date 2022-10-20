@@ -1,0 +1,911 @@
+<!doctype HTML>
+<html>
+    <head>
+      <title>Live AR - Visualize</title>
+      <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    
+      <style>
+      body,
+    h1 {
+      font-family: "Raleway", sans-serif
+    }
+
+    body,
+    html {
+      height: 100%
+    }
+
+    .bgimg {
+      background-image: url('113097.jpg');
+      min-height: 100%;
+      background-position: center;
+      background-size: cover;
+    }
+
+    p {
+      margin: 2px;
+      color: white;
+    }
+
+    .row {
+      display: flex;
+    }
+
+    .mirror {
+      transform: scaleX(-1);
+    }
+
+    input {
+      margin-top: 20px;
+    }
+
+    #infinite-list {
+      /* We need to limit the height and show a scrollbar */
+      width: 200px;
+      height: 300px;
+      overflow: auto;
+
+      /* Optional, only to check that it works with margin/padding */
+      margin: 30px;
+      padding: 20px;
+      border: 5px solid rgb(255, 255, 255);
+    }
+
+    /* Optional eye candy below: */
+    li {
+      padding: 5px;
+      list-style-type: none;
+    }
+
+    li:hover {
+      background: rgb(255, 255, 255);
+    }
+    .row {
+    display: inline-block;
+    overflow: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+    margin: 0 0 1em;
+    white-space: nowrap;
+}
+
+.row li {
+    display: inline-block;
+    vertical-align: top;
+}
+    .notification {
+      background-color: #555;
+      color: white;
+      text-decoration: none;
+      padding: 15px 15px;
+      position: absolute;
+      bottom: 0;
+      margin-bottom: 150px;
+      display: inline-block;
+      border-radius: 2px;
+    }
+
+    .notification:hover {
+      background: red;
+    }
+
+    .notification .badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      padding: 5px 10px;
+      border-radius: 50%;
+      background: red;
+      color: white;
+    }
+
+    #myProgress {  width: 100%;  background-color: grey;} 
+#myBar {  width: 1%;  height: 30px;  background-color: green;}
+
+
+      </style>
+      </head>
+   
+    <link href="https://fonts.googleapis.com/css?family=Heebo:400,700|Oxygen:700" rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style_listBroadcast.css"/>
+
+<!-- Material Design Lite -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.orange-indigo.min.css">
+<script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+	  <!-- TODO: AWS Login. -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <script src="/js/jquery.min.js"></script>	
+    <script src="/js/aws-sdk-2.487.0.min.js"></script>
+    <script src="/js/aws-cognito-sdk.min.js"></script>
+    <script src="/js/amazon-cognito-identity.min.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.410.0.min.js"></script>
+    <script src="/js/awsuploadvideotest.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+
+<!-- App Styling -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <body style="background-color:black;text-align:center">
+   <!-- Navbar -->
+
+<div class="w3-top">
+  <div class="w3-bar w3-black w3-card w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-black" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+	<div id="user-container">
+    <div id="upload" class="product-1 align-items-center p-2 text-center"> <img src="upload.png" class="rounded" width="50" height="35">
+    </div>
+
+		<div hidden id="user-pic"></div>
+		<div hidden id="user-name"></div>
+
+    <button id="logout" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white" >Log Out</button>
+
+
+		<button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+		  Sign-out
+		</button>
+		<button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+		  <i class="material-icons"></i>Sign-in
+		</button>
+	  </div>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"></a>
+  </div>
+
+  
+</div>
+
+      
+      <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+
+        <section class="hero text-center text-light">
+          <h1 class="hero-title mt-0">Live AR</h1>
+          <p class="hero-paragraph">Visualize Live video in Augmented Reality.
+</p>
+        
+         
+
+            <input type="text" placeholder="broadcaster channel name" id="myInput">
+
+            </section>
+            
+          </div>
+            <div  id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
+              
+              <div class="row">
+                <ul id="object_product"></ul>
+            </div>
+              <!-- Messages container -->
+              <div id="messages-card" class="mdl-card mdl-shadow--0dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
+              
+                <div class="messages">
+
+   
+              </div>
+           
+            </div> 	             
+       
+            <a  id="badgeButton" href="#" class="notification">
+              <span>Objects</span>
+              <span id="object_badge" class="badge"></span>
+            </a>
+       <video id="video" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
+    <source  id="source" src="video.mp4" type="video/mp4">   
+    </video>
+
+    <div class="container py5">
+  
+      <div id="row" class="row">
+          <ul id="home_product"></ul>
+      </div>
+  
+  </div>
+
+    <script src="utils.js"></script>
+
+    
+    <script id="vertexShader" type="glsl">
+
+    varying vec2 vUv;
+    void main( void ) {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+    }
+
+    </script>
+
+
+    <script id="fragmentShader" type="glsl">
+
+    uniform vec3 keyColor;
+    uniform float similarity;
+    uniform float smoothness;
+    varying vec2 vUv;
+    uniform sampler2D map;
+    void main() {
+
+      vec4 videoColor = texture2D(map, vUv);
+
+      float Y1 = 0.299 * keyColor.r + 0.587 * keyColor.g + 0.114 * keyColor.b;
+      float Cr1 = keyColor.r - Y1;
+      float Cb1 = keyColor.b - Y1;
+
+      float Y2 = 0.299 * videoColor.r + 0.587 * videoColor.g + 0.114 * videoColor.b;
+      float Cr2 = videoColor.r - Y2;
+      float Cb2 = videoColor.b - Y2;
+
+      float blend = smoothstep(similarity, similarity + smoothness, distance(vec2(Cr2, Cb2), vec2(Cr1, Cb1)));
+      gl_FragColor = vec4(videoColor.rgb, videoColor.a * blend);
+    }
+
+    </script>
+    
+
+    <script>
+
+      //=============== AWS IDs ===============
+      var userPoolId = 'eu-west-1_3x9L2hsjh';
+      var clientId = '4gkuhfpqeo9rc279nh727l3sco';
+      var region = 'eu-west-1';
+      var identityPoolId = 'eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b';
+      //=============== AWS IDs ===============
+    
+      var cognitoUser;
+      var idToken;
+      var userPool;
+      
+      var poolData = { 
+        UserPoolId : userPoolId,
+        ClientId : clientId
+      };
+      getCurrentLoggedInSession();
+      
+    document.getElementById("logout").addEventListener("click", function (e) {
+      if( $("#logout").text()==="SIGN IN"){
+        window.location = "https://livear.herokuapp.com/login";
+      }else{
+        logOut();
+      }
+    });
+
+    document.getElementById("upload").addEventListener("click", function (e) {
+      userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    cognitoUser = userPool.getCurrentUser();
+    
+    if(cognitoUser != null){
+      cognitoUser.getSession(function(err, session) {
+        if (err) {
+          console.log(err.message);
+        }else{
+          idToken = session.getIdToken().getJwtToken();
+          localStorage.setItem("sub", session.getIdToken().decodePayload().sub);
+          $("#logout").show();
+          window.location = "https://livear.herokuapp.com/aws";
+          getCognitoIdentityCredentials();
+        }
+      });
+    }else{
+      console.log('Logout');
+      window.location = "https://livear.herokuapp.com/login";
+    
+    }
+    });
+    
+      function getCurrentLoggedInSession(){
+    
+    userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    cognitoUser = userPool.getCurrentUser();
+    
+    if(cognitoUser != null){
+      cognitoUser.getSession(function(err, session) {
+        if (err) {
+          console.log(err.message);
+        }else{
+          console.log('Session found! Logged in.');
+          idToken = session.getIdToken().getJwtToken();
+          localStorage.setItem("sub", session.getIdToken().decodePayload().sub);
+          $("#logout").show();
+    
+          getCognitoIdentityCredentials();
+        }
+      });
+    }else{
+      $("#logout").show();
+      $("#logout").html("SIGN IN");
+
+      console.log('Logout');
+     // window.location = "https://livear.herokuapp.com/login";
+    
+    }
+    
+    }
+    function logOut(){
+          if (cognitoUser != null) {
+            cognitoUser.signOut();
+            $("#logout").html("SIGN IN");
+            console.log('Logged out!');
+          //  window.location = "https://livear.herokuapp.com/login";
+          }
+        }
+    
+        function getCognitoIdCredentials(){
+          AWS.config.region = region;
+    
+          var loginMap = {};
+          loginMap['cognito-idp.' + region + '.amazonaws.com/' + userPoolId] = idToken;
+    
+          AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: identityPoolId,
+            Logins: loginMap
+          });
+    
+          AWS.config.credentials.clearCachedId();
+    
+        return AWS.config.credentials;
+        }
+        
+    function getCognitoIdentityCredentials(){
+          AWS.config.region = region;
+    
+          var loginMap = {};
+          loginMap['cognito-idp.' + region + '.amazonaws.com/' + userPoolId] = idToken;
+    
+          AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: identityPoolId,
+            Logins: loginMap
+          });
+    
+          AWS.config.credentials.clearCachedId();
+    
+          AWS.config.credentials.get(function(err) {
+            if (err){
+              console.log(err.message);
+            }
+            else {
+              console.log('AWS Access Key: '+ AWS.config.credentials.accessKeyId);
+              console.log('AWS Secret Key: '+ AWS.config.credentials.secretAccessKey);
+              console.log('AWS Session Token: '+ AWS.config.credentials.sessionToken);
+            }
+    
+          });
+        }
+    </script>
+
+    <script type="module">
+import * as THREE from './jsm/three.module.js';
+import { GLTFLoader } from './jsm/GLTFLoader.js';
+
+    import { LoadingBar } from './jsm/LoadingBar.js';
+    import { ARButton } from './jsm/webxr/ARButton.js';
+    import {Ads, loadAds,loadObject,Object,Broadcaster} from './js/index_greenscreen.js';
+
+    let container;
+    let camera, scene, renderer,source;
+    let controller;
+
+    let reticle;
+    var cube,video, texture,material;
+    var isset=0;
+    let videoTexture;
+    let videoImageContext ;
+    let hitTestSource = null;
+    let hitTestSourceRequested = false;
+    var client=null;
+    var ads=null;
+    var mesh=null;
+    var tex=null;
+    var chair=null;
+    var streamCount;
+    var channelName;
+    var agoraAppId;
+    var rtmClient=null;
+    var offscreenCanvas;
+        var videoElement;
+        var transparentCanvas;
+        var callBtnTransparent;
+        var videoEnabled;
+        var transparencyEnabled;
+        var offscreenCanvas;
+let height, width;
+let videoDevices = [];
+var object_badge=0;
+var object_badges;
+var badgeButton;
+// canvas green screen controls
+const gFloorRange = 105;
+const rbCeilingRange = 80;
+const FRAME_RATE = 25;
+let videoWidth = 320;
+let videoHeight = 240;
+var assetsPath;
+// Safari & Firefox don't support OffscreenCanvas
+var mixer=null; 
+var objet=null;
+var loadingBar;
+let segmentedCanvas;
+var clock;
+   
+
+function removeEntity(object) {
+    var selectedObject = scene.getObjectByName(object.name);
+    scene.remove( selectedObject );
+    animate();
+}
+    document.addEventListener("objectclick", function (e) {
+ 
+			// alert(e.detail);
+			var data = e.detail;
+			if (data != null) {
+        console.log(data);
+        setAds3DModel(data);
+			}
+		});
+
+    document.addEventListener("buttonclick", function (e) {
+
+// alert(e.detail);
+var data = e.detail;
+if (data != null) {
+  console.log(data);
+//  var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
+
+  const index = data.srcVideo.lastIndexOf('/');
+const before = data.srcVideo.slice(0, index);
+
+var objects = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+before+"/"+"objects"+"/";
+console.log(objects);
+
+
+  PlayVideo(data);
+
+
+}
+
+
+});
+
+    initAWS();
+    init(); 
+    animate();
+
+ 
+
+    
+    function myFunction() {
+      video.play();
+    }
+
+  
+    function PlayVideo(srcVideo){
+
+const hls = new Hls();
+ if (Hls.isSupported()) {
+   hls.loadSource(srcVideo.hlsUrl);
+   hls.attachMedia(video);
+   hls.on(Hls.Events.MANIFEST_PARSED, function () {
+     video.play();
+     console.log("HLS");
+   });
+ } else {
+   // HLS isnt supported in iOS, so we do it natively
+   var file = "https://"+srcVideo.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+srcVideo.srcVideo;
+   video.src = file;
+   console.log("MP4");
+   video.addEventListener("loadedmetadata", function () {
+     video.play();
+   });
+ }
+
+     
+   }
+
+    function StopVideo(){
+      document.getElementById('video').pause();
+    }
+
+
+
+    function init() {
+
+       assetsPath = './ar-shop/';
+   loadingBar = new LoadingBar();
+   loadingBar.visible = false;
+
+
+
+      container = document.createElement( 'div' );
+      document.body.appendChild( container );
+
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera();
+      const light = new THREE.HemisphereLight( 0xffffff, 0xbbbbff, 1 );
+      light.position.set( 0.5, 1, 0.25 );
+      scene.add( light );
+
+
+      
+        renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
+        renderer.setPixelRatio( window.devicePixelRatio );
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.xr.enabled = true;
+        container.appendChild( renderer.domElement );
+       
+        document.body.appendChild( ARButton.createButton(renderer, { requiredFeatures: ['hit-test'], optionalFeatures: [ 'dom-overlay', 'dom-overlay-for-handheld-ar' ], domOverlay: { root: document.body } } )
+          );
+         clock = new THREE.Clock();
+
+        renderer.domElement.style.display = 'none';
+        document.getElementById("messages-card").style.display="none";
+
+        badgeButton = document.getElementById('badgeButton');
+
+badgeButton.addEventListener("click", function (e) {
+ if("none"== document.getElementById("row").style.display){
+  document.getElementById("row").style.display="block";
+
+ }else if("block"== document.getElementById("row").style.display){
+  document.getElementById("row").style.display="none";
+ }
+
+  //show
+
+});
+        //
+
+
+        function onSelect() {
+
+          if ( reticle.visible ) {
+
+
+     if(mesh!=null){
+       mesh.position.setFromMatrixPosition( reticle.matrix );
+      }else{
+        createBroadcaster();
+      }
+ 
+
+  }
+
+}
+
+controller = renderer.xr.getController( 0 );
+controller.addEventListener( 'select', onSelect );
+scene.add( controller );
+
+reticle = new THREE.Mesh(
+  new THREE.RingGeometry( 0.15, 0.2, 32 ).rotateX( - Math.PI / 2 ),
+  new THREE.MeshBasicMaterial()
+  );
+reticle.matrixAutoUpdate = false;
+reticle.visible = false;
+scene.add( reticle );
+
+        //
+
+        window.addEventListener( 'resize', onWindowResize );
+
+      }
+
+      function onWindowResize() {
+
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize( window.innerWidth, window.innerHeight );
+
+      }
+
+
+
+
+// Agora RTM
+// setu the RTM clit and channel
+
+
+function createBroadcaster() {
+  video = document.getElementById('video');
+      source = document.getElementById('source');
+
+      video.setAttribute('webkit-playsinline', 'webkit-playsinline');
+      video.setAttribute('playsinline', 'playsinline');
+      video.pause();
+      video.setAttribute('crossorigin', 'anonymous');
+      source.src = "https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/video/bike4.mp4";
+      video.load();
+      texture = new THREE.VideoTexture(video);
+      texture.minFilter = THREE.LinearFilter;
+      texture.magFilter = THREE.LinearFilter;
+      texture.format = THREE.RGBFormat;
+
+      var geometry = new THREE.PlaneBufferGeometry( 2, 1.5);
+
+      const vertexShader = document.getElementById("vertexShader").textContent;
+      const fragmentShader = document.getElementById("fragmentShader").textContent;
+
+      material = new THREE.ShaderMaterial({
+        transparent: true,
+        uniforms: {
+          map: { value: texture },
+          keyColor: { value: [0.0, 1.0, 0.0] },
+          similarity: { value: 0.74 },
+          smoothness: { value: 0.0 }
+        },
+        vertexShader: vertexShader,
+        fragmentShader: fragmentShader
+      });
+      material.color = new THREE.Color();
+      material.metalness = 0;
+      mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+      mesh.position.setFromMatrixPosition( reticle.matrix );
+video.play();
+     // video.play();
+        isset = 1;
+
+      //ads
+
+
+}
+
+function setAds3DModel(link) {
+      loadingBar.visible = true;
+
+      const loader = new GLTFLoader();
+      const self = this;
+      // Load a glTF resource
+      loader.load(
+        // resource URL
+        link,
+        // called when the resource is loaded
+        function (gltf) {
+
+
+          scene.add(gltf.scene);
+
+          chair = gltf.scene;
+
+
+
+          chair.visible = false;
+          loadingBar.visible = false;
+
+
+       
+          console.log(gltf.animations);
+          if (gltf.animations != null) {
+            mixer = new THREE.AnimationMixer(chair);
+            const clips = gltf.animations; // second animation;
+            //  const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
+            //  console.log(clip);
+            //  mixer.clipAction( clip).play();
+            clips.forEach(function (clip) {
+              mixer.clipAction(clip).play();
+            });
+
+
+          }
+
+          chair.position.setFromMatrixPosition( reticle.matrix );
+
+          chair.visible = true;
+        },
+        // called while loading is progressing
+        function (xhr) {
+
+          loadingBar.progress = (xhr.loaded / xhr.total);
+
+        },
+        // called when loading has errors
+        function (error) {
+
+          console.log(error);
+          loadingBar.visible = false;
+
+
+        }
+      );
+
+
+
+
+    }
+
+function initAWS(){
+  var userPoolId = 'eu-west-1_3x9L2hsjh';
+      var region = 'eu-west-1';
+      var identityPoolId = 'eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b';
+      //=============== AWS IDs ===============
+          var idToken;
+      
+
+AWS.config.region = region;
+      
+    getCognitoIdCredentials().get(function(err) {
+  if (err) console.log(err.stack);
+  
+  // credentials not loaded
+  else {
+    const itemsAll = scanAll("VideoAWS");
+    itemsAll.then(function(value) {
+      for(var i =0;i<100000;i++){
+        if(value[i]!== undefined){
+      console.log(value[i]);
+     
+      loadProducts(value[i]);
+     
+
+      var file = "https://"+value[i].srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+value[i].srcVideo;
+
+    }
+      }
+    // expected output: 123
+});
+
+  }
+});
+
+const documentClient = new AWS.DynamoDB.DocumentClient();
+
+const scanAll = async (tableName) => {
+  let lastEvaluatedKey = 'dummy'; // string must not be empty
+  const itemsAll = [];
+  let table = { TableName: tableName };
+
+
+  while (lastEvaluatedKey) {
+    const data = await documentClient.scan(table).promise();
+    itemsAll.push(...data.Items);
+    lastEvaluatedKey = data.LastEvaluatedKey;
+    if (lastEvaluatedKey) {
+      table.ExclusiveStartKey = lastEvaluatedKey;
+    }
+  }
+  return itemsAll;
+}
+
+    }
+
+    function loadProducts(data){
+      document.getElementById("home_product").innerHTML = '';
+
+var li = document.createElement('li');
+
+var Template = '<div class="card mt-1">'+
+'<div class="product-1 align-items-center p-2 text-center"> <img id="btn" src="'+data.thumbNailsUrls+'" class="rounded" width="150" height="100">'+
+    '<div class="message"> <span class="text1 d-block">'+ data.title+' </span> </div>'+
+'</div>'+
+'<div  class="button-color p-2 text-center text-white"> <span class="text-uppercase ">Add to cart</span> </div>'+
+'</div>';
+
+li.innerHTML = Template;
+
+li.setAttribute('id', data.guid);
+
+li.querySelector("#btn").myParam = data;
+
+li.querySelector("#btn").addEventListener('click', myFunc, false);
+
+var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
+
+document.getElementById("home_product").appendChild(li);
+    }
+
+     function myFunc(evt) {
+  var test = evt.currentTarget.myParam;
+var event = new CustomEvent("buttonclick", { "detail": test });
+  document.dispatchEvent(event);
+}
+
+
+      function animate() {
+
+        renderer.setAnimationLoop( render );
+
+      }
+
+      function render( timestamp, frame ) {
+
+        if ( frame ) {
+
+          const referenceSpace = renderer.xr.getReferenceSpace();
+          const session = renderer.xr.getSession();
+          const collection = document.getElementsByClassName("bgimg w3-display-container w3-animate-opacity w3-text-white");
+          [...collection].forEach( el => {
+            el.style.display = 'none';
+          });
+
+          const collection2 = document.getElementsByClassName(" hero text-center text-light");
+          [...collection2].forEach( el => {
+            el.style.display = 'none';
+          });
+         
+          if ( hitTestSourceRequested === false ) {
+
+            session.requestReferenceSpace( 'viewer' ).then( function ( referenceSpace ) {
+
+              session.requestHitTestSource( { space: referenceSpace } ).then( function ( source ) {
+
+                hitTestSource = source;
+
+              } );
+
+            } );
+
+            session.addEventListener( 'end', function () {
+             renderer.domElement.style.display = '';
+
+             if(mesh!=null){
+                mesh.remove();
+             }
+            
+             
+             hitTestSourceRequested = false;
+             hitTestSource = null;
+
+           } );
+
+            hitTestSourceRequested = true;
+
+          }
+
+          if ( hitTestSource ) {
+
+            const hitTestResults = frame.getHitTestResults( hitTestSource );
+
+            if ( hitTestResults.length ) {
+
+              const hit = hitTestResults[ 0 ];
+
+              reticle.visible = true;
+              reticle.matrix.fromArray( hit.getPose( referenceSpace ).transform.matrix );
+
+            } else {
+
+              reticle.visible = false;
+
+            }
+
+          }
+
+        }
+        if(reticle!= null){
+        var position = new THREE.Vector3();
+     position.getPositionFromMatrix( reticle.matrixWorld);
+   //  console.log(position.x+"| "+ position.y+"| " +"| "+position.z);
+        }
+     
+        if(mesh!=null){
+          mesh.lookAt(camera.position);
+
+        }
+
+        if (mixer != null) {
+          var delta = clock.getDelta();
+          mixer.update(delta);
+        }
+
+        if(video!=null)
+        {
+          if ( video.readyState === video.HAVE_ENOUGH_DATA ) 
+          {
+            if ( texture ) 
+              texture.needsUpdate = true;
+          }
+        }
+        renderer.render( scene, camera );
+
+      }
+
+      </script>  
+      <script type="module" src="/js/index_greenscreen.js"></script>
+          <script src="/js/main.min.js"></script>
+
+    </body>
+
+    <!-- for broadcast user use: https://digitallysavvy.github.io/group-video-chat -->
+</html>
