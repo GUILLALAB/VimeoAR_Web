@@ -135,7 +135,7 @@ app.get('/picker', (request, response) => {
   response.render('picker.html');
 });
 app.get('/greenarStreaming', (request, response) => {
-  response.render('greenscreennortm_AWSstreaming.html');
+  response.render('greenscreennortm_AWSstreamingVideoOnly.html');
 });
 
 app.get('/broadcaster', (request, response) => {
