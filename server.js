@@ -118,6 +118,8 @@ app.get('/playground', (request, response) => {
   response.render('playground.html');
 });
 
+//Agora
+
 app.get('/green', (request, response) => {
   response.render('greenscreennortm.html');
 });
@@ -138,6 +140,7 @@ app.get('/greenarStreaming', (request, response) => {
   response.render('greenscreennortm_AWSstreamingVideoOnly.html');
 });
 
+//Agora
 app.get('/broadcaster', (request, response) => {
   response.render('broadcaster3Dsplit.html',{ name: 'Tobi' });
 });
