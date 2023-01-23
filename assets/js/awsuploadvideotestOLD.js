@@ -1,17 +1,7 @@
-var userPoolId = 'eu-west-1_3x9L2hsjh';
 var albumBucketName = "videoaws-source-8r4bwmp9uami";
 var bucketRegion = "eu-west-1";
 var IdentityPoolId = "eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b";
-var clientId = '4gkuhfpqeo9rc279nh727l3sco';
-var cognitoUser;
-  var idToken;
-  var userPool;
-
 var currentalbum=null;
-var username=null;
-var currentvideoalblum="";
-
-
 AWS.config.update({
   region: bucketRegion,
   credentials: new AWS.CognitoIdentityCredentials({
@@ -19,10 +9,6 @@ AWS.config.update({
   })
 });
 
-  var poolData = { 
-    UserPoolId : userPoolId,
-    ClientId : clientId
-  };
 
 var s3 = new AWS.S3({
   apiVersion: "2006-03-01",
@@ -31,36 +17,9 @@ var s3 = new AWS.S3({
 
 createVideoUserSubAlbum(encodeURIComponent("video")+"/",localStorage.getItem("sub"));
 
-getCurrentLoggedInSession();
-
-function getCurrentLoggedInSession(){
-  
-  userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-  cognitoUser = userPool.getCurrentUser();
-  
-  if(cognitoUser != null){
-  cognitoUser.getSession(function(err, session) {
-    if (err) {
-    console.log(err.message);
-    }else{
-      username= cognitoUser.getUsername();
-    
-
-    console.log(username);
-    idToken = session.getIdToken().getJwtToken();
-    localStorage.setItem("sub", session.getIdToken().decodePayload().sub);
-
-        
-    }
-  });
-  }else{
-  
-  }
-  
-  }
-
 function listAlbums() {
   var userid = localStorage.getItem("sub");
+
     var albumPhotosKey = encodeURIComponent("video") + "/"+encodeURIComponent(userid) + "/";
    // s3.listObjects({Delimiter: "/" }, function(err, data) {
 
@@ -70,7 +29,7 @@ function listAlbums() {
     } else {
       var albums = data.CommonPrefixes.map(function(commonPrefix) {
         var prefix = commonPrefix.Prefix;
-        var albumName = decodeURIComponent(prefix.replace("/", "/"));
+        var albumName = decodeURIComponent(prefix.replace("/", ""));
         return getHtml([
           "<li>",
           "<span onclick=\"deleteAlbum('" + albumName + "')\">X</span>",
@@ -138,15 +97,11 @@ function createAlbum(albumName) {
 }
 
 function createObjectSubAlbum(path) {
-  currentvideoalblum=path;
-  if(document.getElementById("3dobject_input")!=null){
-    document.getElementById("3dobject_input").style.display="block";
-  }
+  
   var albumKey = path + encodeURIComponent("objects")+"/";
   s3.headObject({ Key: albumKey }, function(err, data) {
     if (!err) {
       return alert("Album already exists.");
-    }else{
     }
    /* if (err.code !== "NotFound") {
       return alert("There was an error creating your album: " + err.message);
@@ -178,27 +133,15 @@ function createVideoUserSubAlbum(path,userid) {
   });
 }
 
- function createSubAlbum(album) {
-  var s3 = new AWS.S3({
-    apiVersion: "2006-03-01",
-    params: { Bucket: albumBucketName }
-  });
+function createSubAlbum(album) {
   var files = document.getElementById("videoupload").files;
-  var progressBar = document.getElementById("progress-bar");
-
   if (!files.length) {
     return alert("Please choose a file to upload first.");
   }
   var file = files[0];
-  checkFileSize(file,526214400);
   var fileName = file.name;
   var userid = localStorage.getItem("sub");
-  const key= generateUUID();
-  var albumPhotosKey = encodeURIComponent("video")+"/"+encodeURIComponent(userid)+"/"+encodeURIComponent(key)+"/";;
-
-  if(document.getElementById("3dobject_input")!=null){
-    document.getElementById("3dobject_input").style.display="none";
-  }
+  var albumPhotosKey = encodeURIComponent("video")+"/"+encodeURIComponent(userid)+"/"+encodeURIComponent(generateUUID())+"/";;
 
   if (!albumPhotosKey) {
     return alert("Album names must contain at least one non-space character.");
@@ -220,55 +163,35 @@ function createVideoUserSubAlbum(path,userid) {
   if (!files.length) {
     return alert("Please choose a file to upload first.");
   }
-  const videotitle = document.getElementById("videotitle").value;
+  var videotitle = document.getElementById("videotitle").value;
 
-  const videodescription = document.getElementById("videodescription").value;
-const category=document.getElementById("selectedOption").innerHTML;
-  const photoKey = albumPhotosKey + fileName;
-  const countview = "0";
-  var userid=localStorage.getItem("sub").toString();
+  var videodescription = document.getElementById("videodescription").value;
+
+  var photoKey = albumPhotosKey + fileName;
+
   // Use S3 ManagedUpload class as it supports multipart uploads
-  //alert(userid);
-
+ 
   var params = {
-    ContentType: "video/mp4",
-
     Metadata: {
-      'counterview': videotitle,
-      'userid': userid,
-      's3key': key,
-      'caption': videodescription,
-      'username':username,
-      'category': category,
-      },
+      'title': videotitle,
+      'description': videodescription,
+    },
     
     Bucket: albumBucketName,
     Key: photoKey,
     Body: file,
 };
   var options = {partSize: 200 * 1024 * 1024, queueSize: 1};
+  s3.upload(params, options, function(err, data) {
+    if(err) {
+        alert(err.code);
+    } else{
+    alert('uploaded suceessfully')
+    createObjectSubAlbum(albumPhotosKey);
 
-
-  var upload = new AWS.S3.ManagedUpload({
-    params: params
-});
-
-upload.on('httpUploadProgress', function(evt) {
-    var percent = evt.loaded / evt.total * 100;
-    progressBar.style.width = percent + '%';
-    progressBar.innerHTML = percent + '%';
-});
-
-upload.send(function(err, data) {
-  if(err) {
-    alert(err.code);
-} else{
-alert('uploaded suceessfully');
-createObjectSubAlbum(albumPhotosKey);
-
-viewAlbum(albumPhotosKey);
-currentalbum=albumPhotosKey;
-};
+    viewAlbum(albumPhotosKey);
+    currentalbum=albumPhotosKey;
+    };
 });
 
 
@@ -380,32 +303,24 @@ var uploadSampleFile = function() {
 });
 }
 
-/*function viewAlbum(path,albumName) {
+
+function viewAlbum(path,albumName) {
   var albumPhotosKey = path + encodeURIComponent(albumName) + "/";
   s3.listObjects({ Prefix: albumPhotosKey }, function(err, data) {
     if (err) {
       return alert("There was an error viewing your album: " + err.message);
     }
+    // 'this' references the AWS.Response instance that represents the response
     var href = this.request.httpRequest.endpoint.href;
     var bucketUrl = href + albumBucketName + "/";
-   
-    const transformedObjects = data.Contents
-    .filter(object => object.Key.endsWith('.mp4'))
-    .map(object => ({
-      key: object.Key,
-      size: object.Size
-    }));
-  console.log(transformedObjects);
 
     var photos = data.Contents.map(function(photo) {
-   
-
       var photoKey = photo.Key;
       var photoUrl = bucketUrl + encodeURIComponent(photoKey);
       return getHtml([
         "<span>",
         "<div>",
-        '<img style="width:240px;height:128px;border: 0px solid #333;border-radius: 10px;box-shadow: 0px 0px 1px #333;" src="' + photoUrl + '"/>',
+        '<img style="width:128px;height:128px;" src="' + photoUrl + '"/>',
         "</div>",
         "<div>",
         "<span onclick=\"deletePhoto('" +
@@ -426,6 +341,12 @@ var uploadSampleFile = function() {
       ? "<p>Click on the X to delete the photo</p>"
       : "<p>You do not have any photos in this album. Please add photos.</p>";
     var htmlTemplate = [
+      "<h2>",
+      "Album: " + albumName,
+      "</h2>",
+      message,
+      "<div>",
+      getHtml(photos),
       "</div>",
       '<input id="videoupload" type="file" accept="video/*">',
       '<button id="addphoto" onclick="createSubAlbum(\'' + albumName + "')\">",
@@ -451,106 +372,7 @@ var uploadSampleFile = function() {
       "</button>",
       '<button onclick="listAlbums()">',
       "Back To Albums",
-      "</button>",
-      "<h2>",
-      "Album: " + albumName,
-      "</h2>",
-      message,
-      "<div>",
-      getHtml(photos)
-     
-    ];
-   
-    document.getElementById("app").innerHTML = getHtml(htmlTemplate);
-
-  });
-}*/
-
-function viewAlbum(path,albumName) {
-  var albumPhotosKey = path + encodeURIComponent(albumName) + "/";
-  s3.listObjects({ Prefix: albumPhotosKey }, function(err, data) {
-    if (err) {
-      return alert("There was an error viewing your album: " + err.message);
-    }
-    // 'this' references the AWS.Response instance that represents the response
-    var href = this.request.httpRequest.endpoint.href;
-    var bucketUrl = href + albumBucketName + "/";
-   
-    const transformedObjects = data.Contents
-    .filter(object => object.Key.endsWith('.mp4'))
-    .map(function(item){
-
-    var photoKey = item.Key;
-    var photoUrl = bucketUrl + encodeURIComponent(photoKey);
-    //console.log("photoUrl " +albumPhotosKey); video/albumuserparent
-    //console.log("bucketUrl "+bucketUrl); https://s3.eu-west-1.amazonaws.com/videoaws-source-8r4bwmp9uami/
-    console.log("photoUrl "+photoUrl);
-    console.log("photoKey "+photoKey);
-
-    var test=photoKey;
-
-    var splut=test.split('/');
-
-    var album=encodeURIComponent(splut[0])+"/"+encodeURIComponent(splut[1])+"/"+encodeURIComponent(splut[2])+"/";
-    console.log("splut "+splut[3]);
-    return getHtml([
-      "<span>",
-      "<div class='image-text-combination'>",
-      '<img style="width:240px;height:128px;border: 0px solid #333;border-radius: 10px;box-shadow: 0px 0px 1px #333;" src="' + photoUrl + '"/>',
-      "<span>",
-      splut[3],
-     // photoUrl.replace(splut[3], ""),
-      "</span>",
-      '<button style="width:50px;height:20px;border: 0px solid #333;border-radius: 10px;box-shadow: 0px 0px 1px #333;" id="addphoto" onclick="deleteAlbum(\'' + album + "')\">",
-
-      "</div>",
-
-      "<div>",
-      "<br>",
-      "</br>",
-      
-      "</div>",
-      "</span>"
-    ]);
-  
-  });
-    var message = transformedObjects.length
-      ? "<p>Click on the X to delete the photo</p>"
-      : "<p>You do not have any photos in this album. Please add photos.</p>";
-    var htmlTemplate = [
-      "</div>",
-      '<input id="videoupload" type="file" accept="video/*">',
-      '<button id="addphoto" onclick="createSubAlbum(\'' + albumName + "')\">",
-      "Add Video",
-      "</button>",
-      '<button onclick="listAlbums()">',
-      "Back To Albums",
-      "</button>",
-      "<br>",
-      '<form action="/url" method="GET">',
-      "<p>Please enter your Video Title:</p>",
-      '<input id="videotitle" type="text" placeholder="Video Title">',
-      '<input id="videodescription" type="text" placeholder="Video Description">',
-
-    "</form>",
-    '<div id="myProgress" style="display:none;"> ',    
-   '<div id="myBar"></div>',   
-   '</div>',  
-   "<br>",
-      '<input id="photoupload" type="file" accept=".glb">',
-      '<button id="addphoto" onclick="addPhoto(\'' + currentalbum + "')\">",
-      "Add Object",
-      "</button>",
-      '<button onclick="listAlbums()">',
-      "Back To Albums",
-      "</button>",
-      "<h2>",
-      "Album: " + albumName,
-      "</h2>",
-      message,
-      "<div>",
-      getHtml(transformedObjects)
-     
+      "</button>"
     ];
    
     document.getElementById("app").innerHTML = getHtml(htmlTemplate);
@@ -610,77 +432,15 @@ function loadProducts(data){
     document.dispatchEvent(event);
   }
 
-  function addPhotoProfile(filedata) {
-   
-    var file = filedata;
-    if (file.size<=0) {
-      return alert("Please choose a file to upload first.");
-    }
-    const fileType = file.type;
-
-    checkFileSize(file,5214400);
-
-    var fileName = file.name;
-    const fileExtension = fileName.substr(fileName.lastIndexOf('.') + 1);
-    if (fileExtension === "jpg" || fileExtension === "png") {
-    } else {
-        alert("File is not an image in JPG or PNG format.");
-        return;
-    }
-
-    var userid = localStorage.getItem("sub");
-
-  //  var albumPhotosKey = path + encodeURIComponent("objects") + "/";
-    var albumPhotosKey = encodeURIComponent("video")+"/"+encodeURIComponent(userid)+"/"+encodeURIComponent("pictureProfile")+"/";;
-
-    var photoKey = albumPhotosKey + fileName;
-  
-   
-  
-    var params = {
-      ContentType: fileType,
-      Metadata: {
-        'jpg': "jpg",
-      },
-      
-      Bucket: albumBucketName,
-        Key: photoKey,
-        Body: file,
-  };
-    
-  var options = {partSize: 200 * 1024 * 1024, queueSize: 1};
-    s3.upload(params, options, function(err, data) {
-      if(err) {
-          alert(err.code);
-      } else{
-      alert('image uploaded successfully')
-     // viewAlbum(albumPhotosKey);
-      };
-  });
-  
-  }
-
-  function checkFileSize(fileinput, size) {
-    var file = fileinput;
-    var fileSize = file.size;
-    var maxSize = size; // 25MB in bytes
-    if (fileSize > maxSize) {
-      alert("File size must be less than 25MB!");
-      return false;
-    }
-    return true;
-  }
 
 function addPhoto(path) {
-  var progressBar = document.getElementById("progress-bar");
   var files = document.getElementById("photoupload").files;
   if (!files.length) {
     return alert("Please choose a file to upload first.");
   }
   var file = files[0];
-  checkFileSize(file,26214400);
   var fileName = file.name;
-  var albumPhotosKey = currentvideoalblum + encodeURIComponent("objects") + "/";
+  var albumPhotosKey = path + encodeURIComponent("objects") + "/";
 
   var photoKey = albumPhotosKey + fileName;
 
@@ -697,26 +457,14 @@ function addPhoto(path) {
 };
   
 var options = {partSize: 100 * 1024 * 1024, queueSize: 1};
-var upload = new AWS.S3.ManagedUpload({
-  params: params
+  s3.upload(params, options, function(err, data) {
+    if(err) {
+        alert(err.code);
+    } else{
+    alert('uploaded suceessfully')
+    viewAlbum(albumPhotosKey);
+    };
 });
-
-upload.on('httpUploadProgress', function(evt) {
-  var percent = evt.loaded / evt.total * 100;
-  progressBar.style.width = percent + '%';
-  progressBar.innerHTML = percent + '%';
-});
-
-upload.send(function(err, data) {
-if(err) {
-  alert(err.code);
-} else{
-  currentvideoalblum="";
-  alert('uploaded suceessfully')
-  viewAlbum(albumPhotosKey);
-};
-});
-
 
 }
 
@@ -731,7 +479,7 @@ function deletePhoto(albumName, photoKey) {
 }
 
 function deleteAlbum(albumName) {
-  var albumKey = albumName;
+  var albumKey = encodeURIComponent(albumName) + "/";
   s3.listObjects({ Prefix: albumKey }, function(err, data) {
     if (err) {
       return alert("There was an error deleting your album: ", err.message);

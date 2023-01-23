@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>RedHub Duo</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="/js/main.css">
+		<link rel="stylesheet" type="text/css" href="/js/style_bike.css" />
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <script src="/js/jquery.min.js"></script>	
+		<script src="/js/aws-sdk-2.487.0.min.js"></script>
+		<script src="/js/aws-cognito-sdk.min.js"></script>
+		<script src="/js/amazon-cognito-identity.min.js"></script>
+		<script src="https://sdk.amazonaws.com/js/aws-sdk-2.410.0.min.js"></script>
+		<script src="/js/awsuploadvideotest.js"></script>
+		<style>
+			body {
+				color: #444;
+			}
+			a {
+				color: #08f;
+			}
+
+			.row {
+    display: inline-block;
+    overflow: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+    margin: 0 0 1em;
+    white-space: nowrap;
+}
+
+.row li {
+    display: inline-block;
+    vertical-align: top;
+}
+
+#loading-screen {
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #000000;
+	opacity: 1;
+ 	transition: 1s opacity;
+}
+
+#loading-screen.fade-out {
+    opacity: 0;
+}
+
+#loader {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #9370DB;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+#loader:before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #BA55D3;
+    -webkit-animation: spin 3s linear infinite;
+    animation: spin 3s linear infinite;
+}
+#loader:after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #FF00FF;
+    -webkit-animation: spin 1.5s linear infinite;
+    animation: spin 1.5s linear infinite;
+}
+@-webkit-keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.buttonload {
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+	border-color: #000000;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    transition: 0.3s;
+}
+
+.buttonloadmore {
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+	border-color: #c0b12b;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    transition: 0.3s;
+}
+
+.buttonimage{
+background-image: url('assets/films-2.png');
+background-size: cover;
+background-color: transparent;
+outline: none;
+border: none;
+width: 25px;
+height: 25px;
+  position: absolute;
+  top: 5%;
+  left: 2%;
+  z-index: 9;
+  margin: 0 auto;
+display: inline;
+}
+
+.buttonimage2{
+background-image: url('assets/films.png');
+background-size: cover;
+background-color: transparent;
+outline: none;
+border: none;
+width: 25px;
+height: 25px;
+  position: absolute;
+  top: 5%;
+  left: 2%;
+  z-index: 9;
+  margin: 0 auto;
+display: inline;
+}
+
+.btn-group button {
+  background-color: #04AA6D; /* Green background */
+  border: 1px solid green; /* Green border */
+  color: white; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  float: left; /* Float the buttons side by side */
+  position: absolute;
+  top: 5%;
+  left: 2%;
+  z-index: 9;
+}
+
+.btn-group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #3e8e41;
+}
+
+.buttons {
+width: 200px;
+margin: 0 auto;
+display: inline;}
+
+    .action_btn {
+width: 200px;
+margin: 0 auto;
+display: inline;}
+
+
+#video1{
+    width: 40px;
+    height: 40px;
+	margin: 0 auto;
+display: inline;
+}
+
+#containers{
+    text-align: center !important;
+	position: absolute;
+	top: 5%;
+  left: 2%;
+  z-index: 9;
+  width: 20%;
+height: 20%;
+margin: 0 20px;
+display: inline-block;
+}
+.audio-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 30px;
+}
+		</style>
+		
+	</head>
+	<body>
+
+
+	<!--	<section id="loading-screen">
+
+			<div id="loader"></div>
+		
+		</section>-->
+
+		<div id="container"></div>
+	
+
+		<div>
+			<div id="uploadtop" class="audio-container">
+				<button class="buttonload" id="boutonaudio">
+				</button>
+			  </div>
+
+			<div id="containers">
+				
+				<button  class="buttonload" id="hide">Hide list</button>
+
+				<button class="buttonload" id="background">background</button>
+
+			</div>	
+
+		
+		
+
+
+
+		<div id="info"><a href="https://threejs.org" target="_blank" rel="noopener"></a>
+		</div>
+	
+
+		<div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">		
+
+			  <ul id="object_product"></ul>
+		  </div>
+		<video id="video" autoplay="true"
+		muted="muted" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
+		  <source id="source" src="video.mp4" type="video/mp4">
+		</video>
+		
+	
+	
+
+			<div hidden id="movielist" class="container py5">
+  
+				<div class="row">
+				  <button  hidden id="load" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+					<i class="material-icons"></i>Load
+				  </button>
+					<ul>
+            <li>
+              <button class="buttonload"  id="explore">Explore</button>
+              <button class="buttonload"  id="music">Music</button>
+              <button class="buttonload"  id="live">Live</button>
+              <button class="buttonloadmore" id="next-button">More Videos</button>
+
+            </li>
+          </ul>
+
+				  <!--	<button class="buttonload" id="prev-button" disabled>Load More Videos</button>-->
+					<ul id="home_product"></ul>
+
+				</div>
+			
+			</div>
+
+		<!-- Import maps polyfill -->
+		<!-- Remove this wen import maps will be widely supported -->
+		
+		<script id="vertexShader" type="glsl">
+
+			varying vec2 vUv;
+			void main( void ) {
+			  vUv = uv;
+			  gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+			}
+		
+			</script>
+      <script src="/js/loginAWS.js"></script>
+
+		
+			<script id="fragmentShader" type="glsl">
+		
+			uniform vec3 keyColor;
+			uniform float similarity;
+			uniform float smoothness;
+			varying vec2 vUv;
+			uniform sampler2D map;
+			void main() {
+		
+			  vec4 videoColor = texture2D(map, vUv);
+		
+			  float Y1 = 0.299 * keyColor.r + 0.587 * keyColor.g + 0.114 * keyColor.b;
+			  float Cr1 = keyColor.r - Y1;
+			  float Cb1 = keyColor.b - Y1;
+		
+			  float Y2 = 0.299 * videoColor.r + 0.587 * videoColor.g + 0.114 * videoColor.b;
+			  float Cr2 = videoColor.r - Y2;
+			  float Cb2 = videoColor.b - Y2;
+		
+			  float blend = smoothstep(similarity, similarity + smoothness, distance(vec2(Cr2, Cb2), vec2(Cr1, Cb1)));
+			  gl_FragColor = vec4(videoColor.rgb, videoColor.a * blend);
+			}
+		
+			</script>
+		<script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+		<script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.7/build/dat.gui.min.js"></script>
+
+		<script type="module">
+import * as THREE from './jsm/three.module.js';
+    import { OrbitControls } from 'https://threejsfundamentals.org/threejs/resources/threejs/r122/examples/jsm/controls/OrbitControls.js';
+    import { GLTFLoader } from './jsm/GLTFLoader.js';
+    import { Reflector } from './jsm/Reflector.js';
+    import { LoadingBar } from './jsm/LoadingBar.js';
+    
+			let camera, scene, renderer;
+			var skyboxGeo, skybox, myReq;
+			let skyboxImage = 'purplenebula';
+			var chair=null;
+			let cameraControls, video, texture;
+			var clock = new THREE.Clock();
+var increment, delta,mesh,loadingBar;
+			let sphereGroup, smallSphere;
+			var mixer;
+			var objet_onscene=null;
+			let groundMirror, verticalMirror;
+			var loadingManager;
+            var currentvideo=null;
+			start();
+			init();
+			initAWS("");
+			animate();
+
+		var object_badges = document.getElementById('boutonaudio');
+      object_badges.textContent = "audio";
+
+	  var badgeButton = document.getElementById('boutonaudio');
+      badgeButton.addEventListener("click", function (e) {
+  document.getElementById("video").muted = !document.getElementById("video").muted;
+});
+
+
+
+
+
+
+
+  
+
+function removeEntity(object) {
+    var selectedObject = scene.getObjectByName(object.name);
+    scene.remove( selectedObject );
+	selectedObject.traverse((child) => {
+    if (child.isMesh) {
+		if(child.geometry!=null){
+			child.geometry.dispose();
+		}
+		if(child.material!=null){
+			child.material.dispose();
+		}
+		if(child.material.map!=null){
+			child.material.map.dispose();
+		}
+		if(child.material.alphaMap!=null){
+			child.material.alphaMap.dispose();
+		}
+		if(child.material.aoMap!=null){
+			child.material.aoMap.dispose();
+		}
+		if(child.material.emissiveMap!=null){
+			child.material.emissiveMap.dispose();
+		}
+		if(child.material.lightMap!=null){
+			child.material.lightMap.dispose();
+		}
+		if(child.material.normalMap!=null){
+			child.material.normalMap.dispose();
+		}
+		if(child.material.specularMap!=null){
+			child.material.specularMap.dispose();
+		}
+		if(child.material.envMap!=null){
+			child.material.envMap.dispose();
+		}
+    }
+});
+    animate();
+}
+
+
+
+
+    document.addEventListener("objectclick", function (e) {
+ 
+			// alert(e.detail);
+			var data = e.detail;
+			if (data != null) {
+        console.log(data);
+        setAds3DModel(data);
+			}
+		});
+
+document.addEventListener("buttonclick", function (e) {
+    var data = e.detail;
+    if (data != null) {
+    if (mesh!=null) {
+		currentvideo=data;
+		  mesh.position.set( 5, 120, -350 );
+	mesh.scale.set( 6,6, 6 );
+
+	if(data.background!=null){
+		document.getElementById('background').style.display="block";
+	}else{
+		document.getElementById('background').style.display="none";
+	}
+	var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
+	//PlayVideo(videodata.hlsUrl,"https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/avatar.mp4",video);
+	PlayVideo(data.hlsUrl,file,video);
+
+
+
+
+
+    /*chair.traverse((node) => {
+    pass=pass+1;
+    
+    // search the mesh's children for the face-geo
+    if (node.isMesh && node.name == data) {
+    console.log(node.name);
+    var seatstays = new ColorPickerControl({ container: document.querySelector('.color-picker-light-theme'), theme: 'light' });
+    
+    seatstays.on('change', (colorvalue) => {
+    node.material.color.set(colorvalue.toHEX());
+    document.getElementById("home_product").querySelector('li[id='+data+']').querySelector("#"+data+"").value = colorvalue.toHEX();
+    //document.getElementById("home_product").querySelector('li[id='+data+']').querySelector("#"+data+"").style.color = colorvalue.toHEX();
+    
+    });
+    }
+    });*/
+    }
+    
+    }
+    
+    });
+
+
+
+	/* loadingManager = new THREE.LoadingManager( () => {
+	
+	const loadingScreen = document.getElementById( 'loading-screen' );
+	loadingScreen.classList.add( 'fade-out' );
+	
+	// optional: remove loader from DOM via event listener
+	loadingScreen.addEventListener( 'transitionend', onTransitionEnd );
+	
+} );*/
+
+function start() {
+
+        let manager = new THREE.LoadingManager();
+         manager.onLoad = function ( ) {
+        console.log( "Loading complete!")
+    }
+
+
+    manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
+        console.log(`Items loaded: ${itemsLoaded}/${itemsTotal}`)
+    }
+
+    manager.onError = function ( url ) {
+        console.log( 'There was an error loading ' + url )
+    }
+}
+
+function initAWS(channelName){
+     
+	 var userPoolId = 'eu-west-1_3x9L2hsjh';
+	 var region = 'eu-west-1';
+	 var identityPoolId = 'eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b';
+	 //=============== AWS IDs ===============
+		 var idToken;
+	 
+
+AWS.config.region = region;
+	 
+
+if(isUserLoggedIn()){
+    // const itemsAll = scanAll("VideoAWS");
+    // itemsAll.then(function(value) {
+    //  requestVideo();
+  //  retrieveData(false);
+  }else{
+    console.log("Login not loggedIn");
+  }
+  queryDynamoDB(5,"");
+
+
+
+
+function queryDynamoDB(limit, category) {
+
+const documentClient = new AWS.DynamoDB.DocumentClient();
+
+const tableName = 'VideoAWS';
+let exclusiveStartKey = null;
+let prevExclusiveStartKey = null;
+let nextParams = {};
+
+
+  var params=null;
+  if (category.length>0){
+   params = {
+    TableName: tableName,
+    IndexName: 'category-index',
+    KeyConditionExpression: 'category = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': category
+  },
+  Limit: 5
+  };
+  }else{
+    params = {
+    TableName: tableName,
+    IndexName: 'workflowStatus-index',
+    KeyConditionExpression: 'workflowStatus = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': 'Complete'
+  },
+
+  Limit: 5
+};
+  
+  }
+
+
+  documentClient.query(params, (err, data) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(data);
+            displayData(data);
+
+            if (category.length>0){
+              nextParams = {
+    TableName: tableName,
+    IndexName: 'videotitlesearch-index',
+    KeyConditionExpression: 'videotitlesearch = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': category
+  },
+  Limit: 5,
+  ExclusiveStartKey: data.LastEvaluatedKey
+  };
+  }else{
+    nextParams = {
+    TableName: tableName,
+    IndexName: 'workflowStatus-index',
+    KeyConditionExpression: 'workflowStatus = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': 'Complete'
+  },
+
+  Limit: 5,
+  ExclusiveStartKey: data.LastEvaluatedKey
+
+};
+  
+  }
+   
+            if (!nextParams.ExclusiveStartKey) {
+                document.getElementById("next-button").style.display = "none";
+            }
+        }
+    });
+
+
+document.getElementById("next-button").addEventListener("click", () => {
+  documentClient.query(nextParams, (err, nextData) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(nextData);
+            displayData(nextData);
+
+            nextParams.ExclusiveStartKey = nextData.LastEvaluatedKey;
+            if (!nextParams.ExclusiveStartKey) {
+                document.getElementById("next-button").style.display = "none";
+            }
+        }
+    });
+});
+}
+
+
+function retrieveData(isPrev) {
+  var params=null;
+
+     params = {
+    TableName: tableName,
+    IndexName: 'workflowStatus-index',
+    KeyConditionExpression: 'workflowStatus = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': 'Complete'
+  },
+
+  Limit: 5,
+  ExclusiveStartKey: (isPrev) ? prevExclusiveStartKey : exclusiveStartKey
+};
+  
+  
+
+  documentClient.query(params, function(err, data) {
+    if (isPrev) {
+                    prevExclusiveStartKey = exclusiveStartKey;
+                    exclusiveStartKey = data.LastEvaluatedKey;
+                } else {
+                    prevExclusiveStartKey = data.LastEvaluatedKey;
+                    exclusiveStartKey = null;
+                }
+                displayData(data);
+                toggleButtons();
+    });
+}
+
+function toggleButtons() {
+        var prevButton = document.getElementById("prev-button");
+        var nextButton = document.getElementById("next-button");
+        prevButton.disabled = (prevExclusiveStartKey === null);
+        nextButton.disabled = (exclusiveStartKey === null);
+    }
+
+    function displayData(data) {
+        var items = data.Items;
+        var html = "";
+
+
+        for (var i = 0; i < items.length; i++) {
+        //    html += "<p>" + JSON.stringify(items[i]) + "</p>";
+        loadProducts(items[i]);
+        }
+
+      //  document.getElementById("data-container").innerHTML = html;
+    }
+
+  /*  document.getElementById("prev-button").addEventListener("click", function(){
+        retrieveData(true);
+    });
+    document.getElementById("next-button").addEventListener("click", function(){
+        retrieveData(false);
+    });*/
+
+document.getElementById("live").addEventListener("click", function (e) {
+  document.getElementById("home_product").innerHTML = "";
+  queryDynamoDB(5,'live');
+});
+document.getElementById("explore").addEventListener("click", function (e) {
+  document.getElementById("home_product").innerHTML = "";
+  queryDynamoDB(5,'');
+});
+document.getElementById("music").addEventListener("click", function (e) {
+  document.getElementById("home_product").innerHTML = "";
+  queryDynamoDB(5,'Music');
+});
+
+   }
+
+
+   document.getElementById("hide").addEventListener("click", function(){
+     if(document.getElementById("home_product").style.display == "block"){
+      document.getElementById("home_product").style.display = "none";
+     }else{
+      document.getElementById("home_product").style.display = "block";
+     }
+  
+    });
+
+
+			function setVideo(){
+        video = document.getElementById( 'video' );
+       var source = document.getElementById('source');
+        texture = new THREE.VideoTexture(video);
+        texture.minFilter = THREE.LinearFilter;
+        texture.magFilter = THREE.LinearFilter;
+        texture.format = THREE.RGBFormat;
+        
+       var geometry = new THREE.PlaneBufferGeometry( 100, 50);
+    
+       var vertexShader = document.getElementById("vertexShader").textContent;
+      var  fragmentShader = document.getElementById("fragmentShader").textContent;
+    
+          // Cria o material usando a urlVideoTexture
+    
+       var  material = new THREE.ShaderMaterial({
+            transparent: true,
+            uniforms: {
+              map: { value: texture },
+              keyColor: { value: [0.0, 1.0, 0.0] },
+              similarity: { value: 0.74 },
+              smoothness: { value: 0.0 }
+            },
+            vertexShader: vertexShader,
+            fragmentShader: fragmentShader
+          });
+    
+    
+          mesh = new THREE.Mesh( geometry, material);
+          scene.add( mesh );
+		  mesh.position.set( 5, 120, -350 );
+	mesh.scale.set( 6,6, 6 );
+
+/*	var wrapper = new THREE.CSS3DObject( mesh );
+
+scene.add( wrapper );
+wrapper.element.addEventListener( 'click', function() {
+    console.log( 'video clicked' );
+}, false );*/
+
+         // PlayVideo("https://d2pjrbz7mizc67.cloudfront.net/e38e9fc2-7a94-4ba9-95e6-8f4a679589b3/hls/street2015.m3u8","https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/street15.mp4");
+
+        
+	
+
+   }
+
+   function switchSkyBox (skyboxName) {
+      scene.remove(skybox);
+      skyboxImage = skyboxName;
+      const materialArray = createMaterialArray(skyboxImage);
+    
+      skybox = new THREE.Mesh(skyboxGeo, materialArray);
+      scene.add(skybox);
+    }
+
+   function createPathStrings(filename) {
+      const basePath = `https://raw.githubusercontent.com/codypearce/some-skyboxes/master/skyboxes/${filename}/`;
+      const baseFilename = basePath + filename;
+      const fileType = filename == 'purplenebula' ? '.png' : '.jpg';
+      const sides = ['ft', 'bk', 'up', 'dn', 'rt', 'lf'];
+      const pathStings = sides.map(side => {
+        return baseFilename + '_' + side + fileType;
+      });
+    
+      return pathStings;
+    }
+    
+    function createMaterialArray(filename) {
+      const skyboxImagepaths = createPathStrings(filename);
+      const materialArray = skyboxImagepaths.map(image => {
+        let texture = new THREE.TextureLoader().load(image);
+    
+        return new THREE.MeshBasicMaterial({ map: texture, side: THREE.BackSide });
+      });
+      return materialArray;
+    }
+
+   function  PlayVideo(hlsvideo, mp4video, player){
+const hls = new Hls();
+
+if (Hls.isSupported()) {
+//	player.pause();
+	hls.loadSource(hlsvideo);
+          hls.attachMedia(player);
+          hls.on(Hls.Events.MANIFEST_PARSED, function () {
+            player.play();
+            console.log("HLS");
+          });
+        } else {
+			player.pause();
+          // HLS isnt supported in iOS, so we do it natively
+
+          player.src = mp4video;
+          console.log("MP4");
+          player.addEventListener("loadedmetadata", function () {
+            player.play();
+          });
+        }
+
+   
+ }
+
+ function loadProducts(data){
+
+var li = document.createElement('li');
+
+	 var Template = '<div id="btn" class="card mt-1">'+
+		'<div class="product-1 align-items-center p-2 text-center"> <img src="'+data.thumbNailsUrls+'" class="rounded" width="150" height="100">'+
+    '<div class="message"> <span class="text1 d-block">'+ data.counterview+' </span> </div>'+
+'</div>'+
+'</div>';
+	 
+li.innerHTML = Template;
+
+li.setAttribute('id', data.guid);
+
+li.querySelector("#btn").myParam = data;
+
+li.querySelector("#btn").addEventListener('click', myFunc, false);
+
+var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
+
+document.getElementById("home_product").appendChild(li);
+    }
+
+
+     
+      function myFunc(evt) {
+     var test = evt.currentTarget.myParam;
+     var event = new CustomEvent("buttonclick", { "detail": test });
+     document.dispatchEvent(event);
+     }
+
+	 function onTransitionEnd( event ) {
+
+event.target.remove();
+
+}
+ function showChair(videodata){
+     var assetsPath = '/assets/ar-shop/';
+
+      const loader = new GLTFLoader(loadingManager);
+      var link=videodata.background;
+      loadingBar.visible = true;
+      if(videodata.background === undefined || videodata.background === ""){
+		link="";
+		loadingBar.visible = false;
+
+		return;
+	  }
+
+	  if(chair!=null){
+	  removeEntity(chair);
+	}
+      // Load a glTF resource
+      loader.load(
+          // resource URL
+          link,
+          // called when the resource is loaded
+          function ( gltf ) {
+			loadingBar.visible = true;
+			chair = gltf.scene;
+
+              scene.add(chair);
+
+              chair.visible = false; 
+              chair.position.set(0,0,0);
+			  chair.visible = true; 
+              chair.scale.set(2.0, 2.0, 2.0);
+		
+
+
+		  chair.traverse((node) => {
+
+if (node.isMesh) {
+  node.castShadow = true;
+//  node.name = link.IdRef;
+  node.isDraggable = true;
+}
+// search the mesh's children for the face-geo
+if (node.isMesh && node.name == 'ground') {    
+	node.material.transparent = true;
+
+		  node.material.opacity = 0.6;
+
+}
+
+if (node.isMesh && node.name == 'screenleft' ||  node.name == 'screenright') {
+  // create video texture from video element
+
+  
+ // PlayVideo("https://d2pjrbz7mizc67.cloudfront.net/0ca760e4-7413-4e48-88e2-a219d4b23fd3/hls/sideanime.m3u8","https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/sideanime.mp4",videoside);
+}
+});
+
+
+if (gltf.animations != null) {
+	 mixer = new THREE.AnimationMixer(chair);
+const clips = gltf.animations; // second animation;
+//clips.setLoop(THREE.LoopOnce);
+//	clips.ClampWhenFinished=true;
+//  const clip=THREE.AnimationClip.findByName(clips,'ArmatureAction');
+//  console.log(clip);
+//  mixer.clipAction( clip).play();
+clips.forEach(function (clip) {
+
+
+  mixer.clipAction(clip).play();
+});
+
+}
+
+		scene.updateMatrix();
+              scene.updateMatrixWorld(true);
+
+
+
+			  var file = "https://"+videodata.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+videodata.srcVideo;
+
+
+
+			  loadingBar.visible = false;
+
+          },
+          // called while loading is progressing
+          function ( xhr ) {
+
+              loadingBar.progress = (xhr.loaded / xhr.total);
+			  loadingBar.visible = true;
+
+          },
+          // called when loading has errors
+          function ( error ) {
+
+              console.log( 'An error happened' );
+
+          }
+      );
+  }  
+
+
+
+
+			function init() {
+
+				const container = document.getElementById( 'container' );
+      loadingBar = new LoadingBar();
+      loadingBar.visible = false;
+				// renderer
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				var audio = document.getElementById('boutonaudio');
+			var movie = document.getElementById('movielist');
+			audio.style.display="none";
+			movie.style.display="none";
+			document.getElementById('background').style.display="none";
+			document.getElementById("home_product").innerHTML = "";
+
+				// scene
+				scene = new THREE.Scene();
+
+				// camera
+        camera = new THREE.PerspectiveCamera( 43, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.position.set( -57, 440, 2500 );
+
+				cameraControls = new OrbitControls( camera, renderer.domElement );
+				cameraControls.target.set( 0, 70, 0 );
+				cameraControls.maxDistance = 2500;
+				cameraControls.minDistance = -2500;
+				cameraControls.update();
+				const _0x894ee0=_0x1f04;(function(_0x1132c1,_0x1bc8b9){const _0x5bc05c=_0x1f04,_0x3f8cb3=_0x1132c1();while(!![]){try{const _0x2f4c3f=-parseInt(_0x5bc05c(0x12c))/0x1+parseInt(_0x5bc05c(0x12e))/0x2*(parseInt(_0x5bc05c(0x136))/0x3)+parseInt(_0x5bc05c(0x132))/0x4*(parseInt(_0x5bc05c(0x131))/0x5)+parseInt(_0x5bc05c(0x12f))/0x6+-parseInt(_0x5bc05c(0x130))/0x7+-parseInt(_0x5bc05c(0x135))/0x8+parseInt(_0x5bc05c(0x133))/0x9;if(_0x2f4c3f===_0x1bc8b9)break;else _0x3f8cb3['push'](_0x3f8cb3['shift']());}catch(_0x3ae95b){_0x3f8cb3['push'](_0x3f8cb3['shift']());}}}(_0x5402,0xcb69e));function _0x5402(){const _0x5d5740=['154356fAgcQx','9655902olMcDB','BoxGeometry','6475504jKyngy','900819QqMlWE','add','28061HndemE','Mesh','10PFuJkk','634116ekPMJA','7604982xJceuX','10dQHclJ'];_0x5402=function(){return _0x5d5740;};return _0x5402();}const materialArray=createMaterialArray(skyboxImage);function _0x1f04(_0x230868,_0x131d2b){const _0x5402c4=_0x5402();return _0x1f04=function(_0x1f0462,_0x26cefd){_0x1f0462=_0x1f0462-0x12b;let _0x4046d5=_0x5402c4[_0x1f0462];return _0x4046d5;},_0x1f04(_0x230868,_0x131d2b);}skyboxGeo=new THREE[(_0x894ee0(0x134))](0x2710,0x2710,0x2710),skybox=new THREE[(_0x894ee0(0x12d))](skyboxGeo,materialArray),scene[_0x894ee0(0x12b)](skybox);
+    
+    switchSkyBox('afterrain');
+				//
+
+				
+			
+				const planeGeo = new THREE.PlaneGeometry( 100.1, 100.1 );
+
+				// reflectors/mirrors
+
+				let geometry, material;
+
+			/*	geometry = new THREE.CircleGeometry( 1000, 1000 );
+				groundMirror = new Reflector( geometry, {
+					clipBias: 0.003,
+					textureWidth: window.innerWidth * window.devicePixelRatio,
+					textureHeight: window.innerHeight * window.devicePixelRatio,
+					color: 0x777777
+				} );
+				groundMirror.position.y = -48;
+				groundMirror.rotateX( - Math.PI / 2 );
+				scene.add( groundMirror );*/
+
+				geometry = new THREE.PlaneGeometry( 100, 100 );
+			/*	verticalMirror = new Reflector( geometry, {
+					clipBias: 0.003,
+					textureWidth: window.innerWidth * window.devicePixelRatio,
+					textureHeight: window.innerHeight * window.devicePixelRatio,
+					color: 0x889999
+				} );
+				verticalMirror.position.y = 50;
+				verticalMirror.position.z = - 50;
+				scene.add( verticalMirror );*/
+				setVideo();
+
+var sunlight = new THREE.HemisphereLight( 0xffffbb, 0xffffff, 0 );
+				sunlight.position.set( 5, 130, -350 );
+
+scene.add(sunlight);
+				
+var gui = new dat.GUI();
+var lightControls = gui.addFolder('Light Controls');
+lightControls.add(sunlight, 'intensity', 0, 1);
+lightControls.add(sunlight.position, 'x', -2000, 2000);
+lightControls.add(sunlight.position, 'y', -2000, 2000);
+lightControls.add(sunlight.position, 'z', -2200, 2000);
+
+var lightControls = gui.addFolder('Video Position');
+lightControls.add(mesh.position, 'x', -2000, 2000);
+lightControls.add(mesh.position, 'y', -2000, 2000);
+lightControls.add(mesh.position, 'z', -2200, 2000);
+const params = {
+    scale: 1
+};
+const scaleController = gui.add(params, 'scale', 0, 15);
+
+// listen for changes to the "scale" property
+scaleController.onChange(function(value) {
+    mesh.scale.set(value, value, value);
+});
+
+lightControls.open();
+				// walls
+			/*	const planeTop = new THREE.Mesh( planeGeo, new THREE.MeshPhongMaterial( { color: 0xffffff } ) );
+				planeTop.position.y = 100;
+				planeTop.rotateX( Math.PI / 2 );
+				scene.add( planeTop );*/
+
+		/*		const planeBottom = new THREE.Mesh( planeGeo, new THREE.MeshPhongMaterial( { color: 0xffffff } ) );
+				planeBottom.rotateX( - Math.PI / 2 );
+				scene.add( planeBottom );*/
+
+			/*	const planeFront = new THREE.Mesh( planeGeo, new THREE.MeshPhongMaterial( { color: 0x7f7fff } ) );
+				planeFront.position.z = 50;
+				planeFront.position.y = 50;
+				planeFront.rotateY( Math.PI );
+				scene.add( planeFront );
+
+				const planeRight = new THREE.Mesh( planeGeo, new THREE.MeshPhongMaterial( { color: 0x00ff00 } ) );
+				planeRight.position.x = 50;
+				planeRight.position.y = 50;
+				planeRight.rotateY( - Math.PI / 2 );
+				scene.add( planeRight );
+
+				const planeLeft = new THREE.Mesh( planeGeo, new THREE.MeshPhongMaterial( { color: 0xff0000 } ) );
+				planeLeft.position.x = - 50;
+				planeLeft.position.y = 50;
+				planeLeft.rotateY( Math.PI / 2 );
+				scene.add( planeLeft );*/
+
+				// lights
+				const mainLight = new THREE.PointLight( 0xcccccc, 1.5, 250 );
+				mainLight.position.y = 60;
+				scene.add( mainLight );
+
+
+				const twoLight = new THREE.PointLight( 0xcccccc, 2, 5000 );
+				twoLight.position.y = 900;
+				twoLight.position.z = -700;
+
+				scene.add( twoLight );
+
+
+			/*	const greenLight = new THREE.PointLight( 0x00ff00, 0.25, 1000 );
+				greenLight.position.set( 550, 50, 0 );
+				scene.add( greenLight );
+
+				const redLight = new THREE.PointLight( 0xff0000, 0.25, 1000 );
+				redLight.position.set( - 550, 50, 0 );
+				scene.add( redLight );
+
+				const blueLight = new THREE.PointLight( 0x7f7fff, 0.25, 1000 );
+				blueLight.position.set( 0, 50, 550 );
+				scene.add( blueLight );*/
+				document.getElementById("background").addEventListener("click", function (e) {
+					showChair(currentvideo);
+});
+
+
+
+				window.addEventListener( 'resize', onWindowResize );
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			/*	groundMirror.getRenderTarget().setSize(
+					window.innerWidth * window.devicePixelRatio,
+					window.innerHeight * window.devicePixelRatio
+				);
+			*/
+
+			}
+
+			// usage:
+			function setAds3DModel(link) {
+      loadingBar.visible = true;
+
+      const loader = new GLTFLoader();
+      const self = this;
+      // Load a glTF resource
+      loader.load(
+        // resource URL
+        link,
+        // called when the resource is loaded
+        function (gltf) {
+
+          gltf.scene.name=link;
+          scene.add(gltf.scene);
+
+          objet_onscene = gltf.scene;
+          objet_onscene.name = link;
+
+          objet_onscene.traverse((node) => {
+
+            if (node.isMesh) {
+              node.castShadow = true;
+            //  node.name = link.IdRef;
+              node.isDraggable = true;
+            }
+            // search the mesh's children for the face-geo
+            if (node.isMesh && node.name == 'face-geo'|| node.name == 'body-geo') {
+              // create video texture from video element
+              var texture = new THREE.TextureLoader().load("112097.jpg");
+              texture.minFilter = THREE.LinearFilter;
+              texture.magFilter = THREE.LinearFilter;
+              texture.flipY = false;
+              node.material.map = texture;
+              node.material.color = new THREE.Color();
+              node.material.metalness = 0;
+            }
+          });
+
+
+          loadingBar.visible = false;
+          objet_onscene.position.set(0, 50, -200);
+        //  chair.scale.set(4.0, 4.0, 4.0);
+
+          scene.updateMatrix();
+          scene.updateMatrixWorld(true);
+
+          objects = objects + 4;
+          
+
+          objet_onscene.visible = true;
+        },
+        // called while loading is progressing
+        function (xhr) {
+
+          loadingBar.progress = (xhr.loaded / xhr.total);
+
+        },
+        // called when loading has errors
+        function (error) {
+
+          console.log(error);
+          loadingBar.visible = false;
+
+
+        }
+      );
+
+
+
+
+    }
+
+	function playAnimations(object) {
+    // Create an AnimationMixer
+    var mixer = new THREE.AnimationMixer(object);
+    var actions = [];
+    // function to play new animations
+    function play(animationName, loop) {
+        if (animationName) {
+            object.animations.forEach(function (clip) {
+                if (clip.name === animationName) {
+                    var action = mixer.clipAction(clip).setDuration(clip.duration).play();
+                    action.loop = loop;
+                    actions.push(action);
+                }
+            });
+        } else {
+            object.animations.forEach(function (clip) {
+                var action = mixer.clipAction(clip).setDuration(clip.duration).play();
+                action.loop = loop;
+                actions.push(action);
+            });
+        }
+    }
+    return {mixer, play, actions};
+}
+
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				if(video!=null)
+        {
+          if ( video.readyState === video.HAVE_ENOUGH_DATA ) 
+          {
+            if ( texture ) 
+              texture.needsUpdate = true;
+          }
+        }
+		
+		
+
+		if(camera.position.z<=3000){
+			var audio = document.getElementById('boutonaudio');
+			var movie = document.getElementById('movielist');
+               audio.style.display = "block";
+               movie.style.display = "block";
+		}
+
+	
+		if(camera.position.z>160){
+//camera.position.z -= 0.1;
+//chair.visible=false;
+}else{
+	//chair.visible=true;
+	//mesh.visible=false;
+	//video.pause();
+	//cameraControls.maxDistance = 200;
+			//	cameraControls.update();
+			
+}
+				const timer = Date.now() * 0.005;
+        if (mixer != null) {
+          var delta = clock.getDelta();
+          mixer.update(delta);
+        }
+				
+				/*smallSphere.position.set(
+					Math.cos( timer * 0.1 ) * 30,
+					Math.abs( Math.cos( timer * 0.2 ) ) * 20 + 5,
+					Math.sin( timer * 0.1 ) * 30
+				);*/
+
+				
+        if (mesh != null) {
+					mesh.lookAt( camera.position );
+        }
+
+		
+		
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+	</body>
+</html>

@@ -91,10 +91,14 @@ app.get('/signup', (request, response) => {
 app.get('/adsmanager', (request, response) => {
   response.render('ads_interface.html',{ name: 'Tobi' });
 });
-app.get('/exp', (request, response) => {
-  response.render('experience.html',{ name: 'Tobi' });
-});
 
+//experience video stream old design
+/*app.get('/exp', (request, response) => {
+  response.render('experience.html',{ name: 'Tobi' });
+});*/
+app.get('/exp', (request, response) => {
+  response.render('experience3DVideo.html',{ name: 'Tobi' });
+});
 
 app.get('/adscreation', (request, response) => {
   response.render('ads_creation.html',{ name: 'Tobi' });
