@@ -54,6 +54,10 @@ app.get('/menu', (request, response) => {
   response.render('menu.html',{ name: 'Tobi' });
 });
 
+app.get('/home', (request, response) => {
+  response.render('index.html',{ name: 'Tobi' });
+});
+
 app.get('/index', (request, response) => {
   response.render('indexsegallbody.html');
 });
