@@ -739,7 +739,7 @@ dynamoDb.delete(params, function(err, data) {
   if (err) {
     console.error("Error deleting item. Error JSON:", JSON.stringify(err, null, 2));
   } else {
-    console.log("Successfully deleted item:", JSON.stringify(data, null, 2));
+    //console.log("Successfully deleted item:", JSON.stringify(data, null, 2));
   }
 });
 }
@@ -774,7 +774,7 @@ function queryDynamoDB(limit) {
         if (err) {
             console.log(err);
         } else {
-            console.log(data);
+       //     console.log(data);
             displayData(data);
             
             nextParams = {
@@ -803,7 +803,7 @@ document.getElementById("next-button").addEventListener("click", () => {
         if (err) {
             console.log(err);
         } else {
-            console.log(nextData);
+         //   console.log(nextData);
             displayData(nextData);
 
             nextParams.ExclusiveStartKey = nextData.LastEvaluatedKey;
@@ -965,7 +965,7 @@ while (!done) {
   
   document.getElementById("usernameprofil").value=item.username;
   document.getElementById('profile-image1').src=item.profilepic;
-    console.log(item);
+    //console.log(item);
   }
 
   // Update the pagination variables
@@ -1132,7 +1132,7 @@ let select = document.getElementById("mySelect");
 let selectedOption = document.getElementById("selectedOption");
 let selectItems = document.querySelector(".select-items");
 let selectOption = document.querySelectorAll(".select-option");
-console.log(selectedOption.innerHTML);
+//console.log(selectedOption.innerHTML);
 var choice=null;
 //Initialize selectedOption with the first option
 selectedOption.innerHTML = select.options[select.selectedIndex].text;
@@ -1163,7 +1163,7 @@ select.addEventListener("blur", function() {
     selectItems.classList.remove("active");
 });
 </script>
-
+<script src="/js/menubar_left.js"></script>	
 <script src="/js/modalpopup.js"></script>	
 
 </body>
