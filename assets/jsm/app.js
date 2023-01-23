@@ -20,7 +20,7 @@ class App{
         this.loadingBar.visible = false;
        this.video = document.getElementById( 'video' );
        this.hls = new Hls();
-      
+      console.log("test");
 
         this.assetsPath = '../../assets/ar-shop/';
         
