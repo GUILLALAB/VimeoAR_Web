@@ -300,11 +300,11 @@ button{
                         localStorage.setItem("sub", result.getIdToken().decodePayload().sub);
                         localStorage.setItem("idtoken", idToken);
 
-                        window.location = "https://livear.herokuapp.com/menu";
+                        window.location = "https://livear.herokuapp.com/home";
 
                     //    getCognitoIdentityCredentials();
 
-                        $.getScript("awsuploadvideotest.js",function(){
+                        $.getScript("./js/awsuploadvideotest.js",function(){
                             createVideoUserSubAlbum(encodeURIComponent("video")+"/",result.getIdToken().decodePayload().sub);
 
 });
