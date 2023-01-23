@@ -1,6 +1,5 @@
 import * as THREE from './three.module.js';
 import { RGBELoader } from './RGBELoader.js';
-import * as THREE from './three.module.js';
 import { LoadingBar } from './LoadingBar.js';
 
 class App{
@@ -22,7 +21,7 @@ class App{
        this.hls = new Hls();
       console.log("test");
 
-        this.assetsPath = '../../assets/ar-shop/';
+   //     this.assetsPath = '../../assets/ar-shop/';
         
         this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 20 );
         this.camera.position.set( 0, 1.6, 0 );
