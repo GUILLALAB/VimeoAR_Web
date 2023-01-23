@@ -298,12 +298,14 @@ button{
                         idToken = result.getIdToken().getJwtToken();
                         console.log(result.getIdToken().decodePayload().sub);
                         localStorage.setItem("sub", result.getIdToken().decodePayload().sub);
+                        localStorage.setItem("idtoken", idToken);
 
-                        getCognitoIdentityCredentials();
+                        window.location = "https://livear.heroku.app/menu";
 
-                        $.getScript("/js/awsuploadvideotest.js",function(){
+                    //    getCognitoIdentityCredentials();
+
+                        $.getScript("awsuploadvideotest.js",function(){
                             createVideoUserSubAlbum(encodeURIComponent("video")+"/",result.getIdToken().decodePayload().sub);
-                            window.location = "https://livear.herokuapp.com/";
 
 });
 
@@ -480,8 +482,9 @@ console.log(value);
 
                         idToken = session.getIdToken().getJwtToken();
                         localStorage.setItem("sub", session.getIdToken().decodePayload().sub);
+                        localStorage.setItem("idtoken", idToken);
 
-                        getCognitoIdentityCredentials();
+                      //  getCognitoIdentityCredentials();
                     }
                     $("#loader").hide();
                 });
@@ -502,4 +505,5 @@ console.log(value);
     </script>
 </body>
 </html>
+
 
