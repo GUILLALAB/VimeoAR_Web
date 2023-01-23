@@ -121,7 +121,7 @@
          document.getElementById("navbutton").querySelector('li[id='+"upload"+']').style.display = "none";
          document.getElementById("navbutton").querySelector('li[id='+"profile"+']').style.display = "none";
 
-            document.getElementById("navbutton").querySelector('li[id='+"logout"+']').querySelector('a[id='+"logout"+']').href = "LoginAWS.html";
+            document.getElementById("navbutton").querySelector('li[id='+"logout"+']').querySelector('a[id='+"logout"+']').href = "https://livear.herokuapp.com/login";
        document.getElementById("navbutton").querySelector('li[id='+"logout"+']').querySelector('span[id='+"logouttext"+']').innerHTML = "Login";
 
           //  window.location = "https://livear.herokuapp.com/login";
