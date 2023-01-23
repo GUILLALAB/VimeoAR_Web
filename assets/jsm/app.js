@@ -1,7 +1,7 @@
-import * as THREE from '../jsm/three.module.js';
-import { RGBELoader } from '../jsm/RGBELoader.js';
-import * as THREE from '../jsm/three.module.js';
-import { LoadingBar } from '../jsm/LoadingBar.js';
+import * as THREE from './three.module.js';
+import { RGBELoader } from './RGBELoader.js';
+import * as THREE from './three.module.js';
+import { LoadingBar } from './LoadingBar.js';
 
 class App{
     constructor(){
