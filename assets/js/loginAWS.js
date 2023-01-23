@@ -127,7 +127,7 @@
           //  window.location = "https://livear.herokuapp.com/login";
 
           }else{
-            window.location = "https://admirable-concha-277e68.netlify.app/loginAWS";
+            window.location = "https://livear.heroku.app/loginAWS";
 
           }
           }
