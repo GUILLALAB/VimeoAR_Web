@@ -596,12 +596,12 @@ const params = {
     TableName: 'Live',
     Item: {
         'id': { S: '123' },
-        'name': { S: 'John' },
+        'userid': { S: localStorage.getItem('sub') },
         'age': { N: '25' }
     }
 };
 
-dynamodb.putItem(params, function(err, data) {
+docClient.putItem(params, function(err, data) {
     if (err) {
         console.error("Error", err);
     } else {
