@@ -592,20 +592,21 @@ lambda.invoke(params, (error, data) => {
 // Create DynamoDB document client
 var docClient = new AWS.DynamoDB.DocumentClient();
 
-var params = {
-  TableName: 'Live',
-  Item: {
-    id: '1',
-    userid: localStorage.getItem("sub")
-  }
+const params = {
+    TableName: 'Live',
+    Item: {
+        'id': { S: '123' },
+        'name': { S: 'John' },
+        'age': { N: '25' }
+    }
 };
 
-docClient.put(params, function(err, data) {
-  if (err) {
-    console.log("Error", err);
-  } else {
-    console.log("Success", data);
-  }
+dynamodb.putItem(params, function(err, data) {
+    if (err) {
+        console.error("Error", err);
+    } else {
+        console.log("Success", data);
+    }
 });
 
 		/* const geo =  new THREE.SphereGeometry( 0.5, 12, 8 );
