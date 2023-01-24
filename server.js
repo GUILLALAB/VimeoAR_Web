@@ -159,7 +159,7 @@ app.get('/greenarStreaming', (request, response) => {
 
 //Agora
 app.get('/broadcaster', (request, response) => {
-  response.render('broadcaster3Dsplit.html',{ name: 'Tobi' });
+  response.render('broadcaster3DsplitAWS.html',{ name: 'Tobi' });
 });
 app.get('/menu', (request, response) => {
   response.render('menu.html',{ name: 'Tobi' });
