@@ -306,7 +306,9 @@ function connectStreamToVideo(agoraStream, video) {
 
   var event = new CustomEvent("stream", { 
     detail: {
-    idbroadcast: Broadcaster.id
+      videoid: video.id,
+      channel:channelName
+
 }
   });
   document.dispatchEvent(event);
