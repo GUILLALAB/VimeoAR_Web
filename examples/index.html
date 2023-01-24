@@ -799,12 +799,7 @@ ul {
      
         fetch('https://bif2xjlhhh.execute-api.eu-west-1.amazonaws.com/stage1', {
     method: 'POST',
-    headers: {
-            'Access-Control-Allow-Origin' : '*',
-            'Access-Control-Allow-Headers':'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
-            'Access-Control-Allow-Credentials' : true,
-            'Content-Type': 'application/json'
-        },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
         id: '123',
         name: 'John',
@@ -813,7 +808,7 @@ ul {
 })
 .then(response => response.json())
 .then(data => {
-
+  
     console.log(data);
 })
 .catch(error => {
