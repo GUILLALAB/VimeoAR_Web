@@ -463,13 +463,18 @@ loadingBar = new LoadingBar();
 
 		const lambda = new AWS.Lambda();
 
-const params = {
-  FunctionName: 'Add_LiveStream',
-  Payload: JSON.stringify({
-    id: '123',
-    name: 'John',
-    age: '25',
-  }),
+
+var payload = {
+    id: 'value1',
+    name: 'value2'
+};
+
+// Create the parameters for the Lambda invocation
+var params = {
+    FunctionName: 'Add_LiveStream',
+    InvocationType: 'RequestResponse',
+    LogType: 'Tail',
+    Payload: JSON.stringify(payload)
 };
 
 lambda.invoke(params, (error, data) => {
