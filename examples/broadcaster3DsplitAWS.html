@@ -460,8 +460,10 @@ loadingBar = new LoadingBar();
 		cube.name = "cube";
 		scene.add(cube);*/
 		AWS.config.region = "eu-west-1";
-
-		const lambda = new AWS.Lambda();
+		var lambda = new AWS.Lambda({
+    region: 'eu-west-1',
+    endpoint: 'https://bif2xjlhhh.execute-api.eu-west-1.amazonaws.com'
+});
 
 	const payload = {
     id: '123',
@@ -475,6 +477,7 @@ if (!payload.id || !payload.name || !payload.age) {
 
 const params = {
     FunctionName: 'Add_LiveStream',
+	InvocationType: 'Event',
     Payload: JSON.stringify(payload),
 };
 
