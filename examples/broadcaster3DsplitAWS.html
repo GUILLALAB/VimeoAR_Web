@@ -471,7 +471,6 @@ loadingBar = new LoadingBar();
 
 if (!payload.id || !payload.name || !payload.age) {
     console.error("Payload is missing required fields");
-    return;
 }
 
 const params = {
@@ -483,7 +482,6 @@ const params = {
 lambda.invoke(params, (error, data) => {
   if (error) {
     console.error(error);
-    return;
   }
   console.log(data);
 });
