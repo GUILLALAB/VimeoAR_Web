@@ -444,13 +444,14 @@ void main() {
 
 
 // Create DynamoDB document client
-/*var docClient = new AWS.DynamoDB.DocumentClient();
+var docClient = new AWS.DynamoDB.DocumentClient();
 
 const params = {
     TableName: 'LiveStream',
     Item: {
-		id:generateUUID_LiveStream(),
-        idbc: link.idbroadcast,
+		id:link.channel,
+		channel:link.channel,
+        idstream: link.videoid,
 		userid: localStorage.getItem('sub')
     }
 };
@@ -461,10 +462,10 @@ docClient.put(params, function(err, data) {
     } else {
         console.log("Success", data);
     }
-});*/
+});
 
 				addVideo(link);
-				loadObject(link.idbroadcast);
+				//loadObject(link.idbroadcast);
 			}
 		});
 	/*	document.addEventListener("broadcastmodel", function(e) {
