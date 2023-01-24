@@ -593,15 +593,13 @@ lambda.invoke(params, (error, data) => {
 var docClient = new AWS.DynamoDB.DocumentClient();
 
 const params = {
-    TableName: 'Live',
+    TableName: 'VideoAWS',
     Item: {
-        'id': { S: '123' },
-        'userid': { S: localStorage.getItem('sub') },
-        'age': { N: '25' }
+        guid: '123'
     }
 };
 
-docClient.putItem(params, function(err, data) {
+docClient.put(params, function(err, data) {
     if (err) {
         console.error("Error", err);
     } else {
