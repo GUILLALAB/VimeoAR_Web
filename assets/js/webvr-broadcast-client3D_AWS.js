@@ -221,6 +221,12 @@ function leaveChannel() {
     $('#exit-btn').prop('disabled', true);
     ctx.canvas.hidden = true;
    // UserStopBroadcast(); IMPORTTANT
+   var event = new CustomEvent("stopstream", { 
+    detail: {
+      channel:  Broadcaster.channel,
+}
+  });
+  document.dispatchEvent(event);
     //LoadBroadcast();
   }, (err) => {
     console.log('client leave failed ', err); //error handling

@@ -468,6 +468,32 @@ docClient.put(params, function(err, data) {
 				//loadObject(link.idbroadcast);
 			}
 		});
+
+		document.addEventListener("stopstream", function (e) {
+			// alert(e.detail);
+			var link = e.detail;
+			if (link != null) {
+
+
+const dynamoDb = new AWS.DynamoDB.DocumentClient();
+const params = {
+  TableName: 'LiveStream',
+  Key: {
+    'id': link.channel
+  }
+};
+
+dynamoDb.delete(params, function(err, data) {
+  if (err) {
+    console.error("Error deleting item. Error JSON:", JSON.stringify(err, null, 2));
+  } else {
+    console.log("Successfully deleted item:");
+  }
+});
+
+				//loadObject(link.idbroadcast);
+			}
+		});
 	/*	document.addEventListener("broadcastmodel", function(e) {
  // alert(e.detail);
  Broadcaster.objecturl=e.detail;
