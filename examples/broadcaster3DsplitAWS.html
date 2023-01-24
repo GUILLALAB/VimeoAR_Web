@@ -593,9 +593,9 @@ lambda.invoke(params, (error, data) => {
 var docClient = new AWS.DynamoDB.DocumentClient();
 
 const params = {
-    TableName: 'VideoAWS',
+    TableName: 'Live',
     Item: {
-        guid: '123'
+        id: '123'
     }
 };
 
