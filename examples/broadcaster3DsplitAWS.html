@@ -460,10 +460,8 @@ loadingBar = new LoadingBar();
 		cube.name = "cube";
 		scene.add(cube);*/
 		AWS.config.region = "eu-west-1";
-		var lambda = new AWS.Lambda({
-    region: 'eu-west-1',
-    endpoint: 'https://bif2xjlhhh.execute-api.eu-west-1.amazonaws.com'
-});
+
+	/*	const lambda = new AWS.Lambda();
 
 	const payload = {
     id: '123',
@@ -487,6 +485,26 @@ lambda.invoke(params, (error, data) => {
     console.error(error);
   }
   console.log(data);
+});*/
+
+
+// Create DynamoDB document client
+var docClient = new AWS.DynamoDB.DocumentClient();
+
+var params = {
+  TableName: 'Live',
+  Item: {
+    id: "1",
+    userid: localStorage.getItem("sub")
+  }
+};
+
+docClient.put(params, function(err, data) {
+  if (err) {
+    console.log("Error", err);
+  } else {
+    console.log("Success", data);
+  }
 });
 
 		/* const geo =  new THREE.SphereGeometry( 0.5, 12, 8 );
