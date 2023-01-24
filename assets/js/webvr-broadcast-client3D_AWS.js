@@ -1,6 +1,5 @@
 // Agora settings
 //import {sayHello} from './server.js';
-import { UserStartBroadcast, UserStopBroadcast, Broadcaster, LoadBroadcast, getUserUid } from './index.js';
 
 const agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
 var channelName = '';
@@ -38,6 +37,17 @@ var devices = {
   cameras: [],
   mics: []
 }
+
+export var Broadcaster =
+{
+  id: null,
+  channel: null,
+  username: null,
+  objecturl: null,
+  time: null,
+  all: null
+};
+
 var rtcClient = AgoraRTC.createClient({ mode: 'live', codec: 'vp8' }); // vp8 to work across mobile devices
 const rtmClient = AgoraRTM.createInstance(agoraAppId);
 
@@ -134,13 +144,21 @@ if (rtcClient != null) {
 
 
 // create RTC client 
-
+function generateUUID_LiveStream() {
+  var d = new Date().getTime();
+  var uuid = 'Livexxxxxxxx-xxxx-xxxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = (d + Math.random()*16)%16 | 0;
+      d = Math.floor(d/16);
+     return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+  });
+  return uuid; };
 
 function init() {
   // setup the RTM client and channel
 
-  if (document.getElementById("myInput").value.length > 1) {
-    channelName = document.getElementById("myInput").value;
+ // if (document.getElementById("myInput").value.length > 1) {
+   // channelName = document.getElementById("myInput").value;
+   channelName = generateUUID_LiveStream();
     rtmChannel = rtmClient.createChannel(channelName);
 
     rtcClient.init(agoraAppId, () => {
@@ -149,7 +167,7 @@ function init() {
     }, function (err) {
       console.log('[ERROR] : AgoraRTC client init failed', err);
     });
-  } else { alert("Enter a channel name"); }
+ // } else { alert("Enter a channel name"); }
 }
 
 
@@ -160,7 +178,7 @@ function joinChannel() {
   //alert(name);
   // set the role
 
-  fetch("https://livear.herokuapp.com/rte/" + channelName + "/publisher/uid/" + getUserUid() + "/86400").then(function (response) {
+  fetch("https://livear.herokuapp.com/rte/" + channelName + "/publisher/uid/" + localStorage.getItem('sub') + "/86400").then(function (response) {
     return response.json();
   }).then(function (data) {
     token = data.rtcToken;
@@ -172,7 +190,7 @@ function joinChannel() {
       console.log('setClientRole failed', e);
     });
 
-    rtcClient.join(token, channelName, getUserUid(), (uid) => {
+    rtcClient.join(token, channelName, localStorage.getItem('sub'), (uid) => {
 
       console.log('User ' + uid + ' join channel successfully');
       localStreams.uid = uid;
@@ -202,7 +220,7 @@ function leaveChannel() {
     $('#video-btn').prop('disabled', true);
     $('#exit-btn').prop('disabled', true);
     ctx.canvas.hidden = true;
-    UserStopBroadcast();
+   // UserStopBroadcast(); IMPORTTANT
     //LoadBroadcast();
   }, (err) => {
     console.log('client leave failed ', err); //error handling
@@ -281,7 +299,17 @@ function connectStreamToVideo(agoraStream, video) {
  // ctx.canvas.width = window.innerWidth;
  // ctx.canvas.height = window.innerHeight;
  // ctx.canvas.hidden = false;
-  UserStartBroadcast(channelName, video.id);
+  //UserStartBroadcast(channelName, video.id);
+
+  Broadcaster.id=video.id;
+  Broadcaster.channel=channelName;
+
+  var event = new CustomEvent("stream", { 
+    detail: {
+    idbroadcast: Broadcaster.id
+}
+  });
+  document.dispatchEvent(event);
 
 }
   
