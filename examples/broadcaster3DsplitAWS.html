@@ -504,7 +504,7 @@ void main() {
 
 
 // Create DynamoDB document client
-var docClient = new AWS.DynamoDB.DocumentClient();
+/*var docClient = new AWS.DynamoDB.DocumentClient();
 
 const params = {
     TableName: 'LiveStream',
@@ -521,7 +521,7 @@ docClient.put(params, function(err, data) {
     } else {
         console.log("Success", data);
     }
-});
+});*/
 
 				addVideo(link);
 				loadObject(link.idbroadcast);
