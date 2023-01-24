@@ -463,15 +463,21 @@ loadingBar = new LoadingBar();
 
 		const lambda = new AWS.Lambda();
 
-const params = {
-  FunctionName: 'Add_LiveStream',
-  Payload: JSON.stringify({
+	const payload = {
     id: '123',
     name: 'John',
     age: '25',
-  }),
 };
 
+if (!payload.id || !payload.name || !payload.age) {
+    console.error("Payload is missing required fields");
+    return;
+}
+
+const params = {
+    FunctionName: 'Add_LiveStream',
+    Payload: JSON.stringify(payload),
+};
 
 
 lambda.invoke(params, (error, data) => {
