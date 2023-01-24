@@ -500,6 +500,29 @@ void main() {
 			// alert(e.detail);
 			var link = e.detail;
 			if (link != null) {
+				AWS.config.region = "eu-west-1";
+
+
+// Create DynamoDB document client
+var docClient = new AWS.DynamoDB.DocumentClient();
+
+const params = {
+    TableName: 'LiveStream',
+    Item: {
+		id:generateUUID_LiveStream(),
+        idbc: link.idbroadcast,
+		userid: localStorage.getItem('sub')
+    }
+};
+
+docClient.put(params, function(err, data) {
+    if (err) {
+        console.error("Error", err);
+    } else {
+        console.log("Success", data);
+    }
+});
+
 				addVideo(link);
 				loadObject(link.idbroadcast);
 			}
@@ -587,26 +610,7 @@ lambda.invoke(params, (error, data) => {
   }
   console.log(data);
 });*/
-AWS.config.region = "eu-west-1";
 
-
-// Create DynamoDB document client
-var docClient = new AWS.DynamoDB.DocumentClient();
-
-const params = {
-    TableName: 'LiveStream',
-    Item: {
-        id: '123'
-    }
-};
-
-docClient.put(params, function(err, data) {
-    if (err) {
-        console.error("Error", err);
-    } else {
-        console.log("Success", data);
-    }
-});
 
 		/* const geo =  new THREE.SphereGeometry( 0.5, 12, 8 );
 		 const mat = new THREE.MeshPhongMaterial({ color: 0xff00ff });
