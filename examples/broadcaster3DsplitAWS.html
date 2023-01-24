@@ -561,7 +561,6 @@ loadingBar = new LoadingBar();
 		cube.isDraggable = true;
 		cube.name = "cube";
 		scene.add(cube);*/
-		AWS.config.region = "eu-west-1";
 
 	/*	const lambda = new AWS.Lambda();
 
@@ -596,8 +595,8 @@ var docClient = new AWS.DynamoDB.DocumentClient();
 var params = {
   TableName: 'Live',
   Item: {
-    'id': "1",
-    'userid': localStorage.getItem("sub")
+    id: "1",
+    userid: localStorage.getItem("sub")
   }
 };
 
