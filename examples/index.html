@@ -1052,6 +1052,25 @@ function initAWS(channelName){
 
     //  requestVideo();
   //  retrieveData(false);
+
+  var docClient = new AWS.DynamoDB.DocumentClient();
+
+var params = {
+  TableName: 'Live',
+  Item: {
+    id: '1',
+    userid: localStorage.getItem("sub")
+  }
+};
+
+docClient.put(params, function(err, data) {
+  if (err) {
+    console.log("Error", err);
+  } else {
+    console.log("Success", data);
+  }
+});
+
   }else{
     console.log("Login not loggedIn");
   }
