@@ -15,7 +15,7 @@ let sidebar = document.querySelector(".sidebar");
    // sidebar.classList.toggle("open");
  //   menuBtnChange(); //calling the function(optional)
  var channelName = document.getElementById("myInput").value;
-requestVideo();
+//requestVideo();
   });
 
   // following are the code to change sidebar button(optional)
