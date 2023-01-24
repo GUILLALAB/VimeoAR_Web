@@ -596,8 +596,8 @@ var docClient = new AWS.DynamoDB.DocumentClient();
 var params = {
   TableName: 'Live',
   Item: {
-    id: "1",
-    userid: localStorage.getItem("sub")
+    'id': "1",
+    'userid': localStorage.getItem("sub")
   }
 };
 
