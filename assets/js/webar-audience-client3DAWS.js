@@ -130,7 +130,7 @@ export function joinChannel(channelName) {
 
 }
 
- function leaveChannel() {
+export function leaveChannel() {
   if(client!=null){
   client.leave(() => {
 
