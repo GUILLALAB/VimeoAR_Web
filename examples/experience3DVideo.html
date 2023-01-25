@@ -563,7 +563,7 @@ let nextParams = {};
   },
   Limit: 5
   };
-  }else{
+  }else if(tableName == "VideoAWS"){
     params = {
     TableName: tableName,
     IndexName: 'workflowStatus-index',
@@ -575,7 +575,19 @@ let nextParams = {};
   Limit: 5
 };
   
+  } else if(tableName == "LiveStream"){
+    params = {
+    TableName: tableName,
+    Key: {
+    'primaryKey': {S: 'id'}
+  },
+
+  Limit: 5
+};
+
+
   }
+
 
 
   documentClient.query(params, (err, data) => {
@@ -596,7 +608,7 @@ let nextParams = {};
   Limit: 5,
   ExclusiveStartKey: data.LastEvaluatedKey
   };
-  }else{
+}else if(tableName == "VideoAWS"){
     nextParams = {
     TableName: tableName,
     IndexName: 'workflowStatus-index',
@@ -610,7 +622,18 @@ let nextParams = {};
 
 };
   
+  }else if(tableName == "LiveStream"){
+    nextParams = {
+    TableName: tableName,
+    Key: {
+    'primaryKey': {S: 'id'}
+  },
+  Limit: 5,
+  ExclusiveStartKey: data.LastEvaluatedKey
+};
+  
   }
+  
    
             if (!nextParams.ExclusiveStartKey) {
                 document.getElementById("next-button").style.display = "none";
@@ -696,7 +719,7 @@ function toggleButtons() {
 
 document.getElementById("live").addEventListener("click", function (e) {
   document.getElementById("home_product").innerHTML = "";
-  queryDynamoDB(5,'live',"VideoAWS");
+  queryDynamoDB(5,'live',"LiveStream");
 });
 document.getElementById("explore").addEventListener("click", function (e) {
   document.getElementById("home_product").innerHTML = "";
