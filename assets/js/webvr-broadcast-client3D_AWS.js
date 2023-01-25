@@ -107,6 +107,7 @@ if (rtcClient != null) {
 
     // get the designated video element and connect it to the remoteStream
     var video = document.getElementById('faceVideo-' + remoteId);
+    console.log("stream-subscribed " +'faceVideo-' + remoteId);
     connectStreamToVideo(remoteStream, video);
   });
 
@@ -116,8 +117,10 @@ if (rtcClient != null) {
     evt.stream.stop(); // stop the stream
     const remoteId = evt.stream.getId();
     // Remove the 3D and Video elements that were created
+    console.log("stream-leave " +'faceVideo-' + remoteId);
+
     document.getElementById(remoteId).remove();
-    document.getElementById('faceVideo-' + remoteId).id="video";
+    document.getElementById('faceVideo-' + remoteId).remove();
     streamCount--;  // Decrease count of Active Stream Count
   });
 
@@ -285,8 +288,9 @@ function createBroadcaster(streamId) {
 
   
   video = document.getElementById("video");
-  console.log("videoid"+video.id);
   video.id = 'faceVideo-' + streamId;
+  console.log("createBroadcaster " +'faceVideo-' + streamId);
+
   video.setAttribute('webkit-playsinline', 'webkit-playsinline');
   video.setAttribute('playsinline', 'playsinline');
   video.setAttribute('poster', '/imgs/no-video.jpg');
