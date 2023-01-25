@@ -578,8 +578,10 @@ let nextParams = {};
   } else if(tableName == "LiveStream"){
     params = {
     TableName: tableName,
-    Key: {
-    'primaryKey': {S: 'id'}
+    IndexName: 'status-index',
+    KeyConditionExpression: 'status = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': 'Live'
   },
 
   Limit: 5
@@ -625,8 +627,10 @@ let nextParams = {};
   }else if(tableName == "LiveStream"){
     nextParams = {
     TableName: tableName,
-    Key: {
-    'primaryKey': {S: 'id'}
+    IndexName: 'status-index',
+    KeyConditionExpression: 'status = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': 'Live'
   },
   Limit: 5,
   ExclusiveStartKey: data.LastEvaluatedKey
