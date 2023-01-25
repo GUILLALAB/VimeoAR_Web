@@ -117,6 +117,7 @@ if (rtcClient != null) {
     const remoteId = evt.stream.getId();
     // Remove the 3D and Video elements that were created
     document.getElementById(remoteId).remove();
+    
     document.getElementById('faceVideo-' + remoteId).remove();
     streamCount--;  // Decrease count of Active Stream Count
   });
@@ -220,6 +221,9 @@ function leaveChannel() {
     $('#mic-btn').prop('disabled', true);
     $('#video-btn').prop('disabled', true);
     $('#exit-btn').prop('disabled', true);
+
+    document.getElementById('faceVideo-' + localStreams.streamID).id="video";
+
     ctx.canvas.hidden = true;
    // UserStopBroadcast(); IMPORTTANT
    var event = new CustomEvent("stopstream", { 
