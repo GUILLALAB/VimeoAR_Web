@@ -1,6 +1,6 @@
 
 // create client 
-const agoraAppId = null; // insert Agora AppID here
+var agoraAppId = null; // insert Agora AppID here
 var channelName = null;
 var streamCount = null;
 var client =null;
@@ -104,7 +104,8 @@ if(client!=null){
 }
 
 
-export function joinChannel(channelName) {
+
+ function joinChannel(channelName) {
   //alert(name);
   // set the role
   fetch("https://livear.herokuapp.com/rte/" + channelName + "/audience/uid/0/86400").then(function (response) {
