@@ -49,7 +49,7 @@ export var Broadcaster =
 };
 
 var rtcClient = AgoraRTC.createClient({ mode: 'live', codec: 'vp8' }); // vp8 to work across mobile devices
-var rtmClient = AgoraRTM.createInstance(agoraAppId);
+const rtmClient = AgoraRTM.createInstance(agoraAppId);
 
 var start = document.getElementById('start');
 start.addEventListener('click', init);
@@ -107,7 +107,6 @@ if (rtcClient != null) {
 
     // get the designated video element and connect it to the remoteStream
     var video = document.getElementById('faceVideo-' + remoteId);
-    console.log("stream-subscribed " +'faceVideo-' + remoteId);
     connectStreamToVideo(remoteStream, video);
   });
 
@@ -117,9 +116,8 @@ if (rtcClient != null) {
     evt.stream.stop(); // stop the stream
     const remoteId = evt.stream.getId();
     // Remove the 3D and Video elements that were created
-    document.getElementById('faceVideo-' + localStream.streamID).id="video";
-  //  document.getElementById(remoteId).remove();
-  //  document.getElementById('faceVideo-' + remoteId).remove();
+    document.getElementById(remoteId).remove();
+    document.getElementById('faceVideo-' + remoteId).remove();
     streamCount--;  // Decrease count of Active Stream Count
   });
 
@@ -197,6 +195,7 @@ function joinChannel() {
 
       console.log('User ' + uid + ' join channel successfully');
       localStreams.uid = uid;
+      createBroadcaster(uid);   // Load 3D model with video texture
       createCameraStream(uid);  // Create the camera stream
       joinRTMChannel(uid);      // join the RTM channel
     }, (err) => {
@@ -267,9 +266,7 @@ function createCameraStream(uid) {
   localStream.init(() => {
     console.log('getUserMedia successfully');
     // Coonect the local stream video to the video texture
-    createBroadcaster(localStream.streamID);   // Load 3D model with video texture
-
-    var video = document.getElementById('faceVideo-' + localStream.streamID);
+    var video = document.getElementById('faceVideo-' + uid);
     connectStreamToVideo(localStream, video);
     enableUiControls(localStream);
     // publish local stream
@@ -286,12 +283,10 @@ function createCameraStream(uid) {
 function createBroadcaster(streamId) {
   // create video element
 
-  console.log("createBroadcaster " +video.id);
-
+  console.log("videoid  "+video.id);
   video = document.getElementById("video");
-  video.id = 'faceVideo-' + streamId;
-  console.log("createBroadcaster " +'faceVideo-' + streamId);
 
+  video.id = 'faceVideo-' + streamId;
   video.setAttribute('webkit-playsinline', 'webkit-playsinline');
   video.setAttribute('playsinline', 'playsinline');
   video.setAttribute('poster', '/imgs/no-video.jpg');
