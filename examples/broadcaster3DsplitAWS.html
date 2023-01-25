@@ -474,21 +474,21 @@ fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/stage1/Add_LiveStr
 			if (link != null) {
 
 
-const dynamoDb = new AWS.DynamoDB.DocumentClient();
-const params = {
-  TableName: 'LiveStream',
-  Key: {
-    'id': link.channel
-  }
-};
+				fetch(' https://wfb4kai7ii.execute-api.eu-west-1.amazonaws.com/default/Delete_LiveStream', {
+          method: 'POST',
+          body: JSON.stringify({
+			id:link.channel,
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+          console.log(data);
+		  addVideo(link);
+      })
+      .catch(error => {
+          console.error(error);
+      });
 
-dynamoDb.delete(params, function(err, data) {
-  if (err) {
-    console.error("Error deleting item. Error JSON:", JSON.stringify(err, null, 2));
-  } else {
-    console.log("Successfully deleted item:");
-  }
-});
 
 				//loadObject(link.idbroadcast);
 			}

@@ -223,9 +223,11 @@ function leaveChannel() {
    // UserStopBroadcast(); IMPORTTANT
    var event = new CustomEvent("stopstream", { 
     detail: {
-      channel:  Broadcaster.channel,
+      videoid: Broadcaster.id,
+      channel:Broadcaster.channel,
 }
   });
+
   document.dispatchEvent(event);
     //LoadBroadcast();
   }, (err) => {
