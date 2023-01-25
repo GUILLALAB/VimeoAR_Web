@@ -799,6 +799,13 @@ ul {
      
         fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com', {
           method: 'POST',
+          headers: {
+                 "Access-Control-Allow-Origin": "*",
+                 "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+                 "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+                 'Access-Control-Allow-Credentials' : true,
+                 'Content-Type': 'application/json'
+        },
           body: JSON.stringify({
               id: '123',
               name: 'John',
