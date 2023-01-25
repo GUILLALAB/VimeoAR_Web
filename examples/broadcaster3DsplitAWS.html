@@ -483,7 +483,6 @@ fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/stage1/Add_LiveStr
       .then(response => response.json())
       .then(data => {
           console.log(data);
-		  addVideo(link);
       })
       .catch(error => {
           console.error(error);
