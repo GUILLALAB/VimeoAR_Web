@@ -285,7 +285,7 @@ function createBroadcaster(streamId) {
 
   
   video = document.getElementById("video");
-
+  console.log("videoid"+video.id);
   video.id = 'faceVideo-' + streamId;
   video.setAttribute('webkit-playsinline', 'webkit-playsinline');
   video.setAttribute('playsinline', 'playsinline');
