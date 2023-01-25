@@ -222,7 +222,7 @@ function leaveChannel() {
     $('#video-btn').prop('disabled', true);
     $('#exit-btn').prop('disabled', true);
 
-    document.getElementById('faceVideo-' + localStreams.streamID).id="video";
+    document.getElementById('faceVideo-' + localStreams.uid).id="video";
 
     ctx.canvas.hidden = true;
    // UserStopBroadcast(); IMPORTTANT
