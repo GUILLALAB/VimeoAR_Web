@@ -10,7 +10,7 @@ var rtmClient = null;
 
 
 
-export function initInstance(){
+ function initInstance(){
       agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
       streamCount = 0;
       client = AgoraRTC.createClient({ mode: 'live', codec: 'vp8' }); // vp8 to work across mobile devices
@@ -19,7 +19,7 @@ export function initInstance(){
 
 }
 
-export function InitClient() {
+ function InitClient() {
   if (client != null) {
     // connect remote streams
     client.on('stream-added', (evt) => {
@@ -94,7 +94,7 @@ export function InitClient() {
 }
 
 
-export function initAgora(channelName) {
+ function initAgora(channelName) {
 if(client!=null){
   client.init(agoraAppId, () => {
     console.log('AgoraRTC client initialized');
@@ -106,7 +106,7 @@ if(client!=null){
 }
 
 
-export function joinChannel(channelName) {
+ function joinChannel(channelName) {
   //alert(name);
   // set the role
   fetch("https://livear.herokuapp.com/rte/" + channelName + "/audience/uid/0/86400").then(function (response) {
@@ -132,7 +132,7 @@ export function joinChannel(channelName) {
 
 }
 
-export function leaveChannel() {
+ function leaveChannel() {
   if(client!=null){
   client.leave(() => {
 
@@ -147,7 +147,7 @@ export function leaveChannel() {
 // setu the RTM clit and channel
 
 
-export function createBroadcaster(streamId) {
+ function createBroadcaster(streamId) {
   // create video element
   video = document.createElement('video');
   video.setAttribute('webkit-playsinline', 'webkit-playsinline');
@@ -185,7 +185,7 @@ export function createBroadcaster(streamId) {
 
 }
 
-export function connectStreamToVideo(agoraStream, video) {
+ function connectStreamToVideo(agoraStream, video) {
   if(video!=null){
   video.srcObject = agoraStream.stream;// add video stream to video element as source
   video.onloadedmetadata = () => {
