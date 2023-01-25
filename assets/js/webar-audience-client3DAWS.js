@@ -8,7 +8,7 @@ var rtmClient = null;
 
 
 
- function initInstance(){
+export function initInstance(){
       agoraAppId = 'e76fbfaa876b4c68a5d92d92aa6ad3b1'; // insert Agora AppID here
       streamCount = 0;
       client = AgoraRTC.createClient({ mode: 'live', codec: 'vp8' }); // vp8 to work across mobile devices
@@ -17,7 +17,7 @@ var rtmClient = null;
 
 }
 
- function InitClient() {
+export function InitClients() {
   if (client != null) {
     // connect remote streams
     client.on('stream-added', (evt) => {
