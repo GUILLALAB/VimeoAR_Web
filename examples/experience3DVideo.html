@@ -578,8 +578,8 @@ let nextParams = {};
   } else if(tableName == "LiveStream"){
     params = {
     TableName: tableName,
-    IndexName: 'status-index',
-    KeyConditionExpression: 'status = :indexKeyValue',
+    IndexName: 'Livestatus-index',
+    KeyConditionExpression: 'Livestatus = :indexKeyValue',
   ExpressionAttributeValues: {
     ':indexKeyValue': 'Live'
   },
@@ -627,8 +627,8 @@ let nextParams = {};
   }else if(tableName == "LiveStream"){
     nextParams = {
     TableName: tableName,
-    IndexName: 'status-index',
-    KeyConditionExpression: 'status = :indexKeyValue',
+    IndexName: 'Livestatus-index',
+    KeyConditionExpression: 'Livestatus = :indexKeyValue',
   ExpressionAttributeValues: {
     ':indexKeyValue': 'Live'
   },
