@@ -270,7 +270,7 @@ function createCameraStream(uid) {
   localStream.init(() => {
     console.log('getUserMedia successfully');
     // Coonect the local stream video to the video texture
-    var video = document.getElementById('faceVideo-' + uid);
+    var video = document.getElementById('video');
     connectStreamToVideo(localStream, video);
     enableUiControls(localStream);
     // publish local stream
@@ -290,7 +290,7 @@ function createBroadcaster(streamId) {
   console.log("videoid  "+video.id);
   video = document.getElementById("video");
 
-  video.id = 'faceVideo-' + streamId;
+  //video.id = 'faceVideo-' + streamId;
   video.setAttribute('webkit-playsinline', 'webkit-playsinline');
   video.setAttribute('playsinline', 'playsinline');
   video.setAttribute('poster', '/imgs/no-video.jpg');
