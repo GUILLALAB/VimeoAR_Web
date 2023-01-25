@@ -221,7 +221,8 @@ function leaveChannel() {
     $('#mic-btn').prop('disabled', true);
     $('#video-btn').prop('disabled', true);
     $('#exit-btn').prop('disabled', true);
-    document.getElementById('faceVideo-' + localStreams.uid).remove();
+
+   // document.getElementById('faceVideo-' + localStreams.uid).id="video";
 
     ctx.canvas.hidden = true;
    // UserStopBroadcast(); IMPORTTANT
