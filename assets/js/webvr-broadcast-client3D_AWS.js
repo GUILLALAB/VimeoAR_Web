@@ -286,7 +286,8 @@ function createCameraStream(uid) {
 function createBroadcaster(streamId) {
   // create video element
 
-  
+  console.log("videoid " +video.id);
+
   video = document.getElementById("video");
   video.id = 'faceVideo-' + streamId;
   console.log("createBroadcaster " +'faceVideo-' + streamId);
