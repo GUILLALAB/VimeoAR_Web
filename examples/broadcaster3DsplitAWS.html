@@ -458,11 +458,11 @@ fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/stage1/Add_LiveStr
       .then(response => response.json())
       .then(data => {
           console.log(data);
-		  addVideo(link);
       })
       .catch(error => {
           console.error(error);
       });
+	  addVideo(link);
 
 				//loadObject(link.idbroadcast);
 			}
@@ -474,7 +474,6 @@ fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/stage1/Add_LiveStr
 			if (link != null) {
 
 				console.log("Stop stream" +link.channel);
-
 				fetch('https://xjrnsal0t9.execute-api.eu-west-1.amazonaws.com/stage1/Delete_LiveStream', {
           method: 'POST',
           body: JSON.stringify({
