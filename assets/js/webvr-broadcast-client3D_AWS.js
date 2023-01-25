@@ -117,7 +117,7 @@ if (rtcClient != null) {
     const remoteId = evt.stream.getId();
     // Remove the 3D and Video elements that were created
     document.getElementById(remoteId).remove();
-    document.getElementById('faceVideo-' + remoteId).remove();
+    document.getElementById('faceVideo-' + remoteId).id="video";
     streamCount--;  // Decrease count of Active Stream Count
   });
 

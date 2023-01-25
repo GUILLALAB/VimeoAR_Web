@@ -56,8 +56,8 @@ export function InitClients() {
       console.log('Remote stream has left the channel: ' + evt.uid);
       evt.stream.stop(); // stop the stream
       const remoteId = evt.stream.getId();
-   //   document.getElementById(remoteId).remove();
-    //  document.getElementById('video');
+      document.getElementById(remoteId).remove();
+      document.getElementById('video');
       streamCount--;
     });
 
