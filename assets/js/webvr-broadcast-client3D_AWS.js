@@ -49,7 +49,7 @@ export var Broadcaster =
 };
 
 var rtcClient = AgoraRTC.createClient({ mode: 'live', codec: 'vp8' }); // vp8 to work across mobile devices
-const rtmClient = AgoraRTM.createInstance(agoraAppId);
+var rtmClient = AgoraRTM.createInstance(agoraAppId);
 
 var start = document.getElementById('start');
 start.addEventListener('click', init);
