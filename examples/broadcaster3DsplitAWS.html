@@ -446,25 +446,24 @@ void main() {
 // Create DynamoDB document client
 var docClient = new AWS.DynamoDB.DocumentClient();
 
-const params = {
-    TableName: 'LiveStream',
-    Item: {
-		id:link.channel,
+fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/stage1/Add_LiveStream', {
+          method: 'POST',
+          body: JSON.stringify({
+			id:link.channel,
 		channel:link.channel,
         idstream: link.videoid,
 		userid: localStorage.getItem('sub')
-    }
-};
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+          console.log(data);
+		  addVideo(link);
+      })
+      .catch(error => {
+          console.error(error);
+      });
 
-docClient.put(params, function(err, data) {
-    if (err) {
-        console.error("Error", err);
-    } else {
-        console.log("Success", data);
-    }
-});
-
-				addVideo(link);
 				//loadObject(link.idbroadcast);
 			}
 		});
