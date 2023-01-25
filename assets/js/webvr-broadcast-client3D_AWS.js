@@ -117,8 +117,7 @@ if (rtcClient != null) {
     evt.stream.stop(); // stop the stream
     const remoteId = evt.stream.getId();
     // Remove the 3D and Video elements that were created
-    console.log("stream-leave " +'faceVideo-' + remoteId);
-    document.getElementById('faceVideo-' + remoteId).id="video";
+    document.getElementById('faceVideo-' + localStreams.uid).id="video";
   //  document.getElementById(remoteId).remove();
   //  document.getElementById('faceVideo-' + remoteId).remove();
     streamCount--;  // Decrease count of Active Stream Count
