@@ -719,7 +719,7 @@ function toggleButtons() {
 
 document.getElementById("live").addEventListener("click", function (e) {
   document.getElementById("home_product").innerHTML = "";
-  queryDynamoDB(5,'live',"LiveStream");
+  queryDynamoDB(5,'',"LiveStream");
 });
 document.getElementById("explore").addEventListener("click", function (e) {
   document.getElementById("home_product").innerHTML = "";
