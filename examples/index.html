@@ -801,8 +801,9 @@ ul {
           method: 'POST',
           body: JSON.stringify({
               id: '123',
-              name: 'John',
-              age: 25
+              channel: 'John',
+              idstream: 25,
+              userid: 'toto'
           })
       })
       .then(response => response.json())
