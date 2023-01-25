@@ -350,6 +350,7 @@ display: inline-block;
 			</script>
 		<script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
 		<script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.7/build/dat.gui.min.js"></script>
+		<script src="/js/webar-audience-client3DAWS"></script>
 
 		<script type="module">
 import * as THREE from './jsm/three.module.js';
@@ -371,6 +372,7 @@ var increment, delta,mesh,loadingBar;
 			let groundMirror, verticalMirror;
 			var loadingManager;
             var currentvideo=null;
+            var currentCategory="Explore";
 			start();
 			init();
 			initAWS("");
@@ -460,7 +462,12 @@ document.addEventListener("buttonclick", function (e) {
 	}
 	var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 	//PlayVideo(videodata.hlsUrl,"https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/avatar.mp4",video);
-	PlayVideo(data.hlsUrl,file,video);
+	if(currentCategory == "LiveStream"){
+    initAgora(data.id);
+  }else{
+    leaveChannel();
+     PlayVideo(data.hlsUrl,file,video);
+  }
 
 
 
@@ -530,10 +537,9 @@ AWS.config.region = region;
 	 
 
 if(isUserLoggedIn()){
-    // const itemsAll = scanAll("VideoAWS");
-    // itemsAll.then(function(value) {
-    //  requestVideo();
-  //  retrieveData(false);
+  initInstance();
+  InitClient();
+
   }else{
     console.log("Login not loggedIn");
   }
@@ -598,7 +604,7 @@ let nextParams = {};
         } else {
             console.log(data);
             displayData(data);
-
+            
             if (category.length>0){
               nextParams = {
     TableName: tableName,
@@ -723,14 +729,17 @@ function toggleButtons() {
 
 document.getElementById("live").addEventListener("click", function (e) {
   document.getElementById("home_product").innerHTML = "";
+  currentCategory="LiveStream";
   queryDynamoDB(5,'',"LiveStream");
 });
 document.getElementById("explore").addEventListener("click", function (e) {
   document.getElementById("home_product").innerHTML = "";
+  currentCategory="Explore";
   queryDynamoDB(5,'',"VideoAWS");
 });
 document.getElementById("music").addEventListener("click", function (e) {
   document.getElementById("home_product").innerHTML = "";
+  currentCategory="Music";
   queryDynamoDB(5,'Music',"VideoAWS");
 });
 

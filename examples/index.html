@@ -796,24 +796,6 @@ ul {
 
       <script type="module">
         initAWS("")
-     
-        fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/stage1/Add_LiveStream', {
-          method: 'POST',
-          body: JSON.stringify({
-              id: '123',
-              channel: 'John',
-              idstream: '25',
-              userid: 'toto'
-          })
-      })
-      .then(response => response.json())
-      .then(data => {
-        
-          console.log(data);
-      })
-      .catch(error => {
-          console.error(error);
-      });
 
    /*   async function fetchData() {
   try {
