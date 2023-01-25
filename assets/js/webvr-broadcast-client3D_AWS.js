@@ -117,7 +117,7 @@ if (rtcClient != null) {
     evt.stream.stop(); // stop the stream
     const remoteId = evt.stream.getId();
     // Remove the 3D and Video elements that were created
-    document.getElementById('faceVideo-' + localStream.uid).id="video";
+    document.getElementById('faceVideo-' + localStream.streamID).id="video";
   //  document.getElementById(remoteId).remove();
   //  document.getElementById('faceVideo-' + remoteId).remove();
     streamCount--;  // Decrease count of Active Stream Count
@@ -267,9 +267,9 @@ function createCameraStream(uid) {
   localStream.init(() => {
     console.log('getUserMedia successfully');
     // Coonect the local stream video to the video texture
-    createBroadcaster(localStream.uid);   // Load 3D model with video texture
+    createBroadcaster(localStream.streamID);   // Load 3D model with video texture
 
-    var video = document.getElementById('faceVideo-' + localStream.uid);
+    var video = document.getElementById('faceVideo-' + localStream.streamID);
     connectStreamToVideo(localStream, video);
     enableUiControls(localStream);
     // publish local stream
@@ -286,7 +286,7 @@ function createCameraStream(uid) {
 function createBroadcaster(streamId) {
   // create video element
 
-  console.log("videoid " +video.id);
+  console.log("createBroadcaster " +video.id);
 
   video = document.getElementById("video");
   video.id = 'faceVideo-' + streamId;
