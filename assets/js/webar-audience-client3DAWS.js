@@ -95,14 +95,14 @@ export function InitClient() {
 
 
 export function initAgora(channelName) {
-
+if(client!=null){
   client.init(agoraAppId, () => {
     console.log('AgoraRTC client initialized');
     joinChannel(channelName); // join channel upon successfull init
   }, function (err) {
     console.log('[ERROR] : AgoraRTC client init failed', err);
   });
-
+}
 }
 
 
