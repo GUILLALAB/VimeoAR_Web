@@ -270,6 +270,8 @@ function createCameraStream(uid) {
   localStream.init(() => {
     console.log('getUserMedia successfully');
     // Coonect the local stream video to the video texture
+   // var video = document.getElementById('faceVideo-' + uid);
+
     var video = document.getElementById('video');
     connectStreamToVideo(localStream, video);
     enableUiControls(localStream);
