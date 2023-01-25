@@ -796,30 +796,14 @@ ul {
 
       <script type="module">
         initAWS("")
-     
-        fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com', {
-          method: 'POST',
-          headers: {
-                 "Access-Control-Allow-Origin": "*",
-                 "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
-                 "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
-                 'Access-Control-Allow-Credentials' : true,
-                 'Content-Type': 'application/json'
-        },
-          body: JSON.stringify({
-              id: '123',
-              name: 'John',
-              age: 25
-          })
-      })
-      .then(response => response.json())
-      .then(data => {
-        
-          console.log(data);
-      })
-      .catch(error => {
-          console.error(error);
-      });
+  
+      try {
+    const response = await fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/Add_LiveStream');
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
 
 
 
