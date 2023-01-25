@@ -49,7 +49,7 @@ export var Broadcaster =
 };
 
 var rtcClient = AgoraRTC.createClient({ mode: 'live', codec: 'vp8' }); // vp8 to work across mobile devices
-const rtmClient = AgoraRTM.createInstance(agoraAppId);
+var rtmClient = AgoraRTM.createInstance(agoraAppId);
 
 var start = document.getElementById('start');
 start.addEventListener('click', init);
@@ -155,7 +155,8 @@ function generateUUID_LiveStream() {
 
 function init() {
   // setup the RTM client and channel
-
+   rtcClient = AgoraRTC.createClient({ mode: 'live', codec: 'vp8' }); // vp8 to work across mobile devices
+   rtmClient = AgoraRTM.createInstance(agoraAppId);  
  // if (document.getElementById("myInput").value.length > 1) {
    // channelName = document.getElementById("myInput").value;
    channelName = generateUUID_LiveStream();
