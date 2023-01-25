@@ -537,16 +537,16 @@ if(isUserLoggedIn()){
   }else{
     console.log("Login not loggedIn");
   }
-  queryDynamoDB(5,"");
+  queryDynamoDB(5,"","VideoAWS");
 
 
 
 
-function queryDynamoDB(limit, category) {
+function queryDynamoDB(limit, category, table) {
 
 const documentClient = new AWS.DynamoDB.DocumentClient();
 
-const tableName = 'VideoAWS';
+const tableName = table;
 let exclusiveStartKey = null;
 let prevExclusiveStartKey = null;
 let nextParams = {};
@@ -696,15 +696,15 @@ function toggleButtons() {
 
 document.getElementById("live").addEventListener("click", function (e) {
   document.getElementById("home_product").innerHTML = "";
-  queryDynamoDB(5,'live');
+  queryDynamoDB(5,'live',"VideoAWS");
 });
 document.getElementById("explore").addEventListener("click", function (e) {
   document.getElementById("home_product").innerHTML = "";
-  queryDynamoDB(5,'');
+  queryDynamoDB(5,'',"VideoAWS");
 });
 document.getElementById("music").addEventListener("click", function (e) {
   document.getElementById("home_product").innerHTML = "";
-  queryDynamoDB(5,'Music');
+  queryDynamoDB(5,'Music',"VideoAWS");
 });
 
    }
