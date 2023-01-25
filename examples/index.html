@@ -796,19 +796,19 @@ ul {
 
       <script type="module">
         initAWS("")
-  
-      try {
+ 
+
+// Set the table name and key attribute names
+async function fetchData() {
+  try {
     const response = await fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/Add_LiveStream');
     const data = await response.json();
     console.log(data);
   } catch (error) {
     console.error(error);
   }
-
-
-
-
-// Set the table name and key attribute names
+}
+fetchData();
 
 const requestVideo = async () => {
   const documentClient = new AWS.DynamoDB.DocumentClient();
