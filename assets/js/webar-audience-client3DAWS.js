@@ -92,7 +92,7 @@ export function InitClients() {
 }
 
 
- function initAgora(channelName) {
+export function initAgora(channelName) {
 if(client!=null){
   client.init(agoraAppId, () => {
     console.log('AgoraRTC client initialized');
@@ -104,7 +104,7 @@ if(client!=null){
 }
 
 
- function joinChannel(channelName) {
+export function joinChannel(channelName) {
   //alert(name);
   // set the role
   fetch("https://livear.herokuapp.com/rte/" + channelName + "/audience/uid/0/86400").then(function (response) {
