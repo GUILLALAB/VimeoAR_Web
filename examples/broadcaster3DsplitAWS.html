@@ -473,6 +473,7 @@ fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/stage1/Add_LiveStr
 			var link = e.detail;
 			if (link != null) {
 
+				console.log("Stop stream" +link.channel);
 
 				fetch('https://xjrnsal0t9.execute-api.eu-west-1.amazonaws.com/stage1/Delete_LiveStream', {
           method: 'POST',
