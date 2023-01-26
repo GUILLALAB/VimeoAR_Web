@@ -855,6 +855,7 @@ if (Hls.isSupported()) {
 	hls.loadSource(hlsvideo);
           hls.attachMedia(player);
           hls.on(Hls.Events.MANIFEST_PARSED, function () {
+            console.log('player.srcObject: ' + player.srcObject);
             player.play();
             console.log("HLS");
           });
