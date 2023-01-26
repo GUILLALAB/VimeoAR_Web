@@ -23,12 +23,12 @@ function abbreviateNumber(number){
 
 var li = document.createElement('li');
 var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
-var test=data.hlsUrl.S+"~"+data.guid.S+"~"+data.title;S+"~";
+var test=data.hlsUrl+"~"+data.guid+"~"+data.title+"~";
 var counterview="";
-if(data.counterview.S===undefined){
+if(data.counterview===undefined){
   counterview="ok";
 }else{
-  counterview=data.counterview.S;
+  counterview=data.counterview;
 }
 
 
@@ -44,19 +44,19 @@ var url = `profile_details.html`;
             '<br>'+
             '<a id="name" class="card-text">'+ data.username.S+'</a>'+
             '<br>'+
-            '<a href="#"><img class="card-img-top" src="'+data.thumbNailsUrls.S+'" alt=""></a>'+
+            '<a href="#"><img class="card-img-top" src="'+data.thumbNailsUrls+'" alt=""></a>'+
               '<div class="card-body">'+
                 '<h4 class="card-title">'+
                   '<a href="#">'+ counterview+'</a>'+
 
                 '</h4>'+
                 '<h5></h5>'+
-                '<p class="card-text">'+ abbreviateNumber(data.title.S)+" views"+'</p>'+
+                '<p class="card-text">'+ abbreviateNumber(data.title)+" views"+'</p>'+
               '</div>'+
               '<div id="footer" class="card-footer">'+
               '<i  class="fa fa-thumbs-up"></i>'+  
               '<br>'+
-              '<a id="likes" href="">'+ abbreviateNumber(data.likescount.S)+""+'</a>'+
+              '<a id="likes" href="">'+ abbreviateNumber(data.likescount)+""+'</a>'+
               '<button class="ar-button" onclick="window.app.showChair(\'' + test + '\')"><i class="fas fa-camera"></i></button>'+
              '</div>'+
               
