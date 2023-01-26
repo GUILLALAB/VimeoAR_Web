@@ -934,10 +934,10 @@ document.getElementById("next-button").addEventListener("click", () => {
       .then(response => response.json())
       .then(data => {
 
-        console.log(nextData);
-            displayData(nextData.Items);
+        console.log(data);
+            displayData(data.Items);
 
-            nextParams.ExclusiveStartKey = nextData.LastEvaluatedKey;
+            nextParams.ExclusiveStartKey = data.LastEvaluatedKey;
             if (!nextParams.ExclusiveStartKey) {
                 document.getElementById("next-button").style.display = "none";
             }
