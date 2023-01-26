@@ -50,7 +50,7 @@ var url = `profile_details.html`;
             '<a href="#"><img class="card-img-top" src="'+image+'" alt=""></a>'+
               '<div class="card-body">'+
                 '<h4 class="card-title">'+
-                  '<a href="#">'+ counterview.S+'</a>'+
+                  '<a href="#">'+ counterview+'</a>'+
 
                 '</h4>'+
                 '<h5></h5>'+
@@ -59,7 +59,7 @@ var url = `profile_details.html`;
               '<div id="footer" class="card-footer">'+
               '<i  class="fa fa-thumbs-up"></i>'+  
               '<br>'+
-              '<a id="likes" href="">'+ abbreviateNumber(data.likescount.N)+""+'</a>'+
+              '<a id="likes" href="">'+ abbreviateNumber(data.likescount.N===undefined?data.likescount.S:"0")+""+'</a>'+
               '<button class="ar-button" onclick="window.app.showChair(\'' + test + '\')"><i class="fas fa-camera"></i></button>'+
              '</div>'+
               
