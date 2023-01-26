@@ -137,10 +137,10 @@ if(client!=null){
 export function leaveChannel() {
   if(client!=null){
   client.leave(() => {
-    if(video!=null){
       var video = document.getElementById('video');
-      video.srcObject = null; 
-      video.pause();
+      if(video!=null){
+        video.pause();
+        video.removeAttribute('srcObject');
     }
    
     console.log('client leaves channel');
