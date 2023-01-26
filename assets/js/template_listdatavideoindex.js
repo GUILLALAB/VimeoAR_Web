@@ -107,23 +107,32 @@ document.getElementById("home_product").appendChild(li);
     function loadProductsRow(data){
 
 var li = document.createElement('li');
-var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
-var test=data.hlsUrl+"~"+data.guid+"~"+data.title+"~";
+var file = "https://"+data.srcBucket.S+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo.S;
+var test=data.hlsUrl.S+"~"+data.guid.S+"~"+data.title.N+"~";
 var counterview="";
-if(data.counterview===undefined){
+if(data.counterview.S===undefined){
   counterview="ok";
 }else{
-  counterview=data.counterview;
+  counterview=data.counterview.S;
 }
+
+var item = data.thumbNailsUrls;
+var outerArray = Object.values(item)[0];
+var innerObject = outerArray[0];
+var image = Object.values(innerObject)[0];
+
+
+var likescount = data.likescount && (data.likescount.N || data.likescount.S) || "0";
+
           var Template= '<div id="btn" class="col-lg-4 col-md-6 mb-4">'+
             '<div id="carda" onclick="window.app.PlayVideo(\'' + test + '\')" class="card h-100">'+
-              '<a href="#"><img class="card-img-top" src="'+data.thumbNailsUrls+'" alt=""></a>'+
+              '<a href="#"><img class="card-img-top" src="'+image+'" alt=""></a>'+
               '<div class="card-body">'+
                 '<h4 class="card-title">'+
                   '<a href="#">'+ counterview+'</a>'+
                 '</h4>'+
                 '<h5></h5>'+
-                '<p class="card-text">'+ data.title+'</p>'+
+                '<p class="card-text">'+ data.title.N+'</p>'+
               '</div>'+
               '<div id="footer" class="card-footer">'+
                 '<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>'+
