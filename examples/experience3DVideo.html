@@ -478,7 +478,7 @@ document.addEventListener("buttonclick", function (e) {
   async function doSomething(url,file,video) {
     leaveChannel();
 
-    await new Promise(resolve => setTimeout(resolve,2500));
+    await new Promise(resolve => setTimeout(resolve,2000));
     PlayVideo(url,file,video);
 
     console.log('3 seconds have passed');
