@@ -31,7 +31,7 @@ if(data.counterview.S===undefined){
   counterview=data.counterview.S;
 }
 
-var item = {L: [{S: "0000001.jpg"}]};
+var item = data.thumbNailsUrls;
 var outerArray = Object.values(item)[0];
 var innerObject = outerArray[0];
 var image = Object.values(innerObject)[0];
