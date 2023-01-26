@@ -467,10 +467,12 @@ document.addEventListener("buttonclick", function (e) {
 	var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 	//PlayVideo(videodata.hlsUrl,"https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/avatar.mp4",video);
 	if(currentCategory == "LiveStream"){
+    leaveChannel();
     initAgora(data.id);
   }else{
-    leaveChannel();
      PlayVideo(data.hlsUrl,file,video);
+     leaveChannel();
+
   }
 
 
