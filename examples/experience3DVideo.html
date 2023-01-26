@@ -456,8 +456,8 @@ document.addEventListener("buttonclick", function (e) {
     if (data != null) {
     if (mesh!=null) {
 		currentvideo=data;
-		  mesh.position.set( 5, 120, -350 );
-	mesh.scale.set( 6,6, 6 );
+		  mesh.position.set( 5, 130, -350 );
+	mesh.scale.set( 8,8, 8 );
 
 	if(data.background!=null){
 		document.getElementById('background').style.display="block";
@@ -478,7 +478,7 @@ document.addEventListener("buttonclick", function (e) {
   async function doSomething(url,file,video) {
     leaveChannel();
 
-    await new Promise(resolve => setTimeout(resolve,4000));
+    await new Promise(resolve => setTimeout(resolve,2500));
     PlayVideo(url,file,video);
 
     console.log('3 seconds have passed');
@@ -799,8 +799,8 @@ document.getElementById("music").addEventListener("click", function (e) {
     
           mesh = new THREE.Mesh( geometry, material);
           scene.add( mesh );
-		  mesh.position.set( 5, 120, -350 );
-	mesh.scale.set( 6,6, 6 );
+		  mesh.position.set( 5, 130, -350 );
+      mesh.scale.set( 8,8, 8 );
 
 /*	var wrapper = new THREE.CSS3DObject( mesh );
 
