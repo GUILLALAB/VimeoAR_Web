@@ -470,8 +470,9 @@ document.addEventListener("buttonclick", function (e) {
     
     initAgora(data.id);
   }else{
+    leaveChannel();
+
      PlayVideo(data.hlsUrl,file,video);
-     leaveChannel();
 
   }
 
