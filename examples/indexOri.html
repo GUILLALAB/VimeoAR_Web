@@ -883,7 +883,6 @@ while (!done) {
 //requestVideo();
 
 
-
 function queryDynamoDB(limit) {
   const documentClient = new AWS.DynamoDB.DocumentClient();
   document.getElementById("circleprogress").style.display = "block";
@@ -897,55 +896,73 @@ let prevExclusiveStartKey = null;
 let nextParams = {};
 
   var params=null;
-  
-  fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
-          method: 'POST',
-          body: JSON.stringify({	
-          })
-      })
-      .then(response => response.json())
-      .then(data => {
+  if (document.getElementById("myInput").value.length>0){
+   params = {
+    TableName: tableName,
+    IndexName: 'videotitlesearch-index',
+    KeyConditionExpression: 'videotitlesearch = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': document.getElementById("myInput").value
+  },
+  Limit: 5
+  };
+  }else{
+     params = {
+    TableName: tableName,
+    IndexName: 'workflowStatus-index',
+    KeyConditionExpression: 'workflowStatus = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': 'Complete'
+  },
 
-        console.log(data);
+  Limit: 5
+};
+  
+  }
+
+  documentClient.query(params, (err, data) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(data);
             displayData(data);
+
             nextParams = {
+    TableName: tableName,
+    IndexName: 'workflowStatus-index',
+    KeyConditionExpression: 'workflowStatus = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': 'Complete'
+  },
+
   Limit: 5,
   ExclusiveStartKey: data.LastEvaluatedKey
+
 };
 
            
             if (!nextParams.ExclusiveStartKey) {
                 document.getElementById("next-button").style.display = "none";
             }
-        
-      })
-      .catch(error => {
-          console.error(error);
-      });
+        }
+    });
+
 
 document.getElementById("next-button").addEventListener("click", () => {
-  fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
-          method: 'POST',
-          body: JSON.stringify({
-            ExclusiveStartKey:nextParams.ExclusiveStartKey
-	
-          })
-      })
-      .then(response => response.json())
-      .then(data => {
 
-        console.log(nextData);
+  documentClient.query(nextParams, (err, nextData) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(nextData);
             displayData(nextData);
 
             nextParams.ExclusiveStartKey = nextData.LastEvaluatedKey;
             if (!nextParams.ExclusiveStartKey) {
                 document.getElementById("next-button").style.display = "none";
             }
-      })
-      .catch(error => {
-          console.error(error);
-      });
-
+        }
+    });
 });
 }
 
@@ -998,10 +1015,10 @@ function toggleButtons() {
     }
 
     function displayData(data) {
-        var items = data;
+        var items = data.Items;
         var html = "";
 
-        
+
         for (var i = 0; i < items.length; i++) {
         //    html += "<p>" + JSON.stringify(items[i]) + "</p>";
         loadProducts(items[i]);
