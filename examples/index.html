@@ -998,14 +998,14 @@ function toggleButtons() {
     }
 
     function displayData(data) {
-        var items = data.Items;
+        var items = data;
         var html = "";
 
 
         for (var i = 0; i < items.length; i++) {
         //    html += "<p>" + JSON.stringify(items[i]) + "</p>";
-        loadProducts(items[i]);
-        loadProductsRow(items[i]);
+        loadProducts(items);
+        loadProductsRow(items);
         }
         document.getElementById("circleprogress").style.display = "none";
 
