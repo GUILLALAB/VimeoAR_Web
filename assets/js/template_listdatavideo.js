@@ -47,7 +47,7 @@ var url = `profile_details.html`;
             '<a href="#"><img class="card-img-top" src="'+data.thumbNailsUrls.S+'" alt=""></a>'+
               '<div class="card-body">'+
                 '<h4 class="card-title">'+
-                  '<a href="#">'+ counterview+'</a>'+
+                  '<a href="#">'+ counterview.S+'</a>'+
 
                 '</h4>'+
                 '<h5></h5>'+
