@@ -906,7 +906,7 @@ let nextParams = {};
       .then(response => response.json())
       .then(data => {
         console.log(data);
-            displayData(data);
+            displayData(data.Items);
             
             nextParams = {
   Limit: 5,
@@ -935,7 +935,7 @@ document.getElementById("next-button").addEventListener("click", () => {
       .then(data => {
 
         console.log(nextData);
-            displayData(nextData);
+            displayData(nextData.Items);
 
             nextParams.ExclusiveStartKey = nextData.LastEvaluatedKey;
             if (!nextParams.ExclusiveStartKey) {
