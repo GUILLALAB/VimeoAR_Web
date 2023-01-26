@@ -93,7 +93,7 @@ export function InitClients() {
 
 
 export function initAgora(channelName) {
-
+ leaveChannel();
  // initInstance();
 
 if(client!=null){
