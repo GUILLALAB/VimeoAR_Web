@@ -23,12 +23,12 @@ function abbreviateNumber(number){
 
 var li = document.createElement('li');
 var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
-var test=data.hlsUrl+"~"+data.guid+"~"+data.title+"~";
+var test=data.hlsUrl.S+"~"+data.guid.S+"~"+data.title;S+"~";
 var counterview="";
-if(data.counterview===undefined){
+if(data.counterview.S===undefined){
   counterview="ok";
 }else{
-  counterview=data.counterview;
+  counterview=data.counterview.S;
 }
 
 
@@ -42,21 +42,21 @@ var url = `profile_details.html`;
           var Template= '<div id="btn" class="col-lg-4 col-md-6 mb-4">'+
             '<div id="carda" class="card h-100">'+
             '<br>'+
-            '<a id="name" class="card-text">'+ data.username+'</a>'+
+            '<a id="name" class="card-text">'+ data.username.S+'</a>'+
             '<br>'+
-            '<a href="#"><img class="card-img-top" src="'+data.thumbNailsUrls+'" alt=""></a>'+
+            '<a href="#"><img class="card-img-top" src="'+data.thumbNailsUrls.S+'" alt=""></a>'+
               '<div class="card-body">'+
                 '<h4 class="card-title">'+
                   '<a href="#">'+ counterview+'</a>'+
 
                 '</h4>'+
                 '<h5></h5>'+
-                '<p class="card-text">'+ abbreviateNumber(data.title)+" views"+'</p>'+
+                '<p class="card-text">'+ abbreviateNumber(data.title.S)+" views"+'</p>'+
               '</div>'+
               '<div id="footer" class="card-footer">'+
               '<i  class="fa fa-thumbs-up"></i>'+  
               '<br>'+
-              '<a id="likes" href="">'+ abbreviateNumber(data.likescount)+""+'</a>'+
+              '<a id="likes" href="">'+ abbreviateNumber(data.likescount.S)+""+'</a>'+
               '<button class="ar-button" onclick="window.app.showChair(\'' + test + '\')"><i class="fas fa-camera"></i></button>'+
              '</div>'+
               
