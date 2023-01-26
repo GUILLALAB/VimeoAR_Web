@@ -1005,6 +1005,7 @@ function toggleButtons() {
         //    html += "<p>" + JSON.stringify(items[i]) + "</p>";
         loadProducts(data[i]);
         loadProductsRow(data[i]);
+        console.log(data[i].srcBucket);
         }
         document.getElementById("circleprogress").style.display = "none";
 
