@@ -906,8 +906,9 @@ let nextParams = {};
       .then(response => response.json())
       .then(data => {
 
-        console.log(data);
+        console.log("donnee ", data);
             displayData(data);
+            
             nextParams = {
   Limit: 5,
   ExclusiveStartKey: data.LastEvaluatedKey
