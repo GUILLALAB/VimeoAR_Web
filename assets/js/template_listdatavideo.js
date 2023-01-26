@@ -37,6 +37,7 @@ var innerObject = outerArray[0];
 var image = Object.values(innerObject)[0];
 
 
+var likescount = data.likescount && (data.likescount.N || data.likescount.S) || "0";
 //var url = `profile.html?id=${id}`;
 var url = `profile_details.html`;
 
@@ -59,7 +60,7 @@ var url = `profile_details.html`;
               '<div id="footer" class="card-footer">'+
               '<i  class="fa fa-thumbs-up"></i>'+  
               '<br>'+
-              '<a id="likes" href="">'+ abbreviateNumber(data.likescount.N===undefined?data.likescount.S:"0")+""+'</a>'+
+              '<a id="likes" href="">'+ abbreviateNumber(likescount)+""+'</a>'+
               '<button class="ar-button" onclick="window.app.showChair(\'' + test + '\')"><i class="fas fa-camera"></i></button>'+
              '</div>'+
               
