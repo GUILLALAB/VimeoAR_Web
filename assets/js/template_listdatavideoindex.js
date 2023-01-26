@@ -78,13 +78,13 @@ li.setAttribute('id', "btn");
 var testObject = data;
 
 // Put the object into storage
-//li.querySelector("#name").myParam = JSON.stringify(testObject);
+li.querySelector("#name").myParam = JSON.stringify(testObject);
 
 
 
 li.querySelector("#name").addEventListener('click', myFunc, false);
 var test=data.hlsUrl.S+"~"+data.guid.S+"~"+data.likescount.N+"~";
-console.log(data.likescount.N);
+
 li.querySelector("#likes").myParam=test;
 li.querySelector("#likes").addEventListener('click', myFunclikes, false);
 document.getElementById("home_product").appendChild(li);
