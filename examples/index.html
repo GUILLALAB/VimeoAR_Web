@@ -1004,8 +1004,8 @@ function toggleButtons() {
 
         for (var i = 0; i < items.length; i++) {
         //    html += "<p>" + JSON.stringify(items[i]) + "</p>";
-        loadProducts(items);
-        loadProductsRow(items);
+        loadProducts(items[i]);
+        loadProductsRow(items[i]);
         }
         document.getElementById("circleprogress").style.display = "none";
 
