@@ -31,7 +31,10 @@ if(data.counterview.S===undefined){
   counterview=data.counterview.S;
 }
 
-
+var item = {L: [{S: "0000001.jpg"}]};
+var outerArray = Object.values(item)[0];
+var innerObject = outerArray[0];
+var image = Object.values(innerObject)[0];
 
 
 //var url = `profile.html?id=${id}`;
@@ -44,19 +47,19 @@ var url = `profile_details.html`;
             '<br>'+
             '<a id="name" class="card-text">'+ data.username.S+'</a>'+
             '<br>'+
-            '<a href="#"><img class="card-img-top" src="'+data.thumbNailsUrls.S+'" alt=""></a>'+
+            '<a href="#"><img class="card-img-top" src="'+image+'" alt=""></a>'+
               '<div class="card-body">'+
                 '<h4 class="card-title">'+
                   '<a href="#">'+ counterview.S+'</a>'+
 
                 '</h4>'+
                 '<h5></h5>'+
-                '<p class="card-text">'+ abbreviateNumber(data.title.S)+" views"+'</p>'+
+                '<p class="card-text">'+ abbreviateNumber(data.title.N)+" views"+'</p>'+
               '</div>'+
               '<div id="footer" class="card-footer">'+
               '<i  class="fa fa-thumbs-up"></i>'+  
               '<br>'+
-              '<a id="likes" href="">'+ abbreviateNumber(data.likescount.S)+""+'</a>'+
+              '<a id="likes" href="">'+ abbreviateNumber(data.likescount.N)+""+'</a>'+
               '<button class="ar-button" onclick="window.app.showChair(\'' + test + '\')"><i class="fas fa-camera"></i></button>'+
              '</div>'+
               
