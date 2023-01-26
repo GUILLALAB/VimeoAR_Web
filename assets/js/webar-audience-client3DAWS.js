@@ -94,8 +94,8 @@ export function InitClients() {
 
 export function initAgora(channelName) {
 
-  initInstance();
-  
+ // initInstance();
+
 if(client!=null){
   client.init(agoraAppId, () => {
     console.log('AgoraRTC client initialized');
