@@ -852,10 +852,11 @@ const hls = new Hls();
 
 if (Hls.isSupported()) {
 //	player.pause();
+console.log('player.srcObject: ' + player.srcObject);
+
 	hls.loadSource(hlsvideo);
           hls.attachMedia(player);
           hls.on(Hls.Events.MANIFEST_PARSED, function () {
-            console.log('player.srcObject: ' + player.srcObject);
             player.play();
             console.log("HLS");
           });
