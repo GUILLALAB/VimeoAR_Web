@@ -470,13 +470,19 @@ document.addEventListener("buttonclick", function (e) {
     
     initAgora(data.id);
   }else{
-    leaveChannel();
 
-     PlayVideo(data.hlsUrl,file,video);
+     doSomething(data.hlsUrl,file,video);
 
   }
 
+  async function doSomething(url,file,video) {
+    leaveChannel();
 
+    await new Promise(resolve => setTimeout(resolve,4000));
+    PlayVideo(url,file,video);
+
+    console.log('3 seconds have passed');
+}
 
 
 
