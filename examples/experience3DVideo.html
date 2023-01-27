@@ -973,31 +973,30 @@ player.src=null;
 
 var li = document.createElement('li');
 var counterview="";
+var image="";
+
 if(currentCategory=="LiveStream"){
   if(data.channel.S===undefined){
   counterview="ok";
 }else{
   counterview=data.channel.S;
 }
-
+image="https://c8.alamy.com/compfr/t44eck/live-stream-sign-embleme-le-logo-vector-illustration-t44eck.jpg";
 }else{
   if(data.counterview.S===undefined){
   counterview="ok";
 }else{
   counterview=data.counterview.S;
 }
-}
 
-
-var image = "";
-
-if(data.thumbNailsUrls.S===undefined){
-}else{
-  var item = data.thumbNailsUrls.S;
+var item = data.thumbNailsUrls;
 var outerArray = Object.values(item)[0];
 var innerObject = outerArray[0];
  image = Object.values(innerObject)[0];
+
 }
+
+
 
 
 	 var Template = '<div id="btn" class="card mt-1">'+
