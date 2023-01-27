@@ -791,10 +791,25 @@ ul {
     </script>
 
 <script src="/js/loginAWS.js"></script>
+<script src="/js/menubar_left.js"></script>	
 
 
       <script type="module">
         initAWS("")
+
+   /*   async function fetchData() {
+  try {
+    const response = await fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/stage1/Add_LiveStream');
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+fetchData();*/
+
+
+
 // Set the table name and key attribute names
 
 const requestVideo = async () => {
@@ -865,10 +880,11 @@ while (!done) {
 
 }
 
-function queryDynamoDB(limit,type, search) {
-  document.getElementById("home_product").innerHTML = "";
-  document.getElementById("next-button").style.display = "block";
+//requestVideo();
 
+
+
+function queryDynamoDB(limit) {
   const documentClient = new AWS.DynamoDB.DocumentClient();
   document.getElementById("circleprogress").style.display = "block";
 
@@ -878,18 +894,13 @@ let prevExclusiveStartKey = null;
 
 
 
-let nextSearch = {};
 let nextParams = {};
 
   var params=null;
-  let typerequest=type;
-  console.log(typerequest);
-  if(search.length<=0){
-    typerequest="video";
-    fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
+  
+  fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
           method: 'POST',
-          body: JSON.stringify({
-           typerequest:typerequest,
+          body: JSON.stringify({	
           })
       })
       .then(response => response.json())
@@ -912,46 +923,10 @@ let nextParams = {};
           console.error(error);
       });
 
-  }else{
-    typerequest="search";
-    fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_VideoSearchName', {
-          method: 'POST',
-          body: JSON.stringify({
-           typerequest:typerequest,
-           search:search
-          })
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-            displayData(data.Items);
-            
-            nextSearch = {
-  Limit: 5,
-  ExclusiveStartKey: data.LastEvaluatedKey
-};
-
-           
-            if (!nextSearch.ExclusiveStartKey) {
-                document.getElementById("next-button").style.display = "none";
-            }
-        
-      })
-      .catch(error => {
-          console.error(error);
-      });
-
-
-  }
-  console.log(typerequest);
-
-
 document.getElementById("next-button").addEventListener("click", () => {
-  if(typerequest=="video"){
-    fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
+  fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
           method: 'POST',
           body: JSON.stringify({
-            typerequest:typerequest,
             ExclusiveStartKey:nextParams.ExclusiveStartKey
 	
           })
@@ -970,34 +945,6 @@ document.getElementById("next-button").addEventListener("click", () => {
       .catch(error => {
           console.error(error);
       });
-
-  }else{
-    fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_VideoSearchName', {
-          method: 'POST',
-          body: JSON.stringify({
-            typerequest:typerequest,
-            search:search,
-            ExclusiveStartKey:nextSearch.ExclusiveStartKey
-	
-          })
-      })
-      .then(response => response.json())
-      .then(data => {
-
-        console.log(data);
-            displayData(data.Items);
-
-            nextSearch.ExclusiveStartKey = data.LastEvaluatedKey;
-            if (!nextSearch.ExclusiveStartKey) {
-                document.getElementById("next-button").style.display = "none";
-            }
-      })
-      .catch(error => {
-          console.error(error);
-      });
-
-  }
- 
 
 });
 }
@@ -1105,7 +1052,7 @@ function initAWS(channelName){
   }else{
     console.log("Login not loggedIn");
   }
-  queryDynamoDB(5,"video","");
+  queryDynamoDB(5);
 
   
 
@@ -1172,14 +1119,6 @@ for(var i =0;i<100000;i++){
    return itemsAll;
   }*/
 
-  let searchBtn = document.querySelector(".bx-search");
-  searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
-    // sidebar.classList.toggle("open");
-  //   menuBtnChange(); //calling the function(optional)
-  var values = document.getElementById("myInput").value;
-  queryDynamoDB(5,"search",values);
-   });
-
   const updateName = async (data) => {
           const documentClient = new AWS.DynamoDB.DocumentClient();
         
@@ -1245,7 +1184,6 @@ if (data != null) {
       </script>
 
 <script src="/js/template_listdatavideoindex.js"></script>	
-<script src="/js/menubar_left.js"></script>	
 
 </body>
 
