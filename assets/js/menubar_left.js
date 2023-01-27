@@ -15,7 +15,7 @@ let sidebar = document.querySelector(".sidebar");
    // sidebar.classList.toggle("open");
  //   menuBtnChange(); //calling the function(optional)
  var values = document.getElementById("myInput").value;
- queryDynamoDB(5,"video",values);
+ queryDynamoDB(5,"search",values);
   });
 
   // following are the code to change sidebar button(optional)
