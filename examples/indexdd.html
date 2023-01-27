@@ -867,6 +867,8 @@ while (!done) {
 }
 
 function queryDynamoDB(limit,type, search) {
+  nextSearch={};
+  nextParams={};
   document.getElementById("home_product").innerHTML = "";
   document.getElementById("next-button").style.display = "block";
 
@@ -874,15 +876,8 @@ function queryDynamoDB(limit,type, search) {
   document.getElementById("circleprogress").style.display = "block";
 
   const tableName = 'VideoAWS';
-let exclusiveStartKey = null;
-let prevExclusiveStartKey = null;
+  var typerequest=type;
 
-var nextSearch = {};
-var nextParams = {};
-
-  var params=null;
-  typerequest=type;
-  console.log(typerequest);
   if(typerequest=="video" || typerequest=="search" && search.length<=0){
     
     typerequest="video";
@@ -945,61 +940,6 @@ var nextParams = {};
   }
   console.log(typerequest);
 
-
-document.getElementById("next-button").addEventListener("click", () => {
-  if(typerequest=="video"){
-    fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
-          method: 'POST',
-          body: JSON.stringify({
-            typerequest:"video",
-            ExclusiveStartKey:nextParams.ExclusiveStartKey
-	
-          })
-      })
-      .then(response => response.json())
-      .then(data => {
-
-        console.log(data);
-            displayData(data.Items);
-
-            nextParams.ExclusiveStartKey = data.LastEvaluatedKey;
-            if (!nextParams.ExclusiveStartKey) {
-                document.getElementById("next-button").style.display = "none";
-            }
-      })
-      .catch(error => {
-          console.error(error);
-      });
-
-  }else if(typerequest=="search"){
-    fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_VideoSearchName', {
-          method: 'POST',
-          body: JSON.stringify({
-            typerequest:"search",
-            search:search,
-            ExclusiveStartKey:nextSearch.ExclusiveStartKey
-	
-          })
-      })
-      .then(response => response.json())
-      .then(data => {
-
-        console.log(data);
-            displayData(data.Items);
-
-            nextSearch.ExclusiveStartKey = data.LastEvaluatedKey;
-            if (!nextSearch.ExclusiveStartKey) {
-                document.getElementById("next-button").style.display = "none";
-            }
-      })
-      .catch(error => {
-          console.error(error);
-      });
-console.log(nextParams);
-  }
- 
-
-});
 }
 
 function retrieveData(isPrev) {
@@ -1090,7 +1030,15 @@ function initAWS(channelName){
      
   
   AWS.config.region = region;
-     
+  let exclusiveStartKey = null;
+let prevExclusiveStartKey = null;
+
+var nextSearch = {};
+var nextParams = {};
+
+  var params=null;
+ var typerequest=null;
+  
   if(isUserLoggedIn()){
     // const itemsAll = scanAll("VideoAWS");
     // itemsAll.then(function(value) {
@@ -1171,6 +1119,61 @@ for(var i =0;i<100000;i++){
    }
    return itemsAll;
   }*/
+
+  document.getElementById("next-button").addEventListener("click", () => {
+  if(typerequest=="video"){
+    fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
+          method: 'POST',
+          body: JSON.stringify({
+            typerequest:"video",
+            ExclusiveStartKey:nextParams.ExclusiveStartKey
+	
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+
+        console.log(data);
+            displayData(data.Items);
+
+            nextParams.ExclusiveStartKey = data.LastEvaluatedKey;
+            if (!nextParams.ExclusiveStartKey) {
+                document.getElementById("next-button").style.display = "none";
+            }
+      })
+      .catch(error => {
+          console.error(error);
+      });
+
+  }else if(typerequest=="search"){
+    fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_VideoSearchName', {
+          method: 'POST',
+          body: JSON.stringify({
+            typerequest:"search",
+            search:search,
+            ExclusiveStartKey:nextSearch.ExclusiveStartKey
+	
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+
+        console.log(data);
+            displayData(data.Items);
+
+            nextSearch.ExclusiveStartKey = data.LastEvaluatedKey;
+            if (!nextSearch.ExclusiveStartKey) {
+                document.getElementById("next-button").style.display = "none";
+            }
+      })
+      .catch(error => {
+          console.error(error);
+      });
+console.log(nextParams);
+  }
+ 
+
+});
 
   let searchBtn = document.querySelector(".bx-search");
   searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
