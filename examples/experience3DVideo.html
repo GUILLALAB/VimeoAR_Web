@@ -564,7 +564,6 @@ if(isUserLoggedIn()){
   document.getElementById("next-button").style.display = "block";
 
   const documentClient = new AWS.DynamoDB.DocumentClient();
-  document.getElementById("circleprogress").style.display = "block";
 
   const tableName = 'VideoAWS';
 let exclusiveStartKey = null;
