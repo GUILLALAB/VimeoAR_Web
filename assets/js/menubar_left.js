@@ -14,8 +14,8 @@ let sidebar = document.querySelector(".sidebar");
   searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
    // sidebar.classList.toggle("open");
  //   menuBtnChange(); //calling the function(optional)
- var channelName = document.getElementById("myInput").value;
-//requestVideo();
+ var values = document.getElementById("myInput").value;
+ queryDynamoDB(5,"video",values);
   });
 
   // following are the code to change sidebar button(optional)
