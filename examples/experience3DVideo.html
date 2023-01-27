@@ -464,7 +464,7 @@ document.addEventListener("buttonclick", function (e) {
     mesh.position.set( 5, 169, -191 );
 	mesh.scale.set( 8,8, 8 );
 
-	if(data.background.S!=null){
+	if(data.background.S!=null || typeof data.background === undefined){
 		document.getElementById('background').style.display="block";
 	}else{
 		document.getElementById('background').style.display="none";
