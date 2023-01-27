@@ -1121,6 +1121,8 @@ for(var i =0;i<100000;i++){
    return itemsAll;
   }*/
 
+
+
   const updateName = async (data) => {
           const documentClient = new AWS.DynamoDB.DocumentClient();
         
@@ -1158,6 +1160,14 @@ if (data != null) {
 
 
 });
+
+var searchBtn = document.querySelector(".bx-search");
+  searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
+    // sidebar.classList.toggle("open");
+  //   menuBtnChange(); //calling the function(optional)
+  var values = document.getElementById("myInput").value;
+  queryDynamoDB(5);
+   });
 
 
 document.addEventListener("buttonlikes", function (e) {
