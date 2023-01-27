@@ -472,7 +472,7 @@ document.addEventListener("buttonclick", function (e) {
 
   var file = "";
 
-  if(data.background!=null ||  data.background !== undefined){
+  if(data.srcBucket!=null ||  data.srcBucket !== undefined){
      file = "https://"+data.srcBucket.S+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo.S;
   }else{
      file = "";
