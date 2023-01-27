@@ -872,25 +872,12 @@ while (!done) {
 
 }
 
-function queryDynamoDB(limit,type, search) {
-  nextSearch={};
-  nextParams={};
-  document.getElementById("home_product").innerHTML = "";
-  document.getElementById("next-button").style.display = "block";
-
-  const documentClient = new AWS.DynamoDB.DocumentClient();
-  document.getElementById("circleprogress").style.display = "block";
-
-  const tableName = 'VideoAWS';
-   typerequest=type;
-
-  if(typerequest=="video" || typerequest=="search" && search.length<=0){
-    
-    typerequest="video";
-    fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
+function fetchdata(url,typerequest, search){
+  fetch(url, {
           method: 'POST',
           body: JSON.stringify({
            typerequest:typerequest,
+           search:search
           })
       })
       .then(response => response.json())
@@ -913,39 +900,29 @@ function queryDynamoDB(limit,type, search) {
           console.error(error);
       });
 
+
+}
+function queryDynamoDB(limit,type, search) {
+  nextSearch={};
+  nextParams={};
+  document.getElementById("home_product").innerHTML = "";
+  document.getElementById("next-button").style.display = "block";
+
+  const documentClient = new AWS.DynamoDB.DocumentClient();
+  document.getElementById("circleprogress").style.display = "block";
+
+  const tableName = 'VideoAWS';
+   typerequest=type;
+
+  if(type=="video" || type=="search" && search.length<=0){
+    typerequest="video";
+    fetchdata('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video',typerequest,null);
+   
   }else if(typerequest=="search"){
     typerequest="search";
-    fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_VideoSearchName', {
-          method: 'POST',
-          body: JSON.stringify({
-           typerequest:typerequest,
-           search:search
-          })
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-            displayData(data.Items);
-            
-            nextSearch = {
-  Limit: 5,
-  ExclusiveStartKey: data.LastEvaluatedKey
-};
-
-           
-            if (!nextSearch.ExclusiveStartKey) {
-                document.getElementById("next-button").style.display = "none";
-            }
-        
-      })
-      .catch(error => {
-          console.error(error);
-      });
-
-
+    fetchdata('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_VideoSearchName',typerequest,search);
   }
   console.log(typerequest);
-
 }
 
 function retrieveData(isPrev) {
