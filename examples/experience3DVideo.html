@@ -617,7 +617,7 @@ document.getElementById("next-button").addEventListener("click", () => {
       .then(data => {
 
         console.log(data);
-            displayData(data.Items);
+            displayData(data);
 
             nextParams.ExclusiveStartKey = data.LastEvaluatedKey;
             if (!nextParams.ExclusiveStartKey) {
