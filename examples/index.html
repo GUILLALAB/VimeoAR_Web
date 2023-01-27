@@ -1104,6 +1104,14 @@ for(var i =0;i<100000;i++){
    return itemsAll;
   }*/
 
+  let searchBtn = document.querySelector(".bx-search");
+  searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
+    // sidebar.classList.toggle("open");
+  //   menuBtnChange(); //calling the function(optional)
+  var values = document.getElementById("myInput").value;
+  queryDynamoDB(5,"search",values);
+   });
+
   const updateName = async (data) => {
           const documentClient = new AWS.DynamoDB.DocumentClient();
         
