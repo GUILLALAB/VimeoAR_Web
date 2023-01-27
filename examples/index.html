@@ -791,30 +791,11 @@ ul {
     </script>
 
 <script src="/js/loginAWS.js"></script>
-<script src="/js/menubar_left.js"></script>	
 
 
       <script type="module">
+        var typerequest=null;
         initAWS("")
-        var test= 0;
-        var exclusiveStartKey = null;
-var prevExclusiveStartKey = null;
-var nextParams = {};
-  var params=null;
-
-   /*   async function fetchData() {
-  try {
-    const response = await fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/stage1/Add_LiveStream');
-    const data = await response.json();
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-fetchData();*/
-
-
-
 // Set the table name and key attribute names
 
 const requestVideo = async () => {
@@ -885,23 +866,25 @@ while (!done) {
 
 }
 
-//requestVideo();
-
-
-
-function queryDynamoDB(limit) {
+function queryDynamoDB(limit,type, search) {
+  nextSearch={};
   nextParams={};
-  const documentClient = new AWS.DynamoDB.DocumentClient();
-  document.getElementById("circleprogress").style.display = "block";
+  document.getElementById("home_product").innerHTML = "";
   document.getElementById("next-button").style.display = "block";
 
-  const tableName = 'VideoAWS';
+  const documentClient = new AWS.DynamoDB.DocumentClient();
+  document.getElementById("circleprogress").style.display = "block";
 
-  
-  fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
+  const tableName = 'VideoAWS';
+  var typerequest=type;
+
+  if(typerequest=="video" || typerequest=="search" && search.length<=0){
+    
+    typerequest="video";
+    fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
           method: 'POST',
-          body: JSON.stringify({	
-            typerequest:'video'
+          body: JSON.stringify({
+           typerequest:typerequest,
           })
       })
       .then(response => response.json())
@@ -924,6 +907,38 @@ function queryDynamoDB(limit) {
           console.error(error);
       });
 
+  }else if(typerequest=="search"){
+    typerequest="search";
+    fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_VideoSearchName', {
+          method: 'POST',
+          body: JSON.stringify({
+           typerequest:typerequest,
+           search:search
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+            displayData(data.Items);
+            
+            nextSearch = {
+  Limit: 5,
+  ExclusiveStartKey: data.LastEvaluatedKey
+};
+
+           
+            if (!nextSearch.ExclusiveStartKey) {
+                document.getElementById("next-button").style.display = "none";
+            }
+        
+      })
+      .catch(error => {
+          console.error(error);
+      });
+
+
+  }
+  console.log(typerequest);
 
 }
 
@@ -1015,7 +1030,15 @@ function initAWS(channelName){
      
   
   AWS.config.region = region;
-     
+  let exclusiveStartKey = null;
+let prevExclusiveStartKey = null;
+
+var nextSearch = {};
+var nextParams = {};
+
+  var params=null;
+ var typerequest=null;
+  
   if(isUserLoggedIn()){
     // const itemsAll = scanAll("VideoAWS");
     // itemsAll.then(function(value) {
@@ -1030,7 +1053,7 @@ function initAWS(channelName){
   }else{
     console.log("Login not loggedIn");
   }
-  queryDynamoDB(5);
+  queryDynamoDB(5,"video","");
 
   
 
@@ -1097,7 +1120,68 @@ for(var i =0;i<100000;i++){
    return itemsAll;
   }*/
 
+  document.getElementById("next-button").addEventListener("click", () => {
+  if(typerequest=="video"){
+    fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
+          method: 'POST',
+          body: JSON.stringify({
+            typerequest:"video",
+            ExclusiveStartKey:nextParams.ExclusiveStartKey
+	
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
 
+        console.log(data);
+            displayData(data.Items);
+
+            nextParams.ExclusiveStartKey = data.LastEvaluatedKey;
+            if (!nextParams.ExclusiveStartKey) {
+                document.getElementById("next-button").style.display = "none";
+            }
+      })
+      .catch(error => {
+          console.error(error);
+      });
+
+  }else if(typerequest=="search"){
+    fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_VideoSearchName', {
+          method: 'POST',
+          body: JSON.stringify({
+            typerequest:"search",
+            search:search,
+            ExclusiveStartKey:nextSearch.ExclusiveStartKey
+	
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+
+        console.log(data);
+            displayData(data.Items);
+
+            nextSearch.ExclusiveStartKey = data.LastEvaluatedKey;
+            if (!nextSearch.ExclusiveStartKey) {
+                document.getElementById("next-button").style.display = "none";
+            }
+      })
+      .catch(error => {
+          console.error(error);
+      });
+console.log(nextParams);
+  }
+ 
+
+});
+
+  let searchBtn = document.querySelector(".bx-search");
+  searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
+    // sidebar.classList.toggle("open");
+  //   menuBtnChange(); //calling the function(optional)
+  var values = document.getElementById("myInput").value;
+  queryDynamoDB(5,"search",values);
+   });
 
   const updateName = async (data) => {
           const documentClient = new AWS.DynamoDB.DocumentClient();
@@ -1138,45 +1222,6 @@ if (data != null) {
 });
 
 
-document.getElementById("next-button").addEventListener("click", () => {
-  fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
-          method: 'POST',
-          body: JSON.stringify({
-            typerequest:'video',
-            ExclusiveStartKey:nextParams.ExclusiveStartKey
-	
-          })
-      })
-      .then(response => response.json())
-      .then(data => {
-
-        console.log(data);
-        console.log(test+=1);
-
-        
-            displayData(data.Items);
-
-            nextParams.ExclusiveStartKey = data.LastEvaluatedKey;
-            if (!nextParams.ExclusiveStartKey) {
-                document.getElementById("next-button").style.display = "none";
-            }
-      })
-      .catch(error => {
-          console.error(error);
-      });
-
-});
-
-var searchBtn = document.querySelector(".bx-search");
-  searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
-    // sidebar.classList.toggle("open");
-  //   menuBtnChange(); //calling the function(optional)
-  var values = document.getElementById("myInput").value;
-  document.getElementById("home_product").innerHTML = "";
-  queryDynamoDB(5);
-   });
-
-
 document.addEventListener("buttonlikes", function (e) {
 
 // alert(e.detail);
@@ -1202,7 +1247,8 @@ if (data != null) {
 //updateName();
       </script>
 
-<script src="/js/template_listdatavideo.js"></script>	
+<script src="/js/template_listdatavideoindex.js"></script>	
+<script src="/js/menubar_left.js"></script>	
 
 </body>
 
