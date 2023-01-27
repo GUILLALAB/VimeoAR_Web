@@ -670,13 +670,12 @@ function toggleButtons() {
     }
 
     function displayData(data) {
-        var items = data;
         var html = "";
 
 
-        for (var i = 0; i < items.length; i++) {
+        for (var i = 0; i < data.length; i++) {
         //    html += "<p>" + JSON.stringify(items[i]) + "</p>";
-        loadProducts(items[i]);
+        loadProducts(data[i]);
         }
 
       //  document.getElementById("data-container").innerHTML = html;
@@ -843,13 +842,11 @@ var image = Object.values(innerObject)[0];
 	 
 li.innerHTML = Template;
 
-li.setAttribute('id', data.guid.S);
+li.setAttribute('id', data.guid);
 
 li.querySelector("#btn").myParam = data;
 
 li.querySelector("#btn").addEventListener('click', myFunc, false);
-
-var file = "https://"+data.srcBucket.S+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo.S;
 
 document.getElementById("home_product").appendChild(li);
     }
