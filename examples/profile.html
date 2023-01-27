@@ -1044,27 +1044,37 @@ return scaled.toFixed(1) + suffix;
 
 function loadProducts(data){
 
-var li = document.createElement('li');
-var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
-var test=data.hlsUrl+"~"+data.guid+"~"+data.title+"~";
+  var li = document.createElement('li');
+var file = "https://"+data.srcBucket.S+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo.S;
+var test=data.hlsUrl.S+"~"+data.guid.S+"~"+data.title.N+"~";
 var counterview="";
-if(data.counterview===undefined){
-counterview="ok";
+if(data.counterview.S===undefined){
+  counterview="ok";
 }else{
-counterview=data.counterview;
+  counterview=data.counterview.S;
 }
+
+var item = data.thumbNailsUrls;
+var outerArray = Object.values(item)[0];
+var innerObject = outerArray[0];
+var image = Object.values(innerObject)[0];
+
+
+var likescount = data.likescount && (data.likescount.N || data.likescount.S) || "0";
+//var url = `profile.html?id=${id}`;
+
 
     var Template= '<div id="btn" class="col-lg-6 mb-2 pr-lg-1">'+
       '<div id="carda"  class="card h-100">'+
   
-        '<a href="#"><img class="card-img-top"  src="'+data.thumbNailsUrls+'" alt=""></a>'+
+        '<a href="#"><img class="card-img-top"  src="'+image+'" alt=""></a>'+
         '<div class="card-body">'+
           '<h4 class="card-title">'+
             '<a>'+ counterview+'</a>'+
 
           '</h4>'+
           '<h5></h5>'+
-          '<p class="card-text">'+ abbreviateNumber(data.title)+" views"+'</p>'+
+          '<p class="card-text">'+ abbreviateNumber(data.title.N)+" views"+'</p>'+
         '</div>'+
         '<div id="footer" class="card-footer">'+
           '<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>'+
