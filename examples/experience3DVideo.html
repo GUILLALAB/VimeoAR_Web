@@ -480,12 +480,10 @@ document.addEventListener("buttonclick", function (e) {
 
 	//PlayVideo(videodata.hlsUrl,"https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/avatar.mp4",video);
 	if(currentCategory == "LiveStream"){
-    
     if(data.id!=null ||  data.id !== undefined){
       initAgora(data.id.S);
-  }else{
-    initAgora(data.guid.S);
-  }
+      console.log(data.id.S);
+    }
   }else{
 
      doSomething(data.hlsUrl.S,file,video);
