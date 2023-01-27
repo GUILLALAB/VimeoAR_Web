@@ -482,9 +482,9 @@ document.addEventListener("buttonclick", function (e) {
 	if(currentCategory == "LiveStream"){
     
     if(data.id!=null ||  data.id !== undefined){
-      initAgora(data.guid.S);
+      initAgora(data.id.S);
   }else{
-    initAgora(data.id.S);
+    initAgora(data.guid.S);
   }
   }else{
 
