@@ -561,8 +561,8 @@ if(isUserLoggedIn()){
   }else{
     console.log("Login not loggedIn");
   }
-  queryDynamoDB(5,"","VideoAWS");
-
+ // queryDynamoDB(5,"","VideoAWS");
+ queryddynamoDB();
 
 
 //queryddynamoDB(5,"LiveStream","");
@@ -598,7 +598,7 @@ function fetchdata(url,typerequest,category){
 
 }
 
-  function queryddynamoDB(limit,type, search) {
+  function queryddynamoDB() {
   document.getElementById("home_product").innerHTML = "";
   document.getElementById("next-button").style.display = "block";
 
@@ -830,7 +830,7 @@ document.getElementById("next-button").addEventListener("click", () => {
     fetchSecondBatch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_VideoGenre',"video",currentCategory);
 
   }else if(currentCategory=="LiveStream"){
-    fetchSecondBatch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetLiveStream',"LiveStream",null);
+    fetchSecondBatch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetLiveStream',currentCategory,null);
   }
 
 });
@@ -839,17 +839,18 @@ document.getElementById("next-button").addEventListener("click", () => {
 document.getElementById("live").addEventListener("click", function (e) {
   document.getElementById("home_product").innerHTML = "";
   currentCategory="LiveStream";
-  queryDynamoDB(5,'',"LiveStream");
+  queryddynamoDB();
 });
 document.getElementById("explore").addEventListener("click", function (e) {
   document.getElementById("home_product").innerHTML = "";
   currentCategory="Explore";
-  queryDynamoDB(5,'',"VideoAWS");
+  queryddynamoDB();
+
 });
 document.getElementById("music").addEventListener("click", function (e) {
   document.getElementById("home_product").innerHTML = "";
   currentCategory="Music";
-  queryDynamoDB(5,'Music',"VideoAWS");
+  queryddynamoDB();
 });
 
    }
