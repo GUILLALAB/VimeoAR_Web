@@ -795,20 +795,6 @@ ul {
 
       <script type="module">
         initAWS("")
-
-   /*   async function fetchData() {
-  try {
-    const response = await fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/stage1/Add_LiveStream');
-    const data = await response.json();
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-fetchData();*/
-
-
-
 // Set the table name and key attribute names
 
 const requestVideo = async () => {
@@ -878,10 +864,6 @@ while (!done) {
 
 
 }
-
-//requestVideo();
-
-
 
 function queryDynamoDB(limit,type, search) {
   const documentClient = new AWS.DynamoDB.DocumentClient();
@@ -1185,9 +1167,9 @@ if (data != null) {
 
 //updateName();
       </script>
-<script src="/js/menubar_left.js"></script>	
 
 <script src="/js/template_listdatavideoindex.js"></script>	
+<script src="/js/menubar_left.js"></script>	
 
 </body>
 
