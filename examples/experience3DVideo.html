@@ -601,10 +601,6 @@ function fetchdata(url,typerequest,category){
   function queryddynamoDB() {
   document.getElementById("home_product").innerHTML = "";
   document.getElementById("next-button").style.display = "block";
-
-  const documentClient = new AWS.DynamoDB.DocumentClient();
-
-  const tableName = 'VideoAWS';
   nextParams={};
 
   if(currentCategory=="Explore"){
@@ -777,7 +773,7 @@ function toggleButtons() {
     }
 
     function displayData(data) {
-        var items = data.Items;
+        var items = data;
         var html = "";
 
 
