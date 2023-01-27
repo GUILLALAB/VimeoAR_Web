@@ -1,6 +1,6 @@
 let sidebar = document.querySelector(".sidebar");
   let closeBtn = document.querySelector("#btn");
-  let searchBtn = document.querySelector(".bx-search");
+  
   document.getElementById("navbutton").style.display="none";
     
     document.querySelector('.sidebar').style.backgroundColor = "#15141600";
@@ -11,12 +11,7 @@ let sidebar = document.querySelector(".sidebar");
     menuBtnChange();//calling the function(optional)
   });
 
-  searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
-   // sidebar.classList.toggle("open");
- //   menuBtnChange(); //calling the function(optional)
- var values = document.getElementById("myInput").value;
- queryDynamoDB(5,"search",values);
-  });
+
 
   // following are the code to change sidebar button(optional)
   function menuBtnChange() {
