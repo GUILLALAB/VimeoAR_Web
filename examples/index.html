@@ -867,6 +867,7 @@ while (!done) {
 
 function queryDynamoDB(limit,type, search) {
   document.getElementById("home_product").innerHTML = "";
+  document.getElementById("next-button").style.display = "block";
 
   const documentClient = new AWS.DynamoDB.DocumentClient();
   document.getElementById("circleprogress").style.display = "block";
