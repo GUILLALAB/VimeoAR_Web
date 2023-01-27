@@ -797,6 +797,10 @@ ul {
       <script type="module">
         initAWS("")
         var test= 0;
+        var exclusiveStartKey = null;
+var prevExclusiveStartKey = null;
+var nextParams = {};
+  var params=null;
 
    /*   async function fetchData() {
   try {
@@ -891,14 +895,7 @@ function queryDynamoDB(limit) {
   document.getElementById("next-button").style.display = "block";
 
   const tableName = 'VideoAWS';
-let exclusiveStartKey = null;
-let prevExclusiveStartKey = null;
 
-
-
-let nextParams = {};
-
-  var params=null;
   
   fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
           method: 'POST',
