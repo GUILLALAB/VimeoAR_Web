@@ -973,11 +973,21 @@ player.src=null;
 
 var li = document.createElement('li');
 var counterview="";
-if(data.counterview.S===undefined){
+if(currentCategory=="LiveStream"){
+  if(data.channel.S===undefined){
+  counterview="ok";
+}else{
+  counterview=data.channel.S;
+}
+
+}else{
+  if(data.counterview.S===undefined){
   counterview="ok";
 }else{
   counterview=data.counterview.S;
 }
+}
+
 
 var item = data.thumbNailsUrls;
 var outerArray = Object.values(item)[0];
