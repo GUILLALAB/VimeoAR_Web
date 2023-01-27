@@ -586,7 +586,7 @@ let nextParams = {};
       .then(response => response.json())
       .then(data => {
         console.log(data);
-            displayData(data);
+            displayData(data.Items);
             
             nextParams = {
   Limit: 5,
@@ -617,7 +617,7 @@ document.getElementById("next-button").addEventListener("click", () => {
       .then(data => {
 
         console.log(data);
-            displayData(data);
+            displayData(data.Items);
 
             nextParams.ExclusiveStartKey = data.LastEvaluatedKey;
             if (!nextParams.ExclusiveStartKey) {
@@ -670,12 +670,13 @@ function toggleButtons() {
     }
 
     function displayData(data) {
+        var items = data;
         var html = "";
 
 
-        for (var i = 0; i < data.length; i++) {
+        for (var i = 0; i < items.length; i++) {
         //    html += "<p>" + JSON.stringify(items[i]) + "</p>";
-        loadProducts(data[i]);
+        loadProducts(items[i]);
         }
 
       //  document.getElementById("data-container").innerHTML = html;
@@ -829,6 +830,13 @@ player.src=null;
  function loadProducts(data){
 
 var li = document.createElement('li');
+var counterview="";
+if(data.counterview.S===undefined){
+  counterview="ok";
+}else{
+  counterview=data.counterview.S;
+}
+
 var item = data.thumbNailsUrls;
 var outerArray = Object.values(item)[0];
 var innerObject = outerArray[0];
@@ -836,17 +844,19 @@ var image = Object.values(innerObject)[0];
 
 	 var Template = '<div id="btn" class="card mt-1">'+
 		'<div class="product-1 align-items-center p-2 text-center"> <img src="'+image+'" class="rounded" width="150" height="100">'+
-    '<div class="message"> <span class="text1 d-block">'+ data.counterview.S+' </span> </div>'+
+    '<div class="message"> <span class="text1 d-block">'+ counterview+' </span> </div>'+
 '</div>'+
 '</div>';
 	 
 li.innerHTML = Template;
 
-li.setAttribute('id', data.guid.S);
+li.setAttribute('id', data.guid);
 
-//li.querySelector("#btn").myParam = data;
+li.querySelector("#btn").myParam = data;
 
 li.querySelector("#btn").addEventListener('click', myFunc, false);
+
+var file = "https://"+data.srcBucket.S+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo.S;
 
 document.getElementById("home_product").appendChild(li);
     }
