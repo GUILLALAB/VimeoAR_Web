@@ -989,10 +989,16 @@ if(currentCategory=="LiveStream"){
 }
 
 
-var item = data.thumbNailsUrls;
+var image = "";
+
+if(data.thumbNailsUrls.S===undefined){
+}else{
+  var item = data.thumbNailsUrls;
 var outerArray = Object.values(item)[0];
 var innerObject = outerArray[0];
-var image = Object.values(innerObject)[0];
+ image = Object.values(innerObject)[0];
+}
+
 
 	 var Template = '<div id="btn" class="card mt-1">'+
 		'<div class="product-1 align-items-center p-2 text-center"> <img src="'+image+'" class="rounded" width="150" height="100">'+
