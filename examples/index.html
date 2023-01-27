@@ -887,6 +887,7 @@ while (!done) {
 function queryDynamoDB(limit) {
   const documentClient = new AWS.DynamoDB.DocumentClient();
   document.getElementById("circleprogress").style.display = "block";
+  document.getElementById("next-button").style.display = "block";
 
   const tableName = 'VideoAWS';
 let exclusiveStartKey = null;
