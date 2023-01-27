@@ -469,7 +469,15 @@ document.addEventListener("buttonclick", function (e) {
 	}else{
 		document.getElementById('background').style.display="none";
 	}
-	var file = "https://"+data.srcBucket.S+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo.S;
+
+  var file = "";
+
+  if(data.background!=null ||  data.background !== undefined){
+     file = "https://"+data.srcBucket.S+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo.S;
+  }else{
+     file = "https://"+data.srcBucket.S+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo.S;
+  }
+
 	//PlayVideo(videodata.hlsUrl,"https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/avatar.mp4",video);
 	if(currentCategory == "LiveStream"){
     
