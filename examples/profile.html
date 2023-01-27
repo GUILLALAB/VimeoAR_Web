@@ -1060,7 +1060,7 @@ return scaled.toFixed(1) + suffix;
 
 
 function loadProducts(data){
-
+console.log(data.guid.S);
   var li = document.createElement('li');
 var file = "https://"+data.srcBucket.S+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo.S;
 var test=data.hlsUrl.S+"~"+data.guid.S+"~"+data.title.N+"~";
