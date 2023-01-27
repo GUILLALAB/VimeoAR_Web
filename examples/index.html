@@ -882,7 +882,7 @@ let nextParams = {};
   var params=null;
   let typerequest=type;
   console.log(typerequest);
-  if(search.length<=0){
+  if(typerequest=="video" || typerequest=="search" && search.length<=0){
     
     typerequest="video";
     fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
@@ -911,7 +911,7 @@ let nextParams = {};
           console.error(error);
       });
 
-  }else{
+  }else if(typerequest=="search"){
     typerequest="search";
     fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_VideoSearchName', {
           method: 'POST',
