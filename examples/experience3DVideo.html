@@ -1007,7 +1007,11 @@ var innerObject = outerArray[0];
 	 
 li.innerHTML = Template;
 
-li.setAttribute('id', data.guid.S);
+if(data.guid.S===undefined){
+  li.setAttribute('id', data.id.S);
+}else{
+  li.setAttribute('id', data.guid.S);
+}
 
 li.querySelector("#btn").myParam = data;
 
