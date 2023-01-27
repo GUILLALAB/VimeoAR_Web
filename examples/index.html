@@ -795,6 +795,12 @@ ul {
 
       <script type="module">
         var typerequest=null;
+        let exclusiveStartKey = null;
+let prevExclusiveStartKey = null;
+var nextSearch = {};
+var nextParams = {};
+  var params=null;
+ 
         initAWS("")
 // Set the table name and key attribute names
 
@@ -1030,14 +1036,7 @@ function initAWS(channelName){
      
   
   AWS.config.region = region;
-  let exclusiveStartKey = null;
-let prevExclusiveStartKey = null;
 
-var nextSearch = {};
-var nextParams = {};
-
-  var params=null;
- var typerequest=null;
   
   if(isUserLoggedIn()){
     // const itemsAll = scanAll("VideoAWS");
