@@ -556,129 +556,79 @@ if(isUserLoggedIn()){
   }else{
     console.log("Login not loggedIn");
   }
-  queryDynamoDB(5,"","VideoAWS");
+  queryDynamoDB(5,"","video");
 
 
+  function queryDynamoDB(limit,category,type) {
+  document.getElementById("home_product").innerHTML = "";
+  document.getElementById("next-button").style.display = "block";
 
+  const documentClient = new AWS.DynamoDB.DocumentClient();
+  document.getElementById("circleprogress").style.display = "block";
 
-function queryDynamoDB(limit, category, table) {
-
-const documentClient = new AWS.DynamoDB.DocumentClient();
-
-const tableName = table;
+  const tableName = 'VideoAWS';
 let exclusiveStartKey = null;
 let prevExclusiveStartKey = null;
+
+
+
 let nextParams = {};
 
-
   var params=null;
-  if (category.length>0){
-   params = {
-    TableName: tableName,
-    IndexName: 'category-index',
-    KeyConditionExpression: 'category = :indexKeyValue',
-  ExpressionAttributeValues: {
-    ':indexKeyValue': category
-  },
-  Limit: 5
-  };
-  }else if(tableName == "VideoAWS"){
-    params = {
-    TableName: tableName,
-    IndexName: 'workflowStatus-index',
-    KeyConditionExpression: 'workflowStatus = :indexKeyValue',
-  ExpressionAttributeValues: {
-    ':indexKeyValue': 'Complete'
-  },
+  let typerequest=type;
 
-  Limit: 5
-};
-  
-  } else if(tableName == "LiveStream"){
-    params = {
-    TableName: tableName,
-    IndexName: 'Livestatus-index',
-    KeyConditionExpression: 'Livestatus = :indexKeyValue',
-  ExpressionAttributeValues: {
-    ':indexKeyValue': 'Live'
-  },
-
-  Limit: 5
-};
-
-
-  }
-
-
-
-  documentClient.query(params, (err, data) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(data);
-            displayData(data);
+  fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
+          method: 'POST',
+          body: JSON.stringify({
+           typerequest:typerequest,
+           category:category
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+            displayData(data.Items);
             
-            if (category.length>0){
-              nextParams = {
-    TableName: tableName,
-    IndexName: 'videotitlesearch-index',
-    KeyConditionExpression: 'videotitlesearch = :indexKeyValue',
-  ExpressionAttributeValues: {
-    ':indexKeyValue': category
-  },
-  Limit: 5,
-  ExclusiveStartKey: data.LastEvaluatedKey
-  };
-}else if(tableName == "VideoAWS"){
-    nextParams = {
-    TableName: tableName,
-    IndexName: 'workflowStatus-index',
-    KeyConditionExpression: 'workflowStatus = :indexKeyValue',
-  ExpressionAttributeValues: {
-    ':indexKeyValue': 'Complete'
-  },
-
-  Limit: 5,
-  ExclusiveStartKey: data.LastEvaluatedKey
-
-};
-  
-  }else if(tableName == "LiveStream"){
-    nextParams = {
-    TableName: tableName,
-    IndexName: 'Livestatus-index',
-    KeyConditionExpression: 'Livestatus = :indexKeyValue',
-  ExpressionAttributeValues: {
-    ':indexKeyValue': 'Live'
-  },
+            nextParams = {
   Limit: 5,
   ExclusiveStartKey: data.LastEvaluatedKey
 };
-  
-  }
-  
-   
+
+           
             if (!nextParams.ExclusiveStartKey) {
                 document.getElementById("next-button").style.display = "none";
             }
-        }
-    });
-
+        
+      })
+      .catch(error => {
+          console.error(error);
+      });
 
 document.getElementById("next-button").addEventListener("click", () => {
-  documentClient.query(nextParams, (err, nextData) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(nextData);
-            displayData(nextData);
+  fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
+          method: 'POST',
+          body: JSON.stringify({
+            typerequest:typerequest,
+           category:category,
+            ExclusiveStartKey:nextParams.ExclusiveStartKey
+	
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
 
-            nextParams.ExclusiveStartKey = nextData.LastEvaluatedKey;
+        console.log(data);
+            displayData(data.Items);
+
+            nextParams.ExclusiveStartKey = data.LastEvaluatedKey;
             if (!nextParams.ExclusiveStartKey) {
                 document.getElementById("next-button").style.display = "none";
             }
-        }
-    });
+      })
+      .catch(error => {
+          console.error(error);
+      });
+
 });
 }
 
@@ -748,12 +698,14 @@ document.getElementById("live").addEventListener("click", function (e) {
 document.getElementById("explore").addEventListener("click", function (e) {
   document.getElementById("home_product").innerHTML = "";
   currentCategory="Explore";
-  queryDynamoDB(5,'',"VideoAWS");
+  queryDynamoDB(5,'',"video");
+
 });
 document.getElementById("music").addEventListener("click", function (e) {
   document.getElementById("home_product").innerHTML = "";
   currentCategory="Music";
-  queryDynamoDB(5,'Music',"VideoAWS");
+  queryDynamoDB(5,'Music',"video");
+
 });
 
    }
