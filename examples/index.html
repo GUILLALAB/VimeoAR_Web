@@ -883,6 +883,7 @@ let nextParams = {};
   var params=null;
   let typerequest=type;
   if(search.length<=0){
+    typerequest="video";
     fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
           method: 'POST',
           body: JSON.stringify({
@@ -910,6 +911,7 @@ let nextParams = {};
       });
 
   }else{
+    typerequest="search";
     fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_VideoSearchName', {
           method: 'POST',
           body: JSON.stringify({
