@@ -556,10 +556,13 @@ if(isUserLoggedIn()){
   }else{
     console.log("Login not loggedIn");
   }
-  queryDynamoDB(5,"","video");
+  queryDynamoDB(5,"","VideoAWS");
 
 
-  function queryDynamoDB(limit,category,type) {
+  
+queryddynamoDB(5,"LiveStream","");
+
+  function queryddynamoDB(limit,type, search) {
   document.getElementById("home_product").innerHTML = "";
   document.getElementById("next-button").style.display = "block";
 
@@ -576,11 +579,10 @@ let nextParams = {};
   var params=null;
   let typerequest=type;
 
-  fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
+  fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetLiveStream', {
           method: 'POST',
           body: JSON.stringify({
            typerequest:typerequest,
-           category:category
           })
       })
       .then(response => response.json())
@@ -603,31 +605,127 @@ let nextParams = {};
           console.error(error);
       });
 
-document.getElementById("next-button").addEventListener("click", () => {
-  fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
-          method: 'POST',
-          body: JSON.stringify({
-            typerequest:typerequest,
-           category:category,
-            ExclusiveStartKey:nextParams.ExclusiveStartKey
-	
-          })
-      })
-      .then(response => response.json())
-      .then(data => {
 
-        console.log(data);
-            displayData(data.Items);
+}
 
-            nextParams.ExclusiveStartKey = data.LastEvaluatedKey;
+function queryDynamoDB(limit, category, table) {
+
+const documentClient = new AWS.DynamoDB.DocumentClient();
+
+const tableName = table;
+let exclusiveStartKey = null;
+let prevExclusiveStartKey = null;
+let nextParams = {};
+
+
+  var params=null;
+  if (category.length>0){
+   params = {
+    TableName: tableName,
+    IndexName: 'category-index',
+    KeyConditionExpression: 'category = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': category
+  },
+  Limit: 5
+  };
+  }else if(tableName == "VideoAWS"){
+    params = {
+    TableName: tableName,
+    IndexName: 'workflowStatus-index',
+    KeyConditionExpression: 'workflowStatus = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': 'Complete'
+  },
+
+  Limit: 5
+};
+  
+  } else if(tableName == "LiveStream"){
+    params = {
+    TableName: tableName,
+    IndexName: 'Livestatus-index',
+    KeyConditionExpression: 'Livestatus = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': 'Live'
+  },
+
+  Limit: 5
+};
+
+
+  }
+
+
+
+  documentClient.query(params, (err, data) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(data);
+            displayData(data);
+            
+            if (category.length>0){
+              nextParams = {
+    TableName: tableName,
+    IndexName: 'videotitlesearch-index',
+    KeyConditionExpression: 'videotitlesearch = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': category
+  },
+  Limit: 5,
+  ExclusiveStartKey: data.LastEvaluatedKey
+  };
+}else if(tableName == "VideoAWS"){
+    nextParams = {
+    TableName: tableName,
+    IndexName: 'workflowStatus-index',
+    KeyConditionExpression: 'workflowStatus = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': 'Complete'
+  },
+
+  Limit: 5,
+  ExclusiveStartKey: data.LastEvaluatedKey
+
+};
+  
+  }else if(tableName == "LiveStream"){
+    nextParams = {
+    TableName: tableName,
+    IndexName: 'Livestatus-index',
+    KeyConditionExpression: 'Livestatus = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': 'Live'
+  },
+  Limit: 5,
+  ExclusiveStartKey: data.LastEvaluatedKey
+};
+  
+  }
+  
+   
             if (!nextParams.ExclusiveStartKey) {
                 document.getElementById("next-button").style.display = "none";
             }
-      })
-      .catch(error => {
-          console.error(error);
-      });
+        }
+    });
 
+
+document.getElementById("next-button").addEventListener("click", () => {
+  documentClient.query(nextParams, (err, nextData) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(nextData);
+            displayData(nextData);
+
+            nextParams.ExclusiveStartKey = nextData.LastEvaluatedKey;
+            if (!nextParams.ExclusiveStartKey) {
+                document.getElementById("next-button").style.display = "none";
+            }
+        }
+    });
 });
 }
 
@@ -670,7 +768,7 @@ function toggleButtons() {
     }
 
     function displayData(data) {
-        var items = data;
+        var items = data.Items;
         var html = "";
 
 
@@ -697,14 +795,12 @@ document.getElementById("live").addEventListener("click", function (e) {
 document.getElementById("explore").addEventListener("click", function (e) {
   document.getElementById("home_product").innerHTML = "";
   currentCategory="Explore";
-  queryDynamoDB(5,'',"video");
-
+  queryDynamoDB(5,'',"VideoAWS");
 });
 document.getElementById("music").addEventListener("click", function (e) {
   document.getElementById("home_product").innerHTML = "";
   currentCategory="Music";
-  queryDynamoDB(5,'Music',"video");
-
+  queryDynamoDB(5,'Music',"VideoAWS");
 });
 
    }
@@ -830,21 +926,10 @@ player.src=null;
  function loadProducts(data){
 
 var li = document.createElement('li');
-var counterview="";
-if(data.counterview.S===undefined){
-  counterview="ok";
-}else{
-  counterview=data.counterview.S;
-}
-
-var item = data.thumbNailsUrls;
-var outerArray = Object.values(item)[0];
-var innerObject = outerArray[0];
-var image = Object.values(innerObject)[0];
 
 	 var Template = '<div id="btn" class="card mt-1">'+
-		'<div class="product-1 align-items-center p-2 text-center"> <img src="'+image+'" class="rounded" width="150" height="100">'+
-    '<div class="message"> <span class="text1 d-block">'+ counterview+' </span> </div>'+
+		'<div class="product-1 align-items-center p-2 text-center"> <img src="'+data.thumbNailsUrls+'" class="rounded" width="150" height="100">'+
+    '<div class="message"> <span class="text1 d-block">'+ data.counterview+' </span> </div>'+
 '</div>'+
 '</div>';
 	 
@@ -856,7 +941,7 @@ li.querySelector("#btn").myParam = data;
 
 li.querySelector("#btn").addEventListener('click', myFunc, false);
 
-var file = "https://"+data.srcBucket.S+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo.S;
+var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
 
 document.getElementById("home_product").appendChild(li);
     }
