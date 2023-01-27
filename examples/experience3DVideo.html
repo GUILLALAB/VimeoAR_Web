@@ -464,19 +464,19 @@ document.addEventListener("buttonclick", function (e) {
     mesh.position.set( 5, 169, -191 );
 	mesh.scale.set( 8,8, 8 );
 
-	if(data.background!=null){
+	if(data.background.S!=null){
 		document.getElementById('background').style.display="block";
 	}else{
 		document.getElementById('background').style.display="none";
 	}
-	var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
+	var file = "https://"+data.srcBucket.S+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo.S;
 	//PlayVideo(videodata.hlsUrl,"https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/avatar.mp4",video);
 	if(currentCategory == "LiveStream"){
     
-    initAgora(data.id);
+    initAgora(data.id.S);
   }else{
 
-     doSomething(data.hlsUrl,file,video);
+     doSomething(data.hlsUrl.S,file,video);
 
   }
 
@@ -1020,9 +1020,9 @@ event.target.remove();
      var assetsPath = '/assets/ar-shop/';
 
       const loader = new GLTFLoader(loadingManager);
-      var link=videodata.background;
+      var link=videodata.background.S;
       loadingBar.visible = true;
-      if(videodata.background === undefined || videodata.background === ""){
+      if(videodata.background.S === undefined || videodata.background.S === ""){
 		link="";
 		loadingBar.visible = false;
 
@@ -1092,11 +1092,6 @@ clips.forEach(function (clip) {
 
 		scene.updateMatrix();
               scene.updateMatrixWorld(true);
-
-
-
-			  var file = "https://"+videodata.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+videodata.srcVideo;
-
 
 
 			  loadingBar.visible = false;
