@@ -475,13 +475,17 @@ document.addEventListener("buttonclick", function (e) {
   if(data.background!=null ||  data.background !== undefined){
      file = "https://"+data.srcBucket.S+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo.S;
   }else{
-     file = "https://"+data.srcBucket.S+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo.S;
+     file = "";
   }
 
 	//PlayVideo(videodata.hlsUrl,"https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/avatar.mp4",video);
 	if(currentCategory == "LiveStream"){
     
-    initAgora(data.id.S);
+    if(data.id!=null ||  data.id !== undefined){
+      initAgora(data.id.S);
+  }else{
+    initAgora(data.guid.S);
+  }
   }else{
 
      doSomething(data.hlsUrl.S,file,video);
