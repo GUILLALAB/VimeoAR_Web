@@ -586,7 +586,7 @@ let nextParams = {};
       .then(response => response.json())
       .then(data => {
         console.log(data);
-            displayData(data.Items);
+            displayData(data);
             
             nextParams = {
   Limit: 5,
@@ -670,7 +670,7 @@ function toggleButtons() {
     }
 
     function displayData(data) {
-        var items = data.Items;
+        var items = data;
         var html = "";
 
 
@@ -830,22 +830,26 @@ player.src=null;
  function loadProducts(data){
 
 var li = document.createElement('li');
+var item = data.thumbNailsUrls;
+var outerArray = Object.values(item)[0];
+var innerObject = outerArray[0];
+var image = Object.values(innerObject)[0];
 
 	 var Template = '<div id="btn" class="card mt-1">'+
-		'<div class="product-1 align-items-center p-2 text-center"> <img src="'+data.thumbNailsUrls+'" class="rounded" width="150" height="100">'+
-    '<div class="message"> <span class="text1 d-block">'+ data.counterview+' </span> </div>'+
+		'<div class="product-1 align-items-center p-2 text-center"> <img src="'+image+'" class="rounded" width="150" height="100">'+
+    '<div class="message"> <span class="text1 d-block">'+ data.counterview.S+' </span> </div>'+
 '</div>'+
 '</div>';
 	 
 li.innerHTML = Template;
 
-li.setAttribute('id', data.guid);
+li.setAttribute('id', data.guid.S);
 
 li.querySelector("#btn").myParam = data;
 
 li.querySelector("#btn").addEventListener('click', myFunc, false);
 
-var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
+var file = "https://"+data.srcBucket.S+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo.S;
 
 document.getElementById("home_product").appendChild(li);
     }
