@@ -377,6 +377,7 @@ var increment, delta,mesh,loadingBar;
 			var loadingManager;
             var currentvideo=null;
             var currentCategory="Explore";
+  var objects = "";
 
     let exclusiveStartKey = null;
 let prevExclusiveStartKey = null;
@@ -1125,29 +1126,8 @@ clips.forEach(function (clip) {
 
 			  loadingBar.visible = false;
 
-  const objects = gltf.scene.children;
-    // create a raycaster and a mouse vector for raycasting
-    const raycaster = new THREE.Raycaster();
-    const mouse = new THREE.Vector2();
-
-    // listen for mouse clicks on the renderer's dom element
-    renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
-
-    function onDocumentMouseDown( event ) {
-        // update the mouse vector with the click coordinates
-        mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
-        mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
-
-        // update the raycaster with the updated mouse vector
-        raycaster.setFromCamera( mouse, camera );
-
-        // check if the raycaster intersects with any of the objects
-        const intersects = raycaster.intersectObjects( objects );
-        if ( intersects.length > 0 ) {
-            // object was clicked
-            console.log( 'Object clicked!' );
-        }
-    }
+   objects = chair;
+   
 
 
 
@@ -1316,6 +1296,31 @@ lightControls.close();
 				const blueLight = new THREE.PointLight( 0x7f7fff, 0.25, 1000 );
 				blueLight.position.set( 0, 50, 550 );
 				scene.add( blueLight );*/
+
+    // create a raycaster and a mouse vector for raycasting
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    // listen for mouse clicks on the renderer's dom element
+    renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
+
+    function onDocumentMouseDown( event ) {
+        // update the mouse vector with the click coordinates
+        mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
+        mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+
+        // update the raycaster with the updated mouse vector
+        raycaster.setFromCamera( mouse, camera );
+
+        // check if the raycaster intersects with any of the objects
+        const intersects = raycaster.intersectObjects( objects );
+        if ( intersects.length > 0 ) {
+            // object was clicked
+            console.log( 'Object clicked!' );
+        }
+    }
+
+
 				document.getElementById("background").addEventListener("click", function (e) {
 					showChair(currentvideo);
 });
