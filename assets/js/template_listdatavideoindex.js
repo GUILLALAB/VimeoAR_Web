@@ -84,7 +84,7 @@ li.querySelector("#name").myParam = JSON.stringify(testObject);
 
 li.querySelector("#name").addEventListener('click', myFunc, false);
 var test=data.hlsUrl.S+"~"+data.guid.S+"~"+data.likescount.N+"~";
-
+console.log(test);
 li.querySelector("#likes").myParam=test;
 li.querySelector("#likes").addEventListener('click', myFunclikes, false);
 document.getElementById("home_product").appendChild(li);
