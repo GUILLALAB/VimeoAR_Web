@@ -1185,7 +1185,7 @@ clips.forEach(function (clip) {
     switchSkyBox('afterrain');
 				//
 
-				renderer.domElement.addEventListener('mousedown', onMouseClick, false);
+				renderer.addEventListener('mousedown', onMouseClick, false);
 
 			
 				const planeGeo = new THREE.PlaneGeometry( 100.1, 100.1 );
