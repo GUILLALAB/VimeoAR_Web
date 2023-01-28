@@ -1045,11 +1045,6 @@ document.getElementById("home_product").appendChild(li);
 event.target.remove();
 
 }
-
-
-
-
-
  function showChair(videodata){
      var assetsPath = '/assets/ar-shop/';
 
@@ -1129,7 +1124,6 @@ clips.forEach(function (clip) {
 
 
 			  loadingBar.visible = false;
-        renderer.render( scene, camera );
 
           },
           // called while loading is progressing
@@ -1137,13 +1131,6 @@ clips.forEach(function (clip) {
 
               loadingBar.progress = (xhr.loaded / xhr.total);
 			  loadingBar.visible = true;
-
-        var progress = xhr.loaded / xhr.total;
-    // Set the visibility of the GLTF object based on the loading progress
-    chair.traverse( function ( node ) {
-        node.visible = progress > 0.5;
-    } );
-    renderer.render( scene, camera );
 
           },
           // called when loading has errors
