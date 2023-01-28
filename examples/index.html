@@ -1142,10 +1142,31 @@ function fetchSecondBatch(url,typerequest,search){
   queryDynamoDB(5,"search",values);
    });
 
+
+   function fetchCount(url,guid, count){
+  fetch(url, {
+          method: 'POST',
+          body: JSON.stringify({
+           id:guid,
+           count:count
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log("success");           
+      })
+      .catch(error => {
+          console.error(error);
+      });
+
+
+}
+
   const updateName = async (data) => {
-          const documentClient = new AWS.DynamoDB.DocumentClient();
+    const count =  (+data[2]) + (+1);
+    fetchCount("https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_VideoLIkesCount",data[1],count);
+        /*  const documentClient = new AWS.DynamoDB.DocumentClient();
         
-          const newName =  (+data[2]) + (+1);
           console.log("likescounterlink "+newName);
 
           const params = {
@@ -1159,7 +1180,7 @@ function fetchSecondBatch(url,typerequest,search){
             },
           };
         
-          await documentClient.update(params).promise();
+          await documentClient.update(params).promise();*/
         }
 
   document.addEventListener("buttonclick", function (e) {
