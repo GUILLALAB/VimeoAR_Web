@@ -58,9 +58,9 @@ var url = `profile_details.html`;
                 '<p class="card-text">'+ abbreviateNumber(data.title.N)+" views"+'</p>'+
               '</div>'+
               '<div id="footer" class="card-footer">'+
-              '<i  class="fa fa-thumbs-up"></i>'+  
+              '<i id="likes" class="fa fa-thumbs-up"></i>'+  
               '<br>'+
-              '<a id="likes">'+ abbreviateNumber(likescount)+""+'</a>'+
+              '<a>'+ abbreviateNumber(likescount)+""+'</a>'+
               '<button class="ar-button" onclick="window.app.showChair(\'' + test + '\')"><i class="fas fa-camera"></i></button>'+
              '</div>'+
               
