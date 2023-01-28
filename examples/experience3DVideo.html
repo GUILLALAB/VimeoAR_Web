@@ -410,6 +410,7 @@ var mouse = new THREE.Vector2();
 
 function removeEntity(object) {
     var selectedObject = scene.getObjectByName(object.name);
+    console.log(object.name);
     scene.remove( selectedObject );
 	selectedObject.traverse((child) => {
     if (child.isMesh) {
@@ -1073,6 +1074,7 @@ event.target.remove();
           // called when the resource is loaded
           function ( gltf ) {
 			loadingBar.visible = true;
+      
 			chair = gltf.scene;
 
               scene.add(chair);
