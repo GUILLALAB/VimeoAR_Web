@@ -1165,7 +1165,7 @@ function fetchSecondBatch(url,typerequest,search){
 }
 
   const updateName = async (data) => {
-    const count =  (+data[2]) + (+1);
+    var count =  (+data[2]) + (+1);
     fetchCount("https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_VideoLIkesCount",data[1],count);
         /*  const documentClient = new AWS.DynamoDB.DocumentClient();
         
