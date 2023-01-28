@@ -1144,13 +1144,13 @@ function fetchSecondBatch(url,typerequest,search){
 
 
    function fetchCount(url,guid, count){
-    console.log(count);           
+    console.log(guid);           
 
   fetch(url, {
           method: 'POST',
           body: JSON.stringify({
            id:guid,
-           count:count
+           count:"1"
           })
       })
       .then(response => response.json())
