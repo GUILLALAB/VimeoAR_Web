@@ -382,8 +382,11 @@ var increment, delta,mesh,loadingBar;
 let prevExclusiveStartKey = null;
 let nextParams = {};
 var raycaster = new THREE.Raycaster();
-var clickMouse = new THREE.Vector2();
-var moveMouse = new THREE.Vector2();
+
+// create a vector that will represent the position of the touch or mouse cursor
+var mouse = new THREE.Vector2();
+
+// set up a listener for the touch or mouse event on the canvas element
 			start();
 			init();
 			initAWS("");
@@ -1182,7 +1185,8 @@ clips.forEach(function (clip) {
     switchSkyBox('afterrain');
 				//
 
-				
+				renderer.domElement.addEventListener('mousedown', onMouseClick, false);
+
 			
 				const planeGeo = new THREE.PlaneGeometry( 100.1, 100.1 );
 
@@ -1292,23 +1296,6 @@ lightControls.close();
 				const blueLight = new THREE.PointLight( 0x7f7fff, 0.25, 1000 );
 				blueLight.position.set( 0, 50, 550 );
 				scene.add( blueLight );*/
-
-        window.addEventListener("click", (event) => {
-      // If 'holding' object on-click, set container to <undefined> to 'drop' the object.
-     
-
-      // If NOT 'holding' object on-click, set container to <object> to 'pickup' the object.
-      clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-      raycaster.setFromCamera(clickMouse, camera);
-      const found = raycaster.intersectObjects(scene.children, true);
-      if (found.length) {
-       var test = found[0].object;
-      }
-    });
-
-
-
 				document.getElementById("background").addEventListener("click", function (e) {
 					showChair(currentvideo);
 });
@@ -1318,6 +1305,24 @@ lightControls.close();
 				window.addEventListener( 'resize', onWindowResize );
 
 			}
+      function onMouseClick(event) {
+    event.preventDefault();
+
+    // calculate the position of the touch or mouse cursor in normalized device coordinates
+    mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
+    mouse.y = - (event.clientY / renderer.domElement.clientHeight) * 2 + 1;
+
+    // update the raycaster with the camera and mouse position
+    raycaster.setFromCamera(mouse, camera);
+
+    // calculate objects intersecting the ray
+    var intersects = raycaster.intersectObjects(scene.children);
+
+    if (intersects.length > 0) {
+        // if an object is intersected, this object is clickable
+        var object = intersects[0].object;
+console.log("test");    }
+
 
 			function onWindowResize() {
 
