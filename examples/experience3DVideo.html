@@ -381,12 +381,7 @@ var increment, delta,mesh,loadingBar;
     let exclusiveStartKey = null;
 let prevExclusiveStartKey = null;
 let nextParams = {};
-var raycaster = new THREE.Raycaster();
 
-// create a vector that will represent the position of the touch or mouse cursor
-var mouse = new THREE.Vector2();
-
-// set up a listener for the touch or mouse event on the canvas element
 			start();
 			init();
 			initAWS("");
@@ -1185,8 +1180,7 @@ clips.forEach(function (clip) {
     switchSkyBox('afterrain');
 				//
 
-				window.addEventListener('mousedown', onMouseClick, false);
-
+				
 			
 				const planeGeo = new THREE.PlaneGeometry( 100.1, 100.1 );
 
@@ -1305,25 +1299,6 @@ lightControls.close();
 				window.addEventListener( 'resize', onWindowResize );
 
 			}
-      function onMouseClick(event) {
-    event.preventDefault();
-
-    // calculate the position of the touch or mouse cursor in normalized device coordinates
-    mouse.x = (event.clientX / window.clientWidth) * 2 - 1;
-    mouse.y = - (event.clientY / window.clientHeight) * 2 + 1;
-
-    // update the raycaster with the camera and mouse position
-    raycaster.setFromCamera(mouse, camera);
-
-    // calculate objects intersecting the ray
-    var intersects = raycaster.intersectObjects(scene.children);
-
-    if (intersects.length > 0) {
-        // if an object is intersected, this object is clickable
-        var object = intersects[0].object;
-        // do something with the object
-    }
-
 
 			function onWindowResize() {
 
