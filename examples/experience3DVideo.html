@@ -381,6 +381,8 @@ var increment, delta,mesh,loadingBar;
     let exclusiveStartKey = null;
 let prevExclusiveStartKey = null;
 let nextParams = {};
+var raycaster = new THREE.Raycaster();
+var mouse = new THREE.Vector2();
 
 			start();
 			init();
@@ -1118,6 +1120,7 @@ clips.forEach(function (clip) {
 });
 
 }
+    window.addEventListener('mousedown', onMouseClick, false);
 
 		scene.updateMatrix();
               scene.updateMatrixWorld(true);
@@ -1142,7 +1145,25 @@ clips.forEach(function (clip) {
       );
   }  
 
+function onMouseClick(event) {
+    event.preventDefault();
 
+    // calculate the position of the touch or mouse cursor in normalized device coordinates
+    mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
+    mouse.y = - (event.clientY / renderer.domElement.clientHeight) * 2 + 1;
+
+    // update the raycaster with the camera and mouse position
+    raycaster.setFromCamera(mouse, camera);
+
+    // calculate objects intersecting the ray
+    var intersects = raycaster.intersectObjects(scene.children);
+
+    if (intersects.length > 0) {
+        // if an object is intersected, this object is clickable
+        var object = intersects[0].object;
+        console.log("touch");
+    }
+}
 
 
 			function init() {
