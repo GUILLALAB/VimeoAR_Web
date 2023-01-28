@@ -1309,8 +1309,8 @@ lightControls.close();
     event.preventDefault();
 
     // calculate the position of the touch or mouse cursor in normalized device coordinates
-    mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
-    mouse.y = - (event.clientY / renderer.domElement.clientHeight) * 2 + 1;
+    mouse.x = (event.clientX / window.clientWidth) * 2 - 1;
+    mouse.y = - (event.clientY / window.clientHeight) * 2 + 1;
 
     // update the raycaster with the camera and mouse position
     raycaster.setFromCamera(mouse, camera);
@@ -1323,7 +1323,7 @@ lightControls.close();
         var object = intersects[0].object;
         // do something with the object
     }
-  }
+
 
 			function onWindowResize() {
 
