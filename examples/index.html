@@ -1149,8 +1149,7 @@ function fetchSecondBatch(url,typerequest,search){
   fetch(url, {
           method: 'POST',
           body: JSON.stringify({
-           id:guid,
-           count:"1"
+           id:guid
           })
       })
       .then(response => response.json())
