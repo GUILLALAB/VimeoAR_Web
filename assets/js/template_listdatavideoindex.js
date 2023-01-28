@@ -73,7 +73,7 @@ var url = `profile_details.html`;
 
 li.innerHTML = Template;
 
-li.setAttribute('id', data.guid.S);
+li.setAttribute('id', "btn");
 
 var testObject = data;
 
