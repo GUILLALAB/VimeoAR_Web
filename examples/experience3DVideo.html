@@ -1302,7 +1302,7 @@ lightControls.close();
       clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
       raycaster.setFromCamera(clickMouse, camera);
       const found = raycaster.intersectObjects(scene.children, true);
-      if (found.length && found[0].object.isDraggable) {
+      if (found.length) {
        var test = found[0].object;
       }
     });
