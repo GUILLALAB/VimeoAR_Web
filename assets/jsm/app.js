@@ -19,7 +19,19 @@ class App{
         this.loadingBar.visible = false;
        this.video = document.getElementById( 'video' );
        this.hls = new Hls();
-      console.log("test");
+
+       self.gui = new dat.GUI();
+      
+       self.params = {
+           scale: 1
+       };
+       self.scaleController = self.gui.add(self.params, 'scale', 0, 8);
+       
+       // listen for changes to the "scale" property
+       self.scaleController.onChange(function(value) {
+           self.mesh.scale.set(value, value, value);
+       });
+       
 
    //     this.assetsPath = '../../assets/ar-shop/';
         
