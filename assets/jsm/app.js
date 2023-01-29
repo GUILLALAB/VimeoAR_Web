@@ -190,12 +190,12 @@ class App{
                     if(self.start==0){
                 self.mesh.position.setFromMatrixPosition( self.reticle.matrix );
                 self.PlayVideo(self.videolink);
-                self.mesh.scale.set( 10,10,10 );
+                self.mesh.scale.set( 5,5,5 );
                 self.start=1;
                 self.mesh.visible=true;
             }else{              
                   self.mesh.position.setFromMatrixPosition( self.reticle.matrix );
-                  self.mesh.scale.set( 10,10,10 );
+                  self.mesh.scale.set( 5,5,5 );
                   self.video.play();
                   self.mesh.visible=true;
 
