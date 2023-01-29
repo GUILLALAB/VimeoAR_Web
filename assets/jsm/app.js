@@ -94,17 +94,7 @@ class App{
         this.mesh = new THREE.Mesh( self.geometry, this.material);
         this.scene.add(this.mesh);
         this.mesh.visible=true;
-        this.gui = new dat.GUI();
-      
-       this.params = {
-           scale: 1
-       };
-       this.scaleController = this.gui.add(this.params, 'scale', 0, 8);
-       
-       // listen for changes to the "scale" property
-       this.scaleController.onChange(function(value) {
-        this.mesh.scale.set(value, value, value);
-       });
+
    }
     
       PlayVideo(url){
