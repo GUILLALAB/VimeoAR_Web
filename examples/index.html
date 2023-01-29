@@ -906,6 +906,8 @@ function queryDynamoDB(limit,type, search) {
   nextSearch={};
   nextParams={};
   document.getElementById("home_product").innerHTML = "";
+  document.getElementById("ar_product").innerHTML = "";
+
   document.getElementById("next-button").style.display = "block";
 
   const documentClient = new AWS.DynamoDB.DocumentClient();
