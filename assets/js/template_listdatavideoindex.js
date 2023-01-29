@@ -129,10 +129,10 @@ var likescount = data.likescount && (data.likescount.N || data.likescount.S) || 
               '<a href="#"><img class="card-img-top" src="'+image+'" alt=""></a>'+
               '<div class="card-body">'+
                 '<h4 class="card-title">'+
-                  '<a href="#">'+ counterview+'</a>'+
+                  '<a>'+ counterview+'</a>'+
                 '</h4>'+
                 '<h5></h5>'+
-                '<p class="card-text">'+ data.title.N+'</p>'+
+                '<p class="card-text">'+ abbreviateNumber(data.title.N)+" views"+'</p>'+
               '</div>'+
               '<div id="footer" class="card-footer">'+
                 '<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>'+
