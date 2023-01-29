@@ -19,18 +19,6 @@ class App{
         this.loadingBar.visible = false;
        this.video = document.getElementById( 'video' );
        this.hls = new Hls();
-
-       this.gui = new dat.GUI();
-      
-       this.params = {
-           scale: 1
-       };
-       this.scaleController = this.gui.add(this.params, 'scale', 0, 8);
-       
-       // listen for changes to the "scale" property
-       this.scaleController.onChange(function(value) {
-        this.mesh.scale.set(value, value, value);
-       });
        
 
    //     this.assetsPath = '../../assets/ar-shop/';
@@ -106,7 +94,17 @@ class App{
         this.mesh = new THREE.Mesh( self.geometry, this.material);
         this.scene.add(this.mesh);
         this.mesh.visible=true;
-        
+        this.gui = new dat.GUI();
+      
+       this.params = {
+           scale: 1
+       };
+       this.scaleController = this.gui.add(this.params, 'scale', 0, 8);
+       
+       // listen for changes to the "scale" property
+       this.scaleController.onChange(function(value) {
+        this.mesh.scale.set(value, value, value);
+       });
    }
     
       PlayVideo(url){
@@ -282,6 +280,7 @@ class App{
         this.videolink=url;
         document.getElementById("uploadtop").style.display = "block";
 
+      
        /* this.updateName = async () => {
           const documentClient = new AWS.DynamoDB.DocumentClient();
         
