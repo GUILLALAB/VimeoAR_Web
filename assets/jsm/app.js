@@ -20,16 +20,16 @@ class App{
        this.video = document.getElementById( 'video' );
        this.hls = new Hls();
 
-       self.gui = new dat.GUI();
+       this.gui = new dat.GUI();
       
-       self.params = {
+       this.params = {
            scale: 1
        };
-       self.scaleController = self.gui.add(self.params, 'scale', 0, 8);
+       this.scaleController = this.gui.add(this.params, 'scale', 0, 8);
        
        // listen for changes to the "scale" property
-       self.scaleController.onChange(function(value) {
-           self.mesh.scale.set(value, value, value);
+       this.scaleController.onChange(function(value) {
+        this.mesh.scale.set(value, value, value);
        });
        
 
