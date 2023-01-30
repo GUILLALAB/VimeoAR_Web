@@ -57,7 +57,6 @@ var Template = '<div id="btn" class="col-lg-4 col-md-6 mb-4">' +
 '<p class="card-text">' + abbreviateNumber(data.title.N) + " views • " + formatDateDifference(data.endTime.S) + "" + '</p>' +
 '</div>' +
 '<div id="footer" class="card-footer">' +
-'<i class="fa fa-thumbs-up" style="float: left;"></i>' +
 '<div id="likes">'+
   '<i class="fa fa-thumbs-up"></i>'+
   '<a style="margin-left: 10px;">' + abbreviateNumber(likescount) + "" + '</a>' +
