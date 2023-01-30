@@ -1165,8 +1165,7 @@ const updateProfilePic = async (pic) => {
       })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
-        
+        alert("Picture updated");        
       })
       .catch(error => {
           console.error(error);
