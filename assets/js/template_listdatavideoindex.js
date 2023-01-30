@@ -55,7 +55,7 @@ var url = `profile_details.html`;
 
                 '</h4>'+
                 '<h5></h5>'+
-                '<p class="card-text">'+ abbreviateNumber(data.title.N)+" views"+'</p>'+
+                '<p class="card-text">'+ abbreviateNumber(data.title.N)+" views • "+ formatDateDifference(data.endTime.S)+""+'</p>'+
               '</div>'+
               '<div id="footer" class="card-footer">'+
               '<i  class="fa fa-thumbs-up"></i>'+  
@@ -154,4 +154,26 @@ li.querySelector("#btn").myParam = data;
 
 document.getElementById("ar_product").appendChild(li);
 
+    }
+
+    function formatDateDifference(dateString) {
+      const date = new Date(dateString);
+      const currentTime = new Date();
+      const diff = currentTime.getTime() - date.getTime();
+    
+      const minutes = diff / 1000 / 60;
+      if (minutes < 1) return "il y a moins d'une minute";
+      if (minutes < 60) return `il y a ${Math.round(minutes)} minutes`;
+    
+      const hours = minutes / 60;
+      if (hours < 24) return `il y a ${Math.round(hours)} heures`;
+    
+      const days = hours / 24;
+      if (days < 30) return `il y a ${Math.round(days)} jours`;
+    
+      const months = days / 30;
+      if (months < 12) return `il y a ${Math.round(months)} mois`;
+    
+      const years = months / 12;
+      return `il y a ${Math.round(years)} ans`;
     }
