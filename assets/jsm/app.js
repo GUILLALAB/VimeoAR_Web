@@ -96,12 +96,32 @@ class App{
         this.mesh.visible=true;
 
    }
+
+    fetchCount(url,guid){
+
+    fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({
+             id:guid
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);           
+        })
+        .catch(error => {
+            console.error(error);
+        });
+  
+  
+  }
     
       PlayVideo(url){
         this.data=url.split('~');
 
         this.updateName = async () => {
-          const documentClient = new AWS.DynamoDB.DocumentClient();
+          
+       self.fetchCount("https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_UpdateVuCount",this.data[1])  /* const documentClient = new AWS.DynamoDB.DocumentClient();
         
           const newName =  (+this.data[2]) + (+1);
 
@@ -116,7 +136,7 @@ class App{
             },
           };
         
-          await documentClient.update(params).promise();
+          await documentClient.update(params).promise();*/
         }
 
         this.updateName();
