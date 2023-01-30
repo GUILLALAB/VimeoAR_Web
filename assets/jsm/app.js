@@ -99,10 +99,18 @@ class App{
 
     fetchCount(url,guid){
 
-    fetch(url, {
+    
+
+  }
+    
+      PlayVideo(url){
+        this.data=url.split('~');
+
+        this.updateName = async () => {
+          fetch("https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_UpdateVuCount", {
             method: 'POST',
             body: JSON.stringify({
-             id:guid
+             id:this.data[1]
             })
         })
         .then(response => response.json())
@@ -112,16 +120,7 @@ class App{
         .catch(error => {
             console.error(error);
         });
-  
-  
-  }
-    
-      PlayVideo(url){
-        this.data=url.split('~');
-
-        this.updateName = async () => {
-          
-       self.fetchCount("https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_UpdateVuCount",this.data[1])  /* const documentClient = new AWS.DynamoDB.DocumentClient();
+  /* const documentClient = new AWS.DynamoDB.DocumentClient();
         
           const newName =  (+this.data[2]) + (+1);
 
