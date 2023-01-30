@@ -43,30 +43,28 @@ var url = `profile_details.html`;
 
 
 
-          var Template= '<div id="btn" class="col-lg-4 col-md-6 mb-4">'+
-            '<div id="carda" class="card h-100">'+
-            '<br>'+
-            '<a id="name" class="card-text">'+ data.username.S+'</a>'+
-            '<br>'+
-            '<a href="#"><img class="card-img-top" src="'+image+'" alt=""></a>'+
-              '<div class="card-body">'+
-                '<h4 class="card-title">'+
-                  '<a href="#">'+ counterview+'</a>'+
-
-                '</h4>'+
-                '<h5></h5>'+
-                '<p class="card-text">'+ abbreviateNumber(data.title.N)+" views • "+ formatDateDifference(data.endTime.S)+""+'</p>'+
-              '</div>'+
-              '<div id="footer" class="card-footer">'+
-              '<i  class="fa fa-thumbs-up"></i>'+  
-              '<a style="margin-left: 10px; float: right;"> id="likes">'+ abbreviateNumber(likescount)+""+'</a>'+
-              '<button class="ar-button" onclick="window.app.showChair(\'' + test + '\')"><i class="fas fa-camera"></i></button>'+
-             '</div>'+
-              
-            '</div>'+
-            '<br>'+
-            '<br>'+
-          '</div>';
+var Template = '<div id="btn" class="col-lg-4 col-md-6 mb-4">' +
+'<div id="carda" class="card h-100">' +
+'<br>' +
+'<a id="name" class="card-text">' + data.username.S + '</a>' +
+'<br>' +
+'<a href="#"><img class="card-img-top" src="' + image + '" alt=""></a>' +
+'<div class="card-body">' +
+'<h4 class="card-title">' +
+'<a href="#">' + counterview + '</a>' +
+'</h4>' +
+'<h5></h5>' +
+'<p class="card-text">' + abbreviateNumber(data.title.N) + " views • " + formatDateDifference(data.endTime.S) + "" + '</p>' +
+'</div>' +
+'<div id="footer" class="card-footer">' +
+'<i class="fa fa-thumbs-up"></i>' +
+'<a id="likes" style="margin-left: 10px; float: right;">' + abbreviateNumber(likescount) + "" + '</a>' +
+'<button class="ar-button" onclick="window.app.showChair(\'' + test + '\')"><i class="fas fa-camera"></i></button>' +
+'</div>' +
+'</div>' +
+'<br>' +
+'<br>' +
+'</div>';
 //"https://d2pjrbz7mizc67.cloudfront.net/3c1d6366-eaa0-49a0-bfa9-5481702644b7/hls/avatar.m3u8"
 //                '<button class="ar-button" onclick="'+window.app.showChair(1);+'"><i class="fas fa-camera"></i></button>'+
 
