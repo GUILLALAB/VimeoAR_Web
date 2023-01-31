@@ -1163,11 +1163,11 @@ clips.forEach(function (clip) {
 			document.getElementById('background').style.display="none";
 			document.getElementById("home_product").innerHTML = "";
 
-       fog = new THREE.Fog( 0xffffff, 0, 500 );
-scene.fog = fog;
+   
 				// scene
 				scene = new THREE.Scene();
-
+        fog = new THREE.Fog( 0xffffff, 0, 500 );
+scene.fog = fog;
 				// camera
         camera = new THREE.PerspectiveCamera( 43, window.innerWidth / window.innerHeight, 1, 10000 );
 				camera.position.set( -57, 440, 2500 );
