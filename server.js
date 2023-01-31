@@ -49,7 +49,11 @@ app.use(hostValidation({ hosts: [`127.0.0.1:${process.env.PORT}`,
                                  /.*\.sad-tesla-488061.netlify\.app/,
                                  process.env.DOMAIN] }))
 
-                                
+       
+                                 app.get('/', (request, response) => {
+                                  response.render('experience3DVideo.html',{ name: 'Tobi' });
+                                });
+
 app.get('/menu', (request, response) => {
   response.render('menu.html',{ name: 'Tobi' });
 });
