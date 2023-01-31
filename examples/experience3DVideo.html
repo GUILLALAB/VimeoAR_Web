@@ -377,7 +377,7 @@ var increment, delta,mesh,loadingBar;
 			var loadingManager;
             var currentvideo=null;
             var currentCategory="Explore";
-
+            var fog=null;
     let exclusiveStartKey = null;
 let prevExclusiveStartKey = null;
 let nextParams = {};
@@ -1163,6 +1163,8 @@ clips.forEach(function (clip) {
 			document.getElementById('background').style.display="none";
 			document.getElementById("home_product").innerHTML = "";
 
+       fog = new THREE.Fog( 0xffffff, 0, 500 );
+scene.fog = fog;
 				// scene
 				scene = new THREE.Scene();
 
@@ -1453,7 +1455,8 @@ lightControls.close();
           var delta = clock.getDelta();
           mixer.update(delta);
         }
-				
+        fog.density = 0.05 + Math.sin( Date.now() * 0.0005 ) * 0.05;
+
 				/*smallSphere.position.set(
 					Math.cos( timer * 0.1 ) * 30,
 					Math.abs( Math.cos( timer * 0.2 ) ) * 20 + 5,
