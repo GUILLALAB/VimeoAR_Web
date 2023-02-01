@@ -996,11 +996,15 @@ var now = new Date();
 
 if (now >= scheduleDate) {
   counterview=data.channel.S;
+  image="https://c8.alamy.com/compfr/t44eck/live-stream-sign-embleme-le-logo-vector-illustration-t44eck.jpg";
+
 } else {
   counterview=data.channel.S+" "+ data.LiveSchedule.S;
+  image="https://i0.wp.com/www.christophtrappe.com/wp-content/uploads/2022/07/Scheduling-livestreams-1.png?resize=1536%2C864&ssl=1";
+
+  
 }
 }
-image="https://c8.alamy.com/compfr/t44eck/live-stream-sign-embleme-le-logo-vector-illustration-t44eck.jpg";
 }else{
   if(data.counterview.S===undefined){
   counterview="ok";
