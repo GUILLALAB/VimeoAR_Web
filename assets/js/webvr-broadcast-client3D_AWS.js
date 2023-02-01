@@ -162,8 +162,11 @@ function init() {
    // channelName = document.getElementById("myInput").value;
    if (document.getElementById("myInput").value.length > 0) {
     channelName = document.getElementById("myInput").value;
+
+    console.log(channelName);
   }else{
    channelName = generateUUID_LiveStream();
+   console.log(channelName);
   }
     rtmChannel = rtmClient.createChannel(channelName);
 
