@@ -199,7 +199,7 @@ function generateUUID_LiveStream() {
 function scheduleLive(){
   var datepicker = flatpickr(document.getElementById("datepicker"), {
     enableTime: true,
-    dateFormat: "Y-m-d H:i",
+    dateFormat: "Y-m-dTH:i:S.000Z",
 });
 
 if (datepicker.selectedDates.length > 0) {
@@ -226,7 +226,7 @@ if (datepicker.selectedDates.length > 0) {
             console.error(error);
         });
 } else {
-    console.log("No date selected");
+   alert("You forgot to select a date:)");
 }
 
  
