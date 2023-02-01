@@ -242,7 +242,7 @@ if (datepicker.selectedDates.length > 0) {
             body: JSON.stringify({
         id:chan,
       channel:chan,
-          idstream: "",
+       idstream: "",
       userid: localStorage.getItem('sub'),
       Livestatus: "Live",
       LiveSchedule:selectedDate,
@@ -784,7 +784,8 @@ function addPhoto(path) {
   }
   var photoKey = albumPhotosKey + fileName;
 
- 
+  current3DObject_forLiveSchedule=albumPhotosKey;
+
 
   var params = {
     Metadata: {
