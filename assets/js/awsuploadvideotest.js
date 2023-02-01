@@ -229,7 +229,12 @@ if (datepicker.selectedDates.length > 0) {
     var selectedDate = datepicker.selectedDates[0];
     console.log("Selected date:", selectedDate);
 
-    var base="https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/"+current3DObject_forLiveSchedule;
+    var base="";
+    if(current3DObject_forLiveSchedule.length>0){
+       base="https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/"+current3DObject_forLiveSchedule;
+    }else{
+      base="";
+    }
 
     var chan= generateUUID_LiveStream();
     fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/stage1/Add_LiveStream', {
