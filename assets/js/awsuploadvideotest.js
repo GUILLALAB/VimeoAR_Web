@@ -225,7 +225,7 @@ function scheduleLive(){
 });
 
 if (datepicker.selectedDates.length > 0) {
-    var selectedDate = datepicker.selectedDates[0];
+    var selectedDate = datepicker.latestSelectedDateObj;
     console.log("Selected date:", selectedDate);
 
     var chan= generateUUID_LiveStream();
