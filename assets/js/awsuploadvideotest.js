@@ -169,7 +169,7 @@ function createObjectSubAlbum(path) {
   });
 }
 
-function createObjectUserAlbum() {
+function createObjectUserAlbum(path) {
   var userid = localStorage.getItem("sub");
   var albumKey = encodeURIComponent("video")+"/"+encodeURIComponent(userid)+"/"+encodeURIComponent("objects")+"/";
 
@@ -756,8 +756,14 @@ function addPhoto(path) {
   var file = files[0];
   checkFileSize(file,26214400);
   var fileName = file.name;
-  var albumPhotosKey = currentvideoalblum + encodeURIComponent("objects") + "/";
 
+  var albumPhotosKey="";
+  if(currentvideoalblum.length>0){
+   albumPhotosKey = currentvideoalblum + encodeURIComponent("objects") + "/";
+  }else{
+     albumPhotosKey = encodeURIComponent("video") + "/" + encodeURIComponent(localStorage.getItem('sub')) + "/"+encodeURIComponent("3Dobjects") + "/";
+
+  }
   var photoKey = albumPhotosKey + fileName;
 
  
