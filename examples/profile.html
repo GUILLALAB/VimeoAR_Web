@@ -589,20 +589,7 @@ function previewFile() {
 
         <input type="text" id="datepicker">
 
-        <div id="3dobject_input">
-          <input id="photoupload" placeholder="3D object" type="file" accept=".glb" max="26214400">
-       
-          <div class="uploadparent">
-            <div class="uploadcontainer">
-              <button id="addphoto" onclick="addPhoto('')">
-                Upload 3D scene
-                </button>
-            </div>
-        </div>
-        
-        </div>
-        <br>
-
+        <input id="videoupload" type="file" accept="video/*">
       
         <div class="uploadparent">
           <div class="uploadcontainer">
@@ -612,7 +599,18 @@ function previewFile() {
           </div>
       </div>
         <br>
-        
+                <div>
+        <input id="photoupload" placeholder="3D object" type="file" accept=".glb" max="26214400">
+     
+        <div class="uploadparent">
+          <div class="uploadcontainer">
+            <button id="addphoto" onclick="addPhoto('')">
+              Upload 3D scene
+              </button>
+          </div>
+      </div>
+      
+      </div>
       <br>
       </section>
       <footer class="modal-footer">
