@@ -604,6 +604,7 @@ div {
 
 .card{
   border: none;
+  max-width: 150px;
   border-radius: 8px;
   background-color: rgb(255, 255, 255);
 }
