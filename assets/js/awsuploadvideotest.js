@@ -205,28 +205,31 @@ function scheduleLive(){
 if (datepicker.selectedDates.length > 0) {
     var selectedDate = datepicker.selectedDates[0];
     console.log("Selected date:", selectedDate);
+
+    var chan= generateUUID_LiveStream();
+    fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/stage1/Add_LiveStream', {
+            method: 'POST',
+            body: JSON.stringify({
+        id:chan,
+      channel:chan,
+          idstream: "",
+      userid: localStorage.getItem('sub'),
+      Livestatus: "Live",
+      LiveSchedule:selectedDate
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
 } else {
     console.log("No date selected");
 }
 
-  var chan= generateUUID_LiveStream();
-  fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/stage1/Add_LiveStream', {
-          method: 'POST',
-          body: JSON.stringify({
-			id:chan,
-		channel:chan,
-        idstream: "",
-		userid: localStorage.getItem('sub'),
-    Livestatus: "Live"
-          })
-      })
-      .then(response => response.json())
-      .then(data => {
-          console.log(data);
-      })
-      .catch(error => {
-          console.error(error);
-      });
+ 
 }
 
  function createSubAlbum(album) {
