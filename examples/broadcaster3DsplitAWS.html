@@ -446,7 +446,10 @@ void main() {
 // Create DynamoDB document client
 var docClient = new AWS.DynamoDB.DocumentClient();
 
-fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/stage1/Add_LiveStream', {
+if (document.getElementById("myInput").value.length > 1) {
+}
+else{
+	fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/stage1/Add_LiveStream', {
           method: 'POST',
           body: JSON.stringify({
 			id:link.channel,
@@ -463,7 +466,9 @@ fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/stage1/Add_LiveStr
       .catch(error => {
           console.error(error);
       });
-	  addVideo(link);
+}
+addVideo(link);
+
 
 				//loadObject(link.idbroadcast);
 			}
