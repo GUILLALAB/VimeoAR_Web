@@ -169,11 +169,35 @@ function createObjectSubAlbum(path) {
   });
 }
 
+function createObjectUserAlbum() {
+  var userid = localStorage.getItem("sub");
+  var albumKey = encodeURIComponent("video")+"/"+encodeURIComponent(userid)+"/"+encodeURIComponent("objects")+"/";
+
+
+  s3.headObject({ Key: albumKey }, function(err, data) {
+    if (!err) {
+      return alert("Album already exists.");
+    }else{
+    }
+   /* if (err.code !== "NotFound") {
+      return alert("There was an error creating your album: " + err.message);
+    }*/
+    s3.putObject({ Key: albumKey }, function(err, data) {
+     /* if (err) {
+        return alert("There was an error creating your album: " + err.message);
+      }*/
+     // alert("Object Successfully created album.");
+    });
+  });
+}
+
 function createVideoUserSubAlbum(path,userid) {
   var albumKey = path + encodeURIComponent(userid)+"/";
   s3.headObject({ Key: albumKey }, function(err, data) {
     if (!err) {
        console.log("Album already exists.");
+    }else{
+      createObjectUserAlbum();
     }
    /* if (err.code !== "NotFound") {
       return alert("There was an error creating your album: " + err.message);

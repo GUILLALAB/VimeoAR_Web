@@ -80,7 +80,7 @@
     $("#logout").show();
     document.getElementById("uploadtop").style.display = "block";
 
-    document.getElementById("navbutton").querySelector('li[id='+"upload"+']').style.display = "block";
+   // document.getElementById("navbutton").querySelector('li[id='+"upload"+']').style.display = "block";
        // document.getElementById("navbutton").querySelector('li[id='+"profile"+']').querySelector('a[id='+"profilhref"+']').href = "profile.html";
         document.getElementById("navbutton").querySelector('li[id='+"login"+']').style.display = "none";
         document.getElementById("navbutton").querySelector('li[id='+"profile"+']').style.display = "block";
@@ -94,7 +94,7 @@
   }else{
     document.getElementById("uploadtop").style.display = "none";
 
-    document.getElementById("navbutton").querySelector('li[id='+"upload"+']').style.display = "none";
+   // document.getElementById("navbutton").querySelector('li[id='+"upload"+']').style.display = "none";
      //   document.getElementById("navbutton").querySelector('li[id='+"profile"+']').querySelector('a[id='+"profilhref"+']').href = "loginAWS.html";
         document.getElementById("navbutton").querySelector('li[id='+"login"+']').style.display = "none";
         document.getElementById("navbutton").querySelector('li[id='+"profile"+']').style.display = "none";
