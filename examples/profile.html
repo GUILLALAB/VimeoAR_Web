@@ -789,17 +789,7 @@ var identityPoolId = 'eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b';
 
 AWS.config.region = region;
 
-var datepicker = flatpickr("#datepicker", {
-    enableTime: true,
-    dateFormat: "Y-m-d H:i",
-});
 
-if (datepicker.selectedDates.length > 0) {
-    var selectedDate = datepicker.selectedDates[0];
-    console.log("Selected date:", selectedDate);
-} else {
-    console.log("No date selected");
-}
 
 function tester(){
   console.log("simole");
