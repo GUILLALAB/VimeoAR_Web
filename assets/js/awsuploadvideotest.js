@@ -749,7 +749,14 @@ function loadProducts(data){
 
 function addPhoto(path) {
   var progressBar = document.getElementById("progress-bar");
-  var files = document.getElementById("photoupload").files;
+  var files = "";
+
+  if(currentvideoalblum.length>0){
+     files = document.getElementById("photoupload").files;
+  }else{
+     files = document.getElementById("objectuploader").files;
+ 
+   }
   if (!files.length) {
     return alert("Please choose a file to upload first.");
   }
