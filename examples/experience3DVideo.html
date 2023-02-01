@@ -990,6 +990,16 @@ if(currentCategory=="LiveStream"){
   counterview="ok";
 }else{
   counterview=data.channel.S;
+
+  var scheduleDate = new Date(data.LiveSchedule.S);
+var now = new Date();
+
+if (now >= data.LiveSchedule.S) {
+  counterview=data.channel.S;
+} else {
+  counterview=data.channel.S+" "+ data.LiveSchedule.S;
+
+}
 }
 image="https://c8.alamy.com/compfr/t44eck/live-stream-sign-embleme-le-logo-vector-illustration-t44eck.jpg";
 }else{
