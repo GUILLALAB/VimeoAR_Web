@@ -197,6 +197,18 @@ function generateUUID_LiveStream() {
   return uuid; };
 
 function scheduleLive(){
+  var datepicker = flatpickr("#datepicker", {
+    enableTime: true,
+    dateFormat: "Y-m-d H:i",
+});
+
+if (datepicker.selectedDates.length > 0) {
+    var selectedDate = datepicker.selectedDates[0];
+    console.log("Selected date:", selectedDate);
+} else {
+    console.log("No date selected");
+}
+
   var chan= generateUUID_LiveStream();
   fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/stage1/Add_LiveStream', {
           method: 'POST',
