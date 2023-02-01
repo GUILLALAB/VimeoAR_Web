@@ -221,7 +221,7 @@ function generateUUID_LiveStream() {
 function scheduleLive(){
   var datepicker = flatpickr(document.getElementById("datepicker"), {
     enableTime: true,
-    dateFormat: "Y-m-dTH:i:S.000Z",
+    dateFormat: "Y-m-d H:i",
 });
 
 if (datepicker.selectedDates.length > 0) {
