@@ -197,7 +197,7 @@ function generateUUID_LiveStream() {
   return uuid; };
 
 function scheduleLive(){
-  var datepicker = flatpickr("#datepicker", {
+  var datepicker = flatpickr(document.getElementById("datepicker"), {
     enableTime: true,
     dateFormat: "Y-m-d H:i",
 });
