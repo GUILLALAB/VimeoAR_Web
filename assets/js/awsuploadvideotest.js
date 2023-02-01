@@ -10,6 +10,7 @@ var cognitoUser;
 var currentalbum=null;
 var username=null;
 var currentvideoalblum="";
+var current3DObject_forLiveSchedule="";
 
 
 AWS.config.update({
@@ -237,12 +238,15 @@ if (datepicker.selectedDates.length > 0) {
           idstream: "",
       userid: localStorage.getItem('sub'),
       Livestatus: "Live",
-      LiveSchedule:selectedDate
+      LiveSchedule:selectedDate,
+      background:current3DObject_forLiveSchedule
             })
         })
         .then(response => response.json())
         .then(data => {
             console.log(data);
+            current3DObject_forLiveSchedule="";
+            alert("Le Live à bien été planifié, vous pouvez fermer la fenêtre")
         })
         .catch(error => {
             console.error(error);
@@ -801,6 +805,7 @@ if(err) {
   alert(err.code);
 } else{
   currentvideoalblum="";
+  current3DObject_forLiveSchedule=albumPhotosKey;
   alert('uploaded suceessfully')
   viewAlbum(albumPhotosKey);
 };
