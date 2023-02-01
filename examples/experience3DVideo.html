@@ -994,7 +994,7 @@ if(currentCategory=="LiveStream"){
   var scheduleDate = new Date(data.LiveSchedule.S);
 var now = new Date();
 
-if (now >= data.LiveSchedule.S) {
+if (now <= data.LiveSchedule.S) {
   counterview=data.channel.S;
 } else {
   counterview=data.channel.S+" "+ data.LiveSchedule.S;
