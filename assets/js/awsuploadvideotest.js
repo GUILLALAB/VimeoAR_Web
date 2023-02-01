@@ -187,6 +187,36 @@ function createVideoUserSubAlbum(path,userid) {
   });
 }
 
+function generateUUID_LiveStream() {
+  var d = new Date().getTime();
+  var uuid = 'Livexxxxxxxx-xxxx-xxxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = (d + Math.random()*16)%16 | 0;
+      d = Math.floor(d/16);
+     return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+  });
+  return uuid; };
+
+function scheduleLive(){
+  var chan= generateUUID_LiveStream();
+  fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/stage1/Add_LiveStream', {
+          method: 'POST',
+          body: JSON.stringify({
+			id:chan,
+		channel:chan,
+        idstream: "",
+		userid: localStorage.getItem('sub'),
+    Livestatus: "Live"
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+          console.log(data);
+      })
+      .catch(error => {
+          console.error(error);
+      });
+}
+
  function createSubAlbum(album) {
   var s3 = new AWS.S3({
     apiVersion: "2006-03-01",

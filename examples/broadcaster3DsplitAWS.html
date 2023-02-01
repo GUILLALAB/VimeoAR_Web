@@ -452,7 +452,8 @@ fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/stage1/Add_LiveStr
 			id:link.channel,
 		channel:link.channel,
         idstream: link.videoid,
-		userid: localStorage.getItem('sub')
+		userid: localStorage.getItem('sub'),
+		Livestatus: "Live"
           })
       })
       .then(response => response.json())
