@@ -340,7 +340,7 @@ if ($("#logInButton").length){
                         getCognitoIdentityCredentials();
 
                         $.getScript("/js/awsuploadvideotest.js",function(){
-                            createVideoUserSubAlbum(encodeURIComponent("video")+"/",result.getIdToken().decodePayload().sub);
+                     //       createVideoUserSubAlbum(encodeURIComponent("video")+"/",result.getIdToken().decodePayload().sub);
                             window.location = "https://livear.herokuapp.com/";
 
 });
