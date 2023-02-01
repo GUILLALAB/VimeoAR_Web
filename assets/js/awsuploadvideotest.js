@@ -784,7 +784,6 @@ function addPhoto(path) {
   }
   var photoKey = albumPhotosKey + fileName;
 
-  current3DObject_forLiveSchedule=albumPhotosKey;
 
 
   var params = {
@@ -813,7 +812,7 @@ if(err) {
   alert(err.code);
 } else{
   currentvideoalblum="";
-  current3DObject_forLiveSchedule=albumPhotosKey;
+  current3DObject_forLiveSchedule=photoKey;
   alert('uploaded suceessfully')
   viewAlbum(albumPhotosKey);
 };
