@@ -160,7 +160,7 @@ function init() {
    rtmClient = AgoraRTM.createInstance(agoraAppId);  
  // if (document.getElementById("myInput").value.length > 1) {
    // channelName = document.getElementById("myInput").value;
-   if (document.getElementById("myInput").value.length > 1) {
+   if (document.getElementById("myInput").value.length > 0) {
     channelName = document.getElementById("myInput").value;
   }else{
    channelName = generateUUID_LiveStream();
