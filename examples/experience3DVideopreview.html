@@ -862,6 +862,8 @@ event.target.remove();
 		  chair.traverse((node) => {
 
 if (node.isMesh) {
+	node.callback = function() { console.log("test"); }
+
  // node.castShadow = true;
 //  node.name = link.IdRef;
  // node.isDraggable = true;
@@ -903,7 +905,6 @@ clips.forEach(function (clip) {
               scene.updateMatrixWorld(true);
 
 
-			  chair.callback = function() { console.log("test"); }
 
 
 
