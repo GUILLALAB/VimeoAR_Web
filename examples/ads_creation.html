@@ -185,11 +185,13 @@ if (Ads.link.imageUrl!=null && Ads.link.imageUrl.includes("glb")){
 			function setAds3DModel(link){
     const loader = new GLTFLoader( );
         const self = this;
+		var base="https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/"+ link.Key;
+
         // Load a glTF resource
         loader.load(
             // resource URL
           //  link.imageUrl + '&' + new Date().getTime(),
-		  link.Key,
+		  base,
             // called when the resource is loaded
             function ( gltf ) {
 
