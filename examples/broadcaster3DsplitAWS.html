@@ -590,7 +590,7 @@ fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_3DObjec
       })
       .then(response => response.json())
       .then(data => {
-          console.log("objectsS3",data);
+          console.log("objectsS3",data.objects);
       })
       .catch(error => {
           console.error(error);
