@@ -603,7 +603,7 @@ fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_3DObjec
       .then(data => {
           console.log("objectsS3",data.objects);
 		  for(var i =0;i<=data.objects.length;i++){
-			loadProducts(data[i]);
+			loadProducts(data.objects[i]);
 		  }
       })
       .catch(error => {
