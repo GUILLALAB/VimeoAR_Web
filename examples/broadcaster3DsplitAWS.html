@@ -777,7 +777,7 @@ fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_3DObjec
 		}
 
 		function loadProducts(data){
-
+if(data.Size>0){
 var li = document.createElement('li');
 var counterview="";
 var image=data.Key;
@@ -797,6 +797,7 @@ li.querySelector("#btn").myParam = data;
 li.querySelector("#btn").addEventListener('click', myFunc, false);
 
 document.getElementById("home_product").appendChild(li);
+		}
     }
 
 
