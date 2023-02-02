@@ -188,6 +188,7 @@ if (Ads.link.imageUrl!=null && Ads.link.imageUrl.includes("glb")){
     const loader = new GLTFLoader( );
         const self = this;
 		var base="https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/"+ link.Key;
+		console.log("objectsS3 ",base);
 
         // Load a glTF resource
         loader.load(
