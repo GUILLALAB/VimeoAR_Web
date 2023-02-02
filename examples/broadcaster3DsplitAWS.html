@@ -441,8 +441,9 @@ void main() {
     var data = e.detail;
     if (data != null) {
     
-	 SelectedObject =data.Key;
-	 console.log(SelectedObject);
+	var base="https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/"+SelectedObject;
+
+	 console.log(base);
     }
     
     });
