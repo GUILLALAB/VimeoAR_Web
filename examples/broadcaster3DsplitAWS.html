@@ -322,9 +322,14 @@
 
 	<div class="split left">
 		<div class="centered">
+
+			<p>User 3D Models</p>
 			<ul id="home_product"></ul>
 
-
+<br>
+<br>
+<p>Library</p>
+			<ul id="library_product"></ul>
 			<div id="full-screen-video">
 				<canvas id="canvas" width="532" height="300">
 		
@@ -448,6 +453,16 @@ void main() {
     
     });
 
+	document.addEventListener("libraryclick", function (e) {
+    var data = e.detail;
+    if (data != null) {
+    	var base="https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/"+data.Key;
+	SelectedObject=base;
+	 console.log(SelectedObject);
+    }
+    
+    });
+	
 
 		document.addEventListener("stream", function (e) {
 			// alert(e.detail);
@@ -609,6 +624,23 @@ fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_3DObjec
           console.log("objectsS3",data.objects);
 		  for(var i =0;i<=data.objects.length;i++){
 			loadProducts(data.objects[i]);
+		  }
+      })
+      .catch(error => {
+          console.error(error);
+      });
+
+	  fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_3DModelLibrary', {
+          method: 'POST',
+          body: JSON.stringify({
+			request:"Library"
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+          console.log("objectsS3",data.objects);
+		  for(var i =0;i<=data.objects.length;i++){
+			loadLibrary(data.objects[i]);
 		  }
       })
       .catch(error => {
@@ -805,7 +837,29 @@ document.getElementById("home_product").appendChild(li);
 		}
     }
 
+	function loadLibrary(data){
+if(data.Size>0){
+var li = document.createElement('li');
+var counterview="";
+var image=data.Key;
 
+console.log(image);
+	 var Template = '<div id="btn" class="card mt-1">'+
+		'<div class="product-1 align-items-center p-2 text-center"> <img src="'+image+'" class="rounded" width="150" height="100">'+
+    '<div class="message"> <span class="text1 d-block">'+ counterview+' </span> </div>'+
+'</div>'+
+'</div>';
+	 
+li.innerHTML = Template;
+
+
+li.querySelector("#btn").myParam = data;
+
+li.querySelector("#btn").addEventListener('click', myFuncLibrary, false);
+
+document.getElementById("library_product").appendChild(li);
+		}
+    }
      
       function myFunc(evt) {
      var test = evt.currentTarget.myParam;
@@ -813,6 +867,11 @@ document.getElementById("home_product").appendChild(li);
      document.dispatchEvent(event);
      }
 
+	 function myFuncLibrary(evt) {
+     var test = evt.currentTarget.myParam;
+     var event = new CustomEvent("libraryclick", { "detail": test });
+     document.dispatchEvent(event);
+     }
 
 		function dragObject() {
 			// If 'holding' an object, move the object
