@@ -758,6 +758,10 @@ function loadProducts(data){
     return true;
   }
 
+  function get3DModelLive_Path(){
+    return current3DObject_forLiveSchedule;
+  }
+  
 function addPhoto(path) {
   var progressBar = document.getElementById("progress-bar");
   var files = "";
