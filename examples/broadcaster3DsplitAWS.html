@@ -167,7 +167,17 @@
   width: 150px;
   border-radius: 50%;
 }
+.uploadcontainer {
+  width: auto;
+  display: inline-block;
 
+}
+
+.uploadparent {
+  margin: 0 auto;
+  text-align: center;
+
+}
 	</style>
 </head>
 
@@ -323,6 +333,18 @@
 	<div class="split left">
 		<div class="centered">
 	
+			<div  id="3dobject_input">
+				<input id="objectuploader" placeholder="3D object" type="file" accept=".glb" max="26214400">
+			 
+				<div class="uploadparent">
+				  <div class="uploadcontainer">
+					<button id="addphoto" onclick="addPhoto('')">
+					  Upload 3D scene
+					  </button>
+				  </div>
+			  </div>
+			  
+			  </div>
 
 			<div id="full-screen-video">
 				<canvas id="canvas" width="532" height="300">
@@ -456,7 +478,9 @@ else{
 		channel:link.channel,
         idstream: link.videoid,
 		userid: localStorage.getItem('sub'),
-		Livestatus: "Live"
+		Livestatus: "Live",
+		background: get3DModelLive_Path()
+
           })
       })
       .then(response => response.json())
