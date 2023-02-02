@@ -458,9 +458,7 @@ var increment, delta,mesh,loadingBar;
 			let groundMirror, verticalMirror;
 			var loadingManager;
             var currentvideo=null;
-			var raycaster = new THREE.Raycaster();
-var mouse = new THREE.Vector2();
-var objects = [];
+			
 			start();
 			init();
 			initAWS("");
@@ -853,6 +851,7 @@ event.target.remove();
 			chair = gltf.scene;
 
               scene.add(chair);
+			  var objects = [];
 
               chair.visible = false; 
               chair.position.set(0,0,0);
@@ -862,7 +861,6 @@ event.target.remove();
 		  chair.traverse((node) => {
 
 if (node.isMesh) {
-
  // node.castShadow = true;
 //  node.name = link.IdRef;
  // node.isDraggable = true;
@@ -877,10 +875,9 @@ if (node.isMesh && node.name == 'ground') {
 
 if (node.isMesh && node.name == 'screenleft' ||  node.name == 'videoscreen') {
   // create video texture from video element
-   objects = [node];
+  objects.push( child );
 
-  node.callback = function() { console.log(node.name ); }
-
+  
  // PlayVideo("https://d2pjrbz7mizc67.cloudfront.net/0ca760e4-7413-4e48-88e2-a219d4b23fd3/hls/sideanime.m3u8","https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/sideanime.mp4",videoside);
 }
 });
@@ -907,7 +904,17 @@ clips.forEach(function (clip) {
 
 
 
-
+			  document.addEventListener( 'click', function ( event ) {
+    mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
+    mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+    raycaster.setFromCamera( mouse, camera );
+    var intersects = raycaster.intersectObjects( objects );
+    if ( intersects.length > 0 ) {
+      var selectedObject = intersects[ 0 ].object;
+      // Perform action on selected object
+	  console.log(selectedObject.name);
+    }
+  } );
 
 
 			  loadingBar.visible = false;
@@ -935,25 +942,6 @@ clips.forEach(function (clip) {
 
 
 
-
-function onDocumentMouseDown( event ) {
-
-    event.preventDefault();
-
-    mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
-    mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
-
-    raycaster.setFromCamera( mouse, camera );
-
-    var intersects = raycaster.intersectObjects( objects ); 
-
-    if ( intersects.length > 0 ) {
-
-        intersects[0].object.callback();
-
-    }
-
-}
 
 			function init() {
 
@@ -990,8 +978,7 @@ function onDocumentMouseDown( event ) {
    // switchSkyBox('afterrain');
 				//
 
-				document.addEventListener( 'click',  onDocumentMouseDown, false);
-
+				
 			
 				const planeGeo = new THREE.PlaneGeometry( 100.1, 100.1 );
 
