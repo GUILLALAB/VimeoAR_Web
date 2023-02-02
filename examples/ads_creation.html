@@ -164,6 +164,22 @@ if (Ads.link.imageUrl!=null && Ads.link.imageUrl.includes("glb")){
 				renderer.setClearColor( 0xffffff, 1 );
 				renderer.setPixelRatio( window.devicePixelRatio );
 
+				fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_3DModelLibrary', {
+          method: 'POST',
+          body: JSON.stringify({
+			request:"Library"
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+          console.log("objectsS3",data.objects);
+		  for(var i =0;i<=data.objects.length;i++){
+			setAds3DModel(data.objects[i]);
+		  }
+      })
+      .catch(error => {
+          console.error(error);
+      });
 			}
 
 			function setAds3DModel(link){
@@ -172,7 +188,8 @@ if (Ads.link.imageUrl!=null && Ads.link.imageUrl.includes("glb")){
         // Load a glTF resource
         loader.load(
             // resource URL
-            link.imageUrl + '&' + new Date().getTime(),
+          //  link.imageUrl + '&' + new Date().getTime(),
+		  link.Key,
             // called when the resource is loaded
             function ( gltf ) {
 
