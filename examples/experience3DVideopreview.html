@@ -746,6 +746,31 @@ function toggleButtons() {
 
    }
 
+   function setVideoToMesh(mesh){
+	video = document.getElementById( 'video' );
+       var source = document.getElementById('source');
+	var texture = new THREE.VideoTexture(video);
+        texture.minFilter = THREE.LinearFilter; 
+        texture.magFilter = THREE.LinearFilter; 
+		texture.format = THREE.RGBFormat;
+        texture.flipY = false;
+        // set node's material map to video texture
+        mesh.material.map = texture
+        mesh.material.color = new THREE.Color();
+        mesh.material.metalness = 0;
+    
+       var vertexShader = document.getElementById("vertexShader").textContent;
+      var  fragmentShader = document.getElementById("fragmentShader").textContent;
+    
+          // Cria o material usando a urlVideoTexture
+    
+
+
+
+         // PlayVideo("https://d2pjrbz7mizc67.cloudfront.net/e38e9fc2-7a94-4ba9-95e6-8f4a679589b3/hls/street2015.m3u8","https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/street15.mp4");
+
+   }
+
    function switchSkyBox (skyboxName) {
       scene.remove(skybox);
       skyboxImage = skyboxName;
@@ -876,9 +901,9 @@ if (node.isMesh && node.name == 'ground') {
 
 }
 
-if (node.isMesh && node.name == 'screenleft' ||  node.name == 'videoscreen') {
+if (node.name == 'videoscreen') {
   // create video texture from video element
-
+  setVideoToMesh(node)
   
  // PlayVideo("https://d2pjrbz7mizc67.cloudfront.net/0ca760e4-7413-4e48-88e2-a219d4b23fd3/hls/sideanime.m3u8","https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/sideanime.mp4",videoside);
 }
