@@ -761,7 +761,7 @@ function loadProducts(data){
   function get3DModelLive_Path(){
     return current3DObject_forLiveSchedule;
   }
-  
+
 function addPhoto(path) {
   var progressBar = document.getElementById("progress-bar");
   var files = "";
@@ -817,6 +817,7 @@ if(err) {
 } else{
   currentvideoalblum="";
   current3DObject_forLiveSchedule=photoKey;
+  console.log("objet3D ", current3DObject_forLiveSchedule);
   alert('uploaded suceessfully')
   viewAlbum(albumPhotosKey);
 };
