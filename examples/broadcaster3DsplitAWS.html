@@ -322,7 +322,8 @@
 
 	<div class="split left">
 		<div class="centered">
-	
+			<ul id="home_product"></ul>
+
 
 			<div id="full-screen-video">
 				<canvas id="canvas" width="532" height="300">
@@ -435,6 +436,16 @@ void main() {
 		var mixer = null;
 		var clock;
 		var loadingBar;
+
+		document.addEventListener("buttonclick", function (e) {
+    var data = e.detail;
+    if (data != null) {
+    
+    
+    }
+    
+    });
+
 
 		document.addEventListener("stream", function (e) {
 			// alert(e.detail);
@@ -591,6 +602,9 @@ fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_3DObjec
       .then(response => response.json())
       .then(data => {
           console.log("objectsS3",data.objects);
+		  for(var i =0;i<=data.objects;i++){
+			loadProducts(data[i]);
+		  }
       })
       .catch(error => {
           console.error(error);
@@ -761,6 +775,36 @@ fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_3DObjec
 
 
 		}
+
+		function loadProducts(data){
+
+var li = document.createElement('li');
+var counterview="";
+var image=data.Key.S;
+	 var Template = '<div id="btn" class="card mt-1">'+
+		'<div class="product-1 align-items-center p-2 text-center"> <img src="'+image+'" class="rounded" width="150" height="100">'+
+    '<div class="message"> <span class="text1 d-block">'+ counterview+' </span> </div>'+
+'</div>'+
+'</div>';
+	 
+li.innerHTML = Template;
+
+
+li.querySelector("#btn").myParam = data;
+
+li.querySelector("#btn").addEventListener('click', myFunc, false);
+
+document.getElementById("home_product").appendChild(li);
+    }
+
+
+     
+      function myFunc(evt) {
+     var test = evt.currentTarget.myParam;
+     var event = new CustomEvent("buttonclick", { "detail": test });
+     document.dispatchEvent(event);
+     }
+
 
 		function dragObject() {
 			// If 'holding' an object, move the object
