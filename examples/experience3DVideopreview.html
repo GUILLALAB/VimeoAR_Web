@@ -902,7 +902,8 @@ clips.forEach(function (clip) {
 		scene.updateMatrix();
               scene.updateMatrixWorld(true);
 
-
+			  var raycaster = new THREE.Raycaster();
+  var mouse = new THREE.Vector2();
 
 			  document.addEventListener( 'click', function ( event ) {
     mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
