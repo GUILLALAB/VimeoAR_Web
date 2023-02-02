@@ -437,6 +437,7 @@ void main() {
 		var clock;
 		var loadingBar;
 		var SelectedObject="";
+
 		document.addEventListener("buttonclick", function (e) {
     var data = e.detail;
     if (data != null) {
@@ -461,6 +462,8 @@ var docClient = new AWS.DynamoDB.DocumentClient();
 if (document.getElementById("startchannel").value.length > 1) {
 }
 else{
+	console.log(SelectedObject);
+
 	fetch('https://k67ygebkqj.execute-api.eu-west-1.amazonaws.com/stage1/Add_LiveStream', {
           method: 'POST',
           body: JSON.stringify({
