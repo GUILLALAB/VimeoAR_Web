@@ -467,7 +467,8 @@ else{
 		channel:link.channel,
         idstream: link.videoid,
 		userid: localStorage.getItem('sub'),
-		Livestatus: "Live"
+		Livestatus: "Live",
+		background:SelectedObject
           })
       })
       .then(response => response.json())
