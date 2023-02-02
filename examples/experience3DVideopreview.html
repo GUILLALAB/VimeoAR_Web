@@ -862,7 +862,6 @@ event.target.remove();
 		  chair.traverse((node) => {
 
 if (node.isMesh) {
-	node.callback = function() { console.log("test"); }
 
  // node.castShadow = true;
 //  node.name = link.IdRef;
@@ -876,10 +875,11 @@ if (node.isMesh && node.name == 'ground') {
 
 }
 
-if (node.isMesh && node.name == 'screenleft' ||  node.name == 'screenright') {
+if (node.isMesh && node.name == 'screenleft' ||  node.name == 'videoscreen') {
   // create video texture from video element
 
-  
+  node.callback = function() { console.log(node.name ); }
+
  // PlayVideo("https://d2pjrbz7mizc67.cloudfront.net/0ca760e4-7413-4e48-88e2-a219d4b23fd3/hls/sideanime.m3u8","https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/sideanime.mp4",videoside);
 }
 });
