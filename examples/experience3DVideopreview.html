@@ -458,7 +458,9 @@ var increment, delta,mesh,loadingBar;
 			let groundMirror, verticalMirror;
 			var loadingManager;
             var currentvideo=null;
-			
+			var raycaster = new THREE.Raycaster();
+var mouse = new THREE.Vector2();
+
 			start();
 			init();
 			initAWS("");
@@ -901,6 +903,7 @@ clips.forEach(function (clip) {
               scene.updateMatrixWorld(true);
 
 
+			  chair.callback = function() { console.log( this.name ); }
 
 
 
@@ -930,6 +933,25 @@ clips.forEach(function (clip) {
 
 
 
+
+function onDocumentMouseDown( event ) {
+
+    event.preventDefault();
+
+    mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
+    mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+
+    raycaster.setFromCamera( mouse, camera );
+
+    var intersects = raycaster.intersectObjects( objects ); 
+
+    if ( intersects.length > 0 ) {
+
+        intersects[0].object.callback();
+
+    }
+
+}
 
 			function init() {
 
