@@ -440,10 +440,9 @@ void main() {
 		document.addEventListener("buttonclick", function (e) {
     var data = e.detail;
     if (data != null) {
-    
-	var base="https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/"+SelectedObject;
-
-	 console.log(base);
+    	var base="https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/"+data.Key;
+	SelectedObject=base;
+	 console.log(SelectedObject);
     }
     
     });
