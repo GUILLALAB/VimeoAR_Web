@@ -174,7 +174,9 @@ if (Ads.link.imageUrl!=null && Ads.link.imageUrl.includes("glb")){
       .then(data => {
           console.log("objectsS3",data.objects);
 		  for(var i =0;i<=data.objects.length;i++){
+			if(data.objects[i].Size>0){
 			setAds3DModel(data.objects[i]);
+			}
 		  }
       })
       .catch(error => {
