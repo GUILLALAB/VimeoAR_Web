@@ -460,7 +460,7 @@ var increment, delta,mesh,loadingBar;
             var currentvideo=null;
 			var raycaster = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
-
+var objects = [];
 			start();
 			init();
 			initAWS("");
@@ -877,6 +877,7 @@ if (node.isMesh && node.name == 'ground') {
 
 if (node.isMesh && node.name == 'screenleft' ||  node.name == 'videoscreen') {
   // create video texture from video element
+   objects = [node];
 
   node.callback = function() { console.log(node.name ); }
 
@@ -944,7 +945,7 @@ function onDocumentMouseDown( event ) {
 
     raycaster.setFromCamera( mouse, camera );
 
-    var intersects = raycaster.intersectObjects( chair ); 
+    var intersects = raycaster.intersectObjects( objects ); 
 
     if ( intersects.length > 0 ) {
 
