@@ -781,6 +781,8 @@ fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_3DObjec
 var li = document.createElement('li');
 var counterview="";
 var image=data.Key.S;
+
+console.log(image);
 	 var Template = '<div id="btn" class="card mt-1">'+
 		'<div class="product-1 align-items-center p-2 text-center"> <img src="'+image+'" class="rounded" width="150" height="100">'+
     '<div class="message"> <span class="text1 d-block">'+ counterview+' </span> </div>'+
