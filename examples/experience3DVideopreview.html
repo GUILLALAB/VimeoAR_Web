@@ -764,10 +764,9 @@ function toggleButtons() {
     
           // Cria o material usando a urlVideoTexture
     
+       
 
-
-
-         // PlayVideo("https://d2pjrbz7mizc67.cloudfront.net/e38e9fc2-7a94-4ba9-95e6-8f4a679589b3/hls/street2015.m3u8","https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/street15.mp4");
+          PlayVideos("https://d2pjrbz7mizc67.cloudfront.net/c34ef91f-00ca-4490-9930-dd8029f47ccb/hls/Classic Ballroom.m3u8",video);
 
    }
 
@@ -903,7 +902,7 @@ if (node.isMesh && node.name == 'ground') {
 
 if (node.name == 'videoscreen') {
   // create video texture from video element
-  setVideoToMesh(node)
+  setVideoToMesh(node);
   
  // PlayVideo("https://d2pjrbz7mizc67.cloudfront.net/0ca760e4-7413-4e48-88e2-a219d4b23fd3/hls/sideanime.m3u8","https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/sideanime.mp4",videoside);
 }
@@ -958,7 +957,34 @@ clips.forEach(function (clip) {
   }  
 
 
+  function  PlayVideos(hlsvideo, player){
+const hls = new Hls();
 
+if (Hls.isSupported()) {
+//	player.pause();
+console.log('player.srcObject: ' + player.srcObject);
+player.srcObject=null;
+player.src=null;
+
+	hls.loadSource(hlsvideo);
+          hls.attachMedia(player);
+          hls.on(Hls.Events.MANIFEST_PARSED, function () {
+            player.play();
+            console.log("HLS");
+          });
+        } else {
+			player.pause();
+          // HLS isnt supported in iOS, so we do it natively
+
+          player.src = mp4video;
+          console.log("MP4");
+          player.addEventListener("loadedmetadata", function () {
+            player.play();
+          });
+        }
+
+   
+ }
 
 			function init() {
 
