@@ -989,7 +989,8 @@ function onDocumentMouseDown( event ) {
    // switchSkyBox('afterrain');
 				//
 
-				
+				document.addEventListener( 'click',  onDocumentMouseDown, false);
+
 			
 				const planeGeo = new THREE.PlaneGeometry( 100.1, 100.1 );
 
