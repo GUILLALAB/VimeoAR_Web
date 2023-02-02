@@ -749,13 +749,13 @@ function toggleButtons() {
    function setVideoToMesh(mesh){
 	video = document.getElementById( 'video' );
        var source = document.getElementById('source');
-	var texture = new THREE.VideoTexture(video);
+	 texture = new THREE.VideoTexture(video);
         texture.minFilter = THREE.LinearFilter; 
         texture.magFilter = THREE.LinearFilter; 
 		texture.format = THREE.RGBFormat;
         texture.flipY = false;
         // set node's material map to video texture
-        mesh.material.map = texture
+        mesh.material.map = texture;
         mesh.material.color = new THREE.Color();
         mesh.material.metalness = 0;
     
