@@ -958,15 +958,8 @@ clips.forEach(function (clip) {
 
   function  PlayVideos(hlsvideo, player){
 const hls = new Hls();
-player.pause();
-          // HLS isnt supported in iOS, so we do it natively
 
-          player.src = "https://www.youtube.com/watch?v=Ii7t6ildO_g";
-          console.log("MP4");
-          player.addEventListener("loadedmetadata", function () {
-            player.play();
-          });
-/*if (Hls.isSupported()) {
+if (Hls.isSupported()) {
 //	player.pause();
 
 
@@ -977,9 +970,16 @@ player.pause();
             console.log("HLS");
           });
         } else {
-		
+			player.pause();
+          // HLS isnt supported in iOS, so we do it natively
+
+          player.src = mp4video;
+          console.log("MP4");
+          player.addEventListener("loadedmetadata", function () {
+            player.play();
+          });
         }
-*/
+
    
  }
 
