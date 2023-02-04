@@ -874,7 +874,22 @@ document.getElementById("music").addEventListener("click", function (e) {
   
     });
 
-
+    function setVideoToMesh(mesh){
+	video = document.getElementById( 'video' );
+       var source = document.getElementById('source');
+	 texture = new THREE.VideoTexture(video);
+        texture.minFilter = THREE.LinearFilter; 
+        texture.magFilter = THREE.LinearFilter; 
+		texture.format = THREE.RGBFormat;
+        // set node's material map to video texture
+        mesh.material.map = texture;
+        mesh.material.color = new THREE.Color();
+        mesh.material.metalness = 0;
+  
+          // Cria o material usando a urlVideoTexture
+    
+       
+   }
 			function setVideo(){
         video = document.getElementById( 'video' );
        var source = document.getElementById('source');
@@ -1110,6 +1125,15 @@ if (node.isMesh && node.name == 'ground') {
 
 }
 
+
+
+if (node.name == 'videoscreen') {
+  // create video texture from video element
+  setVideoToMesh(node);
+  
+ // PlayVideo("https://d2pjrbz7mizc67.cloudfront.net/0ca760e4-7413-4e48-88e2-a219d4b23fd3/hls/sideanime.m3u8","https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/sideanime.mp4",videoside);
+}
+
 if (node.isMesh && node.name == 'screenleft' ||  node.name == 'screenright') {
   // create video texture from video element
 
@@ -1306,6 +1330,8 @@ lightControls.close();
 				const blueLight = new THREE.PointLight( 0x7f7fff, 0.25, 1000 );
 				blueLight.position.set( 0, 50, 550 );
 				scene.add( blueLight );*/
+
+        showChair("https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/3DLibrary/scene_room_profile.glb");
 				document.getElementById("background").addEventListener("click", function (e) {
 					showChair(currentvideo);
 });
