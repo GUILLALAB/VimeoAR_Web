@@ -6,6 +6,8 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<link type="text/css" rel="stylesheet" href="/js/main.css">
 		<link rel="stylesheet" type="text/css" href="/js/style_bike.css" />
+    <link type="text/css" rel="stylesheet" href="/css/menubar_left.css">
+
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
@@ -244,6 +246,102 @@ display: inline-block;
 	</head>
 	<body>
 
+    <div class="sidebar">
+      <div class="logo-details">
+        <i class='bx bxl-c-plus-plus icon'></i>
+          <div class="logo_name">Hub</div>
+          <i class='bx bx-menu' id="btn" ></i>
+      </div>
+      <ul id="navbutton" class="nav-list">
+        <li>
+            <i class='bx bx-search' ></i>
+           <input id="myInput" type="text" placeholder="Search...">
+           <span class="tooltip">Search</span>
+           <button  id="btnvideos" onclick="window.app.showRowVideos()"><i class="fas fa-arrow-circle-down"></i></button>
+
+        </li>
+
+        <li id="profile">
+          <a id="profilhref" href="https://livear.herokuapp.com/profile">
+            <i class='bx bx-cart-alt' ></i>
+            <span class="links_name">Profil</span>
+          </a>
+          <span class="tooltip">Profil</span>
+        </li>
+        <li>
+          <a href="https://livear.herokuapp.com/home">
+            <i class='bx bx-grid-alt'></i>
+            <span class="links_name">AR</span>
+          </a>
+           <span class="tooltip">AR</span>
+        </li>
+        <li>
+          <a href="https://livear.herokuapp.com/exp">
+             <i class='bx bx-user' ></i>
+             <span class="links_name">3D Video</span>
+           </a>
+           <span class="tooltip">3D Video</span>
+         </li>
+         <li >
+          <a href="https://livear.herokuapp.com/preview">
+             <i class='bx bx-user' ></i>
+             <span class="links_name">Preview 3D</span>
+           </a>
+           <span class="tooltip">Preview 3D</span>
+         </li>
+       <li class="hide" id="login">
+         <a  href="https://livear.herokuapp.com/login">
+           <i class='bx bx-chat' ></i>
+           <span class="links_name">Login</span>
+         </a>
+         <span class="tooltip">Login</span>
+       </li>
+       <li  id="live">
+        <a  href="https://livear.herokuapp.com/broadcaster">
+          <i class='bx bx-folder' ></i>
+          <span class="links_name">Go Live</span>
+        </a>
+        <span class="tooltip">Go Live</span>
+      </li>
+      <li  id="ads">
+        <a  href="">
+          <i class='bx bx-folder' ></i>
+          <span class="links_name">Ads Business</span>
+        </a>
+        <span class="tooltip">Ads Business</span>
+      </li>
+       <li id="logout">
+        <a id="logouthref" href="">
+          <i class='bx bx-pie-chart-alt-2' ></i>
+          <span id="logouttext" class="links_name">Logout</span>
+        </a>
+        <span  class="tooltip">Logout</span>
+      </li>
+       <!-- <li>
+         <a href="ChatGPT.html">
+           <i class='bx bx-heart' ></i>
+           <span class="links_name">ChatGPT</span>
+         </a>
+         <span class="tooltip">ChatGPT</span>
+       </li>
+       <li>
+         <a href="#">
+           <i class='bx bx-cog' ></i>
+           <span class="links_name">Setting</span>
+         </a>
+         <span class="tooltip">Setting</span>
+       </li>
+       <li class="profile">
+           <div class="profile-details">
+             <img src="profile.jpg" alt="profileImg">
+             <div class="name_job">
+               <div class="name">Prem Shahi</div>
+               <div class="job">Web designer</div>
+             </div>
+           </div>
+       </li>-->
+      </ul>
+    </div>
 
 	<!--	<section id="loading-screen">
 
@@ -1535,5 +1633,8 @@ lightControls.close();
 			}
 
 		</script>
+
+<script src="/js/menubar_left.js"></script>	
+
 	</body>
 </html>
