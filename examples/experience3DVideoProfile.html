@@ -261,8 +261,9 @@ display: inline-block;
 			  </div>
 
 			<div id="containers">
-				
-				<button style="display: block; float: left;" class="buttonload" id="hide">Hide list</button>
+								<button style="display: block; float: left;" class="buttonload" id="edit">Save 3D Profile</button>
+
+				<button class="buttonload" id="hide">Hide list</button>
 
 				<button class="buttonload" id="background">background</button>
 
@@ -865,11 +866,12 @@ document.getElementById("music").addEventListener("click", function (e) {
 });
 
    }
-
+ document.getElementById("edit").addEventListener("click", function(){
+      fetchUpdate3DProfile("https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_Update3DProfile");
+    });
 
    document.getElementById("hide").addEventListener("click", function(){
      if(document.getElementById("home_product").style.display == "block"){
-      fetchUpdate3DProfile("https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_Update3DProfile");
       document.getElementById("home_product").style.display = "none";
      }else{
       document.getElementById("home_product").style.display = "block";
