@@ -1201,7 +1201,7 @@ function fetchUpdate3DProfile(url,message){
       .then(response => response.json())
       .then(data => {
         alert(message);
-        console(data);
+        console.log(data);
 
     var item=data.Items;
     for(var i=0;i<=item.length;i++){
