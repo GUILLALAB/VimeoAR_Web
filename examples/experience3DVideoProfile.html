@@ -1204,7 +1204,7 @@ function fetchUpdate3DProfile(url,message){
         console.log(data);
 
     var item=data.Items;
-    if(item.length>0){
+    if(item !== undefined && item.length>0){
     for(var i=0;i<=item.length;i++){
       videoselected=item[i].videoscreen.S;
       PlayVideo(videoselected,"",video);
