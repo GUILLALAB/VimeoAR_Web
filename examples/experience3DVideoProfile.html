@@ -377,6 +377,7 @@ var increment, delta,mesh,loadingBar;
 			var loadingManager;
             var currentvideo=null;
             var currentCategory="Explore";
+            var videoselected=null;
 
     let exclusiveStartKey = null;
 let prevExclusiveStartKey = null;
@@ -487,7 +488,7 @@ document.addEventListener("buttonclick", function (e) {
   }else{
 
      doSomething(data.hlsUrl.S,file,video);
-
+     videoselected=data.hlsUrl.S;
   }
 
   async function doSomething(url,file,video) {
@@ -1085,7 +1086,7 @@ function fetchUpdate3DProfile(url){
           method: 'POST',
           body: JSON.stringify({
            id:local.getItem('sub'),
-           videoscreen:currentvideo,
+           videoscreen:videoselected,
           })
       })
       .then(response => response.json())
