@@ -121,6 +121,10 @@ app.get('/preview', (request, response) => {
   response.render('experience3DVideopreview.html',{ name: 'Tobi' });
 });
 
+app.get('/3DProfile_details', (request, response) => {
+  response.render('experience3DVideoProfile_Details.html',{ name: 'Tobi' });
+});
+
 
 app.get('/adscreation', (request, response) => {
   response.render('ads_creation.html',{ name: 'Tobi' });
