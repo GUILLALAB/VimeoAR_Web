@@ -9,7 +9,10 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-		<script src="/js/jquery.min.js"></script>	
+    <script src="/js/AgoraRTCSDK-3.0.2.js" type="text/javascript"></script>
+    <script src="/js/agora-rtm-sdk-1.2.2.js" type="text/javascript"></script>
+ 
+    <script src="/js/jquery.min.js"></script>	
 		<script src="/js/aws-sdk-2.487.0.min.js"></script>
 		<script src="/js/aws-cognito-sdk.min.js"></script>
 		<script src="/js/amazon-cognito-identity.min.js"></script>
@@ -121,8 +124,19 @@
 .buttonload {
     background-color: white;
     color: black;
-    border-radius: 10px;
+    border-radius: 7px;
 	border-color: #000000;
+    padding: 10px 10px;
+    font-size: 14px;
+    border: none;
+    transition: 0.3s;
+}
+
+.buttonloadmore {
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+	border-color: #c0b12b;
     padding: 10px 20px;
     font-size: 16px;
     border: none;
@@ -244,15 +258,11 @@ display: inline-block;
 			<div id="uploadtop" class="audio-container">
 				<button class="buttonload" id="boutonaudio">
 				</button>
-
-				<input id="videoupload"  placeholder="Video" type="file" accept="video/*">
-				<input id="photoupload"  placeholder="3D scene" type="file" accept=".glb" max="26214400">
-
 			  </div>
 
 			<div id="containers">
 				
-				<button  class="buttonload" id="hide">Hide list</button>
+				<button style="display: block; float: left;" class="buttonload" id="hide">Hide list</button>
 
 				<button class="buttonload" id="background">background</button>
 
@@ -285,10 +295,19 @@ display: inline-block;
 				  <button  hidden id="load" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
 					<i class="material-icons"></i>Load
 				  </button>
+					<ul>
+            <li>
+              <button class="buttonload"  id="explore">Explore</button>
+              <button class="buttonload"  id="music">Music</button>
+              <button class="buttonload"  id="live">Live</button>
+              <button class="buttonloadmore" id="next-button">More Videos</button>
 
+            </li>
+          </ul>
+
+				  <!--	<button class="buttonload" id="prev-button" disabled>Load More Videos</button>-->
 					<ul id="home_product"></ul>
-					<button class="buttonload" id="next-button">Prev</button>
-					<button class="buttonload" id="prev-button" disabled>Load More Videos</button>
+
 				</div>
 			
 			</div>
@@ -305,7 +324,8 @@ display: inline-block;
 			}
 		
 			</script>
-		
+      <script src="/js/loginAWS.js"></script>
+
 		
 			<script id="fragmentShader" type="glsl">
 		
@@ -333,109 +353,7 @@ display: inline-block;
 			</script>
 		<script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
 		<script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.7/build/dat.gui.min.js"></script>
-
-		<script>
-
-			//=============== AWS IDs ===============
-			var userPoolId = 'eu-west-1_3x9L2hsjh';
-			var clientId = '4gkuhfpqeo9rc279nh727l3sco';
-			var region = 'eu-west-1';
-			var identityPoolId = 'eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b';
-			//=============== AWS IDs ===============
-		  
-			var cognitoUser;
-			var idToken;
-			var userPool;
-			
-			var poolData = { 
-			  UserPoolId : userPoolId,
-			  ClientId : clientId
-			};
-			getCurrentLoggedInSession();
-			
-		  
-		
-		  
-			function getCurrentLoggedInSession(){
-		  
-		  userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-		  cognitoUser = userPool.getCurrentUser();
-		  
-		  if(cognitoUser != null){
-			cognitoUser.getSession(function(err, session) {
-			  if (err) {
-				console.log(err.message);
-			  }else{
-				console.log('Session found! Logged in.');
-				idToken = session.getIdToken().getJwtToken();
-				localStorage.setItem("sub", session.getIdToken().decodePayload().sub);
-				$("#logout").show();
-		  
-				getCognitoIdentityCredentials();
-			  }
-			});
-		  }else{
-			$("#logout").show();
-			$("#logout").html("SIGN IN");
-	  
-			console.log('Logout');
-		   // window.location = "https://livear.herokuapp.com/login";
-		  
-		  }
-		  
-		  }
-		  function logOut(){
-				if (cognitoUser != null) {
-				  cognitoUser.signOut();
-				  $("#logout").html("SIGN IN");
-				  console.log('Logged out!');
-				//  window.location = "https://livear.herokuapp.com/login";
-				}
-			  }
-		  
-			  function getCognitoIdCredentials(){
-				AWS.config.region = region;
-		  
-				var loginMap = {};
-				loginMap['cognito-idp.' + region + '.amazonaws.com/' + userPoolId] = idToken;
-		  
-				AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-				  IdentityPoolId: identityPoolId,
-				  Logins: loginMap
-				});
-		  
-				AWS.config.credentials.clearCachedId();
-		  
-			  return AWS.config.credentials;
-			  }
-			  
-		  function getCognitoIdentityCredentials(){
-				AWS.config.region = region;
-		  
-				var loginMap = {};
-				loginMap['cognito-idp.' + region + '.amazonaws.com/' + userPoolId] = idToken;
-		  
-				AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-				  IdentityPoolId: identityPoolId,
-				  Logins: loginMap
-				});
-		  
-				AWS.config.credentials.clearCachedId();
-		  
-				AWS.config.credentials.get(function(err) {
-				  if (err){
-					console.log(err.message);
-				  }
-				  else {
-					console.log('AWS Access Key: '+ AWS.config.credentials.accessKeyId);
-					console.log('AWS Secret Key: '+ AWS.config.credentials.secretAccessKey);
-					console.log('AWS Session Token: '+ AWS.config.credentials.sessionToken);
-				  }
-		  
-				});
-			  }
-		  </script>
-	  
+		<script src="/js/webar-audience-client3DAWS.js"></script>
 
 		<script type="module">
 import * as THREE from './jsm/three.module.js';
@@ -443,8 +361,7 @@ import * as THREE from './jsm/three.module.js';
     import { GLTFLoader } from './jsm/GLTFLoader.js';
     import { Reflector } from './jsm/Reflector.js';
     import { LoadingBar } from './jsm/LoadingBar.js';
-    
-	var objects = [];
+    import {  initInstance, InitClients,initAgora,leaveChannel} from './js/webar-audience-client3DAWS.js';
 
 			let camera, scene, renderer;
 			var skyboxGeo, skybox, myReq;
@@ -459,8 +376,12 @@ var increment, delta,mesh,loadingBar;
 			let groundMirror, verticalMirror;
 			var loadingManager;
             var currentvideo=null;
-			var raycaster = new THREE.Raycaster();
-  var mouse = new THREE.Vector2();
+            var currentCategory="Explore";
+
+    let exclusiveStartKey = null;
+let prevExclusiveStartKey = null;
+let nextParams = {};
+
 			start();
 			init();
 			initAWS("");
@@ -540,19 +461,43 @@ document.addEventListener("buttonclick", function (e) {
     if (data != null) {
     if (mesh!=null) {
 		currentvideo=data;
-		  mesh.position.set( 5, 120, -350 );
-	mesh.scale.set( 6,6, 6 );
+    mesh.position.set( 5, 169, -191 );
+	mesh.scale.set( 8,8, 8 );
 
-	if(data.background!=null){
+	if(data.background!=null ||  data.background !== undefined){
 		document.getElementById('background').style.display="block";
 	}else{
 		document.getElementById('background').style.display="none";
 	}
-	var file = "https://"+data.srcBucket+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo;
+
+  var file = "";
+
+  if(data.srcBucket!=null ||  data.srcBucket !== undefined){
+     file = "https://"+data.srcBucket.S+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo.S;
+  }else{
+     file = "";
+  }
+
 	//PlayVideo(videodata.hlsUrl,"https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/avatar.mp4",video);
-	PlayVideo(data.hlsUrl,file,video);
+	if(currentCategory == "LiveStream"){
+    if(data.id!=null ||  data.id !== undefined){
+      initAgora(data.id.S);
+      console.log(data.id.S);
+    }
+  }else{
 
+     doSomething(data.hlsUrl.S,file,video);
 
+  }
+
+  async function doSomething(url,file,video) {
+    leaveChannel();
+
+    await new Promise(resolve => setTimeout(resolve,2000));
+    PlayVideo(url,file,video);
+
+    console.log('3 seconds have passed');
+}
 
 
 
@@ -618,21 +563,187 @@ function initAWS(channelName){
 
 AWS.config.region = region;
 	 
-   getCognitoIdCredentials().get(function(err) {
- if (err) console.log(err.stack);
- 
- // credentials not loaded
- else {
-	//retrieveData(false);
 
- }
-});
+if(isUserLoggedIn()){
+  initInstance();
+  InitClients();
+
+  }else{
+    console.log("Login not loggedIn");
+  }
+ // queryDynamoDB(5,"","VideoAWS");
+ queryddynamoDB();
+
+
+//queryddynamoDB(5,"LiveStream","");
+
+function fetchdata(url,typerequest,category){
+  fetch(url, {
+          method: 'POST',
+          body: JSON.stringify({
+           typerequest:typerequest,
+           category:category,
+           userid:localStorage.getItem('sub')
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+            displayData(data.Items);
+            
+            nextParams = {
+  Limit: 5,
+  ExclusiveStartKey: data.LastEvaluatedKey
+};
+
+           
+            if (!nextParams.ExclusiveStartKey) {
+                document.getElementById("next-button").style.display = "none";
+            }
+        
+      })
+      .catch(error => {
+          console.error(error);
+      });
+
+
+}
+
+  function queryddynamoDB() {
+  document.getElementById("home_product").innerHTML = "";
+  document.getElementById("next-button").style.display = "block";
+  nextParams={};
+
+  if(currentCategory=="Explore"){
+    fetchdata('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video',"profile","");
+  }else if(currentCategory=="Music"){
+    fetchdata('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_VideoGenre',"video",currentCategory);
+
+  }else if(currentCategory=="LiveStream"){
+    fetchdata('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetLiveStream',"LiveStream",null);
+  }
+}
+
+function queryDynamoDB(limit, category, table) {
 
 const documentClient = new AWS.DynamoDB.DocumentClient();
 
-  const tableName = 'VideoAWS';
+const tableName = table;
 let exclusiveStartKey = null;
 let prevExclusiveStartKey = null;
+let nextParams = {};
+
+
+  var params=null;
+  if (category.length>0){
+   params = {
+    TableName: tableName,
+    IndexName: 'category-index',
+    KeyConditionExpression: 'category = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': category
+  },
+  Limit: 5
+  };
+  }else if(tableName == "VideoAWS"){
+    params = {
+    TableName: tableName,
+    IndexName: 'workflowStatus-index',
+    KeyConditionExpression: 'workflowStatus = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': 'Complete'
+  },
+
+  Limit: 5
+};
+  
+  } else if(tableName == "LiveStream"){
+    params = {
+    TableName: tableName,
+    IndexName: 'Livestatus-index',
+    KeyConditionExpression: 'Livestatus = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': 'Live'
+  },
+
+  Limit: 5
+};
+
+
+  }
+
+
+
+  documentClient.query(params, (err, data) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(data);
+            displayData(data);
+            
+            if (category.length>0){
+              nextParams = {
+    TableName: tableName,
+    IndexName: 'videotitlesearch-index',
+    KeyConditionExpression: 'videotitlesearch = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': category
+  },
+  Limit: 5,
+  ExclusiveStartKey: data.LastEvaluatedKey
+  };
+}else if(tableName == "VideoAWS"){
+    nextParams = {
+    TableName: tableName,
+    IndexName: 'workflowStatus-index',
+    KeyConditionExpression: 'workflowStatus = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': 'Complete'
+  },
+
+  Limit: 5,
+  ExclusiveStartKey: data.LastEvaluatedKey
+
+};
+  
+  }else if(tableName == "LiveStream"){
+    nextParams = {
+    TableName: tableName,
+    IndexName: 'Livestatus-index',
+    KeyConditionExpression: 'Livestatus = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': 'Live'
+  },
+  Limit: 5,
+  ExclusiveStartKey: data.LastEvaluatedKey
+};
+  
+  }
+  
+   
+            if (!nextParams.ExclusiveStartKey) {
+                document.getElementById("next-button").style.display = "none";
+            }
+        }
+    });
+
+
+document.getElementById("next-button").addEventListener("click", () => {
+  documentClient.query(nextParams, (err, nextData) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(nextData);
+            displayData(nextData);
+
+            nextParams.ExclusiveStartKey = nextData.LastEvaluatedKey;
+            if (!nextParams.ExclusiveStartKey) {
+                document.getElementById("next-button").style.display = "none";
+            }
+        }
+    });
+});
+}
 
 
 function retrieveData(isPrev) {
@@ -673,7 +784,7 @@ function toggleButtons() {
     }
 
     function displayData(data) {
-        var items = data.Items;
+        var items = data;
         var html = "";
 
 
@@ -685,12 +796,71 @@ function toggleButtons() {
       //  document.getElementById("data-container").innerHTML = html;
     }
 
-    document.getElementById("prev-button").addEventListener("click", function(){
+  /*  document.getElementById("prev-button").addEventListener("click", function(){
         retrieveData(true);
     });
     document.getElementById("next-button").addEventListener("click", function(){
         retrieveData(false);
-    });
+    });*/
+
+    function fetchSecondBatch(url,typerequest,category){
+  fetch(url, {
+          method: 'POST',
+          body: JSON.stringify({
+            typerequest:typerequest,
+            category:category,
+            userid:localStorage.getItem('sub'),
+            ExclusiveStartKey:nextParams.ExclusiveStartKey
+	
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+
+        console.log(data);
+            displayData(data.Items);
+
+            nextParams.ExclusiveStartKey = data.LastEvaluatedKey;
+            if (!nextParams.ExclusiveStartKey) {
+                document.getElementById("next-button").style.display = "none";
+            }
+      })
+      .catch(error => {
+          console.error(error);
+      });
+
+}
+
+document.getElementById("next-button").addEventListener("click", () => {
+  if(currentCategory=="Explore"){
+
+    fetchSecondBatch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video',"profile",null);
+  }else if(currentCategory=="Music"){
+    fetchSecondBatch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_VideoGenre',"video",currentCategory);
+
+  }else if(currentCategory=="LiveStream"){
+    fetchSecondBatch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetLiveStream',currentCategory,null);
+  }
+
+});
+
+
+document.getElementById("live").addEventListener("click", function (e) {
+  document.getElementById("home_product").innerHTML = "";
+  currentCategory="LiveStream";
+  queryddynamoDB();
+});
+document.getElementById("explore").addEventListener("click", function (e) {
+  document.getElementById("home_product").innerHTML = "";
+  currentCategory="Explore";
+  queryddynamoDB();
+
+});
+document.getElementById("music").addEventListener("click", function (e) {
+  document.getElementById("home_product").innerHTML = "";
+  currentCategory="Music";
+  queryddynamoDB();
+});
 
    }
 
@@ -704,25 +874,6 @@ function toggleButtons() {
   
     });
 
-
-	const updateProfilePic = async (pic) => {
-  fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_UpdateProfilePic', {
-          method: 'POST',
-          body: JSON.stringify({
-           id:localStorage.getItem('sub'),
-           profilepic:pic
-
-          })
-      })
-      .then(response => response.json())
-      .then(data => {
-        alert("Picture updated");        
-      })
-      .catch(error => {
-          console.error(error);
-      });
-
-        }
 
 			function setVideo(){
         video = document.getElementById( 'video' );
@@ -754,37 +905,20 @@ function toggleButtons() {
     
           mesh = new THREE.Mesh( geometry, material);
           scene.add( mesh );
-		  mesh.position.set( 5, 120, -350 );
-	mesh.scale.set( 6,6, 6 );
+          mesh.position.set( 5, 169, -191 );
+      mesh.scale.set( 8,8, 8 );
 
+/*	var wrapper = new THREE.CSS3DObject( mesh );
+
+scene.add( wrapper );
+wrapper.element.addEventListener( 'click', function() {
+    console.log( 'video clicked' );
+}, false );*/
 
          // PlayVideo("https://d2pjrbz7mizc67.cloudfront.net/e38e9fc2-7a94-4ba9-95e6-8f4a679589b3/hls/street2015.m3u8","https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/street15.mp4");
 
         
 	
-
-   }
-
-   function setVideoToMesh(mesh){
-	video = document.getElementById( 'video' );
-       var source = document.getElementById('source');
-	 texture = new THREE.VideoTexture(video);
-        texture.minFilter = THREE.LinearFilter; 
-        texture.magFilter = THREE.LinearFilter; 
-		texture.format = THREE.RGBFormat;
-        // set node's material map to video texture
-        mesh.material.map = texture;
-        mesh.material.color = new THREE.Color();
-        mesh.material.metalness = 0;
-    
-       var vertexShader = document.getElementById("vertexShader").textContent;
-      var  fragmentShader = document.getElementById("fragmentShader").textContent;
-    
-          // Cria o material usando a urlVideoTexture
-    
-       
-
-          PlayVideos("https://d2pjrbz7mizc67.cloudfront.net/c34ef91f-00ca-4490-9930-dd8029f47ccb/hls/Classic Ballroom.m3u8",video);
 
    }
 
@@ -820,40 +954,90 @@ function toggleButtons() {
     }
 
    function  PlayVideo(hlsvideo, mp4video, player){
+const hls = new Hls();
 
-	var file = mp4video;
-  var reader = new FileReader();
+if (Hls.isSupported()) {
+//	player.pause();
+console.log('player.srcObject: ' + player.srcObject);
+player.srcObject=null;
+player.src=null;
 
-  reader.onload = function(event) {
-	var videoUrl = URL.createObjectURL(file);
-
+	hls.loadSource(hlsvideo);
+          hls.attachMedia(player);
+          hls.on(Hls.Events.MANIFEST_PARSED, function () {
+            player.play();
+            console.log("HLS");
+          });
+        } else {
 			player.pause();
           // HLS isnt supported in iOS, so we do it natively
 
-          player.src = videoUrl;
+          player.src = mp4video;
           console.log("MP4");
           player.addEventListener("loadedmetadata", function () {
             player.play();
           });
-	};
+        }
 
-		reader.readAsDataURL(file);
-
+   
  }
 
  function loadProducts(data){
 
 var li = document.createElement('li');
+var counterview="";
+var image="";
+
+if(currentCategory=="LiveStream"){
+  if(data.channel.S===undefined){
+  counterview="ok";
+}else{
+  counterview=data.channel.S;
+
+var scheduleDate = new Date(data.LiveSchedule.S);
+var now = new Date();
+
+if (now >= scheduleDate) {
+  counterview=data.channel.S;
+  image="https://c8.alamy.com/compfr/t44eck/live-stream-sign-embleme-le-logo-vector-illustration-t44eck.jpg";
+
+} else {
+  counterview=data.channel.S+" "+ data.LiveSchedule.S;
+  image="https://i0.wp.com/www.christophtrappe.com/wp-content/uploads/2022/07/Scheduling-livestreams-1.png?resize=1536%2C864&ssl=1";
+
+  
+}
+}
+}else{
+  if(data.counterview.S===undefined){
+  counterview="ok";
+}else{
+  counterview=data.counterview.S;
+}
+
+var item = data.thumbNailsUrls;
+var outerArray = Object.values(item)[0];
+var innerObject = outerArray[0];
+ image = Object.values(innerObject)[0];
+
+}
+
+
+
 
 	 var Template = '<div id="btn" class="card mt-1">'+
-		'<div class="product-1 align-items-center p-2 text-center"> <img src="'+data.thumbNailsUrls+'" class="rounded" width="150" height="100">'+
-    '<div class="message"> <span class="text1 d-block">'+ data.counterview+' </span> </div>'+
+		'<div class="product-1 align-items-center p-2 text-center"> <img src="'+image+'" class="rounded" width="150" height="100">'+
+    '<div class="message"> <span class="text1 d-block">'+ counterview+' </span> </div>'+
 '</div>'+
 '</div>';
 	 
 li.innerHTML = Template;
 
-li.setAttribute('id', data.guid);
+if(data.guid===undefined){
+  li.setAttribute('id', data.id.S);
+}else{
+  li.setAttribute('id', data.guid.S);
+}
 
 li.querySelector("#btn").myParam = data;
 
@@ -877,21 +1061,29 @@ document.getElementById("home_product").appendChild(li);
 event.target.remove();
 
 }
- function showChair(preview){
+ function showChair(videodata){
+     var assetsPath = '/assets/ar-shop/';
+
       const loader = new GLTFLoader(loadingManager);
-	  var link=null;
-  var file = preview;
-  var reader  = new FileReader();
+      var link=videodata.background.S;
+      loadingBar.visible = true;
+      if(videodata.background.S === undefined || videodata.background.S === ""){
+		link="";
+		loadingBar.visible = false;
+
+		return;
+	  }
 
 	  if(chair!=null){
 	  removeEntity(chair);
 	}
-
-  reader.onload = function(event) {
-    var contents = event.target.result;
-
-    loader.parse(contents, '', function (gltf) {
-		loadingBar.visible = true;
+      // Load a glTF resource
+      loader.load(
+          // resource URL
+          link,
+          // called when the resource is loaded
+          function ( gltf ) {
+			loadingBar.visible = true;
 			chair = gltf.scene;
 
               scene.add(chair);
@@ -901,14 +1093,14 @@ event.target.remove();
 			  chair.visible = true; 
               chair.scale.set(2.0, 2.0, 2.0);
 		
+
+
 		  chair.traverse((node) => {
 
 if (node.isMesh) {
-	objects.push( node );
-
- // node.castShadow = true;
+  node.castShadow = true;
 //  node.name = link.IdRef;
- // node.isDraggable = true;
+  node.isDraggable = true;
 }
 // search the mesh's children for the face-geo
 if (node.isMesh && node.name == 'ground') {    
@@ -918,9 +1110,9 @@ if (node.isMesh && node.name == 'ground') {
 
 }
 
-if (node.name == 'videoscreen') {
+if (node.isMesh && node.name == 'screenleft' ||  node.name == 'screenright') {
   // create video texture from video element
-  setVideoToMesh(node);
+
   
  // PlayVideo("https://d2pjrbz7mizc67.cloudfront.net/0ca760e4-7413-4e48-88e2-a219d4b23fd3/hls/sideanime.m3u8","https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/sideanime.mp4",videoside);
 }
@@ -947,13 +1139,9 @@ clips.forEach(function (clip) {
               scene.updateMatrixWorld(true);
 
 
-
-	
-
-
 			  loadingBar.visible = false;
-     
-       },
+
+          },
           // called while loading is progressing
           function ( xhr ) {
 
@@ -966,41 +1154,12 @@ clips.forEach(function (clip) {
 
               console.log( 'An error happened' );
 
-          });
-  };
-  
-  reader.readAsArrayBuffer(file);
-
-
+          }
+      );
   }  
 
 
-  function  PlayVideos(hlsvideo, player){
-const hls = new Hls();
 
-if (Hls.isSupported()) {
-//	player.pause();
-
-
-	hls.loadSource(hlsvideo);
-          hls.attachMedia(player);
-          hls.on(Hls.Events.MANIFEST_PARSED, function () {
-            player.play();
-            console.log("HLS");
-          });
-        } else {
-			player.pause();
-          // HLS isnt supported in iOS, so we do it natively
-
-          player.src = mp4video;
-          console.log("MP4");
-          player.addEventListener("loadedmetadata", function () {
-            player.play();
-          });
-        }
-
-   
- }
 
 			function init() {
 
@@ -1024,38 +1183,28 @@ if (Hls.isSupported()) {
 				scene = new THREE.Scene();
 
 				// camera
-				camera = new THREE.PerspectiveCamera( 43, window.innerWidth / window.innerHeight, 1, 10000 );
-				camera.position.set( -57, 440, 3000 );
+        camera = new THREE.PerspectiveCamera( 43, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.position.set( -57, 440, 2500 );
 
 				cameraControls = new OrbitControls( camera, renderer.domElement );
 				cameraControls.target.set( 0, 70, 0 );
-				cameraControls.maxDistance = 3000;
-				cameraControls.minDistance = -3000;
+				cameraControls.maxDistance = 2500;
+				cameraControls.minDistance = -2500;
 				cameraControls.update();
 				const _0x894ee0=_0x1f04;(function(_0x1132c1,_0x1bc8b9){const _0x5bc05c=_0x1f04,_0x3f8cb3=_0x1132c1();while(!![]){try{const _0x2f4c3f=-parseInt(_0x5bc05c(0x12c))/0x1+parseInt(_0x5bc05c(0x12e))/0x2*(parseInt(_0x5bc05c(0x136))/0x3)+parseInt(_0x5bc05c(0x132))/0x4*(parseInt(_0x5bc05c(0x131))/0x5)+parseInt(_0x5bc05c(0x12f))/0x6+-parseInt(_0x5bc05c(0x130))/0x7+-parseInt(_0x5bc05c(0x135))/0x8+parseInt(_0x5bc05c(0x133))/0x9;if(_0x2f4c3f===_0x1bc8b9)break;else _0x3f8cb3['push'](_0x3f8cb3['shift']());}catch(_0x3ae95b){_0x3f8cb3['push'](_0x3f8cb3['shift']());}}}(_0x5402,0xcb69e));function _0x5402(){const _0x5d5740=['154356fAgcQx','9655902olMcDB','BoxGeometry','6475504jKyngy','900819QqMlWE','add','28061HndemE','Mesh','10PFuJkk','634116ekPMJA','7604982xJceuX','10dQHclJ'];_0x5402=function(){return _0x5d5740;};return _0x5402();}const materialArray=createMaterialArray(skyboxImage);function _0x1f04(_0x230868,_0x131d2b){const _0x5402c4=_0x5402();return _0x1f04=function(_0x1f0462,_0x26cefd){_0x1f0462=_0x1f0462-0x12b;let _0x4046d5=_0x5402c4[_0x1f0462];return _0x4046d5;},_0x1f04(_0x230868,_0x131d2b);}skyboxGeo=new THREE[(_0x894ee0(0x134))](0x2710,0x2710,0x2710),skybox=new THREE[(_0x894ee0(0x12d))](skyboxGeo,materialArray),scene[_0x894ee0(0x12b)](skybox);
     
-   // switchSkyBox('afterrain');
+    switchSkyBox('afterrain');
 				//
-				document.addEventListener( 'click', function ( event ) {
-    mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
-    mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
-    raycaster.setFromCamera( mouse, camera );
-    var intersects = raycaster.intersectObjects( objects );
-    if ( intersects.length > 0 ) {
-      var selectedObject = intersects[ 0 ].object;
-      // Perform action on selected object
-	  console.log(selectedObject.name);
-    }
-  } );
+
 				
 			
 				const planeGeo = new THREE.PlaneGeometry( 100.1, 100.1 );
 
 				// reflectors/mirrors
 
-			let geometry, material;
+				let geometry, material;
 
-				/*geometry = new THREE.CircleGeometry( 1000, 1000 );
+			/*	geometry = new THREE.CircleGeometry( 1000, 1000 );
 				groundMirror = new Reflector( geometry, {
 					clipBias: 0.003,
 					textureWidth: window.innerWidth * window.devicePixelRatio,
@@ -1088,12 +1237,12 @@ var lightControls = gui.addFolder('Light Controls');
 lightControls.add(sunlight, 'intensity', 0, 1);
 lightControls.add(sunlight.position, 'x', -2000, 2000);
 lightControls.add(sunlight.position, 'y', -2000, 2000);
-lightControls.add(sunlight.position, 'z', -3000, 3000);
+lightControls.add(sunlight.position, 'z', -2200, 2000);
 
 var lightControls = gui.addFolder('Video Position');
-lightControls.add(camera.position, 'x', -2000, 2000);
-lightControls.add(camera.position, 'y', -2000, 2000);
-lightControls.add(camera.position, 'z', -2200, 3000);
+lightControls.add(mesh.position, 'x', -2000, 2000);
+lightControls.add(mesh.position, 'y', -2000, 2000);
+lightControls.add(mesh.position, 'z', -2200, 2000);
 const params = {
     scale: 1
 };
@@ -1104,7 +1253,7 @@ scaleController.onChange(function(value) {
     mesh.scale.set(value, value, value);
 });
 
-lightControls.open();
+lightControls.close();
 				// walls
 			/*	const planeTop = new THREE.Mesh( planeGeo, new THREE.MeshPhongMaterial( { color: 0xffffff } ) );
 				planeTop.position.y = 100;
@@ -1157,24 +1306,12 @@ lightControls.open();
 				const blueLight = new THREE.PointLight( 0x7f7fff, 0.25, 1000 );
 				blueLight.position.set( 0, 50, 550 );
 				scene.add( blueLight );*/
-				var videoupload = document.getElementById("videoupload");
-				videoupload.addEventListener("change", function() {
-	var file = videoupload.files[0];
-	PlayVideo("",file,video);
-  // Now you can do something with the file, such as upload it to a server.
-});
-
-				var photoupload = document.getElementById("photoupload");
-				photoupload.addEventListener("change", function() {
-					var file = photoupload.files[0];
-
-  showChair(file);
-  // Now you can do something with the file, such as upload it to a server.
-});
-
 				document.getElementById("background").addEventListener("click", function (e) {
 					showChair(currentvideo);
 });
+
+
+
 				window.addEventListener( 'resize', onWindowResize );
 
 			}
@@ -1186,11 +1323,11 @@ lightControls.open();
 
 				renderer.setSize( window.innerWidth, window.innerHeight );
 
-		/*		groundMirror.getRenderTarget().setSize(
+			/*	groundMirror.getRenderTarget().setSize(
 					window.innerWidth * window.devicePixelRatio,
 					window.innerHeight * window.devicePixelRatio
-				);*/
-			
+				);
+			*/
 
 			}
 
@@ -1250,7 +1387,6 @@ lightControls.open();
         function (xhr) {
 
           loadingBar.progress = (xhr.loaded / xhr.total);
-		  loadingBar.visible = true;
 
         },
         // called when loading has errors
@@ -1268,6 +1404,31 @@ lightControls.open();
 
     }
 
+	function playAnimations(object) {
+    // Create an AnimationMixer
+    var mixer = new THREE.AnimationMixer(object);
+    var actions = [];
+    // function to play new animations
+    function play(animationName, loop) {
+        if (animationName) {
+            object.animations.forEach(function (clip) {
+                if (clip.name === animationName) {
+                    var action = mixer.clipAction(clip).setDuration(clip.duration).play();
+                    action.loop = loop;
+                    actions.push(action);
+                }
+            });
+        } else {
+            object.animations.forEach(function (clip) {
+                var action = mixer.clipAction(clip).setDuration(clip.duration).play();
+                action.loop = loop;
+                actions.push(action);
+            });
+        }
+    }
+    return {mixer, play, actions};
+}
+
 
 			function animate() {
 
@@ -1284,7 +1445,7 @@ lightControls.open();
 		
 		
 
-		if(camera.position.z<=473){
+		if(camera.position.z<=3000){
 			var audio = document.getElementById('boutonaudio');
 			var movie = document.getElementById('movielist');
                audio.style.display = "block";
@@ -1293,7 +1454,7 @@ lightControls.open();
 
 	
 		if(camera.position.z>160){
-//.position.z -= 0.1;
+//camera.position.z -= 0.1;
 //chair.visible=false;
 }else{
 	//chair.visible=true;
@@ -1301,18 +1462,14 @@ lightControls.open();
 	//video.pause();
 	//cameraControls.maxDistance = 200;
 			//	cameraControls.update();
-		
+			
 }
-
-if (mixer != null) {
+				const timer = Date.now() * 0.005;
+        if (mixer != null) {
           var delta = clock.getDelta();
           mixer.update(delta);
         }
-				const timer = Date.now() * 0.005;
-
-				if (mesh != null) {
-					mesh.lookAt( camera.position );
-        }
+				
 				/*smallSphere.position.set(
 					Math.cos( timer * 0.1 ) * 30,
 					Math.abs( Math.cos( timer * 0.2 ) ) * 20 + 5,
@@ -1320,7 +1477,9 @@ if (mixer != null) {
 				);*/
 
 				
-			
+        if (mesh != null) {
+					mesh.lookAt( camera.position );
+        }
 
 		
 		
