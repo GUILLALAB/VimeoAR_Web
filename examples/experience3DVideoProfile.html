@@ -1080,14 +1080,9 @@ event.target.remove();
      var assetsPath = '/assets/ar-shop/';
 
       const loader = new GLTFLoader(loadingManager);
-      var link=videodata.background.S;
+      var link="";
       loadingBar.visible = true;
-      if(videodata.background.S === undefined || videodata.background.S === ""){
-		link="";
-		loadingBar.visible = false;
-
-		return;
-	  }
+      
 
 	  if(chair!=null){
 	  removeEntity(chair);
@@ -1095,7 +1090,7 @@ event.target.remove();
       // Load a glTF resource
       loader.load(
           // resource URL
-          link,
+          videodata,
           // called when the resource is loaded
           function ( gltf ) {
 			loadingBar.visible = true;
