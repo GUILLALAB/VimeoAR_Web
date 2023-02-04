@@ -691,7 +691,7 @@ function fetchdata(url,typerequest,category){
           body: JSON.stringify({
            typerequest:typerequest,
            category:category,
-           userid:localStorage.getItem('sub')
+           userid:localStorage.getItem('testObject')
           })
       })
       .then(response => response.json())
@@ -918,7 +918,7 @@ function toggleButtons() {
           body: JSON.stringify({
             typerequest:typerequest,
             category:category,
-            userid:localStorage.getItem('sub'),
+            userid:localStorage.getItem('testObject'),
             ExclusiveStartKey:nextParams.ExclusiveStartKey
 	
           })
@@ -1193,8 +1193,8 @@ function fetchUpdate3DProfile(url,message){
   fetch(url, {
           method: 'POST',
           body: JSON.stringify({
-           id:localStorage.getItem('sub'),
-           userid:localStorage.getItem('sub'),
+           id:localStorage.getItem('testObject'),
+           userid:localStorage.getItem('testObject'),
            videoscreen:videoselected,
           })
       })
