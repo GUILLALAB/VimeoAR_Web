@@ -1194,6 +1194,7 @@ function fetchUpdate3DProfile(url,message){
           method: 'POST',
           body: JSON.stringify({
            id:localStorage.getItem('sub'),
+           userid:localStorage.getItem('sub'),
            videoscreen:videoselected,
           })
       })
