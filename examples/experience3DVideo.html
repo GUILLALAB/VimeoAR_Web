@@ -286,7 +286,10 @@ display: inline-block;
 		  <source id="source" src="" type="video/mp4">
 		</video>
 		
-	
+		<video id="adsvideo" autoplay="true"
+		muted="muted" loop crossOrigin="anonymous" webkit-playsinline style="display:none">
+		  <source id="source" src="" type="video/mp4">
+		</video>
 	
 
 			<div hidden id="movielist" class="container py5">
@@ -367,7 +370,7 @@ import * as THREE from './jsm/three.module.js';
 			var skyboxGeo, skybox, myReq;
 			let skyboxImage = 'purplenebula';
 			var chair=null;
-			let cameraControls, video, texture;
+			let cameraControls, video, adsvideo, adstexture, texture;
 			var clock = new THREE.Clock();
 var increment, delta,mesh,loadingBar;
 			let sphereGroup, smallSphere;
@@ -495,6 +498,7 @@ document.addEventListener("buttonclick", function (e) {
 
     await new Promise(resolve => setTimeout(resolve,2000));
     PlayVideo(url,file,video);
+    PlayVideo(url,file,adsvideo);
 
     console.log('3 seconds have passed');
 }
@@ -1162,14 +1166,14 @@ clips.forEach(function (clip) {
 
 
   function setVideoToMesh(mesh){
-	video = document.getElementById( 'video' );
+	adsvideo = document.getElementById( 'adsvideo' );
        var source = document.getElementById('source');
-	 texture = new THREE.VideoTexture(video);
-        texture.minFilter = THREE.LinearFilter; 
-        texture.magFilter = THREE.LinearFilter; 
-		texture.format = THREE.RGBFormat;
+       adstexture = new THREE.VideoTexture(adsvideo);
+   adstexture.minFilter = THREE.LinearFilter; 
+   adstexture.magFilter = THREE.LinearFilter; 
+   adstexture.format = THREE.RGBFormat;
         // set node's material map to video texture
-        mesh.material.map = texture;
+        mesh.material.map = adstexture;
         mesh.material.color = new THREE.Color();
         mesh.material.metalness = 0;
   
@@ -1459,7 +1463,14 @@ lightControls.close();
               texture.needsUpdate = true;
           }
         }
-		
+        if(adsvideo!=null)
+        {
+          if ( adsvideo.readyState === adsvideo.HAVE_ENOUGH_DATA ) 
+          {
+            if ( texture ) 
+              adstexture.needsUpdate = true;
+          }
+        }
 		
 
 		if(camera.position.z<=3000){
