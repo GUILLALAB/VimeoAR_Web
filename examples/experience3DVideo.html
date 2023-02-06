@@ -1115,6 +1115,9 @@ if (node.isMesh && node.name == 'screenleft' ||  node.name == 'screenright') {
 }
 });
 
+if(node.isMesh && node.name =='ads1'){
+  setVideoToMesh(node);
+}
 
 if (gltf.animations != null) {
 	 mixer = new THREE.AnimationMixer(chair);
@@ -1156,7 +1159,22 @@ clips.forEach(function (clip) {
   }  
 
 
-
+  function setVideoToMesh(mesh){
+	video = document.getElementById( 'video' );
+       var source = document.getElementById('source');
+	 texture = new THREE.VideoTexture(video);
+        texture.minFilter = THREE.LinearFilter; 
+        texture.magFilter = THREE.LinearFilter; 
+		texture.format = THREE.RGBFormat;
+        // set node's material map to video texture
+        mesh.material.map = texture;
+        mesh.material.color = new THREE.Color();
+        mesh.material.metalness = 0;
+  
+          // Cria o material usando a urlVideoTexture
+    
+       
+   }
 
 			function init() {
 
@@ -1185,7 +1203,7 @@ clips.forEach(function (clip) {
 
 				cameraControls = new OrbitControls( camera, renderer.domElement );
 				cameraControls.target.set( 0, 70, 0 );
-				cameraControls.maxDistance = 2500;
+				cameraControls.maxDistance = 7000;
 				cameraControls.minDistance = -2500;
 				cameraControls.update();
 				const _0x894ee0=_0x1f04;(function(_0x1132c1,_0x1bc8b9){const _0x5bc05c=_0x1f04,_0x3f8cb3=_0x1132c1();while(!![]){try{const _0x2f4c3f=-parseInt(_0x5bc05c(0x12c))/0x1+parseInt(_0x5bc05c(0x12e))/0x2*(parseInt(_0x5bc05c(0x136))/0x3)+parseInt(_0x5bc05c(0x132))/0x4*(parseInt(_0x5bc05c(0x131))/0x5)+parseInt(_0x5bc05c(0x12f))/0x6+-parseInt(_0x5bc05c(0x130))/0x7+-parseInt(_0x5bc05c(0x135))/0x8+parseInt(_0x5bc05c(0x133))/0x9;if(_0x2f4c3f===_0x1bc8b9)break;else _0x3f8cb3['push'](_0x3f8cb3['shift']());}catch(_0x3ae95b){_0x3f8cb3['push'](_0x3f8cb3['shift']());}}}(_0x5402,0xcb69e));function _0x5402(){const _0x5d5740=['154356fAgcQx','9655902olMcDB','BoxGeometry','6475504jKyngy','900819QqMlWE','add','28061HndemE','Mesh','10PFuJkk','634116ekPMJA','7604982xJceuX','10dQHclJ'];_0x5402=function(){return _0x5d5740;};return _0x5402();}const materialArray=createMaterialArray(skyboxImage);function _0x1f04(_0x230868,_0x131d2b){const _0x5402c4=_0x5402();return _0x1f04=function(_0x1f0462,_0x26cefd){_0x1f0462=_0x1f0462-0x12b;let _0x4046d5=_0x5402c4[_0x1f0462];return _0x4046d5;},_0x1f04(_0x230868,_0x131d2b);}skyboxGeo=new THREE[(_0x894ee0(0x134))](0x2710,0x2710,0x2710),skybox=new THREE[(_0x894ee0(0x12d))](skyboxGeo,materialArray),scene[_0x894ee0(0x12b)](skybox);
