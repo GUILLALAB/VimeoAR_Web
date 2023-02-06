@@ -1107,6 +1107,11 @@ if (node.isMesh && node.name == 'ground') {
 
 }
 
+
+if(node.isMesh && node.name =='ads1'){
+  setVideoToMesh(node);
+}
+
 if (node.isMesh && node.name == 'screenleft' ||  node.name == 'screenright') {
   // create video texture from video element
 
@@ -1115,9 +1120,6 @@ if (node.isMesh && node.name == 'screenleft' ||  node.name == 'screenright') {
 }
 });
 
-if(node.name =='ads1'){
-  setVideoToMesh(node);
-}
 
 if (gltf.animations != null) {
 	 mixer = new THREE.AnimationMixer(chair);
