@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <link type="text/css" rel="stylesheet" href="/css/menubar_left.css">
+<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
+<link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+  <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" rel="stylesheet">-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" rel="stylesheet">
+<script src="/js/jquery.min.js"></script>	
+<script src="/js/aws-sdk-2.487.0.min.js"></script>
+<script src="/js/aws-cognito-sdk.min.js"></script>
+<script src="/js/amazon-cognito-identity.min.js"></script>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.410.0.min.js"></script>
+<script src="/js/awsuploadvideotest.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<style>
+
+.row {
+  background-color: white;
+}
+
+.sidebar i {
+color: rgb(0, 0, 0);
+height: 60px;
+min-width: 50px;
+font-size: 28px;
+text-align: center;
+line-height: 60px;
+}
+
+  ul li{
+    padding-left: 0;
+    margin: 0;
+    list-style-position: inside;
+    list-style-type: none;
+  }
+  .center{
+    margin: 0 auto;
+
+  }
+  ul {
+    padding-right: 10%;
+    margin: 0;
+    list-style-position: inside;
+    list-style-type: none;
+  }
+  
+  .profile-head {
+    transform: translateY(5rem)
+  }
+  
+  .cover {
+    background-image: url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);
+    background-size: cover;
+    background-repeat: no-repeat
+  }
+  
+  body {
+    background: #f1f1f1;
+    background: linear-gradient(to right, rgb(40, 40, 40), #131313);
+    min-height: 100vh;
+    overflow-x:hidden;
+  }
+
+  */
+:root {
+  --lightgray: #efefef;
+  --blue: steelblue;
+  --white: #fff;
+  --black: rgba(0, 0, 0, 0.8);
+  --bounceEasing: cubic-bezier(0.51, 0.92, 0.24, 1.15);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: inherit;
+}
+
+.buttonupload{
+  width: 100%;
+  cursor: pointer;
+  padding: 5px;
+  background: yellowgreen;
+  border-radius: 4px;
+  outline: none;
+  color: white;
+  font-size: inherit;
+}
+
+.buttonpagination{
+  cursor: pointer;
+  background: rgb(197, 197, 197);
+  border: none;
+  outline: none;
+  color: rgb(120, 149, 255);
+  font-size: inherit;
+}
+
+
+.btn-group {
+  text-align: center;
+}
+
+.open-modal {
+  font-weight: bold;
+  background: var(--blue);
+  color: var(--white);
+  padding: 0.75rem 1.75rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+
+.progress-bar {
+        border-radius: 5px;
+        width: 0;
+        height: 20px;
+        background-color: rgb(108, 156, 35);
+        color: white;
+        text-align: center;
+    }
+/* MODAL
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: var(--black);
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 9;
+  transition: all 0.35s ease-in;
+}
+
+.modal.is-visible {
+  visibility: visible;
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.5); /* Make the background 50% transparent (darker) */
+
+}
+
+.modal-dialog {
+  position: relative;
+  max-width: 800px;
+  max-height: 80vh;
+  border-radius: 5px;
+  background: var(--white);
+  overflow: auto;
+  cursor: default;
+}
+
+.modal-dialog > * {
+  padding: 1rem;
+}
+
+.modal-header,
+.modal-footer {
+  background: var(--lightgray);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-header .close-modal {
+  font-size: 1.5rem;
+}
+
+.modal p + p {
+  margin-top: 1rem;
+}
+
+
+/* ANIMATIONS
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+[data-animation] .modal-dialog {
+  opacity: 0;
+  transition: all 0.5s var(--bounceEasing);
+}
+
+[data-animation].is-visible .modal-dialog {
+  opacity: 1;
+  transition-delay: 0.2s;
+}
+
+[data-animation="slideInOutDown"] .modal-dialog {
+  transform: translateY(100%);
+}
+
+[data-animation="slideInOutTop"] .modal-dialog {
+  transform: translateY(-100%);
+}
+
+[data-animation="slideInOutLeft"] .modal-dialog {
+  transform: translateX(-100%);
+}
+
+[data-animation="slideInOutRight"] .modal-dialog {
+  transform: translateX(100%);
+}
+
+[data-animation="zoomInOut"] .modal-dialog {
+  transform: scale(0.2);
+}
+
+[data-animation="rotateInOutDown"] .modal-dialog {
+  transform-origin: top left;
+  transform: rotate(-1turn);
+}
+
+[data-animation="mixInAnimations"].is-visible .modal-dialog {
+  animation: mixInAnimations 2s 0.2s linear forwards;
+}
+
+[data-animation="slideInOutDown"].is-visible .modal-dialog,
+[data-animation="slideInOutTop"].is-visible .modal-dialog,
+[data-animation="slideInOutLeft"].is-visible .modal-dialog,
+[data-animation="slideInOutRight"].is-visible .modal-dialog,
+[data-animation="zoomInOut"].is-visible .modal-dialog,
+[data-animation="rotateInOutDown"].is-visible .modal-dialog {
+  transform: none;
+}
+
+@keyframes mixInAnimations {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  10% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: rotate(20deg);
+  }
+
+  30% {
+    transform: rotate(-20deg);
+  }
+
+  40% {
+    transform: rotate(15deg);
+  }
+
+  50% {
+    transform: rotate(-15deg);
+  }
+
+  60% {
+    transform: rotate(10deg);
+  }
+
+  70% {
+    transform: rotate(-10deg);
+  }
+
+  80% {
+    transform: rotate(5deg);
+  }
+
+  90% {
+    transform: rotate(-5deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+  
+  </style>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins" , sans-serif;
+}
+
+.icon-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 30px;
+}
+.icontrash-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+.fa-upload {
+  font-size: 24px;
+  color: rgb(255, 255, 255);
+}
+
+.profile-badge{
+    padding:5px;
+    position: relative;
+}
+
+.user-detail{
+    background-color: #fff;
+    position: relative;
+    padding:115px 0px 10px 0px;
+    color:#8B8B89;
+}
+.user-detail h3{
+    margin: 0px;
+    margin:0px 0px 5px 0px;
+    color: #000;
+}
+.user-detail p{
+    font-size:14px;
+}
+.user-detail .btn{
+    margin-bottom:10px;
+    background-color: #fff;
+    border:1px solid #DEDEDE;
+    border-radius: 0px;
+    color:black;
+}
+.user-detail .btn i{
+    color:#D35B4D;
+    padding-right:18px;
+}
+.profile-pic{
+ /*   position: absolute;
+    height:120px;
+    width:120px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0px;
+    z-index: 1001;*/
+    padding: 10px;
+}
+.profile-pic img{
+   
+    border-radius: 50%;
+    box-shadow: 0px 0px 5px 0px #c1c1c1;
+    cursor: pointer;
+    width: 100px;
+    height: 100px;
+}   
+input {
+    padding: 10px 15px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-size: 16px;
+    border: none;
+    border-bottom: 2px solid rgb(194, 196, 246);
+}
+
+input:focus {
+    border-bottom: 2px solid rgb(118, 104, 157);
+}
+.hide {
+  display: none;
+}
+.buttonload {
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    transition: 0.3s;
+}
+
+.uploadcontainer {
+  width: auto;
+  display: inline-block;
+
+}
+
+.uploadparent {
+  margin: 0 auto;
+  text-align: center;
+
+}
+
+/* Hide the default select element */
+.custom-select select {
+  display: none;
+}
+
+/* Style the custom select element */
+.custom-select {
+  position: relative;
+  width: 200px;
+}
+
+.select-selected {
+  /* Style for the selected option */
+  background-color: #f1f1f1;
+  padding: 12px 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.select-items {
+  /* Style for the options list */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 99;
+  background-color: #f1f1f1;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.select-items .select-option {
+  /* Style for each option */
+  padding: 12px 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.select-items .select-option:hover {
+  /* Style for each option when hovered */
+  background-color: #ddd;
+}
+
+.btn:hover {
+background-color: rgb(234, 234, 234);
+}
+</style>
+
+
+</head>
+<body>
+  <script>
+function previewFile() {
+  var preview = document.getElementById('profile-image1');
+  var file    = document.getElementById('profile-image-upload').files[0];
+  var reader  = new FileReader();
+
+  reader.addEventListener("load", function () {
+    preview.src = reader.result;
+    addPhotoProfile(file);
+  console.log(reader.result);
+    //updateProfilePic(reader.result);
+  }, false);
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+  
+}
+                      $(function() {
+            $('#profile-image1').on('click', function() {
+                $('#profile-image-upload').click();
+            });
+        });
+
+  </script>
+
+  
+  <div id="uploadtop" class="icon-container">
+    <i class="fa fa-upload"></i>
+  </div>
+
+    
+  <div class="modal" id="modal1" data-animation="slideInOutLeft">
+    <div class="modal-dialog">
+      <header class="modal-header">
+        Upload Video
+
+        <button class="close-modal" aria-label="close modal" data-close>
+          ✕  
+        </button>
+      </header>
+      <section class="modal-content">
+        <form action="/url" method="GET">
+          <input id="videotitle" type="text" placeholder="Video Title">
+          <input id="videodescription" type="text" placeholder="Video Description">
+        </form>
+
+        <div class="custom-select">
+          <select id="mySelect">
+            <option value="option1">Educational</option>
+            <option value="option2">Comedy</option>
+            <option value="option2">Music</option>
+            <option value="option3">Other</option>
+          </select>
+          <div class="select-selected" id="selectedOption"></div>
+          <div class="select-items">
+            <div class="select-option" data-value="option1">Educational</div>
+            <div class="select-option" data-value="option1">Comedy</div>
+            <div class="select-option" data-value="option2">Music</div>
+            <div class="select-option" data-value="option3">Other</div>
+          </div>
+        </div>
+
+        <input id="videoupload" type="file" accept="video/*">
+      
+        <div class="uploadparent">
+          <div class="uploadcontainer">
+            <button class="buttonupload" id="addphoto" onclick="createSubAlbum(localStorage.getItem('sub'))">
+              Upload Video
+              </button>
+          </div>
+      </div>
+        <br>
+                <div class="hide" id="3dobject_input">
+        <input id="photoupload" placeholder="3D object" type="file" accept=".glb" max="26214400">
+     
+        <div class="uploadparent">
+          <div class="uploadcontainer">
+            <button id="addphoto" onclick="addPhoto('')">
+              Upload 3D scene
+              </button>
+          </div>
+      </div>
+      
+      </div>
+      <br>
+      </section>
+      <footer class="modal-footer">
+        <div class="progress-bar" id="progress-bar"></div>
+
+      </footer>
+    </div>
+  </div>
+  
+
+  <div class="modal" id="modallive" data-animation="slideInOutLeft">
+    <div class="modal-dialog">
+      <header class="modal-header">
+        Upload Video
+
+        <button class="close-modal" aria-label="close modal" data-close>
+          ✕  
+        </button>
+      </header>
+      <section class="modal-content">
+        <form action="/url" method="GET">
+          <input id="videotitle" type="text" placeholder="Live title">
+          <input id="videodescription" type="text" placeholder="Live Description">
+          <input id="price" type="text" placeholder="Price">
+        </form>
+
+        <div class="custom-select">
+          <select id="mySelect">
+            <option value="option1">Educational</option>
+            <option value="option2">Comedy</option>
+            <option value="option2">Music</option>
+            <option value="option3">Other</option>
+          </select>
+          <div class="select-selected" id="selectedOption"></div>
+          <div class="select-items">
+            <div class="select-option" data-value="option1">Educational</div>
+            <div class="select-option" data-value="option1">Comedy</div>
+            <div class="select-option" data-value="option2">Music</div>
+            <div class="select-option" data-value="option3">Other</div>
+          </div>
+        </div>
+
+        <input type="text" id="datepicker">
+
+        <div  id="3dobject_input">
+        <input id="objectuploader" placeholder="3D object" type="file" accept=".glb" max="26214400">
+     
+        <div class="uploadparent">
+          <div class="uploadcontainer">
+            <button id="addphoto" onclick="addPhoto('')">
+              Upload 3D scene
+              </button>
+          </div>
+      </div>
+      
+      </div>
+      <br>
+
+        <div class="uploadparent">
+          <div class="uploadcontainer">
+            <button class="buttonupload" id="addphoto" onclick="scheduleLive()">
+              Upload Video
+              </button>
+          </div>
+      </div>
+        <br>
+              
+      <br>
+      </section>
+      <footer class="modal-footer">
+        <div class="progress-bar" id="progress-bar"></div>
+
+      </footer>
+    </div>
+  </div>
+  
+
+  <div class="sidebar">
+    <div class="logo-details">
+      <i class='bx bxl-c-plus-plus icon'></i>
+        <div class="logo_name">Hub</div>
+        <i class='bx bx-menu' id="btn" ></i>
+    </div>
+    <ul id="navbutton" class="nav-list">
+      <li>
+          <i class='bx bx-search' ></i>
+         <input id="myInput" type="text" placeholder="Search...">
+         <span class="tooltip">Search</span>
+         <button  id="btnvideos" onclick="window.app.showRowVideos()"><i class="fas fa-arrow-circle-down"></i></button>
+
+      </li>
+
+      <li id="profile">
+        <a id="profilhref" href="https://livear.herokuapp.com/profile">
+          <i class='bx bx-cart-alt' ></i>
+          <span class="links_name">Profil</span>
+        </a>
+        <span class="tooltip">Profil</span>
+      </li>
+      <li id="profile3D">
+        <a id="profilhref" href="https://livear.herokuapp.com/3DProfile">
+          <i class='bx bx-cart-alt' ></i>
+          <span class="links_name">3D Profile</span>
+        </a>
+        <span class="tooltip">3D Profile</span>
+      </li>
+      <li>
+        <a href="https://livear.herokuapp.com/home">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">AR</span>
+        </a>
+         <span class="tooltip">AR</span>
+      </li>
+      <li>
+        <a href="https://livear.herokuapp.com/exp">
+           <i class='bx bx-user' ></i>
+           <span class="links_name">3D Video</span>
+         </a>
+         <span class="tooltip">3D Video</span>
+       </li>
+       <li >
+        <a href="https://livear.herokuapp.com/preview">
+           <i class='bx bx-user' ></i>
+           <span class="links_name">Preview 3D</span>
+         </a>
+         <span class="tooltip">Preview 3D</span>
+       </li>
+     <li class="hide" id="login">
+       <a  href="https://livear.herokuapp.com/login">
+         <i class='bx bx-chat' ></i>
+         <span class="links_name">Login</span>
+       </a>
+       <span class="tooltip">Login</span>
+     </li>
+    
+     <li class="hide" id="upload">
+       <a  href="upload.html">
+         <i class='bx bx-folder' ></i>
+         <span class="links_name">Upload</span>
+       </a>
+       <span class="tooltip">Upload</span>
+     </li>
+     <li  id="ads">
+      <a  href="">
+        <i class='bx bx-folder' ></i>
+        <span class="links_name">Ads Business</span>
+      </a>
+      <span class="tooltip">Ads Business</span>
+    </li>
+     <li id="logout">
+      <a id="logouthref" href="">
+        <i class='bx bx-pie-chart-alt-2' ></i>
+        <span id="logouttext" class="links_name">Logout</span>
+      </a>
+      <span  class="tooltip">Logout</span>
+    </li>
+     <!-- <li>
+       <a href="ChatGPT.html">
+         <i class='bx bx-heart' ></i>
+         <span class="links_name">ChatGPT</span>
+       </a>
+       <span class="tooltip">ChatGPT</span>
+     </li>
+     <li>
+       <a href="#">
+         <i class='bx bx-cog' ></i>
+         <span class="links_name">Setting</span>
+       </a>
+       <span class="tooltip">Setting</span>
+     </li>
+     <li class="profile">
+         <div class="profile-details">
+           <img src="profile.jpg" alt="profileImg">
+           <div class="name_job">
+             <div class="name">Prem Shahi</div>
+             <div class="job">Web designer</div>
+           </div>
+         </div>
+     </li>-->
+    </ul>
+  </div>
+
+ 
+
+<div class="row py-5 px-4"> 
+  <div class="col-md-5 mx-auto"> <!-- Profile widget --> 
+
+    <div class="bg-white shadow rounded overflow-hidden"> 
+      <div class="px-4 pt-0 pb-4 cover"> 
+     
+
+        <div class="media align-items-end profile-head"> 
+             <div class="col-md-4 col-md-offset-4 col-sm-6 col-xs-12 profile-badge">
+          <!-- <img src="https://dummyimage.com/600x400/000/"> -->
+          
+          <div class="profile-pic">
+           
+                  <img alt="User Pic" src="" id="profile-image1" height="200">
+                  <input hidden id="profile-image-upload" class="hidden" type="file" onchange="previewFile()" >
+                  <div style="color:#999;" >  </div>
+                  
+          </div>
+        </div>
+          <div class="media-body mb-5 text-white">   
+            <input id="usernameprofil" type="text" placeholder="username" style="width: 70%; margin-left: 3px; margin-top: 2px">
+             <h4 id="username"class="mb-0">Username display</h5>      
+ <p id="mail" class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>email</p> </div> 
+        </div> 
+      </div> 
+      <div class="bg-light p-4 d-flex justify-content-end text-center"> 
+        <ul class="list-inline mb-0"> 
+          <li class="list-inline-item"> 
+            <h5 class="font-weight-bold mb-0 d-block">215</h5><small class="text-muted"> <i class="fas fa-image mr-1"></i>Photos</small> </li>
+             <li class="list-inline-item"> <h5 class="font-weight-bold mb-0 d-block">745</h5><small class="text-muted"> <i class="fas fa-user mr-1"></i>Followers</small> </li>
+              <li class="list-inline-item"> <h5 class="font-weight-bold mb-0 d-block">340</h5><small class="text-muted"> <i class="fas fa-user mr-1"></i>Following</small> </li> 
+            </ul> 
+          </div> 
+          <div class="px-4 py-3"> <h5 class="mb-0">About</h5>           <div id="buttonedit" class="profile mr-3"><a href="#" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a></div> 
+
+       <!--       <div class="p-4 rounded shadow-sm bg-light"> <p class="font-italic mb-0">Web Developer</p> <p class="font-italic mb-0">Lives in New York</p> <p class="font-italic mb-0">Photographer</p> </div>  -->
+            <textarea id="description" rows="4" wrap="soft" style="width: 98%; margin-left: 3px; margin-top: 6px" placeholder="description"></textarea>
+          </div> 
+          <div class="py-4 px-4"> 
+            <div id="videozone" class="d-flex align-items-center justify-content-between mb-3"> <h5 class="mb-0">Recent videos</h5><a href="#" data-open="modal1" class="btn btn-link text-muted">Upload Video</a><a href="#" data-open="modallive" class="btn btn-link text-muted">Live</a>  </div> 
+           <div class="row"> 
+            <!--    <button class="buttonpagination" id="next-button">Prev</button>
+            <br>
+            <button class="buttonpagination" id="prev-button" disabled>Next</button> -->
+            <ul id="home_product"></ul>
+            <div style="width: 300px; height: 70px; margin: 0 auto;">
+              <button class="buttonload" id="next-button">Load More Videos</button>
+            <!--   <button class="buttonload" id="prev-button" disabled>Load More Videos</button> -->
+          </div>
+            <div id="data-container"></div>
+    </div> 
+    </div>
+     </div>
+     </div>
+</div>
+
+<script src="/js/loginAWS.js"></script>
+
+<script type="module">
+  var userPoolId = 'eu-west-1_3x9L2hsjh';
+var region = 'eu-west-1';
+var identityPoolId = 'eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b';
+//=============== AWS IDs ===============
+ var idToken;
+
+
+AWS.config.region = region;
+
+
+
+function tester(){
+  console.log("simole");
+}
+
+
+function fetchdata(url,item){
+  fetch(url, {
+          method: 'POST',
+          body: JSON.stringify({
+           item:item
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log("sucess");
+        
+    
+      })
+      .catch(error => {
+          console.error(error);
+      });
+
+
+}    
+        
+
+const DeleteItem = async (guid) => {
+fetchdata("https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_DeleteDynamoVideo",guid)
+/*const dynamoDb = new AWS.DynamoDB.DocumentClient();
+const params = {
+  TableName: 'VideoAWS',
+  Key: {
+    'guid': guid
+  }
+};
+
+dynamoDb.delete(params, function(err, data) {
+  if (err) {
+    console.error("Error deleting item. Error JSON:", JSON.stringify(err, null, 2));
+  } else {
+    //console.log("Successfully deleted item:", JSON.stringify(data, null, 2));
+  }
+});*/
+}
+  initAWS("");
+
+  const documentClient = new AWS.DynamoDB.DocumentClient();
+
+const keyAttributeName = 'userid';
+const tableName = 'VideoAWS';
+let exclusiveStartKey = null;
+let prevExclusiveStartKey = null;
+
+
+
+let nextParams = {};
+
+function queryDynamoDB(limit,type, search) {
+  document.getElementById("home_product").innerHTML = "";
+  document.getElementById("next-button").style.display = "block";
+
+  const documentClient = new AWS.DynamoDB.DocumentClient();
+
+  const tableName = 'VideoAWS';
+let exclusiveStartKey = null;
+let prevExclusiveStartKey = null;
+
+
+
+let nextParams = {};
+
+  var params=null;
+  let typerequest=type;
+  fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
+          method: 'POST',
+          body: JSON.stringify({
+           typerequest:typerequest,
+           userid:localStorage.getItem('sub')
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+            displayData(data.Items);
+            
+            nextParams = {
+  Limit: 5,
+  ExclusiveStartKey: data.LastEvaluatedKey
+};
+
+           
+            if (!nextParams.ExclusiveStartKey) {
+                document.getElementById("next-button").style.display = "none";
+            }
+        
+      })
+      .catch(error => {
+          console.error(error);
+      });
+
+document.getElementById("next-button").addEventListener("click", () => {
+  fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/GetData_Video', {
+          method: 'POST',
+          body: JSON.stringify({
+            typerequest:typerequest,
+           userid:localStorage.getItem('sub'),
+            ExclusiveStartKey:nextParams.ExclusiveStartKey
+	
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+
+        console.log(data);
+            displayData(data.Items);
+
+            nextParams.ExclusiveStartKey = data.LastEvaluatedKey;
+            if (!nextParams.ExclusiveStartKey) {
+                document.getElementById("next-button").style.display = "none";
+            }
+      })
+      .catch(error => {
+          console.error(error);
+      });
+
+});
+}
+
+
+function retrieveData(isPrev) {
+  var params=null;
+
+     params = {
+    TableName: tableName,
+    IndexName: 'userid-index',
+    KeyConditionExpression: 'userid = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': localStorage.getItem("sub")
+  },
+
+  Limit: 5,
+  ExclusiveStartKey: (isPrev) ? prevExclusiveStartKey : exclusiveStartKey
+};
+  
+  
+
+  documentClient.query(params, function(err, data) {
+    if (isPrev) {
+                    prevExclusiveStartKey = exclusiveStartKey;
+                    exclusiveStartKey = data.LastEvaluatedKey;
+                } else {
+                    prevExclusiveStartKey = data.LastEvaluatedKey;
+                    exclusiveStartKey = null;
+                }
+                displayData(data);
+                toggleButtons();
+    });
+}
+
+function toggleButtons() {
+        var prevButton = document.getElementById("prev-button");
+        var nextButton = document.getElementById("next-button");
+        prevButton.disabled = (prevExclusiveStartKey === null);
+        nextButton.disabled = (exclusiveStartKey === null);
+    }
+
+    function displayData(data) {
+        var html = "";
+
+
+
+        for (var i = 0; i < data.length; i++) {
+        //    html += "<p>" + JSON.stringify(items[i]) + "</p>";
+        loadProducts(data[i]);
+        }
+      //  document.getElementById("data-container").innerHTML = html;
+    }
+
+  /*  document.getElementById("prev-button").addEventListener("click", function(){
+        retrieveData(true);
+    });
+    document.getElementById("next-button").addEventListener("click", function(){
+        retrieveData(false);
+    });*/
+
+
+
+  /*const requestVideo = async () => {
+  const documentClient = new AWS.DynamoDB.DocumentClient();
+
+  const tableName = 'VideoAWS';
+const keyAttributeName = 'userid';
+let lastEvaluatedKey = null;
+let done = false;
+
+
+while (!done) {
+
+  const params = {
+    TableName: tableName,
+    IndexName: 'userid-index',
+    KeyConditionExpression: 'userid = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': localStorage.getItem("sub")
+  }
+  };
+
+  // If this is not the first page, add the LastEvaluatedKey value to the query arguments
+  if (lastEvaluatedKey) {
+    params.ExclusiveStartKey = lastEvaluatedKey;
+  }
+
+  // Make the query
+  
+  const response = await documentClient.query(params).promise();
+
+  // Get the items from the response
+  const items = response.Items;
+  document.getElementById("home_product").innerHTML = "";
+
+  // Process the items
+  for (const item of items) {
+    // Do something with the item
+    loadProducts(item);   
+
+    console.log(item);
+  }
+
+  // Update the pagination variables
+  lastEvaluatedKey = response.LastEvaluatedKey;
+  done = lastEvaluatedKey === undefined;
+}
+}*/
+
+
+
+const requestProfile = async () => {
+
+  fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_UserProfile', {
+          method: 'POST',
+          body: JSON.stringify({
+           userid:localStorage.getItem('sub')
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        //    displayData(data.Items);
+        const items = data.Items;
+
+// Process the items
+for (const item of items) {
+  // Do something with the item
+ document.getElementById("mail").textContent=item.email.S;
+// document.getElementById("username").value=item.email;
+document.getElementById("description").textContent=item.introduction.S;
+
+document.getElementById("usernameprofil").value=item.username.S;
+document.getElementById('profile-image1').src=item.profilepic.S;
+  //console.log(item);
+}
+        
+      })
+      .catch(error => {
+          console.error(error);
+      });
+
+
+
+
+ /* const documentClient = new AWS.DynamoDB.DocumentClient();
+
+  const tableName = 'Users';
+const keyAttributeName = 'id';
+let lastEvaluatedKey = null;
+let done = false;
+
+
+while (!done) {
+
+  const params = {
+    TableName: tableName,
+    IndexName: 'id-index',
+    KeyConditionExpression: 'id = :indexKeyValue',
+  ExpressionAttributeValues: {
+    ':indexKeyValue': localStorage.getItem("sub")
+  }
+  };
+
+  // If this is not the first page, add the LastEvaluatedKey value to the query arguments
+  if (lastEvaluatedKey) {
+    params.ExclusiveStartKey = lastEvaluatedKey;
+  }
+
+  // Make the query
+  
+  const response = await documentClient.query(params).promise();
+
+  // Get the items from the response
+  const items = response.Items;
+
+  // Process the items
+  for (const item of items) {
+    // Do something with the item
+   document.getElementById("mail").textContent=item.email;
+  // document.getElementById("username").value=item.email;
+  document.getElementById("description").textContent=item.introduction;
+  
+  document.getElementById("usernameprofil").value=item.username;
+  document.getElementById('profile-image1').src=item.profilepic;
+    //console.log(item);
+  }
+
+  // Update the pagination variables
+  lastEvaluatedKey = response.LastEvaluatedKey;
+  done = lastEvaluatedKey === undefined;
+}*/
+}
+
+function initAWS(channelName){
+
+var userPoolId = 'eu-west-1_3x9L2hsjh';
+var region = 'eu-west-1';
+var identityPoolId = 'eu-west-1:a40474e9-d90b-494d-836d-7e55d8f9da3b';
+//=============== AWS IDs ===============
+ var idToken;
+
+
+AWS.config.region = region;
+
+
+
+getCognitoIdCredentials().get(function(err) {
+if (err) console.log(err.stack);
+
+// credentials not loaded
+else {
+//console.log("Access key:", AWS.config.credentials.accessKeyId);
+requestProfile();
+document.getElementById("home_product").innerHTML = "";
+queryDynamoDB(5,"profile","");
+//retrieveData(false);
+//requestVideo();
+}
+});
+
+
+}
+
+
+
+var SI_SYMBOL = ["", "k", "M", "G", "T", "P", "E"];
+
+function abbreviateNumber(number){
+
+// what tier? (determines SI symbol)
+var tier = Math.log10(Math.abs(number)) / 3 | 0;
+
+// if zero, we don't need a suffix
+if(tier == 0) return number;
+
+// get suffix and determine scale
+var suffix = SI_SYMBOL[tier];
+var scale = Math.pow(10, tier * 3);
+
+// scale the number
+var scaled = number / scale;
+
+// format number and add suffix
+return scaled.toFixed(1) + suffix;
+}
+
+
+
+
+
+function loadProducts(data){
+console.log(data.guid.S);
+  var li = document.createElement('li');
+var file = "https://"+data.srcBucket.S+".s3."+AWS.config.region+".amazonaws.com/"+data.srcVideo.S;
+var test=data.hlsUrl.S+"~"+data.guid.S+"~"+data.title.N+"~";
+var counterview="";
+if(data.counterview.S===undefined){
+  counterview="ok";
+}else{
+  counterview=data.counterview.S;
+}
+
+var item = data.thumbNailsUrls;
+var outerArray = Object.values(item)[0];
+var innerObject = outerArray[0];
+var image = Object.values(innerObject)[0];
+
+
+var likescount = data.likescount && (data.likescount.N || data.likescount.S) || "0";
+//var url = `profile.html?id=${id}`;
+
+
+    var Template= '<div id="btn" class="col-lg-6 mb-2 pr-lg-1">'+
+      '<div id="carda"  class="card h-100">'+
+  
+        '<a href="#"><img class="card-img-top"  src="'+image+'" alt=""></a>'+
+        '<div class="card-body">'+
+          '<h4 class="card-title">'+
+            '<a>'+ counterview+'</a>'+
+
+          '</h4>'+
+          '<h5></h5>'+
+          '<p class="card-text">'+ abbreviateNumber(data.title.N)+" views"+'</p>'+
+        '</div>'+
+        '<div id="footer" class="card-footer">'+
+          '<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>'+
+          '<button id="delete" style="float: right;">Delete</button>'+
+       '</div>'+
+        
+      '</div>'+
+      '<br>'+
+      '<br>'+
+    '</div>';
+//"https://d2pjrbz7mizc67.cloudfront.net/3c1d6366-eaa0-49a0-bfa9-5481702644b7/hls/avatar.m3u8"
+//                '<button class="ar-button" onclick="'+window.app.showChair(1);+'"><i class="fas fa-camera"></i></button>'+
+
+li.innerHTML = Template;
+
+li.setAttribute('id', "btn");
+
+li.querySelector("#btn").myParam = "btn";
+li.querySelector("#delete").addEventListener("click", function (e) {
+  DeleteItem(data.guid.S);
+	});
+
+
+
+document.getElementById("home_product").appendChild(li);
+
+}
+
+const updateProfilePic = async (pic) => {
+  fetch('https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_UpdateProfilePic', {
+          method: 'POST',
+          body: JSON.stringify({
+           id:localStorage.getItem('sub'),
+           profilepic:pic
+
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert("Picture updated");        
+      })
+      .catch(error => {
+          console.error(error);
+      });
+
+
+
+      /*    const documentClient = new AWS.DynamoDB.DocumentClient();
+        
+          const params = {
+            TableName: 'Users',
+            Key: {
+              id: localStorage.getItem("sub"),
+            },
+
+            UpdateExpression: 'SET profilepic = :r',
+    ExpressionAttributeValues: {
+        ':r': pic
+    }
+          };
+        
+          await documentClient.update(params).promise();*/
+        }
+
+const updateName = async () => {
+          const documentClient = new AWS.DynamoDB.DocumentClient();
+        
+          const description =  document.getElementById("description").value;
+          const usernameprofil = document.getElementById("usernameprofil").value;
+
+          const params = {
+            TableName: 'Users',
+            Key: {
+              id: localStorage.getItem("sub"),
+            },
+
+            UpdateExpression: 'SET introduction = :r, profile = :s, username = :u',
+    ExpressionAttributeValues: {
+        ':r': description,
+        ':s': description,
+        ':u': usernameprofil
+    }
+          };
+        
+          await documentClient.update(params).promise();
+        }
+
+        var buttonedit = document.getElementById('buttonedit');
+        buttonedit.addEventListener("click", function (e) {
+  updateName();
+});
+
+let select = document.getElementById("mySelect");
+let selectedOption = document.getElementById("selectedOption");
+let selectItems = document.querySelector(".select-items");
+let selectOption = document.querySelectorAll(".select-option");
+//console.log(selectedOption.innerHTML);
+var choice=null;
+//Initialize selectedOption with the first option
+selectedOption.innerHTML = select.options[select.selectedIndex].text;
+
+//Toggle the options list when the selected option is clicked
+selectedOption.addEventListener("click", function() {
+  selectItems.classList.toggle("active");
+});
+
+//Update the selected option when a different option is clicked
+selectOption.forEach(function(element) {
+  element.addEventListener("click", function() {
+    selectedOption.innerHTML = this.innerHTML;
+    selectItems.classList.remove("active");
+    select.value = this.dataset.value;
+    console.log(selectedOption.innerHTML);
+    choice=select.value;
+  });
+});
+
+document.addEventListener("click", function(event) {
+  if (!event.target.closest(".custom-select")) {
+    selectItems.classList.remove("active");
+  }
+});
+
+select.addEventListener("blur", function() {
+    selectItems.classList.remove("active");
+});
+</script>
+<script src="/js/menubar_left.js"></script>	
+<script src="/js/modalpopup.js"></script>	
+
+</body>
+
+</html>
+
