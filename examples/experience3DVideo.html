@@ -623,12 +623,13 @@ function fetchads(url,typerequest,category){
       .then(response => response.json())
       .then(data => {
         console.log(data);
+        if(data.Items.length>0 && data.Items!=null){
         for(var i = 0;i<=data.Items.length;i++){
           PlayVideo(data.Items[i].hlsUrl,"file",adsvideo);
 break;
 
         }
-
+      }
             //displayData(data.Items);
       })
       .catch(error => {
