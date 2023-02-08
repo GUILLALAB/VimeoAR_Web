@@ -612,32 +612,7 @@ function fetchdata(url,typerequest,category){
 }
 
 
-function fetchads(url,typerequest,category){
-  fetch(url, {
-          method: 'POST',
-          body: JSON.stringify({
-           typerequest:typerequest,
-           category:category
-          })
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        if(data.Items.length>0 && data.Items!=null){
-        for(var i = 0;i<=data.Items.length;i++){
-          PlayVideo(data.Items[i].hlsUrl,"file",adsvideo);
-break;
 
-        }
-      }
-            //displayData(data.Items);
-      })
-      .catch(error => {
-          console.error(error);
-      });
-
-
-}
 
   function queryddynamoDB() {
   document.getElementById("home_product").innerHTML = "";
@@ -1381,6 +1356,33 @@ lightControls.close();
 			*/
 
 			}
+
+      function fetchads(url,typerequest,category){
+  fetch(url, {
+          method: 'POST',
+          body: JSON.stringify({
+           typerequest:typerequest,
+           category:category
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if(data.Items.length>0 && data.Items!=null){
+        for(var i = 0;i<=data.Items.length;i++){
+          PlayVideo(data.Items[i].hlsUrl,"file",adsvideo);
+break;
+
+        }
+      }
+            //displayData(data.Items);
+      })
+      .catch(error => {
+          console.error(error);
+      });
+
+
+}
 
 			// usage:
 			function setAds3DModel(link) {
