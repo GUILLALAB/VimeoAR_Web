@@ -329,7 +329,7 @@ const category=document.getElementById("selectedOption").innerHTML;
       'caption': videodescription,
       'username':username,
       'category': category,
-      'ads': true
+      'ads': "true"
       },
     
     Bucket: albumBucketName,
@@ -428,7 +428,7 @@ const category=document.getElementById("selectedOption").innerHTML;
       'caption': videodescription,
       'username':username,
       'category': category,
-      'ads': false
+      'ads': "false"
       },
     
     Bucket: albumBucketName,
