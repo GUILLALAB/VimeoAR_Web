@@ -527,7 +527,7 @@ function previewFile() {
       
         <div class="uploadparent">
           <div class="uploadcontainer">
-            <button class="buttonupload" id="addphoto" onclick="createSubAlbum(localStorage.getItem('sub'))">
+            <button class="buttonupload" id="addphoto" onclick="addAds(localStorage.getItem('sub'))">
               Upload Video
               </button>
           </div>
@@ -757,7 +757,7 @@ function previewFile() {
       <div class="bg-light p-4 d-flex justify-content-end text-center"> 
         <ul class="list-inline mb-0"> 
           <li class="list-inline-item"> 
-
+            <h5 class="font-weight-bold mb-0 d-block"></h5><small class="text-muted"> <i class="fas fa-image mr-1"></i>Ads</small> </li>
             </ul> 
           </div> 
           <div class="px-4 py-3"> <h5 class="mb-0">About</h5>           <div id="buttonedit" class="profile mr-3"><a href="#" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a></div> 
@@ -821,7 +821,7 @@ function fetchdata(url,item){
 
 
 }    
-        
+
 
 const DeleteItem = async (guid) => {
 fetchdata("https://8gb9jnvhx7.execute-api.eu-west-1.amazonaws.com/stage1/Get_DeleteDynamoVideo",guid)

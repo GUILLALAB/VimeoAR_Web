@@ -265,6 +265,106 @@ if (datepicker.selectedDates.length > 0) {
  
 }
 
+
+
+function addAds(album) {
+  var s3 = new AWS.S3({
+    apiVersion: "2006-03-01",
+    params: { Bucket: albumBucketName }
+  });
+  var files = document.getElementById("videoupload").files;
+  var progressBar = document.getElementById("progress-bar");
+
+  if (!files.length) {
+    return alert("Please choose a file to upload first.");
+  }
+  var file = files[0];
+  checkFileSize(file,526214400);
+  var fileName = file.name;
+  var userid = localStorage.getItem("sub");
+  const key= generateUUID();
+  var albumPhotosKey = encodeURIComponent("video")+"/"+encodeURIComponent(userid)+"/"+encodeURIComponent(key)+"/";;
+
+  if(document.getElementById("3dobject_input")!=null){
+    document.getElementById("3dobject_input").style.display="none";
+  }
+
+  if (!albumPhotosKey) {
+    return alert("Album names must contain at least one non-space character.");
+  }
+ 
+  s3.headObject({ Key: albumPhotosKey }, function(err, data) {
+    if (!err) {
+      return alert("Album already exists.");
+    }
+    /*if (err.code !== "NotFound") {
+      return alert("There was an error creating your album: " + err.message);
+    }*/
+    s3.putObject({ Key: albumPhotosKey }, function(err, data) {
+     /* if (err) {
+        return alert("There was an error creating your album: " + err.message);
+      }*/
+     // alert("Successfully created album.");
+      var files = document.getElementById("videoupload").files;
+  if (!files.length) {
+    return alert("Please choose a file to upload first.");
+  }
+  const videotitle = document.getElementById("videotitle").value;
+
+  const videodescription = document.getElementById("videodescription").value;
+const category=document.getElementById("selectedOption").innerHTML;
+  const photoKey = albumPhotosKey + fileName;
+  const countview = "0";
+  var userid=localStorage.getItem("sub").toString();
+  // Use S3 ManagedUpload class as it supports multipart uploads
+  //alert(userid);
+
+  var params = {
+    ContentType: "video/mp4",
+
+    Metadata: {
+      'counterview': videotitle,
+      'userid': userid,
+      's3key': key,
+      'caption': videodescription,
+      'username':username,
+      'category': category,
+      },
+    
+    Bucket: albumBucketName,
+    Key: photoKey,
+    Body: file,
+};
+  var options = {partSize: 200 * 1024 * 1024, queueSize: 1};
+
+
+  var upload = new AWS.S3.ManagedUpload({
+    params: params
+});
+
+upload.on('httpUploadProgress', function(evt) {
+    var percent = evt.loaded / evt.total * 100;
+    progressBar.style.width = percent + '%';
+    progressBar.innerHTML = percent + '%';
+});
+
+upload.send(function(err, data) {
+  if(err) {
+    alert(err.code);
+} else{
+alert('uploaded suceessfully');
+createObjectSubAlbum(albumPhotosKey);
+
+viewAlbum(albumPhotosKey);
+currentalbum=albumPhotosKey;
+};
+});
+
+
+    });
+  });
+}
+
  function createSubAlbum(album) {
   var s3 = new AWS.S3({
     apiVersion: "2006-03-01",
