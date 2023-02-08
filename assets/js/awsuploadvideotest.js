@@ -283,7 +283,7 @@ function addAds(album) {
   var fileName = file.name;
   var userid = localStorage.getItem("sub");
   const key= generateUUID();
-  var albumPhotosKey = encodeURIComponent("video")+"/"+ encodeURIComponent("video")+"/"+encodeURIComponent(userid)+"/"+encodeURIComponent(key)+"/";;
+  var albumPhotosKey = encodeURIComponent("video")+"/"+encodeURIComponent(userid)+"/"+encodeURIComponent(key)+"/";;
 
   if(document.getElementById("3dobject_input")!=null){
     document.getElementById("3dobject_input").style.display="none";
@@ -320,7 +320,7 @@ const category=document.getElementById("selectedOption").innerHTML;
   //alert(userid);
 
   var params = {
-    ContentType: "video/jpg",
+    ContentType: "video/mp4",
 
     Metadata: {
       'counterview': videotitle,
