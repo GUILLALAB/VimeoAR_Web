@@ -112,7 +112,9 @@ app.get('/adsmanager', (request, response) => {
 app.get('/exp', (request, response) => {
   response.render('experience3DVideo.html',{ name: 'Tobi' });
 });
-
+app.get('/sphere', (request, response) => {
+  response.render('experience3DVideo_city.html',{ name: 'Tobi' });
+});
 
 app.get('/experience_ads', (request, response) => {
   response.render('experience_ads.html',{ name: 'Tobi' });
