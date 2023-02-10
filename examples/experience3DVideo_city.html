@@ -1495,7 +1495,7 @@ break;
 
 function updateDistance() {
   var distance = camera.position.distanceTo( mesh.position );
-  gainNode.gain.value = 1 / distance;
+  gainNode.gain.value = 10 / distance;
 }
 
 			function animate() {
