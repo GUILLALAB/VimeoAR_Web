@@ -1070,13 +1070,9 @@ event.target.remove();
       const loader = new GLTFLoader(loadingManager);
       var link=videodata;
       loadingBar.visible = true;
-      if(videodata.background.S === undefined){
-		link="";
-		loadingBar.visible = false;
-
-		return;
+      if(videodata.background.S !== undefined){
+        link=videodata.background.S;
 	  }else{
-     link=videodata.background.S;
     }
 
 	  if(chair!=null){
