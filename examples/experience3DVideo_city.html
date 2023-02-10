@@ -575,7 +575,7 @@ if(isUserLoggedIn()){
     console.log("Login not loggedIn");
   }
  // queryDynamoDB(5,"","VideoAWS");
- queryddynamoDB();
+ //queryddynamoDB();
 
 
 //queryddynamoDB(5,"LiveStream","");
@@ -1320,7 +1320,7 @@ lightControls.close();
 
 				scene.add( twoLight );
 
-
+        showChair("https://videoaws-source-8r4bwmp9uami.s3.eu-west-1.amazonaws.com/scene_room_city1.glb");
 			/*	const greenLight = new THREE.PointLight( 0x00ff00, 0.25, 1000 );
 				greenLight.position.set( 550, 50, 0 );
 				scene.add( greenLight );
@@ -1333,7 +1333,7 @@ lightControls.close();
 				blueLight.position.set( 0, 50, 550 );
 				scene.add( blueLight );*/
 				document.getElementById("background").addEventListener("click", function (e) {
-					showChair(currentvideo);
+			//		showChair(currentvideo);
 });
 
 
