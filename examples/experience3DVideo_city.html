@@ -1519,7 +1519,11 @@ function updateDistance() {
           }
         }
 		
+        if (mesh != null) {
+					mesh.lookAt( camera.position );
 
+          updateDistance();
+        }
 		if(camera.position.z<=3000){
 			var audio = document.getElementById('boutonaudio');
 			var movie = document.getElementById('movielist');
@@ -1554,8 +1558,6 @@ function updateDistance() {
 				
         if (mesh != null) {
 					mesh.lookAt( camera.position );
-
-          updateDistance();
         }
 
 		
