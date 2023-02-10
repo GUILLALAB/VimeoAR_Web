@@ -1070,7 +1070,7 @@ event.target.remove();
       const loader = new GLTFLoader(loadingManager);
       var link=videodata;
       loadingBar.visible = true;
-      if(videodata.background.S === undefined || videodata.background.S === ""){
+      if(videodata.background.S === undefined){
 		link="";
 		loadingBar.visible = false;
 
