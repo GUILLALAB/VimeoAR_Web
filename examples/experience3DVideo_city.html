@@ -385,11 +385,6 @@ var increment, delta,mesh,loadingBar;
 let prevExclusiveStartKey = null;
 let nextParams = {};
 
-var audioContext = null;
-var source = null;
-var gainNode= null;
-
-
 			start();
 			init();
 			initAWS("");
@@ -887,12 +882,8 @@ document.getElementById("music").addEventListener("click", function (e) {
         video = document.getElementById( 'video' );
        var source = document.getElementById('source');
 
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
- source = audioContext.createMediaElementSource(video);
- gainNode = audioContext.createGain();
-source.connect(gainNode );
-gainNode.connect( audioContext.destination );
 
+       
         texture = new THREE.VideoTexture(video);
         texture.minFilter = THREE.LinearFilter;
         texture.magFilter = THREE.LinearFilter;
@@ -1493,10 +1484,6 @@ break;
     return {mixer, play, actions};
 }
 
-function updateDistance() {
-  var distance = camera.position.distanceTo( mesh.position );
-  gainNode.gain.value = 10 / distance;
-}
 
 			function animate() {
 
@@ -1519,11 +1506,7 @@ function updateDistance() {
           }
         }
 		
-        if (mesh != null) {
-					mesh.lookAt( camera.position );
 
-          updateDistance();
-        }
 		if(camera.position.z<=3000){
 			var audio = document.getElementById('boutonaudio');
 			var movie = document.getElementById('movielist');
