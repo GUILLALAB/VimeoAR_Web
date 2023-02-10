@@ -1068,14 +1068,16 @@ event.target.remove();
      var assetsPath = '/assets/ar-shop/';
 
       const loader = new GLTFLoader(loadingManager);
-      var link=videodata.background.S;
+      var link=videodata;
       loadingBar.visible = true;
       if(videodata.background.S === undefined || videodata.background.S === ""){
 		link="";
 		loadingBar.visible = false;
 
 		return;
-	  }
+	  }else{
+     link=videodata.background.S;
+    }
 
 	  if(chair!=null){
 	  removeEntity(chair);
