@@ -1026,12 +1026,34 @@ var innerObject = outerArray[0];
 }
 
 
+var test=data.hlsUrl.S+"~"+data.guid.S+"~"+data.title.N+"~";
+var likescount = data.likescount && (data.likescount.N || data.likescount.S) || "0";
+//var url = `profile.html?id=${id}`;
 
 
-	 var Template = '<div id="btn" class="card mt-1">'+
-		'<div class="product-1 align-items-center p-2 text-center"> <img src="'+image+'" class="rounded" width="150" height="100">'+
-    '<div class="message"> <span class="text1 d-block">'+ counterview+' </span> </div>'+
+
+var Template = '<div id="btn" class="col-lg-4 col-md-6 mb-4">' +
+'<div id="carda" class="card h-100">' +
+'<br>' +
+'<a id="name" class="card-text">' + data.username.S + '</a>' +
+'<br>' +
+'<a href="#"><img class="card-img-top" src="' + image + '" alt=""></a>' +
+'<div class="card-body">' +
+'<h4 class="card-title">' +
+'<a href="#">' + counterview + '</a>' +
+'</h4>' +
+'<h5></h5>' +
+'<p class="card-text">' + abbreviateNumber(data.title.N) + " views • " + formatDateDifference(data.endTime.S) + "" + '</p>' +
+'</div>' +
+'<div id="footer" class="card-footer">' +
+'<div id="likes">'+
+  '<i class="fa fa-thumbs-up"></i>'+
+  '<a style="margin-left: 10px;">' + abbreviateNumber(likescount) + "" + '</a>' +
 '</div>'+
+'</div>' +
+'</div>' +
+'<br>' +
+'<br>' +
 '</div>';
 	 
 li.innerHTML = Template;
