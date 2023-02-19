@@ -239,6 +239,22 @@ display: inline-block;
   right: 0;
   margin: 30px;
 }
+
+
+.rows {
+    display: inline-block;
+    overflow: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+    margin: 0 0 4em;
+    white-space: nowrap;
+}
+
+
+.rows li {
+    display: inline-block;
+    vertical-align: top;
+}
 		</style>
 		
 	</head>
@@ -308,9 +324,12 @@ display: inline-block;
             </li>
           </ul>
 
-				  <!--	<button class="buttonload" id="prev-button" disabled>Load More Videos</button>-->
-					<ul id="home_product"></ul>
+				 
+          <!--	<button class="buttonload" id="prev-button" disabled>Load More Videos</button>-->
+          <div class="rows">
 
+          <ul id="home_product"></ul>
+</div>
 				</div>
 			
 			</div>
